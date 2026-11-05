@@ -19,7 +19,7 @@ and add a line to §10 *Change log*. Keep it truthful: say what was verified and
 | What | Link |
 |---|---|
 | Article (whole video, slide by slide, with captions) | https://priyanshupant.github.io/priyanshu.github.io/determinants/ |
-| Presenter view (slide on top, the words to say below; → next) | https://priyanshupant.github.io/priyanshu.github.io/determinants/present.html |
+| Presenter view (slide on top, the words to say below; → next; ♪/M optional background music) | https://priyanshupant.github.io/priyanshu.github.io/determinants/present.html |
 | Plain slide deck (reveal.js; S = speaker notes) | https://priyanshupant.github.io/priyanshu.github.io/determinants/slides.html |
 | Video (captioned) | https://priyanshupant.github.io/priyanshu.github.io/determinants/video.mp4 |
 
@@ -140,6 +140,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · Presenter view: optional background music (`determinants/music.mp3`, a gapless 64 s loop of the video's music bed, from `audio/music_loop.mp3`); ♪ button / M key, volume slider, remembers on/off. Started the slide-by-slide review (Opening 1–6 notes sent; awaiting Priyanshu's choices).
 - 2026-11-05 · Claude · Created this HANDOFF.md, with AGENTS.md and CLAUDE.md pointers.
 - 2026-11-05 · Claude · Published the presenter view (captions below the slides, arrow keys) and added `publish.sh`.
 - 2026-11-05 · Claude · Published the article, deck and video to priyanshu.github.io/determinants. Fixed timed renders overwritten by slides mode (slides now render into `media_slides/`).

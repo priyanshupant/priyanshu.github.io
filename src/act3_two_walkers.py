@@ -29,7 +29,7 @@ class OneGoodPair(DScene):
         anims, _ = walk_steps(lat, [(L, GOOD_P, ANT1), (N, GOOD_Q, ANT2)], step_time=0.5)
         for an in anims:
             self.play(an)
-        self.play(L.animate.shift(UP * 0.15), N.animate.shift(UP * 0.15), rate_func=there_and_back, run_time=0.4)
+        self.play(L.animate.shift(LEFT * 0.5), N.animate.shift(DOWN * 0.5), run_time=0.4)   # step beside the houses, not on them
         self.cue(1)
         msg = VGroup(T("They never meet.", 34), T("Peace in our time.", 30, GOOD)) \
             .arrange(DOWN, aligned_edge=LEFT, buff=0.25).move_to(RIGHT * 1.3 + UP * 1, aligned_edge=LEFT)
@@ -151,9 +151,9 @@ class TableAndDet(DScene):
         self.cue(1)
         self.play(Write(d1[:4]))
         self.cue_at(1, "six times")
-        self.play(diag.animate.set_stroke(GOOD, 5), Write(d1[4:7]), run_time=0.8)
+        self.play(diag.animate.set_stroke(YELLOW, 5), Write(d1[4:7]), run_time=0.8)
         self.cue_at(1, "minus")
-        self.play(anti.animate.set_stroke(BAD, 5), Write(d1[7:]), run_time=0.8)
+        self.play(anti.animate.set_stroke(SOFT, 5), Write(d1[7:]), run_time=0.8)
         self.play(Write(d2))
         self.cue(2)
         self.sfx("chime")

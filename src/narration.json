@@ -18,7 +18,7 @@
  "Hook": [
   "Meet two ants. They live on a grid.",
   "Every step goes one dot right, or one dot up. Never left, never down.",
-  "The blue ant, ant one, lives here. The orange ant, ant two, lives there.",
+  "Each ant is heading home. Ant one, the blue one, lives up here. Ant two, the orange one, lives over there.",
   "There's one small problem. They had a fight. Now neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.",
   "So their two routes can't touch, anywhere. How many pairs of routes get both ants home?",
   "Maybe pause, and try to find one.",

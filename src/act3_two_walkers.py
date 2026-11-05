@@ -110,69 +110,113 @@ class BruteForce(DScene):
 
 
 class TableAndDet(DScene):
+    """v11: same grid as the Hook (only the right-hand side changes). A matrix A whose rows are
+    the ants and columns the houses; entries counted path by path; then det A, '=' aligned."""
+
     def construct(self):
-        lat = Lattice(GRID[0], spacing=1.15, center=LEFT * 4.5 + DOWN * 0.3, ny=GRID[1])
-        ends = endpoints(lat, scale=0.95, labels=False)
-        self.add(lat, ends)
-        cell = 1.5
-        origin = RIGHT * 0.6 + UP * 2.1
-        cells = {}
-        boxes = VGroup()
-        for r in range(2):
-            for c in range(2):
-                sq = Square(cell, color=DIM, stroke_width=2.5).move_to(origin + RIGHT * c * cell + DOWN * r * cell)
-                cells[(r, c)] = sq
-                boxes.add(sq)
-        row_lab = VGroup(ant(ANT1, 0.7).next_to(cells[(0, 0)], LEFT, buff=0.3),       # symbols, no labels
-                         ant(ANT2, 0.7).next_to(cells[(1, 0)], LEFT, buff=0.3))
-        col_lab = VGroup(house(ANT1, 0.5).next_to(cells[(0, 0)], UP, buff=0.2),
-                         house(ANT2, 0.5).next_to(cells[(0, 1)], UP, buff=0.2))
+        from act0_hook import GRID_HOOK
+        lat = Lattice(4, spacing=1.45, center=GRID_HOOK)
+        a1 = ant(ANT1, 0.9).move_to(lat.p(*A1))
+        a2 = ant(ANT2, 0.9).move_to(lat.p(*A2))
+        starts = VGroup(Dot(lat.p(*A1), radius=0.12, color=ANT1), Dot(lat.p(*A2), radius=0.12, color=ANT2))
+        h1 = house(ANT1, 0.6).move_to(lat.p(*B1))
+        h2 = house(ANT2, 0.6).move_to(lat.p(*B2))
+        self.add(lat, starts, h1, h2, a1, a2)
+
+        M = matrix_mob([[str(N11), str(N12)], [str(N21), str(N22)]], size=60, h_buff=1.0, v_buff=0.75)
+        Aeq = T("A  =", 52)
+        VGroup(Aeq, M).arrange(RIGHT, buff=0.3).move_to(RIGHT * 2.9 + UP * 1.5)
+        cells = M.cells
+        for c in cells:
+            c.set_opacity(0)
+        col_lab = VGroup(house(ANT1, 0.5).next_to(cells[0], UP, buff=0.45), house(ANT2, 0.5).next_to(cells[1], UP, buff=0.45))
+        row_lab = VGroup(ant(ANT1, 0.6).next_to(M, RIGHT, buff=0.35).match_y(cells[0]),
+                         ant(ANT2, 0.6).next_to(M, RIGHT, buff=0.35).match_y(cells[2]))
+
+        # 0: "this is stupid, there must be an easier way… here comes an old friend"
         self.cue(0)
-        self.cue_at(0, "the determinant", lead=0.2)
-        self.play(Create(boxes), FadeIn(row_lab, shift=RIGHT * 0.2), FadeIn(col_lab, shift=DOWN * 0.2))
+        self.cue_at(0, "old friend", lead=0.2)
+        self.sfx("whoosh")
+
+        # 1: consider this 2x2 matrix A: rows are the ants, columns the houses
         self.cue(1)
-        self.cue_at(1, "Each entry", lead=0.2)
-        spec = [((0, 0), A1, B1, ANT1), ((0, 1), A1, B2, ANT1), ((1, 0), A2, B1, ANT2), ((1, 1), A2, B2, ANT2)]
-        nums = {}
-        for i, (rc, s, e, col) in enumerate(spec):
-            paths = all_paths(s, e)
-            sq = cells[rc]
-            self.play(sq.animate.set_stroke(MEET, 4), run_time=0.3)
-            drawn = VGroup(*[path_mob(lat, P, col, 6).set_stroke(opacity=0.45) for P in paths])
-            self.play(LaggedStart(*[Create(m) for m in drawn], lag_ratio=0.15), run_time=0.8)
-            n = T(str(len(paths)), 56).move_to(sq)
-            self.sfx("tick")
-            self.play(FadeIn(n, scale=1.4), FadeOut(drawn), sq.animate.set_stroke(DIM, 2.5), run_time=0.45)
-            nums[rc] = n
-        d1 = T(f"det  =  {N11} · {N22}  −  {N12} · {N21}", 38)
-        d2 = T(f"=  {N11 * N22}  −  {N12 * N21}", 38)
-        d3 = T(f"=  {N11 * N22 - N12 * N21}", 48, YELLOW, weight=BOLD)
-        det = VGroup(d1, d2, d3).arrange(DOWN, aligned_edge=LEFT, buff=0.22).next_to(boxes, DOWN, buff=0.4).shift(RIGHT * 0.6)
-        diag = VGroup(cells[(0, 0)], cells[(1, 1)])
-        anti = VGroup(cells[(0, 1)], cells[(1, 0)])
+        self.cue_at(1, "matrix", lead=0.2)
+        self.play(FadeIn(Aeq), FadeIn(VGroup(M[0], M[2])), run_time=0.8)
+        self.add(cells)                                   # entries start invisible and are revealed one by one
+        self.cue_at(1, "rows", lead=0.2)
+        self.play(FadeIn(row_lab, shift=LEFT * 0.2), run_time=0.6)
+        self.cue_at(1, "columns", lead=0.2)
+        self.play(FadeIn(col_lab, shift=DOWN * 0.2), run_time=0.6)
+
+        def count_into(k, s_, e_, col, word, line):
+            """Draw the paths from s_ to e_ one by one; the entry counts up as they appear."""
+            cell = cells[k]
+            ring = SurroundingRectangle(cell, color=MEET, buff=0.2, corner_radius=0.1)
+            self.cue_at(line, word, lead=0.2)
+            self.play(Create(ring), run_time=0.4)
+            num = T("0", 60).move_to(cell)
+            self.add(num)
+            prev = None
+            for j, P in enumerate(all_paths(s_, e_), 1):
+                pm = path_mob(lat, P, col, 7)
+                anims = [Create(pm)] + ([prev.animate.set_stroke(opacity=0.18)] if prev else [])
+                self.play(*anims, run_time=0.45)
+                self.sfx("tick")
+                self.play(Transform(num, T(str(j), 60).move_to(cell)), run_time=0.2)
+                prev = pm
+                self.add(pm)
+                pm.tag = True
+            self.play(FadeOut(VGroup(*[m for m in self.mobjects if getattr(m, "tag", False)])), FadeOut(ring), run_time=0.4)
+            self.remove(num)
+            cell.set_opacity(1)
+
+        # 2: first entry: blue ant to its own home (six)
         self.cue(2)
-        self.play(Write(d1[:4]))
-        self.cue_at(2, "six times")
-        self.play(diag.animate.set_stroke(YELLOW, 5), Write(d1[4:7]), run_time=0.8)
-        self.cue_at(2, "minus")
-        self.play(anti.animate.set_stroke(SOFT, 5), Write(d1[7:]), run_time=0.8)
-        self.play(Write(d2))
+        count_into(0, A1, B1, ANT1, "first entry", 2)
+        # 3: second entry, the sneaky one: blue ant to the orange ant's house (four)
         self.cue(3)
-        self.sfx("chime")
-        self.play(Write(d3))
-        voila = T("Voilà!", 40, YELLOW).next_to(d3, RIGHT, buff=0.5)
-        self.cue_at(3, "Voilà", lead=0.1)
-        self.play(FadeIn(voila, scale=1.3), run_time=0.4)
-        bf = VGroup(T("brute force:", 30, GOOD), T(str(NGOOD), 46, GOOD, weight=BOLD)).arrange(RIGHT, buff=0.3) \
-            .next_to(d3, RIGHT, buff=1.2)
+        count_into(1, A1, B2, ANT1, "orange ant's house", 3)
+        # 4: by symmetry, the orange ant: four and six
         self.cue(4)
-        self.play(FadeOut(voila), FadeIn(bf, shift=LEFT))
+        self.cue_at(4, "symmetry", lead=0.2)
+        self.sfx("pop")
+        self.play(cells[2].animate.set_opacity(1), cells[3].animate.set_opacity(1), run_time=0.8)
+
+        # 5-6: det A, each '=' under the one before
+        lines = [(T("det A", 44), T(f"{N11} · {N22}  −  {N12} · {N21}", 44)),
+                 (None, T(f"{N11 * N22}  −  {N12 * N21}", 44)),
+                 (None, T(f"{N11 * N22 - N12 * N21}", 52, YELLOW, weight=BOLD))]
+        eqs = [T("=", 44) for _ in lines]
+        x_eq = RIGHT * 1.2
+        rows = VGroup()
+        for i, ((lhs, rhs), eq) in enumerate(zip(lines, eqs)):
+            eq.move_to(x_eq + DOWN * (0.55 + 0.85 * i))
+            rhs.next_to(eq, RIGHT, buff=0.35)
+            grp = VGroup(eq, rhs)
+            if lhs is not None:
+                lhs.next_to(eq, LEFT, buff=0.35)
+                grp.add(lhs)
+            rows.add(grp)
+        self.cue(5)
+        self.cue_at(5, "determinant of A", lead=0.2)
+        self.play(Write(rows[0][2]), Write(rows[0][0]), run_time=0.7)
+        self.cue_at(5, "six times six", lead=0.2)
+        self.play(Write(rows[0][1]), run_time=1.0)
+        self.play(Write(rows[1]), run_time=0.8)
+        self.cue(6)
         self.sfx("chime")
-        eq = T("=", 46).move_to((d3.get_right() + bf.get_left()) / 2)
-        self.play(FadeIn(eq))
-        self.cue_at(4, "Coincidence", lead=0.2)
-        q = T("Coincidence?", 42, YELLOW).move_to(RIGHT * 5.0 + UP * 1.4)
-        self.play(Write(q))
-        self.cue_at(4, "Let's find", lead=0.1)
+        self.play(Write(rows[2]), run_time=0.8)
+        voila = T("Voilà!", 40, YELLOW).next_to(rows[2], RIGHT, buff=0.6)
+        self.cue_at(6, "Voilà", lead=0.1)
+        self.play(FadeIn(voila, scale=1.3), run_time=0.4)
+
+        # 7: the same twenty as the brute force
+        self.cue(7)
+        bf = VGroup(T("never meet:", 30, GOOD), T(str(NGOOD), 40, GOOD)).arrange(RIGHT, buff=0.25).next_to(rows[2], RIGHT, buff=0.7).shift(LEFT * 0.0)
+        if bf.get_right()[0] > 6.8:
+            bf.next_to(rows[2], DOWN, buff=0.3).align_to(rows[2][1], LEFT)
+        self.play(FadeOut(voila), FadeIn(bf, shift=LEFT * 0.3), run_time=0.6)
+        self.cue_at(7, "Coincidence", lead=0.2)
+        self.play(Indicate(VGroup(rows[2], bf), color=YELLOW), run_time=0.9)
+        self.cue_at(7, "Let's find", lead=0.1)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)
-        # (title card moved to the Opening)

@@ -16,7 +16,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
 from narration import NARRATION  # noqa: E402
 
-LEAD, GAP, SPEED, SR = 0.6, 0.45, 0.97, 24000
+LEAD, GAP, SPEED, SR = 0.6, 0.8, 0.9, 24000     # slower: Priyanshu won't narrate faster than this
 
 
 def main(voice="af_heart", only=None):

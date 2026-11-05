@@ -52,8 +52,10 @@ class Hook(DScene):
         self.cue_at(2, "home", lead=0.3)
         g1 = CurvedArrow(lat.p(*A1) + UP * 0.35, lat.p(*B1) + LEFT * 0.4, angle=-PI / 3, color=ANT1)
         g2 = CurvedArrow(lat.p(*A2) + RIGHT * 0.45, lat.p(*B2) + DOWN * 0.4, angle=PI / 3, color=ANT2)
-        self.play(FadeIn(h1, scale=1.5), Create(g1), run_time=0.7)
-        self.play(FadeIn(h2, scale=1.5), Create(g2), run_time=0.7)
+        self.sfx("pop")
+        self.play(FadeIn(h1, scale=1.5), Create(g1), run_time=0.8)
+        self.sfx("pop")
+        self.play(FadeIn(h2, scale=1.5), Create(g2), run_time=0.8)
         self.play(Indicate(h1, color=ANT1, scale_factor=1.3), Indicate(h2, color=ANT2, scale_factor=1.3), run_time=0.6)
         self.play(FadeOut(g1), FadeOut(g2), run_time=0.4)
 
@@ -75,37 +77,37 @@ class Hook(DScene):
         self.play(a1.animate.move_to(lat.p(1, 2)), run_time=0.4)
         ok2 = tick(0.35, YELLOW).next_to(a1, UP, buff=0.1)
         self.play(FadeIn(ok2), run_time=0.2)
-        self.play(FadeOut(ok1), FadeOut(ok2), a1.animate.move_to(o), run_time=0.5)
+        self.play(FadeOut(ok1), FadeOut(ok2), run_time=0.3)
+        here = lat.p(1, 2)                                   # try down / left from where it got to
         self.cue_at(3, "Never down", lead=0.2)
         self.play(self.face(a1, -PI / 2))
-        x1 = cross(0.36).move_to(lat.p(0, 0.45))
+        x1 = cross(0.36).move_to(lat.p(1, 1.45))
         self.sfx("buzz")
-        self.play(a1.animate.shift(DOWN * 0.4), FadeIn(x1), run_time=0.25)
-        self.play(a1.animate.move_to(o), run_time=0.25, rate_func=rush_from)
+        self.play(a1.animate.shift(DOWN * 0.4), FadeIn(x1), run_time=0.3)
+        self.play(a1.animate.move_to(here), run_time=0.3, rate_func=rush_from)
         self.cue_at(3, "never left", lead=0.2)
         self.play(self.face(a1, PI))
-        x2 = cross(0.36).move_to(o + LEFT * 0.75)
+        x2 = cross(0.36).move_to(lat.p(0.45, 2))
         self.sfx("buzz")
-        self.play(a1.animate.shift(LEFT * 0.4), FadeIn(x2), run_time=0.25)
-        self.play(a1.animate.move_to(o), run_time=0.25, rate_func=rush_from)
-        self.play(self.face(a1, 0), FadeOut(x1), FadeOut(x2), run_time=0.3)
+        self.play(a1.animate.shift(LEFT * 0.4), FadeIn(x2), run_time=0.3)
+        self.play(a1.animate.move_to(here), run_time=0.3, rate_func=rush_from)
+        self.cue_end(3)
+        self.play(FadeOut(x1), FadeOut(x2), run_time=0.3)
+        self.play(self.face(a1, 0), a1.animate.move_to(o), run_time=0.6)   # back to the start
 
         # 4: many paths home — several each, and some of them cross
         self.cue(4)
-        blue = [[(0, 1), (0, 2), (0, 3), (1, 3), (2, 3)], [(0, 1), (1, 1), (2, 1), (2, 2), (2, 3)],
-                [(0, 1), (1, 1), (1, 2), (2, 2), (2, 3)]]
+        blue = [[(0, 1), (0, 2), (0, 3), (1, 3), (2, 3)], [(0, 1), (1, 1), (2, 1), (2, 2), (2, 3)]]
         orng = [[(1, 0), (2, 0), (3, 0), (3, 1), (3, 2)], [(1, 0), (1, 1), (1, 2), (2, 2), (3, 2)]]
-        bm = [path_mob(lat, P, ANT1, 6).set_stroke(opacity=0.8) for P in blue]
-        om = [path_mob(lat, P, ANT2, 6).set_stroke(opacity=0.8) for P in orng]
-        for k, word in enumerate(["could go this way", "or this,", "or even this"]):
+        # each ant's two paths share no segment; a blue and an orange path cross at (1,1) and (2,2)
+        bm = [path_mob(lat, P, ANT1, 6).set_stroke(opacity=0.85) for P in blue]
+        om = [path_mob(lat, P, ANT2, 6).set_stroke(opacity=0.85) for P in orng]
+        for mob, word in [(bm[0], "could go this way"), (bm[1], "or this way"), (om[0], "orange ant"), (om[1], "or that way")]:
             self.cue_at(4, word, lead=0.2)
-            self.play(Create(bm[k]), run_time=0.55)
-        self.cue_at(4, "orange ant", lead=0.2)
-        self.play(Create(om[0]), run_time=0.55)
-        self.cue_at(4, "or that way", lead=0.1)
-        self.play(Create(om[1]), run_time=0.55)
-        crossings = VGroup(*[Circle(radius=0.28, color=MEET, stroke_width=5).move_to(lat.p(*p)) for p in [(1, 1), (1, 2), (2, 2)]])
-        self.play(Create(crossings), run_time=0.5)
+            self.sfx("tick")
+            self.play(Create(mob), run_time=0.8)
+        crossings = VGroup(*[Circle(radius=0.28, color=MEET, stroke_width=5).move_to(lat.p(*p)) for p in [(1, 1), (2, 2)]])
+        self.play(Create(crossings), run_time=0.6)
         self.cue_end(4)
         self.play(FadeOut(VGroup(*bm, *om, crossings)), run_time=0.4)
 
@@ -126,7 +128,7 @@ class Hook(DScene):
         stars = VGroup(*[Star(n=5, outer_radius=0.17, color=YELLOW, fill_opacity=1).move_to(c0 + 1.25 * np.array([np.cos(t), np.sin(t), 0]))
                          for t in np.linspace(0.4, TAU + 0.4, 5, endpoint=False)])
         cloud = VGroup(limbs, cloud)
-        self.sfx("alert")
+        self.sfx("rumble")
         self.play(FadeIn(cloud, scale=0.3), FadeIn(cuss, scale=0.3), FadeOut(a1), FadeOut(a2), run_time=0.35)
         self.play(Wiggle(VGroup(cloud, cuss), scale_value=1.15, rotation_angle=0.08 * TAU), FadeIn(stars, lag_ratio=0.2), run_time=1.2)
         a1.move_to(lat.p(*A1)); a2.move_to(lat.p(*A2))
@@ -194,8 +196,8 @@ class Hook(DScene):
         cg, cb = T("0", 40, GOOD).next_to(labg, RIGHT, buff=0.3), T("0", 40, BAD).next_to(labb, RIGHT, buff=0.3)
         self.play(FadeIn(VGroup(labg, labb, cg, cb)), run_time=0.4)
         ng = nb = 0
+        words = ["This pair works", "This one doesn't", "Neither does this", "Or this one"]
         for k, (Pp, Qq) in enumerate(plus_pairs()):
-            dt = max(0.1, 0.55 * 0.8 ** k)
             m = first_meet(Pp, Qq)
             pair = VGroup(path_mob(lat, Pp, ANT1, 6), path_mob(lat, Qq, ANT2, 6))
             if m is None:
@@ -204,16 +206,27 @@ class Hook(DScene):
                 nb += 1; mark = Circle(radius=0.28, color=MEET, stroke_width=5).move_to(lat.p(*m))
             cg2 = T(str(ng), 40, GOOD).move_to(cg, aligned_edge=LEFT)
             cb2 = T(str(nb), 40, BAD).move_to(cb, aligned_edge=LEFT)
-            self.add(pair, mark)
-            self.play(Transform(cg, cg2), Transform(cb, cb2), run_time=dt)
-            self.remove(pair, mark)
+            if k < len(words):                                  # the first few, slowly, as they are named
+                self.cue_at(10, words[k], lead=0.15)
+                self.play(Create(pair), run_time=0.6)
+                self.sfx("tick" if m is None else "buzz")
+                self.play(Create(mark) if m is not None else Wait(0.01), Transform(cg, cg2), Transform(cb, cb2), run_time=0.4)
+                self.wait(0.3)
+                self.play(FadeOut(pair), FadeOut(mark), run_time=0.25)
+            else:                                               # "and so on": speeding up
+                dt = max(0.12, 0.4 * 0.88 ** (k - len(words)))
+                self.add(pair, mark)
+                self.play(Transform(cg, cg2), Transform(cb, cb2), run_time=dt)
+                self.remove(pair, mark)
         assert (ng, nb) == (20, 16)
 
         # 11: twenty never meet, sixteen do
         self.cue(11)
+        self.sfx("chime")
         self.play(Indicate(VGroup(labg, cg), color=GOOD, scale_factor=1.15), run_time=0.8)
         self.cue_at(11, "sixteen", lead=0.2)
         self.play(Indicate(VGroup(labb, cb), color=BAD, scale_factor=1.15), run_time=0.8)
         self.cue_end(11)
         self.wait(0.6)
-        self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
+        # erase only the right-hand side; the grid, ants and houses stay for the matrix
+        self.play(FadeOut(VGroup(bullets, q, labg, labb, cg, cb)), run_time=0.6)

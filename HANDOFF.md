@@ -176,6 +176,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · ReadCounts relayout: bigger thumbnails, readable labels, "equal?" arrow clear of the text. SwapPaths reviewed (correct, unchanged).
 - 2026-11-05 · Claude · Act 2 (ListRoutes, Slots): sync, overflow and colour fixes. Rendered and frame-checked.
 - 2026-11-05 · Claude · Ant-puzzle fixes (Hook wording and question, rules box, ants beside houses, neutral det colours). Quotes researched and parked. Rendered and frame-checked Hook, OneGoodPair, BruteForce, TableAndDet.
 - 2026-11-05 · Claude · **Opening v9:** "and many more" montage, combinatorics line, title moved into the Opening (no name); title card removed from TableAndDet. Rendered and frame-checked.

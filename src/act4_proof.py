@@ -35,25 +35,24 @@ class ReadCounts(DScene):
         self.add(top)
         self.cue(0)
         own, sw = plus_pairs(), minus_pairs()
-        left = VGroup(*[pair_icon(p, q, size=0.48, meet=False) for p, q in own]).arrange_in_grid(N11, N22, buff=0.06)
-        right = VGroup(*[pair_icon(p, q, size=0.48, meet=False) for p, q in sw]).arrange_in_grid(N12, N21, buff=0.06)
-        left.move_to(LEFT * 4.3 + UP * 0.35)
-        right.move_to(LEFT * 0.6 + UP * 0.35)
+        left = VGroup(*[pair_icon(p, q, size=0.5, meet=False) for p, q in own]).arrange_in_grid(N11, N22, buff=0.06)
+        right = VGroup(*[pair_icon(p, q, size=0.5, meet=False) for p, q in sw]).arrange_in_grid(N12, N21, buff=0.06)
+        left.move_to(UP * 0.45).to_edge(LEFT, buff=0.4)
+        right.next_to(left, RIGHT, buff=0.45).align_to(left, DOWN)
         self.play(top[4:7].animate.set_color(YELLOW), LaggedStartMap(FadeIn, left, lag_ratio=0.01), run_time=2)
         ll = T("each to its own home", 28, YELLOW).next_to(left, DOWN, buff=0.15)
         self.play(FadeIn(ll))
         self.cue(1)
         # colour good / bad
         self.play(*[ic[0].animate.set_stroke(BAD if is_bad(pq) else GOOD, 2.5) for ic, pq in zip(left, own)], run_time=1)
-        brace = VGroup(T(f"{N11 * N22}  =", 32), T(f"{NGOOD} good", 32, GOOD), T("+", 32),
-                       T(f"{NBAD} bad", 32, BAD)).arrange(RIGHT, buff=0.2)
-        brace.next_to(ll, DOWN, buff=0.15)
-        brace.scale_to_fit_width(min(brace.width, 3.6)).set_x(left.get_x())
+        brace = VGroup(T(f"{N11 * N22} =", 30), T(f"{NGOOD} good", 30, GOOD), T("+", 30),
+                       T(f"{NBAD} bad", 30, BAD)).arrange(RIGHT, buff=0.18)
+        brace.next_to(ll, DOWN, buff=0.15).set_x(left.get_x())
         self.cue_at(1, "Twenty good")
         self.play(FadeIn(brace))
         self.cue(2)
         self.play(top[8:].animate.set_color(ORANGE), LaggedStartMap(FadeIn, right, lag_ratio=0.02), run_time=1.5)
-        rl = VGroup(T("swapped homes", 28, ORANGE), T("ant 1 → B₂, ant 2 → B₁", 24, ORANGE)).arrange(DOWN, buff=0.08)
+        rl = VGroup(T("swapped homes", 28, ORANGE), T("ant 1 → B₂", 24, ORANGE), T("ant 2 → B₁", 24, ORANGE)).arrange(DOWN, buff=0.08)
         rl.next_to(right, DOWN, buff=0.15)
         self.play(FadeIn(rl))
         self.cue(3)
@@ -61,11 +60,12 @@ class ReadCounts(DScene):
                     T(f"{NGOOD} good", 36, GOOD), T(f"+ {NBAD} bad", 36, BAD), T(f"− {NSW} swapped", 36, ORANGE))
         eq[1:].arrange(DOWN, aligned_edge=LEFT, buff=0.25)
         eq[0].next_to(eq[1], UP, buff=0.3, aligned_edge=LEFT)
-        eq.move_to(RIGHT * 3.3 + UP * 0.4)
+        eq.move_to(RIGHT * 3.6 + UP * 0.6)
         self.play(FadeIn(eq[0]), TransformFromCopy(brace[1], eq[1]), TransformFromCopy(brace[3], eq[2]),
                   TransformFromCopy(rl[0], eq[3]), run_time=1.2)
         self.cue_at(3, "For that")
-        link = CurvedArrow(eq[2].get_right() + RIGHT * 0.1, eq[3].get_right() + RIGHT * 0.1, angle=-PI / 1.6,
+        xr = max(eq[2].get_right()[0], eq[3].get_right()[0]) + 0.15      # clear of both lines of text
+        link = CurvedArrow(np.array([xr, eq[2].get_y(), 0]), np.array([xr, eq[3].get_y(), 0]), angle=-PI / 1.6,
                            color=YELLOW, stroke_width=4)
         same = T("equal?", 28, YELLOW).next_to(link, RIGHT, buff=0.08)
         if same.get_right()[0] > 7.0:

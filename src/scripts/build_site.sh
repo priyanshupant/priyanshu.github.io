@@ -14,7 +14,7 @@ $PY audio/tts.py
 
 retry_failed() {   # parallel renders can race on Manim's text cache: redo failures one at a time
   local out=$1 mode=$2
-  grep '^FAIL' "$out" | awk '{print $2}' | while read -r sc; do
+  { grep '^FAIL' "$out" || true; } | awk '{print $2}' | while read -r sc; do
     f=$($PY -c "import pacing; print(next(f for f, s, _ in pacing.SCENES if s == '$sc'))")
     echo "retrying $sc"
     if [ "$mode" = slides ]; then SLIDES=1 $MANIM -qm --media_dir media_slides "$f" "$sc"; else SFX_LOG=$PWD/audio/cues $MANIM -qm --disable_caching "$f" "$sc"; fi

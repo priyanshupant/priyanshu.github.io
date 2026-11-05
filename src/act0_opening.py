@@ -154,11 +154,7 @@ class Opening(DScene):
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
 
-        # 7 — hand over the exact lattice and two ants used in Hook.
+        # 7 — "let's start with a simple puzzle": clear the screen (the Hook brings the ants)
         self.cue(7)
-        lat = Lattice(4, spacing=1.45, center=GRID_HOOK)
-        a1 = ant(ANT1, 0.9).move_to(lat.p(*A1))
-        a2 = ant(ANT2, 0.9).move_to(lat.p(*A2))
-        self.play(FadeOut(title), FadeIn(lat), run_time=0.8)
-        self.cue_at(7, "two ants", lead=0.35)
-        self.play(FadeIn(a1, scale=0.5), FadeIn(a2, scale=0.5), run_time=0.8)
+        self.cue_at(7, "simple puzzle", lead=0.2)
+        self.play(FadeOut(title), run_time=0.8)

@@ -11,14 +11,17 @@
   "One of the most beautiful and unexpected places I've found determinants is combinatorics.",
   "And today, I want to show you how determinants can count.",
   1.0,
-  "Let's start with something small: two ants."
+  "Let's start with a simple puzzle."
  ],
  "Hook": [
-  "Meet two ants. They live on a grid.",
-  "Every step goes one dot right, or one dot up. Never left, never down.",
-  "Each ant is heading home. Ant one, the blue one, lives up here. Ant two, the orange one, lives over there.",
-  "There's one small problem. They had a fight. Now neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.",
-  "So their two routes can't touch, anywhere. How many pairs of routes get both ants home?",
+  "Meet these two ants.",
+  "They both live in a grid-like world.",
+  "And they both want to get back home, right now.",
+  "On this grid there are rules: an ant can only step up, or to the right. Never down, and never left.",
+  "Of course, there are many ways home. The blue ant could go this way, or this way. And the orange ant, this way.",
+  "But today, they can't just take any route. They had a fight, and if they meet, they'll start fighting again.",
+  "So neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.",
+  "Their two routes can't touch, anywhere. So, how many pairs of routes get both ants home without touching?",
   "Maybe pause, and try to find one.",
   1.5
  ],

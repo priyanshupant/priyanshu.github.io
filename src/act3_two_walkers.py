@@ -21,7 +21,7 @@ def touches(P, Q):
 class OneGoodPair(DScene):
     def construct(self):
         lat = Lattice(GRID[0], spacing=1.2, center=GRID_C, ny=GRID[1])
-        ends = endpoints(lat)
+        ends = endpoints(lat, labels=False)
         L = ant(ANT1).move_to(lat.p(*A1))
         N = ant(ANT2).move_to(lat.p(*A2))
         self.add(lat, ends, L, N)
@@ -112,7 +112,7 @@ class BruteForce(DScene):
 class TableAndDet(DScene):
     def construct(self):
         lat = Lattice(GRID[0], spacing=1.15, center=LEFT * 4.5 + DOWN * 0.3, ny=GRID[1])
-        ends = endpoints(lat, scale=0.95)
+        ends = endpoints(lat, scale=0.95, labels=False)
         self.add(lat, ends)
         cell = 1.5
         origin = RIGHT * 0.6 + UP * 2.1
@@ -123,10 +123,10 @@ class TableAndDet(DScene):
                 sq = Square(cell, color=DIM, stroke_width=2.5).move_to(origin + RIGHT * c * cell + DOWN * r * cell)
                 cells[(r, c)] = sq
                 boxes.add(sq)
-        row_lab = VGroup(T("ant 1", 30, ANT1).next_to(cells[(0, 0)], LEFT, buff=0.3),
-                         T("ant 2", 30, ANT2).next_to(cells[(1, 0)], LEFT, buff=0.3))
-        col_lab = VGroup(T("B₁", 34, ANT1).next_to(cells[(0, 0)], UP, buff=0.2),
-                         T("B₂", 34, ANT2).next_to(cells[(0, 1)], UP, buff=0.2))
+        row_lab = VGroup(ant(ANT1, 0.7).next_to(cells[(0, 0)], LEFT, buff=0.3),       # symbols, no labels
+                         ant(ANT2, 0.7).next_to(cells[(1, 0)], LEFT, buff=0.3))
+        col_lab = VGroup(house(ANT1, 0.5).next_to(cells[(0, 0)], UP, buff=0.2),
+                         house(ANT2, 0.5).next_to(cells[(0, 1)], UP, buff=0.2))
         self.cue(0)
         self.cue_at(0, "Count the routes", lead=0.2)
         self.play(Create(boxes), FadeIn(row_lab, shift=RIGHT * 0.2), FadeIn(col_lab, shift=DOWN * 0.2))

@@ -1,14 +1,12 @@
-"""Act 0 — short visual opening (v8).
+"""Act 0 — short visual opening (v8.1: same beats as v8, clearer and in sync).
 
 Six narration lines, six presenter slides:
   0 familiar 2x2 determinant
-  1 equations: intersecting lines become distinct parallel lines
-  2 area: a unit square deforms into a parallelogram
-  3 non-invertibility: the grid collapses to a line (det = 0)
-  4 surprising turn: determinants can count
+  1 equations: two lines meet in one dot; they turn parallel and the dot runs off
+  2 area: the unit square (ghost kept) becomes a parallelogram
+  3 can't undo: the plane flattens onto a line; two points land on one
+  4 surprising turn: determinants can count (the line becomes the ants' grid)
   5 the same two ants/grid that begin Hook
-
-Keep the application examples brief. The puzzle supplies the main story.
 """
 from common import *
 from act0_hook import GRID_HOOK
@@ -16,14 +14,12 @@ from act0_hook import GRID_HOOK
 
 class Opening(DScene):
     def construct(self):
-        # 0 — familiar formula. Do not reuse green/red good/bad semantics.
+        # 0 — familiar formula. Neutral colours: green/red mean good/bad later.
         self.cue(0)
         m = matrix_mob([["a", "b"], ["c", "d"]], size=80).shift(LEFT * 2.6)
         cells = m.cells
-        diag = Line(cells[0].get_center(), cells[3].get_center(),
-                    color=SOFT, stroke_width=10).set_opacity(0.65)
-        anti = Line(cells[1].get_center(), cells[2].get_center(),
-                    color=SOFT, stroke_width=10).set_opacity(0.65)
+        diag = Line(cells[0].get_center(), cells[3].get_center(), color=SOFT, stroke_width=10).set_opacity(0.65)
+        anti = Line(cells[1].get_center(), cells[2].get_center(), color=SOFT, stroke_width=10).set_opacity(0.65)
         dl = T("det", 58, YELLOW).next_to(m, LEFT, buff=0.35)
         eq = T("=", 66).next_to(m, RIGHT, buff=0.55)
         ad = T("a d", 66).next_to(eq, RIGHT, buff=0.3)
@@ -34,108 +30,95 @@ class Opening(DScene):
         self.play(Create(diag), FadeIn(eq), FadeIn(ad), run_time=0.55)
         self.play(Create(anti), FadeIn(minus), FadeIn(bc), run_time=0.55)
         formula = VGroup(dl, m, diag, anti, eq, ad, minus, bc)
+        self.cue_end(0)
+        self.play(formula.animate.scale(0.47).to_edge(UP, buff=0.35), run_time=0.5)
 
-        # The formula stays small above three full-size applications.
-        self.cue(1)
-        self.play(formula.animate.scale(0.47).to_edge(UP, buff=0.35), run_time=0.55)
-
-        # 1 — solving equations. The marker follows the unique intersection;
-        # when directions become parallel it leaves the picture.
+        # 1 — equations. The dot is the unique solution; when the lines turn
+        # parallel it slides off along them (no solution), then det = 0.
         origin = DOWN * 0.55
         pivot = origin + UP * 0.8
         slope = 0.36
-        first_direction = np.array([1.0, slope, 0.0])
-        fixed = Line(origin - 3.3 * first_direction,
-                     origin + 3.3 * first_direction,
-                     color=ANT1, stroke_width=6)
-        angle = ValueTracker(-0.40)
+        d1 = np.array([1.0, slope, 0.0]) / np.hypot(1, slope)
+        fixed = Line(origin - 4.2 * d1, origin + 4.2 * d1, color=ANT1, stroke_width=6)
+        angle = ValueTracker(-0.45)
+        par = float(np.arctan(slope))
 
-        def moving_line():
+        def direction():
             t = angle.get_value()
-            direction = np.array([np.cos(t), np.sin(t), 0])
-            return Line(pivot - 3.5 * direction,
-                        pivot + 3.5 * direction,
-                        color=ANT2, stroke_width=6)
+            return np.array([np.cos(t), np.sin(t), 0.0])
 
-        moving = always_redraw(moving_line)
+        moving = always_redraw(lambda: Line(pivot - 4.2 * direction(), pivot + 4.2 * direction(),
+                                            color=ANT2, stroke_width=6))
 
-        def intersection():
-            t = angle.get_value()
-            direction = np.array([np.cos(t), np.sin(t)])
-            mat = np.column_stack((first_direction[:2], -direction))
-            if abs(np.linalg.det(mat)) < 1e-5:
-                return origin + RIGHT * 30
-            distance = np.linalg.solve(mat, (pivot - origin)[:2])[0]
-            return origin + distance * first_direction
+        def meet():
+            dd = direction()
+            mat = np.column_stack((d1[:2], -dd[:2]))
+            if abs(np.linalg.det(mat)) < 1e-4:
+                return origin + 40 * d1
+            return origin + np.linalg.solve(mat, (pivot - origin)[:2])[0] * d1
 
-        point = always_redraw(
-            lambda: Dot(intersection(), radius=0.11, color=YELLOW)
-            .set_opacity(1 if np.linalg.norm(intersection() - origin) < 3.3 else 0)
-        )
-        determinant_label = T("det ≠ 0", 34, SOFT).to_edge(DOWN, buff=0.65)
-        self.play(Create(fixed), FadeIn(moving), FadeIn(point),
-                  FadeIn(determinant_label), run_time=0.8)
-        self.play(angle.animate.set_value(float(np.arctan(slope))),
-                  run_time=1.65, rate_func=smooth)
-        zero_eq = T("det = 0", 34, SOFT).move_to(determinant_label)
-        self.play(Transform(determinant_label, zero_eq), run_time=0.3)
+        point = always_redraw(lambda: Dot(meet(), radius=0.13, color=YELLOW))
+        self.cue(1)
+        self.play(Create(fixed), Create(moving), run_time=0.6)
+        self.add(point)
+        self.cue_at(1, "solve", lead=0.1)
+        self.play(Flash(point, color=YELLOW, line_length=0.25, flash_radius=0.3), run_time=0.5)
+        self.play(angle.animate.set_value(par), run_time=1.6, rate_func=rate_functions.ease_in_quad)
+        self.remove(point)
+        zero1 = T("det = 0", 34, SOFT).to_edge(DOWN, buff=0.6)
+        self.play(FadeIn(zero1), run_time=0.3)
 
-        # 2 — unit square -> parallelogram. The transformed cell has
-        # area |det(A)|; no numeric claims or unexplained formulas.
+        # 2 — area: unit square -> parallelogram; the ghost square stays for comparison.
         self.cue(2)
-        self.play(FadeOut(VGroup(fixed, moving, point, determinant_label)),
-                  run_time=0.4)
-        center = DOWN * 0.5
-        spacing = 1.0
-        grid = VGroup(
-            *[Line(center + np.array([x, -2.0, 0]),
-                   center + np.array([x, 2.0, 0]),
-                   color=DIM, stroke_width=2) for x in range(-2, 3)],
-            *[Line(center + np.array([-2.0, y, 0]),
-                   center + np.array([2.0, y, 0]),
-                   color=DIM, stroke_width=2) for y in range(-2, 3)]
-        )
-        square = Polygon(
-            center, center + RIGHT * spacing,
-            center + (RIGHT + UP) * spacing, center + UP * spacing,
-            stroke_color=YELLOW, stroke_width=5,
-            fill_color=YELLOW, fill_opacity=0.26
-        )
+        self.play(FadeOut(VGroup(fixed, moving, zero1)), run_time=0.35)
+        center = DOWN * 0.6 + LEFT * 0.6
+        u = 0.8                                          # grid unit
+        P = lambda x, y: center + u * np.array([x, y, 0.0])
+        grid = VGroup(*[Line(P(x, -2), P(x, 2), color=DIM, stroke_width=2) for x in range(-3, 4)],
+                      *[Line(P(-3, y), P(3, y), color=DIM, stroke_width=2) for y in range(-2, 3)])
+        sq_pts = [P(0, 0), P(1, 0), P(1, 1), P(0, 1)]
+        square = Polygon(*sq_pts, stroke_color=YELLOW, stroke_width=5, fill_color=YELLOW, fill_opacity=0.3)
+        ghost = Polygon(*sq_pts, stroke_color=SOFT, stroke_width=2.5, fill_opacity=0).set_stroke(opacity=0.8)
+        # two points one above the other: they will land on one point in beat 3
+        p_top = Dot(P(-2, 1), radius=0.11, color=ANT1)
+        p_bot = Dot(P(-2, -1), radius=0.11, color=ANT2)
         plane = VGroup(grid, square)
-        self.play(LaggedStart(*[Create(line) for line in grid], lag_ratio=0.04),
-                  FadeIn(square), run_time=0.8)
-        self.play(ApplyMatrix([[1.2, 0.55], [0.1, 0.85]], plane,
-                              about_point=center),
-                  run_time=1.25)
-        area_label = T("area = |det|", 34, YELLOW).to_edge(DOWN, buff=0.65)
-        self.play(FadeIn(area_label), run_time=0.35)
+        self.play(LaggedStart(*[Create(l) for l in grid], lag_ratio=0.03), FadeIn(square), run_time=0.7)
+        self.add(ghost)
+        A = [[1.3, 0.5], [0.15, 1.0]]
+        self.play(ApplyMatrix(A, VGroup(grid, square), about_point=center), run_time=1.2)
+        area = T("area = |det|", 34, YELLOW).to_edge(DOWN, buff=0.6)
+        self.play(FadeIn(area), run_time=0.3)
 
-        # 3 — collapse the plane to one line. The deformation has rank 1.
+        # 3 — can't undo: flatten onto a line; the parallelogram becomes a segment
+        # and two different points land on the same point.
         self.cue(3)
-        zero_area = T("det = 0", 34, SOFT).move_to(area_label)
-        self.play(
-            FadeOut(area_label),
-            plane.animate.apply_function(
-                lambda p: np.array([p[0], center[1], p[2]])
-            ),
-            FadeIn(zero_area),
-            run_time=1.7,
-        )
+        p_top.move_to(P(*(np.array(A) @ [-2, 1])))
+        p_bot.move_to(P(*(np.array(A) @ [-2, -1])))
+        self.play(FadeOut(ghost), FadeIn(p_top, scale=1.6), FadeIn(p_bot, scale=1.6), run_time=0.6)
+        dif = p_top.get_center() - p_bot.get_center()
+        k = dif[0] / dif[1]     # kernel of the flattening contains top - bot, so they land together
+        flat = lambda p: np.array([p[0] - (p[1] - center[1]) * k, center[1], 0])   # rank-1 map
+        self.cue_at(3, "cannot", lead=0.2)
+        self.play(plane.animate.apply_function(flat), p_top.animate.move_to(flat(p_top.get_center())),
+                  p_bot.animate.move_to(flat(p_bot.get_center())), FadeOut(area), run_time=1.5)
+        zero3 = T("det = 0", 34, SOFT).to_edge(DOWN, buff=0.6)
+        self.play(Flash(p_bot.get_center(), color=YELLOW, line_length=0.2, flash_radius=0.3),
+                  FadeIn(zero3), run_time=0.5)
 
-        # 4 — the turn is a question, not an application montage.
+        # 4 — the flat line springs back as the ants' grid; the turn to counting.
         self.cue(4)
-        self.play(FadeOut(VGroup(formula, plane, zero_area)), run_time=0.55)
-        counting = T("counting", 82, YELLOW, weight=BOLD)
+        lat = Lattice(4, spacing=1.45, center=GRID_HOOK)
+        counting = T("counting", 72, YELLOW, weight=BOLD).move_to(RIGHT * 3.4 + UP * 0.3)
+        self.play(FadeOut(VGroup(formula, zero3, square, p_top, p_bot)),
+                  ReplacementTransform(grid, lat), run_time=1.0)
         self.cue_at(4, "count", lead=0.2)
         self.sfx("chime")
-        self.play(FadeIn(counting, scale=1.2), run_time=0.65)
+        self.play(FadeIn(counting, scale=1.2), run_time=0.6)
 
         # 5 — hand over the exact lattice and two ants used in Hook.
         self.cue(5)
         self.cue_at(5, "two ants", lead=0.35)
-        lat = Lattice(4, spacing=1.45, center=GRID_HOOK)
         a1 = ant(ANT1, 0.9).move_to(lat.p(*A1))
         a2 = ant(ANT2, 0.9).move_to(lat.p(*A2))
-        self.play(FadeOut(counting), FadeIn(lat),
-                  FadeIn(a1, scale=0.5), FadeIn(a2, scale=0.5),
-                  run_time=0.9)
+        self.play(FadeOut(counting), FadeIn(a1, scale=0.5), FadeIn(a2, scale=0.5), run_time=0.8)

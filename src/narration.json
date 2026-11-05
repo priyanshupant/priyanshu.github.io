@@ -2,11 +2,13 @@
  "Opening": [
   "Most of us met the determinant as a formula: a d minus b c.",
   "It helps us solve equations.",
+  1.6,
   "It measures area.",
+  1.6,
   "And it tells us when a transformation cannot be reversed.",
   "But here's the surprise: a determinant can also count.",
   "Let's see how, starting with two ants."
- ], 
+ ],
  "Hook": [
   "Meet two ants. They live on a grid.",
   "Every step goes one dot right, or one dot up. Never left, never down.",

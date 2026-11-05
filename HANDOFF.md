@@ -106,9 +106,8 @@ Each act answers the question the viewer is asking at that point.
 
 ## 6. Current state (update this when you change things)
 
-- **v8 opening source committed on 5 Nov 2026**: six concise narration lines and six synced animation cues; formula, equations, unit-square area, collapsing grid, counting, two ants. The child joke, Leslie Valiant section, chessboard and other count-preview cards were removed from the introduction.
-- The generated website is rebuilt by GitHub Actions from `src/`. **This change has not been visually rendered or playback-tested by ChatGPT**; inspect Actions and the presenter view before considering the opening finished. The previously published runtime was 14:47, not the new version.
-- **Verified statically:** six spoken Opening lines match six `cue(k)` calls; every `cue_at(k, "word")` phrase occurs in the corresponding caption. The 2×2 determinant sign pattern is unchanged; the area illustration uses a unit square and a linear map; the collapse is rank one. No new numerical combinatorial claims were added.
+- **Opening v8.1** (same six lines and beats as v8, made clearer and synced; rendered and frame-checked by Claude): 1.6 s pauses after "solve equations" and "measures area" so each picture finishes; the equation dot is the unique solution and slides off along the lines as they turn parallel, then "det = 0"; the area beat keeps a ghost unit square beside the parallelogram; the "cannot be reversed" beat flattens the plane by a rank-1 map whose kernel contains the difference of two marked points, so the blue and orange points visibly land on one spot; the flat line turns into the ants' grid (no black gap) with "counting" beside it. Cue lags: only line 4, 0.4 s. Opening is now 21.9 s.
+- The GitHub Actions rebuild is verified working (run for v8 succeeded: build, commit, Pages). A full rebuild takes about 25 min; a new push cancels a running build.
 - Earlier logged sync lags (not yet re-measured after v8): BruteForce 3.9 s, Slots 3.1 s, TableAndDet 1.7 s.
 - **Still open for Priyanshu:** review the new opening line by line; whether to apply ideas A–E (§5); own voice versus placeholder voice.
 - Remove any API keys that were pasted into chats (a Gemini key was pasted once; revoke it at aistudio.google.com).
@@ -169,6 +168,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · **Opening v8.1:** fixed v8 sync (pictures lagged the voice by 1.2–2.4 s; now ≤ 0.4 s via two pauses), fixed parallel-lines-while-"det ≠ 0" slip, dot slides off instead of vanishing, ghost unit square, two points merging on collapse, grid hands over to the ants without a black gap. Fixed `build_site.sh` aborting when no scene failed. Rendered locally and checked frame by frame.
 - 2026-11-05 · ChatGPT · **v8 opening source:** shorter six-line intro and larger sequential visuals for equations, area and non-invertibility; removed child joke, Valiant, chessboard and all preview count cards; kept exact ants/grid handoff, aligned cues, updated pacing. Static validation only; GitHub rebuild/render pending.
 - 2026-11-05 · Claude · **Source on GitHub + automatic rebuild:** source copied to `src/` of the site repo. Added `requirements.txt` (pinned), `scripts/fetch_models.py` (downloads the Kokoro model; verified byte-identical), `scripts/build_site.sh` (full build), `.gitignore`, the workflow `.github/workflows/build-determinants.yml`, and §2a. Font pinned to DejaVu Serif, so renders match on any machine.
 - 2026-11-05 · Claude · **Audio fix:** loudnorm had raised every output to 96 kHz AAC, which many browsers (Safari/iOS) won't play. `mix.py` and `build_present.py` now force 48 kHz stereo. Video and all 127 presenter clips rebuilt; clip URLs carry a `?v=` version tag so browsers refetch.

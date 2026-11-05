@@ -17,8 +17,8 @@ SCENES = [
     # OneGoodPair and BruteForce now happen inside Hook (v10)
     ("act3_two_walkers.py", "TableAndDet", 35),
     # ListRoutes and Slots cut (v12): the puzzle already counts the paths one by one
-    ("act4_proof.py", "ReadCounts", 30), ("act4_proof.py", "SwapPaths", 25), ("act4_proof.py", "SwapTwice", 25),
-    ("act4_proof.py", "DiagonalSweep", 30), ("act4_proof.py", "PutTogether", 25),
+    ("act4_proof.py", "ReadCounts", 30), ("act4b_proof.py", "SwapPaths", 25), ("act4b_proof.py", "SwapTwice", 25),
+    ("act4b_proof.py", "DiagonalSweep", 30), ("act4b_proof.py", "PutTogether", 25),
     ("act5_lgv.py", "MoveHomes", 25), ("act5_lgv.py", "SekiJoins", 20), ("act5_lgv.py", "LemmaVisual", 60),
     ("act5_lgv.py", "WhatLGVCounts", 35),
     ("act6_hexagon.py", "HexTiling", 45), ("act6_hexagon.py", "TilesToPaths", 50),

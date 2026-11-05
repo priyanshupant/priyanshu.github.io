@@ -83,12 +83,12 @@ class ReadCounts(DScene):
 
 class SwapPaths(DScene):
     def construct(self):
-        lat = Lattice(GRID[0], spacing=1.2, center=GRID_C, ny=GRID[1])
-        ends = endpoints(lat)
-        L = ant(ANT1).move_to(lat.p(*A1))
-        N = ant(ANT2).move_to(lat.p(*A2))
+        lat = big_lattice()
+        ends = board(lat)
+        L = ant(ANT1, 0.9).move_to(lat.p(*A1))
+        N = ant(ANT2, 0.9).move_to(lat.p(*A2))
         self.add(lat, ends, L, N)
-        lab = T("a bad pair", 34, BAD).move_to(RIGHT * 3 + UP * 2.6)
+        lab = T("a pair that meets", 34, BAD).move_to(RIGHT * 3 + UP * 2.6)
         self.cue(0)
         self.play(FadeIn(lab))
         m = first_meet(P, Q)
@@ -104,7 +104,7 @@ class SwapPaths(DScene):
             if v != m:
                 self.play(Flash(probe, color=GREY_B, line_length=0.15, flash_radius=0.25), run_time=0.35)
         ring = Circle(radius=0.45, color=MEET, stroke_width=5).move_to(lat.p(*m))
-        rl = VGroup(T("the first dot of ant 1's route", 28, MEET), T("that ant 2 also visits", 28, MEET)).arrange(DOWN, buff=0.06)
+        rl = VGroup(T("the first dot of the blue path", 28, MEET), T("that the orange ant also visits", 28, MEET)).arrange(DOWN, buff=0.06)
         rl.next_to(lab, DOWN, buff=0.6)
         arrow = Arrow(rl.get_left(), ring.get_right(), buff=0.15, color=MEET, stroke_width=3)
         self.sfx("alert")
@@ -136,16 +136,16 @@ class SwapPaths(DScene):
 
 class SwapTwice(DScene):
     def construct(self):
-        lat = Lattice(GRID[0], spacing=1.2, center=GRID_C, ny=GRID[1])
-        ends = endpoints(lat)
+        lat = big_lattice()
+        ends = board(lat)
         m = first_meet(P, Q)
         i, j = P.index(m), Q.index(m)
         hP, hQ = path_mob(lat, P[:i + 1], ANT1), path_mob(lat, Q[:j + 1], ANT2)
         tP = DashedVMobject(path_mob(lat, Q[j:], ANT1), num_dashes=18)
         tQ = DashedVMobject(path_mob(lat, P[i:], ANT2), num_dashes=18)
         ring = Circle(radius=0.45, color=MEET, stroke_width=5).move_to(lat.p(*m))
-        L = ant(ANT1).move_to(lat.p(*B2))
-        N = ant(ANT2).move_to(lat.p(*B1))
+        L = ant(ANT1, 0.9).move_to(lat.p(*B2))
+        N = ant(ANT2, 0.9).move_to(lat.p(*B1))
         lab = T("a swapped pair", 32, ORANGE).move_to(RIGHT * 3 + UP * 2.6)
         self.add(lat, ends, hP, hQ, tP, tQ, ring, L, N, lab)
         self.cue(0)
@@ -165,7 +165,7 @@ class SwapTwice(DScene):
         self.play(Transform(tP, ntP, path_arc=PI / 2), Transform(tQ, ntQ, path_arc=PI / 2),
                   L.animate(path_arc=PI / 2).move_to(lat.p(*B1)),
                   N.animate(path_arc=PI / 2).move_to(lat.p(*B2)), run_time=1.6)
-        self.play(Transform(lab, T("back to the bad pair", 34, BAD).move_to(lab)), run_time=0.5)
+        self.play(Transform(lab, T("back to the meeting pair", 34, BAD).move_to(lab)), run_time=0.5)
         # 2: the involution as a picture
         self.cue(2)
         a_ic = pair_icon(P, Q, size=1.4)
@@ -188,15 +188,15 @@ class SwapTwice(DScene):
         self.play(FadeIn(joke))
         # 3: couples
         self.cue(3)
-        cpl = T("bad pairs and swapped pairs that meet\ncome in perfect couples", 30, line_spacing=1.1).next_to(sw2, DOWN, buff=0.2)
+        cpl = T("meeting pairs and swapped pairs\ncome in perfect couples", 30, line_spacing=1.1).next_to(sw2, DOWN, buff=0.2)
         cpl.scale_to_fit_width(min(cpl.width, 6.2)).set_x(3.8)
         self.play(FadeIn(cpl), Circumscribe(pair, color=YELLOW))
 
 
 class DiagonalSweep(DScene):
     def construct(self):
-        lat = Lattice(GRID[0], spacing=1.2, center=GRID_C, ny=GRID[1])
-        ends = endpoints(lat)
+        lat = big_lattice()
+        ends = board(lat)
         self.add(lat, ends)
         mp = minus_pairs()
         p, q = mp[0]                       # a swapped pair: ant 1 -> B2, ant 2 -> B1
@@ -230,7 +230,7 @@ class DiagonalSweep(DScene):
             self.wait(0.15)
         # 2-4: the gap, filled in the order 1, 5, 2, 4 (3 is the punchline)
         self.cue(2)
-        gap_lab = T("gap = ant 1's column − ant 2's column", 28, SOFT).next_to(rule, DOWN, buff=0.45)
+        gap_lab = T("gap = blue column − orange column", 28, SOFT).next_to(rule, DOWN, buff=0.45)
         slots = VGroup(*[VGroup(T(f"s = {s}", 24, SOFT), T("?", 34, GREY_D)).arrange(DOWN, buff=0.1) for s in range(1, 6)])
         slots.arrange(RIGHT, buff=0.45).next_to(gap_lab, DOWN, buff=0.35)
         self.play(FadeIn(gap_lab), FadeIn(slots))

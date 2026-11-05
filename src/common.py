@@ -514,3 +514,17 @@ def plus_pairs():
 
 def minus_pairs():
     return [(P, Q) for P in all_paths(A1, B2) for Q in all_paths(A2, B1)]
+
+
+# ---- the puzzle's big board (Hook, matrix, proof): same grid everywhere, no letter labels
+BIG_C = LEFT * 3.2 + DOWN * 0.2
+
+
+def big_lattice():
+    return Lattice(4, spacing=1.45, center=BIG_C)
+
+
+def board(lat):
+    """Start dots and houses in the ants' colours (symbols only, no A/B labels)."""
+    return VGroup(Dot(lat.p(*A1), radius=0.12, color=ANT1), Dot(lat.p(*A2), radius=0.12, color=ANT2),
+                  house(ANT1, 0.6).move_to(lat.p(*B1)), house(ANT2, 0.6).move_to(lat.p(*B2)))

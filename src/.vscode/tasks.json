@@ -1,0 +1,76 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Studio (slide-by-slide player + editor)",
+      "type": "shell",
+      "command": "python studio.py",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Slides: render one scene (current file) as manim-slides",
+      "type": "shell",
+      "command": "SLIDES=1 manim -qm ${file} ${input:scene} && manim-slides convert ${input:scene} slides/${input:scene}.html",
+      "problemMatcher": [],
+      "windows": {
+        "command": "$env:SLIDES='1'; manim -qm ${file} ${input:scene}; manim-slides convert ${input:scene} slides/${input:scene}.html"
+      }
+    },
+    {
+      "label": "Slides: present one scene (window, arrow keys)",
+      "type": "shell",
+      "command": "manim-slides present ${input:scene}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Slides: render ALL scenes + slides/presentation.html",
+      "type": "shell",
+      "command": "bash render_slides.sh m",
+      "problemMatcher": []
+    },
+    {
+      "label": "Render scene (current file)",
+      "type": "shell",
+      "command": "manim -qm ${file} ${input:scene}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Preview scene, low quality (current file)",
+      "type": "shell",
+      "command": "manim -pql ${file} ${input:scene}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Re-record voice for one scene",
+      "type": "shell",
+      "command": "python audio/tts.py --scene ${input:scene}",
+      "problemMatcher": []
+    },
+    {
+      "label": "Re-record ALL narration",
+      "type": "shell",
+      "command": "python audio/tts.py",
+      "problemMatcher": []
+    },
+    {
+      "label": "Render ALL scenes (720p)",
+      "type": "shell",
+      "command": "bash render_seq.sh m",
+      "problemMatcher": []
+    },
+    {
+      "label": "Mix final video (audio + captions)",
+      "type": "shell",
+      "command": "python audio/mix.py 720p30 && python assemble.py 720p30 --chapters-only",
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "scene",
+      "type": "promptString",
+      "description": "Scene class name (e.g. Hook, TableAndDet, LemmaVisual)"
+    }
+  ]
+}

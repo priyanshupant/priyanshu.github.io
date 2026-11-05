@@ -27,6 +27,36 @@ and add a line to §10 *Change log*. Keep it truthful: say what was verified and
 - Pages rebuilds on every push and goes live in about a minute.
 - **Never** publish to `priyanshupant/priyanshupant.github.io` (his main site) or `priyanshupant/continuum` (private research; its own rules forbid publishing).
 
+## 2a. Where the source lives, and how anyone (ChatGPT included) changes something
+
+- **Source:** the folder `src/` of the public repo `priyanshupant/priyanshu.github.io` (branch `main`).
+  The published site is `determinants/` in the same repo; it is **generated**, so never edit it by hand.
+- **Automatic rebuild:** every push that touches `src/**` starts the GitHub Action
+  `.github/workflows/build-determinants.yml`. On GitHub's servers it:
+  1. downloads the voice model;
+  2. re-records the whole AI voice (`audio/tts.py`);
+  3. renders every scene;
+  4. mixes the audio;
+  5. renders the manim-slides deck;
+  6. cuts the presenter clips;
+  7. rebuilds the article;
+  8. commits the new `determinants/` folder back to `main`.
+
+  A rebuild takes roughly 1 to 1.5 hours. Progress shows under the repo's **Actions** tab, and a failed run uploads its logs as `build-logs`.
+- **To change something (any assistant, or Priyanshu in the GitHub web editor):**
+  1. **Words:** edit `src/narration.json`. A line is either a string, or a [spoken, caption] pair when the spelling differs from the speech (e.g. "sharp-P" / "#P"). A number is a pause in seconds.
+     - The number of spoken lines in a scene must equal the number of `self.cue(k)` calls in that scene.
+     - `cue_at(k, "word")` searches the caption text.
+  2. **Animation:** edit the scene's `src/act*.py` file. Use `Text()` only (no LaTeX), Manim 0.22.1 API.
+  3. **Commit and push to `main`**, then wait for the Action to finish. Audio, video, clips, deck and article all update together.
+- **Manual run:** Actions tab → "build determinants" → *Run workflow*.
+- **Local build** (needs ffmpeg, cairo, pango and `pip install -r src/requirements.txt`):
+  ```bash
+  bash src/scripts/build_site.sh
+  ```
+  It writes into `determinants/` (`SITE` defaults to the repo root).
+- **Never** commit generated files (`media/`, `audio/voice/`, `*.mp4`, … are in `src/.gitignore`) or any API key.
+
 ## 3. The story (v6, about 14:38, 31 scenes, 126 slides)
 
 Each act answers the question the viewer is asking at that point.
@@ -81,7 +111,7 @@ Each act answers the question the viewer is asking at that point.
 - **Open decisions for Priyanshu:**
   1. Whether to apply improvements A–E (§5).
   2. His own voice versus the AI voice.
-  3. Where to keep the source permanently: a private GitHub repo is recommended. The source is **not yet in any git repo**; copies exist only in the zips sent to him and on the current assistant's machine.
+  3. (Settled) The source now lives in `src/` of `priyanshupant/priyanshu.github.io` (public, Priyanshu's choice), with an automatic GitHub Actions rebuild (§2a).
 - Remove any API keys that were pasted into chats (a Gemini key was pasted once; revoke it at aistudio.google.com).
 
 ## 7. How the project works
@@ -140,6 +170,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · **Source on GitHub + automatic rebuild:** source copied to `src/` of the site repo. Added `requirements.txt` (pinned), `scripts/fetch_models.py` (downloads the Kokoro model; verified byte-identical), `scripts/build_site.sh` (full build), `.gitignore`, the workflow `.github/workflows/build-determinants.yml`, and §2a. Font pinned to DejaVu Serif, so renders match on any machine.
 - 2026-11-05 · Claude · **Audio fix:** loudnorm had raised every output to 96 kHz AAC, which many browsers (Safari/iOS) won't play. `mix.py` and `build_present.py` now force 48 kHz stereo. Video and all 127 presenter clips rebuilt; clip URLs carry a `?v=` version tag so browsers refetch.
 - 2026-11-05 · Claude · Presenter view now plays **voice + sound effects** per slide: `NO_MUSIC=1 audio/mix.py` makes `final_720p30_nomusic.mp4`; `research/build_present.py` cuts it into one clip per narration line (`determinants/clips/NNN.mp4`, 127 clips) so picture/voice/effects match the film exactly. Background-music button removed (Priyanshu: no music for now). `publish.sh` updated.
 - 2026-11-05 · Claude · **v7 opening** (Priyanshu's design): det met in school (a d − b c) → three animated uses (solve equations: lines go parallel → no solution; triangle area ½|det|; grid squashed when det = 0) → “to me, the most surprising place is counting” → child counts “one, two, cha-cha-cha!” (own synthesized clave/shaker; no meme audio) → Leslie Valiant photo (Dennis Hamilton, CC BY 2.0) + #P-complete (perfect matchings flicker on a cube graph) → “a single determinant counts…” cards (20, 20, 12,988,816, 64) → hands over to the ants. Hook line 0 now “Meet two ants. They live on a grid.” Arctic teaser and “five months” removed. Video now 14:47.

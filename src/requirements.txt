@@ -1,0 +1,8 @@
+# exact versions used to make the video (Python 3.13)
+manim==0.22.1
+manim-slides==5.7.0
+kokoro-onnx==0.6.1
+onnxruntime==1.31.1
+soundfile==0.14.0
+numpy==2.5.4
+pillow==13.0.0

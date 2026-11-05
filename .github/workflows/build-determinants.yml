@@ -1,0 +1,74 @@
+# Rebuilds the determinants video site whenever anything in src/ changes:
+# voice (Kokoro TTS) -> Manim render -> audio mix -> slides -> presenter clips -> article,
+# then commits the regenerated determinants/ folder back to main.
+name: build determinants
+
+on:
+  push:
+    branches: [main]
+    paths: ["src/**", ".github/workflows/build-determinants.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: build-determinants
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: src/requirements.txt
+
+      - name: System packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core
+
+      - name: Python packages
+        run: pip install -r src/requirements.txt
+
+      - name: Cache voice model
+        uses: actions/cache@v4
+        with:
+          path: src/audio/models
+          key: kokoro-v1-af_heart
+
+      - name: Build
+        env:
+          SITE: ${{ github.workspace }}
+          JOBS: "4"
+        run: bash src/scripts/build_site.sh
+
+      - name: Upload logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-logs
+          path: src/logs/
+
+      - name: Commit regenerated site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add -A determinants
+          if git diff --cached --quiet; then echo "nothing changed"; exit 0; fi
+          git commit -m "Rebuild determinants site from ${GITHUB_SHA::7}"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Trigger Pages build
+        # pushes made with GITHUB_TOKEN don't start the Pages build on their own
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
+        env:
+          GH_TOKEN: ${{ github.token }}

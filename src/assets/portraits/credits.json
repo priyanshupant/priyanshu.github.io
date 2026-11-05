@@ -1,0 +1,47 @@
+{
+ "leibniz": {
+  "license": "Public domain",
+  "artist": "Christoph Bernhard Francke",
+  "source": "https://commons.wikimedia.org/wiki/File:Christoph_Bernhard_Francke_-_Bildnis_des_Philosophen_Leibniz_(ca._1695).jpg"
+ },
+ "newton": {
+  "license": "Public domain",
+  "artist": "Godfrey Kneller",
+  "source": "https://commons.wikimedia.org/wiki/File:Portrait_of_Sir_Isaac_Newton,_1689_(brightened).jpg"
+ },
+ "seki": {
+  "license": "Public domain",
+  "artist": "upload by AMorozov",
+  "source": "https://commons.wikimedia.org/wiki/File:Seki.jpeg"
+ },
+ "cauchy": {
+  "license": "Public domain",
+  "artist": "Jean Roller (1798\u20131866)",
+  "source": "https://commons.wikimedia.org/wiki/File:French_School_-_Portrait_of_Augustin-Louis_Cauchy_(1789-1857).jpg"
+ },
+ "kirchhoff": {
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "source": "https://commons.wikimedia.org/wiki/File:Gustav_Robert_Kirchhoff.jpg"
+ },
+ "valiant": {
+  "license": "CC BY 2.0",
+  "artist": "Dennis Hamilton",
+  "source": "https://commons.wikimedia.org/wiki/File:Leslie_Valiant_(34913684313).jpg"
+ },
+ "gauss": {
+  "license": "Public domain",
+  "artist": "Christian Albrecht Jensen",
+  "source": "https://commons.wikimedia.org/wiki/File:Carl_Friedrich_Gauss_1840_by_Jensen.jpg"
+ },
+ "cramer": {
+  "license": "Public domain",
+  "artist": "Unknown authorUnknown author",
+  "source": "https://commons.wikimedia.org/wiki/File:Gabriel_Cramer.jpg"
+ },
+ "laplace": {
+  "license": "Public domain",
+  "artist": "James Posselwhite",
+  "source": "https://commons.wikimedia.org/wiki/File:Laplace,_Pierre-Simon,_marquis_de.jpg"
+ }
+}

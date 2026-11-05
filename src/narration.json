@@ -1,0 +1,206 @@
+{
+ "Opening": [
+  "Most of us met the determinant in school, as a formula: a d minus b c.",
+  "We used it to solve equations, to find areas, to check whether a matrix can be undone.",
+  "But to me, the most surprising place a determinant shows up is counting.",
+  0.6,
+  "Counting? Ask a child, and it's easy: one, two, cha-cha-cha!",
+  0.4,
+  [
+   "Ask Leslie Valiant, and he'd disagree. He showed that counting can be brutally hard. Even counting the perfect matchings of a graph is sharp-P complete.",
+   "Ask Leslie Valiant, and he'd disagree. He showed that counting can be brutally hard. Even counting the perfect matchings of a graph is #P-complete."
+  ],
+  "And yet, in some beautiful cases, a single determinant does the counting for us: routes that never cross, tilings of a hexagon, dominoes on a chessboard.",
+  "Let's try to see how that actually works, starting with something small: two ants."
+ ],
+ "Hook": [
+  "Meet two ants. They live on a grid.",
+  "Every step goes one dot right, or one dot up. Never left, never down.",
+  "The blue ant, ant one, lives here. The orange ant, ant two, lives there.",
+  "There's one small problem. They had a fight. Now neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.",
+  "So their two routes can't touch, anywhere. How many pairs of routes get both ants home?",
+  "Maybe pause, and try to find one.",
+  1.5
+ ],
+ "ListRoutes": [
+  "First, those four numbers. How many ways can ant one get home? Take a guess.",
+  1.5,
+  "Let's list them. Right, right, up, up. Right, up, right, up. Right, up, up, right. Up, right, right, up. Up, right, up, right. And up, up, right, right.",
+  "Six.",
+  "Notice: every route is four steps, two right and two up. That's forced: home is two columns right and two rows up."
+ ],
+ "Slots": [
+  "So a route is just a choice of which two of the four steps go right.",
+  "Four choose two: six.",
+  "The same works for any start and home: a steps right and b steps up gives a plus b choose a routes.",
+  "Ant one to its own home: six. To the other home: four. Ant two to the first home: four. To its own: six. That's our little square."
+ ],
+ "OneGoodPair": [
+  "Here's one. Ant one goes up first, ant two goes right first.",
+  "They never meet. Peace in our time."
+ ],
+ "BruteForce": [
+  "To find them all, the honest way: each ant has six routes, so thirty-six pairs.",
+  "Check them one by one. This pair never meets. This one meets. So does this one. And so on.",
+  "Twenty pairs never meet.",
+  0.8
+ ],
+ "TableAndDet": [
+  "Now something that looks completely unrelated. Count the routes from each ant to each home, and put those four numbers in a little square.",
+  "Take the determinant: six times six, minus four times four.",
+  "Twenty.",
+  1.2,
+  "The same twenty. Coincidence? Hardly. Let's find out why.",
+  2.2
+ ],
+ "ReadCounts": [
+  "Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that crash into each other.",
+  "Twenty good, sixteen bad.",
+  "Four times four counts something stranger: each ant walking to the other one's house.",
+  "So the determinant is good, plus bad, minus swapped. For that to equal the good ones, the swapped pairs must cancel the bad ones exactly. Not roughly. Exactly. Let's match them up."
+ ],
+ "SwapPaths": [
+  "Take a bad pair.",
+  "Walk along ant one's route, and stop at the first dot that ant two also visits.",
+  "From that dot on, swap their tails. Ant one keeps its start and takes ant two's ending; ant two does the opposite.",
+  "Look where they end: each at the other's house. A bad pair became a swapped pair."
+ ],
+ "SwapTwice": [
+  "And it undoes itself.",
+  "Nothing before that dot changed, so it's still the first meeting point, and swapping there puts everything back.",
+  "Do it twice and nothing happened. Mathematicians call that an involution. Like most committee meetings.",
+  "So bad pairs and swapped pairs that meet come in perfect couples."
+ ],
+ "DiagonalSweep": [
+  "One worry left: could a swapped pair avoid meeting, and have no partner?",
+  "Sweep a diagonal across the grid. Every step moves an ant onto the next diagonal, so on each diagonal, each ant stands on exactly one dot.",
+  "Track the gap between their columns. At the start, ant one is one column to the left.",
+  "At the end, it's one column to the right.",
+  "And from one diagonal to the next, the gap changes by at most one.",
+  "So somewhere it is zero: they share a dot. That's the intermediate value theorem, in its most humble form."
+ ],
+ "PutTogether": [
+  "So every bad pair has exactly one swapped partner, and every swapped pair has exactly one bad partner.",
+  "In the determinant they cancel. The minus sign isn't throwing things away at random. It removes an exact copy of the bad pairs.",
+  "What survives is exactly the twenty pairs that never meet.",
+  1.0,
+  "A bijective proof: the only kind a combinatorialist fully trusts.",
+  0.8
+ ],
+ "MoveHomes": [
+  "You might be thinking: surely that's a fluke of this little grid. Move the second house around, and each time, brute force and the determinant agree.",
+  "As long as the order stays the same: ant one's house up and to the left of ant two's.",
+  "Swap the order and there are no peaceful routes at all. The determinant notices: it counts the swapped pairing instead, with a minus sign."
+ ],
+ "SekiJoins": [
+  "Add a third ant, with its own start and its own house.",
+  "A three-by-three table: fifty. Brute force over all the triples: fifty."
+ ],
+ "LemmaVisual": [
+  "Here's the general statement, on our three ants. Take a one-way network with some starts and some ends, and count the paths from each start to each end. That's the matrix.",
+  "Expand the determinant. Each term picks an end for every start, a pairing, with a plus or a minus sign, and counts every family of paths for that pairing.",
+  "Here: two hundred and sixteen, minus ninety-six, minus ninety-six, minus six, plus sixteen, plus sixteen.",
+  "Of the two hundred and sixteen, only fifty never touch. And when the starts and ends are lined up in order, a crossed pairing always touches.",
+  "Now the tail swap from before pairs every touching family with one of opposite sign: one hundred ninety-eight against one hundred ninety-eight. Mathematicians call this a sign-reversing involution. They all cancel.",
+  "What's left is exactly the fifty families that never touch. And that is true for any such network.",
+  "This is the Lindström–Gessel–Viennot lemma. Lindström found it in 1973; Gessel and Viennot rediscovered it in 1985 and showed how much it can do.",
+  "Physicists call walkers like ours vicious walkers. Given that our ants had a fight, that seems fair.",
+  "Brute force over n ants explodes. A determinant takes about n cubed steps, or n to the omega with fast matrix multiplication.",
+  "And omega keeps falling. Strassen broke three in 1969, and this month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
+ ],
+ "WhatLGVCounts": [
+  "So what can it count? The grid doesn't matter. Any network of one-way roads with no loops: right, up, diagonal, some roads missing.",
+  "Count the routes from every start to every end, and take the determinant.",
+  "You get the number of ways for everyone to travel without ever meeting. Here it's forty-two. Of course it is.",
+  "So any puzzle that is secretly a family of non-touching paths, a determinant can count. And these puzzles are everywhere."
+ ],
+ "HexTiling": [
+  "Here's a hexagon with every side of length two, cut into little triangles.",
+  "Glue two neighbouring triangles together and you get a tile: a lozenge. Lozenges come in three orientations.",
+  "A tiling covers the hexagon exactly with lozenges. Nothing sticking out, nothing overlapping.",
+  "Here's one. Notice anything? It looks like a stack of boxes in the corner of a room.",
+  "It's completely flat. Your brain is doing the 3D rendering for free.",
+  "So how many tilings are there?"
+ ],
+ "TilesToPaths": [
+  "Here's the trick. Fade out the flat tiles.",
+  "Every other tile has two vertical edges. Enter through one, leave through the other, and keep going. Two edges on the left give two chains.",
+  "Tiles never overlap, so the chains never touch. And going backwards, any two chains that don't touch fill in to exactly one tiling.",
+  "Now squash the hexagon onto our square grid. Each chain becomes a route of two steps right and two steps up, starting and ending exactly where our ants do.",
+  "So the number of tilings is twenty. The same twenty. All this time, our ants were tiling a hexagon.",
+  1.0
+ ],
+ "BoxesCorner": [
+  "Seen in 3D, a tiling is a stack of boxes in a corner, each stack no taller than the ones behind it.",
+  "A bigger box, three by three by three, gives a bigger hexagon and three chains: three ants that never meet.",
+  "A three-by-three determinant counts them: nine hundred and eighty.",
+  "Percy MacMahon found a formula for every box, over a century ago. Combinatorialists call these plane partitions."
+ ],
+ "CatalanMountains": [
+  "Another disguise. A mountain range: each step goes up or down, and it never dips below sea level.",
+  "How many ways can you draw two ranges, one inside the other, without touching?",
+  "A single range is counted by the Catalan numbers. Put four of them in a two-by-two table: the determinant is three.",
+  "And here they are. Exactly three."
+ ],
+ "AztecIntro": [
+  "And one more, a beauty. This is an Aztec diamond: rows of two, four, six squares, and back down.",
+  "Tile it with dominoes. The smallest one has two tilings. The next has eight. The next, sixty-four.",
+  "Guess the next one.",
+  1.8,
+  "One thousand and twenty-four. Powers of two, every time. That's suspicious."
+ ],
+ "AztecPaths": [
+  "Colour the board like a chessboard, and there are four kinds of domino. Give each kind a job: a flat step, a step up, a step down, or nothing.",
+  "Now the dominoes link up into paths, from the left side to the right. Dominoes never overlap, so the paths never touch, and every such family comes from exactly one tiling.",
+  "So once again: count routes, take the determinant. Twelve times two minus four times four. Eight.",
+  "One size up: sixty-four.",
+  "In general, order n gives two to the n times n plus one over two. A determinant, hiding in a pile of dominoes."
+ ],
+ "ArcticCircle": [
+  "Now pick one tiling at random, every tiling equally likely, on a big diamond, and let it grow.",
+  "This is order sixty.",
+  "The corners freeze into brick walls. The middle is chaos. And the boundary between them is a perfect circle.",
+  "That's the picture we started with. It's called the arctic circle theorem.",
+  1.0
+ ],
+ "SmallBoard2": [
+  "Back to the chessboard from the start. Dominoes aren't paths, but there's a determinant trick here too. Shrink it to a two-by-three board: three tilings.",
+  "A domino joins a black square to a white neighbour. Write a one wherever they touch. Each tiling picks one entry in every row and every column: one term of the determinant.",
+  "If determinants count pairings, this should give three. It gives minus one.",
+  "The terms come with signs: plus for this one, minus for these two. Here the cancellation eats the good ones."
+ ],
+ "SignFix2": [
+  "In 1961 the physicist Pieter Kasteleyn had an idea: if the signs don't cancel the way you want, change the signs.",
+  "Put a minus sign on this one edge. Only the all-vertical tiling uses it, so only its sign flips.",
+  "Now every tiling carries the same sign. The determinant is minus three. Ignore the sign: three."
+ ],
+ "Board4x4": [
+  "On a four-by-four board, the plain determinant says there are zero tilings. Very confident, very wrong.",
+  "Put minus signs on the vertical edges of every other column, and the determinant gives thirty-six. Exactly right."
+ ],
+ "FKT": [
+  "Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen. The five-month count, in an instant.",
+  "The rule behind it: every little loop of four edges carries an odd number of minus signs.",
+  "And it's not really about chessboards. Squares are vertices, dominoes are edges, and a tiling is a perfect matching.",
+  "Kasteleyn, Temperley and Fisher made this work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.",
+  "When a physicist needs to count twelve million tilings, they don't count. They take a determinant, and then let the board go to infinity."
+ ],
+ "Map": [
+  "Let's step back. Ants that never meet. Tilings of a hexagon. Boxes in a corner. Mountain ranges. Aztec diamonds. Chessboards.",
+  "All counted by one determinant each."
+ ],
+ "Finale": [
+  "And it's the same trick every time. Count everything, good and bad, each with a sign.",
+  "The bad ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.",
+  "For a computer scientist, that's remarkable. Counting is usually hopeless: counting perfect matchings of a general graph is sharp-P complete. That's Valiant, in 1979.",
+  "But if your puzzle turns into non-touching paths, or a matching on a planar graph, it becomes one determinant, and polynomial time.",
+  "Determinants can count, because minus signs can cancel.",
+  1.5
+ ],
+ "Goodbye": [
+  "As for our ants: they can finally go home in peace. Twenty ways home, and they never had to meet.",
+  1.5,
+  "Thanks for watching."
+ ],
+ "Credits": []
+}

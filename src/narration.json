@@ -1,18 +1,12 @@
 {
  "Opening": [
-  "Most of us met the determinant in school, as a formula: a d minus b c.",
-  "We used it to solve equations, to find areas, to check whether a matrix can be undone.",
-  "But to me, the most surprising place a determinant shows up is counting.",
-  0.6,
-  "Counting? Ask a child, and it's easy: one, two, cha-cha-cha!",
-  0.4,
-  [
-   "Ask Leslie Valiant, and he'd disagree. He showed that counting can be brutally hard. Even counting the perfect matchings of a graph is sharp-P complete.",
-   "Ask Leslie Valiant, and he'd disagree. He showed that counting can be brutally hard. Even counting the perfect matchings of a graph is #P-complete."
-  ],
-  "And yet, in some beautiful cases, a single determinant does the counting for us: routes that never cross, tilings of a hexagon, dominoes on a chessboard.",
-  "Let's try to see how that actually works, starting with something small: two ants."
- ],
+  "Most of us met the determinant as a formula: a d minus b c.",
+  "It helps us solve equations.",
+  "It measures area.",
+  "And it tells us when a transformation cannot be reversed.",
+  "But here's the surprise: a determinant can also count.",
+  "Let's see how, starting with two ants."
+ ], 
  "Hook": [
   "Meet two ants. They live on a grid.",
   "Every step goes one dot right, or one dot up. Never left, never down.",

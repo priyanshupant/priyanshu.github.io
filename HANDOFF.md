@@ -57,13 +57,13 @@ and add a line to §10 *Change log*. Keep it truthful: say what was verified and
   It writes into `determinants/` (`SITE` defaults to the repo root).
 - **Never** commit generated files (`media/`, `audio/voice/`, `*.mp4`, … are in `src/.gitignore`) or any API key.
 
-## 3. The story (v6, about 14:38, 31 scenes, 126 slides)
+## 3. The story (v8 opening; later acts retained from v7)
 
 Each act answers the question the viewer is asking at that point.
 
 | Act | Viewer's question | Content |
 |---|---|---|
-| 0 Opening | Counting is easy… isn't it? | Determinant met in school (a d − b c); animated uses (equations, area, undoing a matrix); "to me, the most surprising place is counting"; a child: "one, two, cha-cha-cha!"; Leslie Valiant: counting perfect matchings is #P-complete; "yet a single determinant counts" routes (20), hexagon tilings (20), chessboard dominoes (12,988,816), Aztec diamond; "let's see how, starting with two ants". |
+| 0 Opening | What else can a determinant do? | Familiar a d − b c formula; full-size animated examples of two equations becoming parallel, a square becoming a parallelogram, and the grid collapsing to a line; a short turn to counting; then two ants. No child joke, Valiant, or application/count montage. |
 | 1 Puzzle | How many ways home without touching? | Two ants on a 4×4 grid, steps right/up. **Scent trail rule**: neither steps on any dot the other walks on, *not even later*, so we count vertex-disjoint paths. Pause and try. One good pair. Brute force: 36 pairs, 20 good. Table [[6,4],[4,6]], det = 20. "Coincidence? Hardly." Title. |
 | 2 Numbers | Where do 6 and 4 come from? | Ant one's 6 routes; (a+b choose a). |
 | 3 Formula | What do 6·6 and 4·4 count? | det = good + bad − swapped, so we need bad = swapped. |
@@ -106,12 +106,11 @@ Each act answers the question the viewer is asking at that point.
 
 ## 6. Current state (update this when you change things)
 
-- **v6** is the current cut (14:38). Video, captions, chapters and slides are rendered and published (links above).
-- The sync lags remaining are under 4 s: BruteForce 3.9 s, Slots 3.1 s, TableAndDet 1.7 s.
-- **Open decisions for Priyanshu:**
-  1. Whether to apply improvements A–E (§5).
-  2. His own voice versus the AI voice.
-  3. (Settled) The source now lives in `src/` of `priyanshupant/priyanshu.github.io` (public, Priyanshu's choice), with an automatic GitHub Actions rebuild (§2a).
+- **v8 opening source committed on 5 Nov 2026**: six concise narration lines and six synced animation cues; formula, equations, unit-square area, collapsing grid, counting, two ants. The child joke, Leslie Valiant section, chessboard and other count-preview cards were removed from the introduction.
+- The generated website is rebuilt by GitHub Actions from `src/`. **This change has not been visually rendered or playback-tested by ChatGPT**; inspect Actions and the presenter view before considering the opening finished. The previously published runtime was 14:47, not the new version.
+- **Verified statically:** six spoken Opening lines match six `cue(k)` calls; every `cue_at(k, "word")` phrase occurs in the corresponding caption. The 2×2 determinant sign pattern is unchanged; the area illustration uses a unit square and a linear map; the collapse is rank one. No new numerical combinatorial claims were added.
+- Earlier logged sync lags (not yet re-measured after v8): BruteForce 3.9 s, Slots 3.1 s, TableAndDet 1.7 s.
+- **Still open for Priyanshu:** review the new opening line by line; whether to apply ideas A–E (§5); own voice versus placeholder voice.
 - Remove any API keys that were pasted into chats (a Gemini key was pasted once; revoke it at aistudio.google.com).
 
 ## 7. How the project works
@@ -170,6 +169,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · ChatGPT · **v8 opening source:** shorter six-line intro and larger sequential visuals for equations, area and non-invertibility; removed child joke, Valiant, chessboard and all preview count cards; kept exact ants/grid handoff, aligned cues, updated pacing. Static validation only; GitHub rebuild/render pending.
 - 2026-11-05 · Claude · **Source on GitHub + automatic rebuild:** source copied to `src/` of the site repo. Added `requirements.txt` (pinned), `scripts/fetch_models.py` (downloads the Kokoro model; verified byte-identical), `scripts/build_site.sh` (full build), `.gitignore`, the workflow `.github/workflows/build-determinants.yml`, and §2a. Font pinned to DejaVu Serif, so renders match on any machine.
 - 2026-11-05 · Claude · **Audio fix:** loudnorm had raised every output to 96 kHz AAC, which many browsers (Safari/iOS) won't play. `mix.py` and `build_present.py` now force 48 kHz stereo. Video and all 127 presenter clips rebuilt; clip URLs carry a `?v=` version tag so browsers refetch.
 - 2026-11-05 · Claude · Presenter view now plays **voice + sound effects** per slide: `NO_MUSIC=1 audio/mix.py` makes `final_720p30_nomusic.mp4`; `research/build_present.py` cuts it into one clip per narration line (`determinants/clips/NNN.mp4`, 127 clips) so picture/voice/effects match the film exactly. Background-music button removed (Priyanshu: no music for now). `publish.sh` updated.

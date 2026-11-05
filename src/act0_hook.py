@@ -32,8 +32,8 @@ class Hook(DScene):
         # 0: meet these two ants — they say hi
         self.cue(0)
         self.play(FadeIn(a1, scale=0.5), FadeIn(a2, scale=0.5), run_time=0.6)
-        for an in (a1, a2):
-            hi = speech("hi!", an, UP, size=40).shift(UP * 0.1)
+        for an, word in ((a1, "hi!"), (a2, "yo!")):
+            hi = speech(word, an, UP, size=40).shift(UP * 0.1)
             self.sfx("pop")
             self.play(an.animate.shift(UP * 0.25), rate_func=there_and_back, run_time=0.4)
             self.play(FadeIn(hi, scale=0.6), run_time=0.25)
@@ -57,11 +57,16 @@ class Hook(DScene):
         self.play(Indicate(h1, color=ANT1, scale_factor=1.3), Indicate(h2, color=ANT2, scale_factor=1.3), run_time=0.6)
         self.play(FadeOut(g1), FadeOut(g2), run_time=0.4)
 
+        # rules, as bullets on the right; they appear as they are said
+        bul1 = T("•  step up or right", 32)
+        bul2 = T("•  paths never touch", 32)
+        bullets = VGroup(bul1, bul2).arrange(DOWN, aligned_edge=LEFT, buff=0.25).move_to(RIGHT * 3.1 + UP * 2.55)
+
         # 3: rules — up and right are fine; down and left are not
         self.cue(3)
         o = lat.p(*A1)
         self.cue_at(3, "step up", lead=0.2)
-        self.play(self.face(a1, PI / 2))
+        self.play(self.face(a1, PI / 2), FadeIn(bul1, shift=LEFT * 0.2))
         self.play(a1.animate.move_to(lat.p(0, 2)), run_time=0.4)
         ok1 = tick(0.35, YELLOW).next_to(a1, LEFT, buff=0.15)
         self.play(FadeIn(ok1), run_time=0.2)
@@ -85,26 +90,28 @@ class Hook(DScene):
         self.play(a1.animate.move_to(o), run_time=0.25, rate_func=rush_from)
         self.play(self.face(a1, 0), FadeOut(x1), FadeOut(x2), run_time=0.3)
 
-        # 4: many ways home — two for blue, one for orange
+        # 4: many paths home — several each, and some of them cross
         self.cue(4)
-        bA = [(0, 1), (0, 2), (0, 3), (1, 3), (2, 3)]
-        bB = [(0, 1), (1, 1), (2, 1), (2, 2), (2, 3)]
-        oA = [(1, 0), (2, 0), (3, 0), (3, 1), (3, 2)]
-        rA, rB, rO = path_mob(lat, bA, ANT1, 7), path_mob(lat, bB, ANT1, 7), path_mob(lat, oA, ANT2, 7)
-        self.cue_at(4, "could go this way", lead=0.2)
-        self.play(Create(rA), run_time=0.8)
-        self.cue_at(4, "or this way", lead=0.2)
-        self.play(rA.animate.set_stroke(opacity=0.25), Create(rB), run_time=0.8)
+        blue = [[(0, 1), (0, 2), (0, 3), (1, 3), (2, 3)], [(0, 1), (1, 1), (2, 1), (2, 2), (2, 3)],
+                [(0, 1), (1, 1), (1, 2), (2, 2), (2, 3)]]
+        orng = [[(1, 0), (2, 0), (3, 0), (3, 1), (3, 2)], [(1, 0), (1, 1), (1, 2), (2, 2), (3, 2)]]
+        bm = [path_mob(lat, P, ANT1, 6).set_stroke(opacity=0.8) for P in blue]
+        om = [path_mob(lat, P, ANT2, 6).set_stroke(opacity=0.8) for P in orng]
+        for k, word in enumerate(["could go this way", "or this,", "or even this"]):
+            self.cue_at(4, word, lead=0.2)
+            self.play(Create(bm[k]), run_time=0.55)
         self.cue_at(4, "orange ant", lead=0.2)
-        self.play(rB.animate.set_stroke(opacity=0.25), Create(rO), run_time=0.8)
+        self.play(Create(om[0]), run_time=0.55)
+        self.cue_at(4, "or that way", lead=0.1)
+        self.play(Create(om[1]), run_time=0.55)
+        crossings = VGroup(*[Circle(radius=0.28, color=MEET, stroke_width=5).move_to(lat.p(*p)) for p in [(1, 1), (1, 2), (2, 2)]])
+        self.play(Create(crossings), run_time=0.5)
         self.cue_end(4)
-        self.play(FadeOut(VGroup(rA, rB, rO)), run_time=0.4)
+        self.play(FadeOut(VGroup(*bm, *om, crossings)), run_time=0.4)
 
         # 5: the fight — if they meet, they fight
         self.cue(5)
         self.cue_at(5, "if they meet", lead=0.2)
-        meetP = [(0, 1), (1, 1)]
-        meetQ = [(1, 0), (1, 1)]
         self.play(self.face(a1, 0), self.face(a2, PI / 2))
         self.play(a1.animate.move_to(lat.p(1, 1) + LEFT * 0.38), a2.animate.move_to(lat.p(1, 1) + DOWN * 0.38), run_time=0.6)
         self.cue_at(5, "fighting", lead=0.2)
@@ -123,16 +130,13 @@ class Hook(DScene):
         self.play(FadeIn(cloud, scale=0.3), FadeIn(cuss, scale=0.3), FadeOut(a1), FadeOut(a2), run_time=0.35)
         self.play(Wiggle(VGroup(cloud, cuss), scale_value=1.15, rotation_angle=0.08 * TAU), FadeIn(stars, lag_ratio=0.2), run_time=1.2)
         a1.move_to(lat.p(*A1)); a2.move_to(lat.p(*A2))
-        self.play(FadeOut(VGroup(cloud, cuss, stars)), FadeIn(a1), FadeIn(a2), run_time=0.5)
+        self.play(FadeOut(VGroup(cloud, cuss, stars)), FadeIn(a1), FadeIn(a2), FadeIn(bul2, shift=LEFT * 0.2), run_time=0.5)
         self.play(self.face(a2, 0))
 
-        # 6: so neither steps on any dot the other walks on; not even later (scent trail)
+        # 6: neither steps on a dot the other walks on, not even later (said, not written)
         self.cue(6)
-        rule = VGroup(T("Neither steps on any dot", 30), T("the other one walks on.", 30)) \
-            .arrange(DOWN, aligned_edge=LEFT, buff=0.1).move_to(RIGHT * 3.3 + UP * 2.3)
         P = [(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)]
         anims, tr = walk_steps(lat, [(a1, P, ANT1)], step_time=0.35)
-        self.play(FadeIn(rule), run_time=0.5)
         for an in anims:
             self.play(an)
         glow_ = VGroup(*[path_mob(lat, P, ANT1, w).set_stroke(opacity=op) for w, op in [(30, 0.10), (18, 0.2)]])
@@ -148,35 +152,68 @@ class Hook(DScene):
         ring = Circle(radius=0.4, color=MEET, stroke_width=6).move_to(lat.p(1, 2))
         self.sfx("alert")
         self.play(FadeIn(bang, scale=1.5), Create(ring), run_time=0.4)
-        scent = T("ants leave a scent trail", 28, SOFT).next_to(rule, DOWN, buff=0.3).align_to(rule, LEFT)
         self.cue_at(6, "scent trail", lead=0.3)
-        self.play(FadeIn(scent), glow_.animate.set_stroke(opacity=0.35), run_time=0.5)
+        self.play(glow_.animate.set_stroke(opacity=0.35), run_time=0.4)
         self.play(a2.animate.move_to(lat.p(*A2)), FadeOut(bang), FadeOut(VGroup(*tr2)), run_time=0.7, rate_func=rush_from)
         self.cue_end(6)
         self.play(FadeOut(VGroup(glow_, ring, *tr)), a1.animate.move_to(lat.p(*A1)), run_time=0.6)
         self.play(self.face(a1, 0), self.face(a2, 0))
 
-        # 7: their routes can't touch; the question (rules stay up)
+        # 7: the question
         self.cue(7)
-        r1 = path_mob(lat, [(0, 1), (1, 1), (2, 1), (2, 2), (2, 3)], ANT1, 7)
-        r2 = path_mob(lat, [(1, 0), (1, 1), (1, 2), (2, 2), (3, 2)], ANT2, 7)
-        self.play(Create(r1), Create(r2), run_time=1.0)
-        xdots = VGroup(*[Circle(radius=0.3, color=MEET, stroke_width=6).move_to(lat.p(*p)) for p in [(1, 1), (2, 2)]])
-        no2 = cross(0.6).move_to(lat.p(3, 0.0))
-        self.cue_at(7, "can't touch", lead=0.2)
-        self.sfx("buzz")
-        self.play(Create(xdots), FadeIn(no2), run_time=0.6)
-        q = T("How many pairs of routes\nget both ants home\nwithout touching?", 36, YELLOW, line_spacing=1.2).move_to(RIGHT * 3.2 + UP * 0.6)
-        rules = VGroup(T("→ or ↑ only", 28, SOFT), T("no shared dot", 28, SOFT)).arrange(DOWN, aligned_edge=LEFT, buff=0.15)
-        rules = VGroup(SurroundingRectangle(rules, color=DIM, buff=0.25, corner_radius=0.1), rules).move_to(RIGHT * 3.2 + DOWN * 2.6)
+        q = T("How many pairs of paths\nget them home\nwithout intersecting?", 34, YELLOW, line_spacing=1.2).move_to(RIGHT * 3.1 + UP * 0.55)
         self.cue_at(7, "how many", lead=0.2)
-        self.play(FadeOut(VGroup(r1, r2, xdots, no2)), FadeOut(rule), FadeOut(scent), Write(q), run_time=1.2)
-        self.play(FadeIn(rules, shift=UP * 0.15), run_time=0.5)
+        self.play(Write(q), run_time=1.2)
 
-        # 8: pause and try
+        # 8: one is easy to find; 9: here's one where they cross
         self.cue(8)
-        tr_ = T("(pause and try to find one)", 28, SOFT).next_to(q, DOWN, buff=0.35)
-        self.play(FadeIn(tr_), run_time=0.6)
-        self.cue_end(8)
-        self.wait(1.6)
+        gp = VGroup(path_mob(lat, blue[0], ANT1, 7), path_mob(lat, orng[0], ANT2, 7))
+        self.cue_at(8, "the blue one", lead=0.2)
+        self.play(Create(gp[0]), run_time=0.7)
+        self.cue_at(8, "the orange one", lead=0.2)
+        self.play(Create(gp[1]), run_time=0.7)
+        self.cue_at(8, "never meet", lead=0.2)
+        okp = tick(0.6, GOOD).move_to(lat.p(3.0, 3.0) + RIGHT * 0.2)
+        self.sfx("chime")
+        self.play(FadeIn(okp, scale=1.4), run_time=0.4)
+        self.cue(9)
+        bp = VGroup(path_mob(lat, blue[1], ANT1, 7), path_mob(lat, orng[1], ANT2, 7))
+        self.play(FadeOut(gp), FadeOut(okp), run_time=0.3)
+        self.play(Create(bp[0]), Create(bp[1]), run_time=0.9)
+        mring = Circle(radius=0.32, color=MEET, stroke_width=6).move_to(lat.p(1, 1))
+        nop = cross(0.5).move_to(lat.p(3.0, 3.0) + RIGHT * 0.2)
+        self.sfx("buzz")
+        self.play(Create(mring), FadeIn(nop), run_time=0.5)
+        self.cue_end(9)
+        self.play(FadeOut(VGroup(bp, mring, nop)), run_time=0.3)
+
+        # 10: check them all, one by one — fast; counters climb to 20 and 16
+        self.cue(10)
+        labg, labb = T("never meet:", 32, GOOD), T("meet:", 32, BAD)
+        VGroup(labg, labb).arrange(DOWN, aligned_edge=RIGHT, buff=0.3).move_to(RIGHT * 2.6 + DOWN * 1.6)
+        cg, cb = T("0", 40, GOOD).next_to(labg, RIGHT, buff=0.3), T("0", 40, BAD).next_to(labb, RIGHT, buff=0.3)
+        self.play(FadeIn(VGroup(labg, labb, cg, cb)), run_time=0.4)
+        ng = nb = 0
+        for k, (Pp, Qq) in enumerate(plus_pairs()):
+            dt = max(0.1, 0.55 * 0.8 ** k)
+            m = first_meet(Pp, Qq)
+            pair = VGroup(path_mob(lat, Pp, ANT1, 6), path_mob(lat, Qq, ANT2, 6))
+            if m is None:
+                ng += 1; mark = VGroup()
+            else:
+                nb += 1; mark = Circle(radius=0.28, color=MEET, stroke_width=5).move_to(lat.p(*m))
+            cg2 = T(str(ng), 40, GOOD).move_to(cg, aligned_edge=LEFT)
+            cb2 = T(str(nb), 40, BAD).move_to(cb, aligned_edge=LEFT)
+            self.add(pair, mark)
+            self.play(Transform(cg, cg2), Transform(cb, cb2), run_time=dt)
+            self.remove(pair, mark)
+        assert (ng, nb) == (20, 16)
+
+        # 11: twenty never meet, sixteen do
+        self.cue(11)
+        self.play(Indicate(VGroup(labg, cg), color=GOOD, scale_factor=1.15), run_time=0.8)
+        self.cue_at(11, "sixteen", lead=0.2)
+        self.play(Indicate(VGroup(labb, cb), color=BAD, scale_factor=1.15), run_time=0.8)
+        self.cue_end(11)
+        self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)

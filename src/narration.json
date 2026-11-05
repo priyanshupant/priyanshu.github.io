@@ -17,13 +17,17 @@
   "Meet these two ants.",
   "They both live in a grid-like world.",
   "And they both want to get back home, right now.",
-  "On this grid there are rules: an ant can only step up, or to the right. Never down, and never left.",
-  "Of course, there are many ways home. The blue ant could go this way, or this way. And the orange ant, this way.",
-  "But today, they can't just take any route. They had a fight, and if they meet, they'll start fighting again.",
+  "On this grid there are rules. An ant can only step up, or to the right. Never down, and never left.",
+  "Of course, there are many paths home. The blue ant could go this way, or this, or even this. And the orange ant, this way, or that way.",
+  "But today, they can't just take any path. They had a fight, and if they meet, they'll start fighting again.",
   "So neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.",
-  "Their two routes can't touch, anywhere. So, how many pairs of routes get both ants home without touching?",
-  "Maybe pause, and try to find one.",
-  1.5
+  "So, how many pairs of paths get them home without intersecting?",
+  "You can always find one easily. Here, the blue one goes up and around, and the orange one goes right and around. They never meet.",
+  "And here's one where they cross.",
+  "Let's check them all, one by one.",
+  5.5,
+  "Twenty pairs never meet, and sixteen do.",
+  0.6
  ],
  "ListRoutes": [
   "First, those four numbers. How many ways can ant one get home? Take a guess.",
@@ -51,10 +55,12 @@
   0.8
  ],
  "TableAndDet": [
-  "Now something that looks completely unrelated. Count the routes from each ant to each home, and put those four numbers in a little square.",
+  "I know what you're thinking: this is stupid. There must be an easier way. And here comes my friend, the determinant.",
+  "Consider this two-by-two determinant. Each entry counts the paths from one ant to one house.",
+  2.6,
   "Take the determinant: six times six, minus four times four.",
-  "Twenty.",
-  1.2,
+  "It's twenty. Voilà!",
+  1.0,
   "The same twenty. Coincidence? Hardly. Let's find out why.",
   0.4
  ],

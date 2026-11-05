@@ -14,7 +14,7 @@ MANIM = os.environ.get("MANIM", "manim")
 # (file, scene, target seconds) in video order; acts follow the script's clock.
 SCENES = [
     ("act0_opening.py", "Opening", 28), ("act0_hook.py", "Hook", 45),
-    ("act3_two_walkers.py", "OneGoodPair", 15), ("act3_two_walkers.py", "BruteForce", 30),
+    # OneGoodPair and BruteForce now happen inside Hook (v10)
     ("act3_two_walkers.py", "TableAndDet", 35),
     ("act2_one_walker.py", "ListRoutes", 25), ("act2_one_walker.py", "Slots", 25),
     ("act4_proof.py", "ReadCounts", 30), ("act4_proof.py", "SwapPaths", 25), ("act4_proof.py", "SwapTwice", 25),

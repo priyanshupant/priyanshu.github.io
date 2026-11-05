@@ -172,6 +172,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · Opening: the diagonal strokes through the matrix now fade out once a d − b c is formed (they used to stay all the way through).
 - 2026-11-05 · Claude · **Opening v8.5:** re-added polygon area minimally (one short line, ~3 s visual, label "area = ½ Σ det"). Rendered and frame-checked.
 - 2026-11-05 · Claude · **Opening v8.4:** removed the polygon beat; added det ≠ 0 label for crossing lines; area beat now a countable det-2 example (stretch then shear, 1 → 2). Rendered and frame-checked.
 - 2026-11-05 · Claude · **Opening v8.3:** added the polygon-area (shoelace) beat: fan triangles with signed areas, negatives cancel the outside. Numbers verified. Rendered and frame-checked.

@@ -29,8 +29,9 @@ class Opening(DScene):
         self.cue_at(0, "a d minus", lead=0.35)
         self.play(Create(diag), FadeIn(eq), FadeIn(ad), run_time=0.55)
         self.play(Create(anti), FadeIn(minus), FadeIn(bc), run_time=0.55)
-        formula = VGroup(dl, m, diag, anti, eq, ad, minus, bc)
+        formula = VGroup(dl, m, eq, ad, minus, bc)
         self.cue_end(0)
+        self.play(FadeOut(diag), FadeOut(anti), run_time=0.3)        # the diagonals have done their job
         self.play(formula.animate.scale(0.47).to_edge(UP, buff=0.35), run_time=0.5)
 
         # 1 — equations. The dot is the unique solution; when the lines turn

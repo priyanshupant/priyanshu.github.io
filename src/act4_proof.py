@@ -146,7 +146,7 @@ class SwapTwice(DScene):
         lab = T("a swapped pair", 32, ORANGE).move_to(RIGHT * 3 + UP * 2.6)
         self.add(lat, ends, hP, hQ, tP, tQ, ring, L, N, lab)
         self.cue(0)
-        again = T("swap again at the first meeting point", 30, YELLOW).next_to(lab, DOWN, buff=0.6)
+        again = T("swap again at the first meeting point", 28, YELLOW).next_to(lab, DOWN, buff=0.6)
         self.play(Write(again))
         self.cue(1)
         same = T("nothing before it changed,\nso it is still the first meeting point", 28, SOFT, line_spacing=1.1) \
@@ -185,7 +185,7 @@ class SwapTwice(DScene):
         self.play(FadeIn(joke))
         # 3: couples
         self.cue(3)
-        cpl = T("bad pairs and swapped pairs that meet\ncome in perfect couples", 28, line_spacing=1.1).next_to(sw2, DOWN, buff=0.2)
+        cpl = T("bad pairs and swapped pairs that meet\ncome in perfect couples", 30, line_spacing=1.1).next_to(sw2, DOWN, buff=0.2)
         cpl.scale_to_fit_width(min(cpl.width, 6.2)).set_x(3.8)
         self.play(FadeIn(cpl), Circumscribe(pair, color=YELLOW))
 
@@ -198,7 +198,7 @@ class DiagonalSweep(DScene):
         mp = minus_pairs()
         p, q = mp[0]                       # a swapped pair: ant 1 -> B2, ant 2 -> B1
         pm, qm = path_mob(lat, p, ANT1, 7), path_mob(lat, q, ANT2, 7)
-        title = T("Can a swapped pair avoid meeting?", 34).move_to(RIGHT * 2.9 + UP * 2.9)
+        title = T("Can a swapped pair avoid meeting?", 32).move_to(RIGHT * 2.6 + UP * 2.9)
         self.cue(0)
         self.play(Write(title))
         self.play(Create(pm), Create(qm), run_time=1.5)

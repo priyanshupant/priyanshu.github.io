@@ -33,7 +33,9 @@
  ],
  "Slots": [
   "So a route is just a choice of which two of the four steps go right.",
+  2.0,
   "Four choose two: six.",
+  0.6,
   "The same works for any start and home: a steps right and b steps up gives a plus b choose a routes.",
   "Ant one to its own home: six. To the other home: four. Ant two to the first home: four. To its own: six. That's our little square."
  ],

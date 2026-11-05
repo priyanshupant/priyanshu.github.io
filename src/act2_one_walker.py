@@ -18,7 +18,7 @@ def route_icon(P, color=ANT1, size=0.85):
 
 def word_mob(P, size=24):
     w = moves(P)
-    return VGroup(*[T(c, size, GOOD if c == "R" else BLUE_B) for c in w]).arrange(RIGHT, buff=0.06)
+    return VGroup(*[T(c, size, YELLOW if c == "R" else BLUE_B) for c in w]).arrange(RIGHT, buff=0.06)
 
 
 class ListRoutes(DScene):
@@ -46,13 +46,13 @@ class ListRoutes(DScene):
         for i, P in enumerate(paths):
             slow = i < 1
             self.cue_at(1, said[i], lead=0.05)
-            anims, traces = walk_steps(lat, [(L, P, ANT1)], step_time=0.25 if slow else 0.14)
+            anims, traces = walk_steps(lat, [(L, P, ANT1)], step_time=0.2 if slow else 0.11)
             for an in anims:
                 self.play(an)
             self.sfx("tick")
             self.play(ReplacementTransform(VGroup(*traces), icons[i][2]), FadeIn(icons[i][:2]),
                       FadeIn(words[i]), Transform(cnt, T(str(i + 1), 54, ANT1).move_to(cnt)),
-                      run_time=0.6 if slow else 0.35)
+                      run_time=0.5 if slow else 0.28)
             self.play(L.animate.move_to(lat.p(*A1)), run_time=0.15)
         self.cue(2)
         self.play(Indicate(cnt, color=YELLOW, scale_factor=1.3))
@@ -60,13 +60,13 @@ class ListRoutes(DScene):
         self.cue(3)
         boxes = VGroup(*[SurroundingRectangle(w, color=YELLOW, buff=0.05) for w in words])
         R_, U_ = B1[0] - A1[0], B1[1] - A1[1]
-        pat = T(f"always {R_ + U_} steps: {R_} R and {U_} U", 32, YELLOW).next_to(cnt_lab, DOWN, buff=0.35, aligned_edge=LEFT)
+        pat = T(f"always {R_ + U_} steps: {R_} R, {U_} U", 28, YELLOW).next_to(cnt_lab, DOWN, buff=0.35, aligned_edge=LEFT)
         self.cue_at(3, "every route")
         self.play(Create(boxes, lag_ratio=0.05), FadeIn(pat))
         why = T(f"(home is {R_} right and {U_} up)", 26, SOFT).next_to(pat, DOWN, buff=0.12, aligned_edge=LEFT)
         self.cue_at(3, "forced")
         self.play(FadeIn(why))
-        hr = DoubleArrow(lat.p(*A1) + DOWN * 0.45, lat.p(B1[0], A1[1]) + DOWN * 0.45, buff=0, color=GOOD, stroke_width=4)
+        hr = DoubleArrow(lat.p(*A1) + DOWN * 0.45, lat.p(B1[0], A1[1]) + DOWN * 0.45, buff=0, color=YELLOW, stroke_width=4)
         hu = DoubleArrow(lat.p(B1[0], A1[1]) + RIGHT * 0.45, lat.p(*B1) + RIGHT * 0.45, buff=0, color=BLUE_B, stroke_width=4)
         self.play(GrowFromCenter(hr), GrowFromCenter(hu))
 
@@ -90,7 +90,7 @@ class Slots(DScene):
         letters = route = None
         self.cue_at(0, "go right")
         for k, c in enumerate(combinations(range(nst), R_)):
-            new = VGroup(*[T("R" if j in c else "U", 56, GOOD if j in c else BLUE_B).move_to(slots[j]) for j in range(nst)])
+            new = VGroup(*[T("R" if j in c else "U", 56, YELLOW if j in c else BLUE_B).move_to(slots[j]) for j in range(nst)])
             pts, x, y = [A1], A1[0], A1[1]
             for j in range(nst):
                 x, y = (x + 1, y) if j in c else (x, y + 1)
@@ -117,16 +117,16 @@ class Slots(DScene):
         s0, e0 = (0, 0), (4, 2)
         box = Rectangle(width=4 * 0.9, height=2 * 0.9, color=GREY_B, stroke_width=2).move_to((g.p(*s0) + g.p(*e0)) / 2)
         sd, ed = Dot(g.p(*s0), radius=0.12, color=ANT1), house(ANT1, 0.38).move_to(g.p(*e0))
-        ar = DoubleArrow(g.p(0, 0) + DOWN * 0.5, g.p(4, 0) + DOWN * 0.5, buff=0, color=GOOD, stroke_width=4)
+        ar = DoubleArrow(g.p(0, 0) + DOWN * 0.5, g.p(4, 0) + DOWN * 0.5, buff=0, color=YELLOW, stroke_width=4)
         au = DoubleArrow(g.p(4, 0) + RIGHT * 0.5, g.p(4, 2) + RIGHT * 0.5, buff=0, color=BLUE_B, stroke_width=4)
-        la = T("a steps right", 28, GOOD).next_to(ar, DOWN, buff=0.12)
+        la = T("a steps right", 28, YELLOW).next_to(ar, DOWN, buff=0.12)
         lb = T("b steps up", 28, BLUE_B).next_to(au, RIGHT, buff=0.12)
         self.play(FadeIn(g), Create(box), FadeIn(sd), FadeIn(ed))
         self.cue_at(2, "a steps right")
         self.play(GrowFromCenter(ar), FadeIn(la))
         self.cue_at(2, "b steps up")
         self.play(GrowFromCenter(au), FadeIn(lb))
-        frm = VGroup(T("routes  =", 40), T("(a + b) choose a", 44, YELLOW)).arrange(RIGHT, buff=0.3).move_to(RIGHT * 3.2 + UP * 0.4)
+        frm = VGroup(T("routes  =", 38), T("(a + b) choose a", 40, YELLOW)).arrange(RIGHT, buff=0.3).move_to(RIGHT * 2.9 + UP * 0.4)
         self.cue_at(2, "gives")
         self.play(Write(frm))
         # 3: the four numbers we need, in table order

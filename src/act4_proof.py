@@ -45,22 +45,25 @@ class ReadCounts(DScene):
         self.cue(1)
         # colour good / bad
         self.play(*[ic[0].animate.set_stroke(BAD if is_bad(pq) else GOOD, 2.5) for ic, pq in zip(left, own)], run_time=1)
-        brace = VGroup(T(f"{N11 * N22} =", 30), T(f"{NGOOD} good", 30, GOOD), T("+", 30),
-                       T(f"{NBAD} bad", 30, BAD)).arrange(RIGHT, buff=0.18)
-        brace.next_to(ll, DOWN, buff=0.15).set_x(left.get_x())
-        self.cue_at(1, "Twenty good")
+        brace = VGroup(T(f"{N11 * N22} =", 28), T(f"{NGOOD} never meet", 28, GOOD), T("+", 28),
+                       T(f"{NBAD} meet", 28, BAD)).arrange(RIGHT, buff=0.16)
+        brace.next_to(ll, DOWN, buff=0.15)
+        if brace.width > left.width:
+            brace.scale_to_fit_width(left.width)
+        brace.set_x(left.get_x())
+        self.cue_at(1, "twenty that never meet")
         self.play(FadeIn(brace))
         self.cue(2)
         self.play(top[8:].animate.set_color(ORANGE), LaggedStartMap(FadeIn, right, lag_ratio=0.02), run_time=1.5)
-        rl = VGroup(T("swapped homes", 28, ORANGE), T("ant 1 → B₂", 24, ORANGE), T("ant 2 → B₁", 24, ORANGE)).arrange(DOWN, buff=0.08)
+        rl = VGroup(T("swapped homes", 28, ORANGE), T("each ant to the", 24, ORANGE), T("other one's house", 24, ORANGE)).arrange(DOWN, buff=0.08)
         rl.next_to(right, DOWN, buff=0.15)
         self.play(FadeIn(rl))
         self.cue(3)
         eq = VGroup(T("det  =", 36),
-                    T(f"{NGOOD} good", 36, GOOD), T(f"+ {NBAD} bad", 36, BAD), T(f"− {NSW} swapped", 36, ORANGE))
+                    T(f"{NGOOD} never meet", 34, GOOD), T(f"+ {NBAD} meet", 34, BAD), T(f"− {NSW} swapped", 34, ORANGE))
         eq[1:].arrange(DOWN, aligned_edge=LEFT, buff=0.25)
         eq[0].next_to(eq[1], UP, buff=0.3, aligned_edge=LEFT)
-        eq.move_to(RIGHT * 3.6 + UP * 0.6)
+        eq.move_to(RIGHT * 3.2 + UP * 0.6)
         self.play(FadeIn(eq[0]), TransformFromCopy(brace[1], eq[1]), TransformFromCopy(brace[3], eq[2]),
                   TransformFromCopy(rl[0], eq[3]), run_time=1.2)
         self.cue_at(3, "For that")
@@ -72,7 +75,7 @@ class ReadCounts(DScene):
             same.next_to(link, DOWN, buff=0.08)
         self.play(Create(link), FadeIn(same))
         self.cue_at(3, "Not roughly")
-        res = T(f"= {NGOOD} good", 40, GOOD).next_to(eq[3], DOWN, buff=0.5).align_to(eq[1], LEFT)
+        res = T(f"= {NGOOD} never meet", 40, GOOD).next_to(eq[3], DOWN, buff=0.5).align_to(eq[1], LEFT)
         self.play(eq[2].animate.set_opacity(0.35), eq[3].animate.set_opacity(0.35), FadeIn(res, shift=UP * 0.2))
         self.cue_at(3, "Let's match")
         self.play(Indicate(VGroup(link, same), color=YELLOW))

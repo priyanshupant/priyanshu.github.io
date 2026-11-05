@@ -69,10 +69,10 @@
   0.4
  ],
  "ReadCounts": [
-  "Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that crash into each other.",
-  "Twenty good, sixteen bad.",
+  "Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that meet.",
+  "That's the twenty that never meet, plus the sixteen that do.",
   "Four times four counts something stranger: each ant walking to the other one's house.",
-  "So the determinant is good, plus bad, minus swapped. For that to equal the good ones, the swapped pairs must cancel the bad ones exactly. Not roughly. Exactly. Let's match them up."
+  "So the determinant is: never meet, plus meet, minus swapped. For that to equal twenty, the swapped pairs must cancel the meeting pairs exactly. Not roughly. Exactly. Let's match them up."
  ],
  "SwapPaths": [
   "Take a bad pair.",

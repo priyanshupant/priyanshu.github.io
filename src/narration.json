@@ -8,8 +8,12 @@
   "And when it's zero, everything gets squashed flat.",
   "It even finds the area of any polygon.",
   1.6,
-  "But here's the surprise: a determinant can also count.",
-  "Let's see how, starting with two ants."
+  "And many more. Determinants are everywhere.",
+  1.4,
+  "But one of the most beautiful places I find them is in combinatorics.",
+  "Today, I want to show you how determinants can count.",
+  0.8,
+  "Let's start with something small: two ants."
  ],
  "Hook": [
   "Meet two ants. They live on a grid.",
@@ -49,7 +53,7 @@
   "Twenty.",
   1.2,
   "The same twenty. Coincidence? Hardly. Let's find out why.",
-  2.2
+  0.4
  ],
  "ReadCounts": [
   "Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that crash into each other.",

@@ -269,7 +269,7 @@ class LemmaVisual(DScene):
         self.cue_at(9, "nine quarters")
         self.sfx("chime")
         dot = Dot(ax.c2p(2026, 2.25), radius=0.11, color=YELLOW)
-        nl = T("9/4  (Oct 2026)", 28, YELLOW).next_to(dot, DOWN, buff=0.2).shift(LEFT * 0.6)
+        nl = T("ω(ℂ) ≤ 9/4  (Oct 2026)", 28, YELLOW).next_to(dot, DOWN, buff=0.2).shift(LEFT * 0.6)
         self.play(Create(last), FadeIn(dot, scale=2), FadeIn(nl), run_time=1.0)
         who = T("AI model at OpenAI · checked in Lean · explained by Amir Shpilka", 26).to_edge(DOWN, buff=0.25)
         self.cue_at(9, "Proved")

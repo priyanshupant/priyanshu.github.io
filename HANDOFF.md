@@ -73,7 +73,7 @@ Each act answers the question the viewer is asking at that point.
 | 7 Breaks | Does it always work? | 2×3 board: plain det −1. Kasteleyn's sign fix: −3, so 3. 4×4: 0, then 36. Chessboard 12,988,816. FKT for planar graphs. |
 | 8 Why | So what? | Map; cancellation motif. Counting is #P-complete in general (Valiant 1979), but these reduce to one determinant in polynomial time. Thesis: "Determinants can count, because minus signs can cancel." Ants walk home. |
 
-**Verified in code:** every number above (bijections for the Aztec diamond, Catalan, boxes and hexagon included). **Not verified by an assistant, so Priyanshu must check before citing:** the ω ≤ 9/4 line ("October 2026, an AI model at OpenAI, checked in Lean, explained by Amir Shpilka, ECCC TR26-281"), and the historical dates.
+**Verified in code:** every number above (bijections for the Aztec diamond, Catalan, boxes and hexagon included). **Not verified by an assistant, so Priyanshu must check before citing:** the historical dates. (The ω ≤ 9/4 line WAS verified on 5 Nov by Claude: OpenAI's openai/math family 107 proves ω(ℂ) ≤ 9/4 with a Lean formalization; Shpilka's exposition is ECCC TR26-281, 27 Oct 2026. The bound is over ℂ; the all-fields bound is weaker. Narration now says "last month"; label "ω(ℂ) ≤ 9/4 (Oct 2026)".)
 
 ## 4. Priyanshu's preferences (learned; respect them)
 
@@ -176,6 +176,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · Act 5 reviewed: all numbers re-verified by brute force (MoveHomes 20/40/20/14 and 0 with det −10; 3×3 det 50 = 216−96−96−6+16+16; network det 42). ω claim verified online; "this month" → "last month", label ω(ℂ) ≤ 9/4.
 - 2026-11-05 · Claude · Proof (SwapTwice, DiagonalSweep, PutTogether) reviewed: maths correct (first meeting point preserved by the swap; gap −1→+1 in steps of ≤1). Only headings pulled in from the frame edge.
 - 2026-11-05 · Claude · ReadCounts relayout: bigger thumbnails, readable labels, "equal?" arrow clear of the text. SwapPaths reviewed (correct, unchanged).
 - 2026-11-05 · Claude · Act 2 (ListRoutes, Slots): sync, overflow and colour fixes. Rendered and frame-checked.

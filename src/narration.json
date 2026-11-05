@@ -110,7 +110,7 @@
   "This is the Lindström–Gessel–Viennot lemma. Lindström found it in 1973; Gessel and Viennot rediscovered it in 1985 and showed how much it can do.",
   "Physicists call walkers like ours vicious walkers. Given that our ants had a fight, that seems fair.",
   "Brute force over n ants explodes. A determinant takes about n cubed steps, or n to the omega with fast matrix multiplication.",
-  "And omega keeps falling. Strassen broke three in 1969, and this month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
+  "And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
  ],
  "WhatLGVCounts": [
   "So what can it count? The grid doesn't matter. Any network of one-way roads with no loops: right, up, diagonal, some roads missing.",

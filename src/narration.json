@@ -1,11 +1,11 @@
 {
  "Opening": [
   "Most of us met the determinant as a formula: a d minus b c.",
-  "It helps us solve equations.",
-  1.6,
-  "It measures area.",
-  1.6,
-  "And it tells us when a transformation cannot be reversed.",
+  "It tells us whether a system of linear equations has a unique solution.",
+  0.6,
+  "It measures how much a linear transformation scales area.",
+  0.6,
+  "And when it's zero, everything gets squashed flat.",
   "But here's the surprise: a determinant can also count.",
   "Let's see how, starting with two ants."
  ],

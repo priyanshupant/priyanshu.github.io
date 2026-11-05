@@ -4,7 +4,7 @@ Six narration lines, six presenter slides:
   0 familiar 2x2 determinant
   1 equations: two lines meet in one dot; they turn parallel and the dot runs off
   2 area: the unit square (ghost kept) becomes a parallelogram
-  3 can't undo: the plane flattens onto a line; two points land on one
+  3 det = 0: everything is squashed flat; two points land on one
   4 surprising turn: determinants can count (the line becomes the ants' grid)
   5 the same two ants/grid that begin Hook
 """
@@ -61,7 +61,7 @@ class Opening(DScene):
         self.cue(1)
         self.play(Create(fixed), Create(moving), run_time=0.6)
         self.add(point)
-        self.cue_at(1, "solve", lead=0.1)
+        self.cue_at(1, "unique", lead=0.1)
         self.play(Flash(point, color=YELLOW, line_length=0.25, flash_radius=0.3), run_time=0.5)
         self.play(angle.animate.set_value(par), run_time=1.6, rate_func=rate_functions.ease_in_quad)
         self.remove(point)
@@ -87,7 +87,7 @@ class Opening(DScene):
         self.add(ghost)
         A = [[1.3, 0.5], [0.15, 1.0]]
         self.play(ApplyMatrix(A, VGroup(grid, square), about_point=center), run_time=1.2)
-        area = T("area = |det|", 34, YELLOW).to_edge(DOWN, buff=0.6)
+        area = T("area × |det|", 34, YELLOW).to_edge(DOWN, buff=0.6)
         self.play(FadeIn(area), run_time=0.3)
 
         # 3 — can't undo: flatten onto a line; the parallelogram becomes a segment
@@ -99,7 +99,7 @@ class Opening(DScene):
         dif = p_top.get_center() - p_bot.get_center()
         k = dif[0] / dif[1]     # kernel of the flattening contains top - bot, so they land together
         flat = lambda p: np.array([p[0] - (p[1] - center[1]) * k, center[1], 0])   # rank-1 map
-        self.cue_at(3, "cannot", lead=0.2)
+        self.cue_at(3, "zero", lead=0.1)
         self.play(plane.animate.apply_function(flat), p_top.animate.move_to(flat(p_top.get_center())),
                   p_bot.animate.move_to(flat(p_bot.get_center())), FadeOut(area), run_time=1.5)
         zero3 = T("det = 0", 34, SOFT).to_edge(DOWN, buff=0.6)

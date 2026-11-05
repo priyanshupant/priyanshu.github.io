@@ -8,11 +8,9 @@
   "And when it's zero, everything gets squashed flat.",
   "It even finds the area of any polygon.",
   1.6,
-  "And many more. Determinants are everywhere.",
-  1.4,
-  "But one of the most beautiful places I find them is in combinatorics.",
-  "Today, I want to show you how determinants can count.",
-  0.8,
+  "One of the most beautiful and unexpected places I've found determinants is combinatorics.",
+  "And today, I want to show you how determinants can count.",
+  1.0,
   "Let's start with something small: two ants."
  ],
  "Hook": [
@@ -163,8 +161,8 @@
  "ArcticCircle": [
   "Now pick one tiling at random, every tiling equally likely, on a big diamond, and let it grow.",
   "This is order sixty.",
-  "The corners freeze into brick walls. The middle is chaos. And the boundary between them is a perfect circle.",
-  "That's the picture we started with. It's called the arctic circle theorem.",
+  "The corners freeze into brick walls. The middle is chaos. And as the diamond grows, the boundary between them becomes a perfect circle.",
+  "It's called the arctic circle theorem.",
   1.0
  ],
  "SmallBoard2": [

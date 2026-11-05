@@ -6,6 +6,8 @@
   "It measures how much a linear transformation scales area. Here, every area doubles.",
   0.6,
   "And when it's zero, everything gets squashed flat.",
+  "It even finds the area of any polygon.",
+  1.6,
   "But here's the surprise: a determinant can also count.",
   "Let's see how, starting with two ants."
  ],

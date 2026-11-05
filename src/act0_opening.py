@@ -1,12 +1,13 @@
 """Act 0 — short visual opening (v8.1: same beats as v8, clearer and in sync).
 
-Six narration lines, six presenter slides:
+Seven narration lines, seven presenter slides:
   0 familiar 2x2 determinant
   1 equations: two lines meet in one dot; they turn parallel and the dot runs off
   2 area: the unit square (ghost kept) becomes a parallelogram
   3 det = 0: everything is squashed flat; two points land on one
-  4 surprising turn: determinants can count (the line becomes the ants' grid)
-  5 the same two ants/grid that begin Hook
+  4 polygon area (shoelace): fan triangles, negative ones cancel the outside
+  5 surprising turn: determinants can count
+  6 the same two ants/grid that begin Hook
 """
 from common import *
 from act0_hook import GRID_HOOK
@@ -106,19 +107,44 @@ class Opening(DScene):
         self.play(Flash(p_bot.get_center(), color=YELLOW, line_length=0.2, flash_radius=0.3),
                   FadeIn(zero3), run_time=0.5)
 
-        # 4 — the flat line springs back as the ants' grid; the turn to counting.
+        # 4 — area of any polygon (shoelace): fan triangles from O; signed areas
+        # det(v_i, v_i+1)/2 are +5, +6.5, +2 (far edges) and −0.5, −2.5 (near edges).
+        # 13.5 − 3 = 10.5 = the polygon's area; the negatives cover exactly the outside part.
         self.cue(4)
+        U, O = 0.8, LEFT * 2.0 + DOWN * 2.9
+        Q = lambda x, y: O + U * np.array([x, y, 0.0])
+        V = [(2, 1), (5, 2), (5, 4), (3, 5), (1, 3)]
+        poly = Polygon(*[Q(*v) for v in V], stroke_color=INK, stroke_width=5, fill_opacity=0)
+        odot = Dot(O, radius=0.09, color=INK)
+        self.play(FadeOut(VGroup(grid, square, p_top, p_bot, zero3)), Create(poly), run_time=0.9)
+        tris = [(V[i], V[(i + 1) % 5]) for i in range(5)]
+        sgn = [np.sign(a[0] * b[1] - a[1] * b[0]) for a, b in tris]
+        pos = VGroup(*[Polygon(O, Q(*a), Q(*b), stroke_color=YELLOW, stroke_width=2, fill_color=YELLOW, fill_opacity=0.4)
+                       for (a, b), s_ in zip(tris, sgn) if s_ > 0])
+        neg = VGroup(*[Polygon(O, Q(*a), Q(*b), stroke_color=SOFT, stroke_width=3, fill_color=SOFT, fill_opacity=0.55)
+                       for (a, b), s_ in zip(tris, sgn) if s_ < 0])
+        self.cue_at(4, "fan out", lead=0.2)
+        self.play(FadeIn(odot, scale=1.5), run_time=0.3)
+        self.play(LaggedStart(*[FadeIn(t) for t in pos], lag_ratio=0.6), run_time=1.6)
+        self.cue_at(4, "negative", lead=0.2)
+        self.play(LaggedStart(*[FadeIn(t) for t in neg], lag_ratio=0.5), run_time=1.0)
+        self.add(poly)
+        self.wait(0.9)                                         # see: grey sits exactly on the outside part
+        self.play(FadeOut(neg), FadeOut(pos), FadeOut(odot), poly.animate.set_fill(YELLOW, 0.4), run_time=0.9)
+        self.play(Indicate(poly, color=YELLOW, scale_factor=1.04), run_time=0.6)
+
+        # 5 — the turn to counting: the polygon gives way to the ants' grid.
+        self.cue(5)
         lat = Lattice(4, spacing=1.45, center=GRID_HOOK)
         counting = T("counting", 72, YELLOW, weight=BOLD).move_to(RIGHT * 3.4 + UP * 0.3)
-        self.play(FadeOut(VGroup(formula, zero3, square, p_top, p_bot)),
-                  ReplacementTransform(grid, lat), run_time=1.0)
-        self.cue_at(4, "count", lead=0.2)
+        self.play(FadeOut(VGroup(formula, poly)), FadeIn(lat), run_time=1.0)
+        self.cue_at(5, "count", lead=0.2)
         self.sfx("chime")
         self.play(FadeIn(counting, scale=1.2), run_time=0.6)
 
-        # 5 — hand over the exact lattice and two ants used in Hook.
-        self.cue(5)
-        self.cue_at(5, "two ants", lead=0.35)
+        # 6 — hand over the exact lattice and two ants used in Hook.
+        self.cue(6)
+        self.cue_at(6, "two ants", lead=0.35)
         a1 = ant(ANT1, 0.9).move_to(lat.p(*A1))
         a2 = ant(ANT2, 0.9).move_to(lat.p(*A2))
         self.play(FadeOut(counting), FadeIn(a1, scale=0.5), FadeIn(a2, scale=0.5), run_time=0.8)

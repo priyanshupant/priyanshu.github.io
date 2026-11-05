@@ -93,7 +93,8 @@ class Hook(DScene):
         self.play(a1.animate.move_to(here), run_time=0.3, rate_func=rush_from)
         self.cue_end(3)
         self.play(FadeOut(x1), FadeOut(x2), run_time=0.3)
-        self.play(self.face(a1, 0), a1.animate.move_to(o), run_time=0.6)   # back to the start
+        self.play(self.face(a1, 0))                            # turn first, then walk back
+        self.play(a1.animate.move_to(o), run_time=0.6)        # (rotate + .animate in one play loses the turn)
 
         # 4: many paths home — several each, and some of them cross
         self.cue(4)

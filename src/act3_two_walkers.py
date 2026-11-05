@@ -125,7 +125,7 @@ class TableAndDet(DScene):
 
         M = matrix_mob([[str(N11), str(N12)], [str(N21), str(N22)]], size=60, h_buff=1.0, v_buff=0.75)
         Aeq = T("A  =", 52)
-        VGroup(Aeq, M).arrange(RIGHT, buff=0.3).move_to(RIGHT * 2.9 + UP * 1.5)
+        VGroup(Aeq, M).arrange(RIGHT, buff=0.3).move_to(RIGHT * 3.4 + UP * 1.5)
         cells = M.cells
         for c in cells:
             c.set_opacity(0)
@@ -182,19 +182,18 @@ class TableAndDet(DScene):
         self.sfx("pop")
         self.play(cells[2].animate.set_opacity(1), cells[3].animate.set_opacity(1), run_time=0.8)
 
-        # 5-6: det A, each '=' under the one before
-        lines = [(T("det A", 44), T(f"{N11} · {N22}  −  {N12} · {N21}", 44)),
-                 (None, T(f"{N11 * N22}  −  {N12 * N21}", 44)),
-                 (None, T(f"{N11 * N22 - N12 * N21}", 52, YELLOW, weight=BOLD))]
-        eqs = [T("=", 44) for _ in lines]
-        x_eq = RIGHT * 1.2
+        # 5-6: det A, each '=' directly under the '=' of "A ="
+        x_eq = Aeq[-1].get_x()
+        lines = [(T("det A", 36), T(f"{N11} · {N22}  −  {N12} · {N21}", 36)),
+                 (None, T(f"{N11 * N22}  −  {N12 * N21}", 36)),
+                 (None, T(f"{N11 * N22 - N12 * N21}", 44, YELLOW, weight=BOLD))]
         rows = VGroup()
-        for i, ((lhs, rhs), eq) in enumerate(zip(lines, eqs)):
-            eq.move_to(x_eq + DOWN * (0.55 + 0.85 * i))
-            rhs.next_to(eq, RIGHT, buff=0.35)
+        for i, (lhs, rhs) in enumerate(lines):
+            eq = T("=", 36).move_to(np.array([x_eq, -0.75 - 0.75 * i, 0]))
+            rhs.next_to(eq, RIGHT, buff=0.3)
             grp = VGroup(eq, rhs)
             if lhs is not None:
-                lhs.next_to(eq, LEFT, buff=0.35)
+                lhs.next_to(eq, LEFT, buff=0.3)
                 grp.add(lhs)
             rows.add(grp)
         self.cue(5)
@@ -206,17 +205,10 @@ class TableAndDet(DScene):
         self.cue(6)
         self.sfx("chime")
         self.play(Write(rows[2]), run_time=0.8)
-        voila = T("Voilà!", 40, YELLOW).next_to(rows[2], RIGHT, buff=0.6)
-        self.cue_at(6, "Voilà", lead=0.1)
-        self.play(FadeIn(voila, scale=1.3), run_time=0.4)
 
-        # 7: the same twenty as the brute force
+        # 7: the same number as the brute force (said, not written)
         self.cue(7)
-        bf = VGroup(T("never meet:", 30, GOOD), T(str(NGOOD), 40, GOOD)).arrange(RIGHT, buff=0.25).next_to(rows[2], RIGHT, buff=0.7).shift(LEFT * 0.0)
-        if bf.get_right()[0] > 6.8:
-            bf.next_to(rows[2], DOWN, buff=0.3).align_to(rows[2][1], LEFT)
-        self.play(FadeOut(voila), FadeIn(bf, shift=LEFT * 0.3), run_time=0.6)
         self.cue_at(7, "Coincidence", lead=0.2)
-        self.play(Indicate(VGroup(rows[2], bf), color=YELLOW), run_time=0.9)
+        self.play(Indicate(rows[2], color=YELLOW, scale_factor=1.2), run_time=0.9)
         self.cue_at(7, "Let's find", lead=0.1)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)

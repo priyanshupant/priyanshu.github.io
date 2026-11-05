@@ -180,6 +180,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · Fixed the blue ant ending up turned (rotate + .animate in one play() drops the rotation — always turn, then move). det A lines smaller, '=' aligned under the '=' of "A ="; no "Voilà!"/"never meet: 20" text; line now "The same number as before. Coincidence? Hardly." No coincidence quote (Priyanshu).
 - 2026-11-05 · Claude · Puzzle v12 + global slower narration; matrix scene on the same grid. Rendered and frame-checked Opening, Hook, TableAndDet.
 - 2026-11-05 · Claude · Puzzle v11 (one-screen puzzle with bullets, fast brute-force counters, "my friend, the determinant… Voilà!"); OneGoodPair/BruteForce dropped from pacing. Rendered and frame-checked.
 - 2026-11-05 · Claude · Puzzle v10: rewritten Hook (hi!, grid world, homes, up/right rules with ✗ for down/left, many ways home, fight cloud), no letter labels in the puzzle. Rendered and frame-checked.

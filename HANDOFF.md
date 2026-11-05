@@ -33,7 +33,7 @@ Each act answers the question the viewer is asking at that point.
 
 | Act | Viewer's question | Content |
 |---|---|---|
-| 0 Hook | How can a formula count? | Glimpse of the arctic-circle picture. "You've met the determinant: a d − b c." Its uses (unique solution, eigenvalues, change of variables). "It counts." Chessboard: about 13 million domino tilings, 5 months to list them, one determinant gives 12,988,816 instantly. |
+| 0 Opening | Counting is easy… isn't it? | Determinant met in school (a d − b c); animated uses (equations, area, undoing a matrix); "to me, the most surprising place is counting"; a child: "one, two, cha-cha-cha!"; Leslie Valiant: counting perfect matchings is #P-complete; "yet a single determinant counts" routes (20), hexagon tilings (20), chessboard dominoes (12,988,816), Aztec diamond; "let's see how, starting with two ants". |
 | 1 Puzzle | How many ways home without touching? | Two ants on a 4×4 grid, steps right/up. **Scent trail rule**: neither steps on any dot the other walks on, *not even later*, so we count vertex-disjoint paths. Pause and try. One good pair. Brute force: 36 pairs, 20 good. Table [[6,4],[4,6]], det = 20. "Coincidence? Hardly." Title. |
 | 2 Numbers | Where do 6 and 4 come from? | Ant one's 6 routes; (a+b choose a). |
 | 3 Formula | What do 6·6 and 4·4 count? | det = good + bad − swapped, so we need bad = swapped. |
@@ -140,6 +140,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-05 · Claude · **v7 opening** (Priyanshu's design): det met in school (a d − b c) → three animated uses (solve equations: lines go parallel → no solution; triangle area ½|det|; grid squashed when det = 0) → “to me, the most surprising place is counting” → child counts “one, two, cha-cha-cha!” (own synthesized clave/shaker; no meme audio) → Leslie Valiant photo (Dennis Hamilton, CC BY 2.0) + #P-complete (perfect matchings flicker on a cube graph) → “a single determinant counts…” cards (20, 20, 12,988,816, 64) → hands over to the ants. Hook line 0 now “Meet two ants. They live on a grid.” Arctic teaser and “five months” removed. Video now 14:47.
 - 2026-11-05 · Claude · Presenter view: optional background music (`determinants/music.mp3`, a gapless 64 s loop of the video's music bed, from `audio/music_loop.mp3`); ♪ button / M key, volume slider, remembers on/off. Started the slide-by-slide review (Opening 1–6 notes sent; awaiting Priyanshu's choices).
 - 2026-11-05 · Claude · Created this HANDOFF.md, with AGENTS.md and CLAUDE.md pointers.
 - 2026-11-05 · Claude · Published the presenter view (captions below the slides, arrow keys) and added `publish.sh`.

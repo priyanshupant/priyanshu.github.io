@@ -21,84 +21,92 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_be2145e0a6960632.mp4"
+          data-background-video="presentation_assets/s00_22a27d1917bfa79d.mp4"
           data-background-video-muted
           >
+            <aside class="notes" data-markdown>Most of us met the determinant in school, as a formula: a d minus b c.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_3455bc0d0338e337.mp4"
+          data-background-video="presentation_assets/s00_350707290007b6ca.mp4"
           >
-            <aside class="notes" data-markdown>You've met the determinant. For a two-by-two matrix, it's a d minus b c.</aside>
+            <aside class="notes" data-markdown>We used it to solve equations, to find areas, to check whether a matrix can be undone.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_77376d576713e7d0.mp4"
+          data-background-video="presentation_assets/s00_a51ed855f04f04ce.mp4"
           >
-            <aside class="notes" data-markdown>It's how we check whether equations have a unique solution, find eigenvalues, and change variables in integrals.</aside>
+            <aside class="notes" data-markdown>But to me, the most surprising place a determinant shows up is counting.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_6086b0016982446f.mp4"
+          data-background-video="presentation_assets/s00_4308b422f09eded8.mp4"
           >
-            <aside class="notes" data-markdown>But here's something it does that most courses never mention. It counts.</aside>
+            <aside class="notes" data-markdown>Counting? Ask a child, and it's easy: one, two, cha-cha-cha!</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_1398ea9c4c836e0a.mp4"
+          data-background-video="presentation_assets/s00_5fc0e5c81cfdf112.mp4"
           >
-            <aside class="notes" data-markdown>How many ways can you tile a chessboard with dominoes? About thirteen million. If you listed them, one every second, you'd be at it for five months.</aside>
+            <aside class="notes" data-markdown>Ask Leslie Valiant, and he'd disagree. He showed that counting can be brutally hard. Even counting the perfect matchings of a graph is #P-complete.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_4a4cf2a652bc660f.mp4"
+          data-background-video="presentation_assets/s00_cbbad8739e9ea396.mp4"
           >
-            <aside class="notes" data-markdown>A determinant gives you the exact number, instantly. So how can a formula possibly count?</aside>
+            <aside class="notes" data-markdown>And yet, in some beautiful cases, a single determinant does the counting for us: routes that never cross, tilings of a hexagon, dominoes on a chessboard.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_17dd7ce730078821.mp4"
+          data-background-video="presentation_assets/s00_070192403285a857.mp4"
           >
-            <aside class="notes" data-markdown>Let's start with the smallest example I know. Meet two ants. They live on a grid.</aside>
+            <aside class="notes" data-markdown>Let's try to see how that actually works, starting with something small: two ants.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_7db861ec11064737.mp4"
+          data-background-video="presentation_assets/s01_0d9f0f78604bfa3a.mp4"
+          >
+            <aside class="notes" data-markdown>Meet two ants. They live on a grid.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s01_207d65a38d70c7e7.mp4"
           >
             <aside class="notes" data-markdown>Every step goes one dot right, or one dot up. Never left, never down.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_512d09be34706694.mp4"
+          data-background-video="presentation_assets/s01_9cdefa734fac529d.mp4"
           >
             <aside class="notes" data-markdown>The blue ant, ant one, lives here. The orange ant, ant two, lives there.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_9a33c3a864bbba97.mp4"
+          data-background-video="presentation_assets/s01_53cb4de3adb241a2.mp4"
           >
             <aside class="notes" data-markdown>There's one small problem. They had a fight. Now neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_91bbb4bc397c667f.mp4"
+          data-background-video="presentation_assets/s01_9e4a964c7c9a06ea.mp4"
           >
             <aside class="notes" data-markdown>So their two routes can't touch, anywhere. How many pairs of routes get both ants home?</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_3376ce4f2248d108.mp4"
+          data-background-video="presentation_assets/s01_73ad3decfd60d697.mp4"
           >
             <aside class="notes" data-markdown>Maybe pause, and try to find one.</aside>
         </section>

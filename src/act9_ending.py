@@ -200,7 +200,7 @@ class Finale(DScene):
 class Goodbye(DScene):
     def construct(self):
         lat = Lattice(GRID[0], spacing=1.15, center=DOWN * 0.3, ny=GRID[1])
-        ends = endpoints(lat)
+        ends = endpoints(lat, labels=False)
         L = ant(ANT1).move_to(lat.p(*A1))
         N = ant(ANT2).move_to(lat.p(*A2))
         self.cue(0)

@@ -659,3 +659,14 @@ class AztecPathsD(DScene):
         self.cue_end(8)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
+
+
+class SignsCard(DScene):
+    def construct(self):
+        t = T("When the signs go wrong", 54, weight=BOLD)
+        self.cue(0)
+        self.sfx("whoosh")
+        self.play(Write(t), run_time=1.2)
+        self.cue_end(0)
+        self.wait(0.5)
+        self.play(FadeOut(t), run_time=0.6)

@@ -343,8 +343,12 @@
   "It's called the arctic circle theorem.",
   1.0
  ],
+ "SignsCard": [
+  "But not every counting problem is secretly paths. What then?",
+  0.4
+ ],
  "SmallBoard2": [
-  "Back to the chessboard from the start. Dominoes aren't paths, but there's a determinant trick here too. Shrink it to a two-by-three board: three tilings.",
+  "Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board has three tilings.",
   "A domino joins a black square to a white neighbour. Write a one wherever they touch. Each tiling picks one entry in every row and every column: one term of the determinant.",
   "If determinants count pairings, this should give three. It gives minus one.",
   "The terms come with signs: plus for this one, minus for these two. Here the cancellation eats the good ones."
@@ -359,7 +363,7 @@
   "Put minus signs on the vertical edges of every other column, and the determinant gives thirty-six. Exactly right."
  ],
  "FKT": [
-  "Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen. The five-month count, in an instant.",
+  "Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen tilings. Listing one per second would take five months. The determinant does it in an instant.",
   "The rule behind it: every little loop of four edges carries an odd number of minus signs.",
   "And it's not really about chessboards. Squares are vertices, dominoes are edges, and a tiling is a perfect matching.",
   "Kasteleyn, Temperley and Fisher made this work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.",
@@ -370,8 +374,8 @@
   "All counted by one determinant each."
  ],
  "Finale": [
-  "And it's the same trick every time. Count everything, good and bad, each with a sign.",
-  "The bad ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.",
+  "And it's the same trick every time. Count everything, the families that meet and the ones that don't, each with a sign.",
+  "The meeting ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.",
   "For a computer scientist, that's remarkable. Counting is usually hopeless: counting perfect matchings of a general graph is sharp-P complete. That's Valiant, in 1979.",
   "But if your puzzle turns into non-touching paths, or a matching on a planar graph, it becomes one determinant, and polynomial time.",
   "Determinants can count, because minus signs can cancel.",

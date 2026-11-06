@@ -206,9 +206,9 @@ class TableAndDet(DScene):
         self.sfx("chime")
         self.play(Write(rows[2]), run_time=0.8)
 
-        # 7: the same number as the brute force (said, not written)
+        # 7: the same number as before; then only the right-hand side clears (the next scene grows the grid)
         self.cue(7)
-        self.cue_at(7, "Coincidence", lead=0.2)
         self.play(Indicate(rows[2], color=YELLOW, scale_factor=1.2), run_time=0.9)
-        self.cue_at(7, "Let's find", lead=0.1)
-        self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)
+        self.cue_end(7)
+        self.play(FadeOut(VGroup(Aeq, M, col_lab, row_lab, rows)), run_time=0.6)
+

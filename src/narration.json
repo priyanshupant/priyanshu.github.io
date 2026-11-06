@@ -65,7 +65,20 @@
   "Now find the determinant of A: six times six, minus four times four,",
   "which is twenty. Voilà!",
   1.0,
-  "The same number as before. Coincidence? Hardly. Let's find out why.",
+  "The same number as before.",
+  0.4
+ ],
+ "ThreeAnts": [
+  "In fact, there's nothing special about this scenario.",
+  "Make the grid bigger, and bring in a third ant, with a house of its own.",
+  "Build the same kind of matrix: three ants, three houses, and each entry counts the paths from one ant to one house.",
+  "Its determinant is fifty.",
+  "And fifty is exactly the number of ways all three ants can get home without any of their paths intersecting.",
+  5.8
+ ],
+ "WhyCard": [
+  "So, why does this work?",
+  "Let's get back to our two ants, and work it out.",
   0.4
  ],
  "ReadCounts": [

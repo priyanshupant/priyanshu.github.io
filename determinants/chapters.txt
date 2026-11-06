@@ -1,9 +1,7 @@
 0:41 Two ants and a question
-8:53 Mountain ranges
-9:18 The Aztec diamond
-10:25 The arctic circle
-12:08 The FKT algorithm
-12:56 Why determinants can count
-13:53 Goodbye
+12:00 The arctic circle
+13:50 The FKT algorithm
+14:41 Why determinants can count
+15:40 Goodbye
 
-total 14:29
+total 16:16

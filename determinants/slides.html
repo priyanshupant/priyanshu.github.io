@@ -29,14 +29,14 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_8036fe22f4d82230.mp4"
+          data-background-video="presentation_assets/s00_ebe206db7758ebf2.mp4"
           >
             <aside class="notes" data-markdown>It tells us whether a system of linear equations has a unique solution.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_6cca1ee7aa3bbe13.mp4"
+          data-background-video="presentation_assets/s00_988506e98f7fea88.mp4"
           >
             <aside class="notes" data-markdown>It measures how much a linear transformation scales area. Here, every area doubles.</aside>
         </section>
@@ -99,7 +99,7 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_226e71e501ed551a.mp4"
+          data-background-video="presentation_assets/s01_403fd5c329a85313.mp4"
           >
             <aside class="notes" data-markdown>On this grid there are rules. An ant can only step up, or to the right. Never down, and never left.</aside>
         </section>
@@ -113,14 +113,14 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_bac8e88a7af0e319.mp4"
+          data-background-video="presentation_assets/s01_dabae93cb0429e3d.mp4"
           >
             <aside class="notes" data-markdown>But today, they can't just take any path. They had a fight, and if they meet, they'll start fighting again.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_85cb6df9863ddf49.mp4"
+          data-background-video="presentation_assets/s01_c53f8d8c96a1f379.mp4"
           >
             <aside class="notes" data-markdown>So neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.</aside>
         </section>
@@ -638,93 +638,184 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_3baca82b815d0551.mp4"
+          data-background-video="presentation_assets/s17_6883d2872ac2ae2f.mp4"
           >
-            <aside class="notes" data-markdown>Another disguise. A mountain range: each step goes up or down, and it never dips below sea level.</aside>
+            <aside class="notes" data-markdown>Here's a mountain range: every step goes up or down, and it never dips below sea level. It starts and ends at sea level.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_93866474508774ff.mp4"
+          data-background-video="presentation_assets/s17_a9b0b6e08c669f59.mp4"
           >
-            <aside class="notes" data-markdown>How many ways can you draw two ranges, one inside the other, without touching?</aside>
+            <aside class="notes" data-markdown>How many ranges are there? With two steps, just one. With four steps, two. Six steps: five. Eight steps: fourteen.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_c6f0c6d763320dfd.mp4"
+          data-background-video="presentation_assets/s17_f98e08732a371030.mp4"
           >
-            <aside class="notes" data-markdown>A single range is counted by the Catalan numbers. Put four of them in a two-by-two table: the determinant is three.</aside>
+            <aside class="notes" data-markdown>One, two, five, fourteen: these are the Catalan numbers, one of the most famous sequences in combinatorics.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_ef2e2d0a321767ae.mp4"
+          data-background-video="presentation_assets/s17_7cda3825d3f4b904.mp4"
           >
-            <aside class="notes" data-markdown>And here they are. Exactly three.</aside>
+            <aside class="notes" data-markdown>They count many things. Read each up-step as an opening bracket, and each down-step as a closing one: every range becomes a balanced string of brackets.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_89a03a43a6c118ac.mp4"
+          data-background-video="presentation_assets/s17_59673644588a7a76.mp4"
           >
-            <aside class="notes" data-markdown>And one more, a beauty. This is an Aztec diamond: rows of two, four, six squares, and back down.</aside>
+            <aside class="notes" data-markdown>They also count the ways to cut a pentagon into triangles: five again.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_5e0f18d1af6694b2.mp4"
+          data-background-video="presentation_assets/s17_c65a269d07848dd8.mp4"
           >
-            <aside class="notes" data-markdown>Tile it with dominoes. The smallest one has two tilings. The next has eight. The next, sixty-four.</aside>
+            <aside class="notes" data-markdown>Now draw two ranges, one inside the other, and they must never touch.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_04f1977bb4ec7f50.mp4"
+          data-background-video="presentation_assets/s17_52592affaf179ee5.mp4"
+          >
+            <aside class="notes" data-markdown>They're paths again: two walkers, starting here and here, ending here and here.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s17_0afd9df53563a611.mp4"
+          >
+            <aside class="notes" data-markdown>From the blue start to the blue end is four steps: two ranges. To the orange end, six steps: five. The orange walker gets five, and fourteen.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s17_a68accc6b3a3f920.mp4"
+          >
+            <aside class="notes" data-markdown>So the matrix is made of Catalan numbers, and its determinant, two times fourteen minus five times five, is three.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s17_c9f21b585e284b1f.mp4"
+          >
+            <aside class="notes" data-markdown>And here they are: exactly three.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s18_6792f416d41fa385.mp4"
+          >
+            <aside class="notes" data-markdown>And one more, a real beauty: the Aztec diamond. Rows of two, four, six squares, and then back down.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s18_715e9d7bce7e4aa6.mp4"
+          >
+            <aside class="notes" data-markdown>Cover it with dominoes. Each domino covers two neighbouring squares.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s18_2bc57e39d0f3eeeb.mp4"
+          >
+            <aside class="notes" data-markdown>The smallest diamond can be tiled in two ways.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s18_263e65230243302c.mp4"
+          >
+            <aside class="notes" data-markdown>The next one, in eight ways.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s18_956576d7a39742b1.mp4"
+          >
+            <aside class="notes" data-markdown>The next, in sixty-four.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s18_272dd4d66b24d5b8.mp4"
           >
             <aside class="notes" data-markdown>Guess the next one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_ed5c872699a4d27c.mp4"
+          data-background-video="presentation_assets/s18_7d96729b6ef7badc.mp4"
           >
-            <aside class="notes" data-markdown>One thousand and twenty-four. Powers of two, every time. That's suspicious.</aside>
+            <aside class="notes" data-markdown>One thousand and twenty-four. Powers of two, every single time. That's suspicious.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_1887117f83d38125.mp4"
+          data-background-video="presentation_assets/s19_90d348e8460504bb.mp4"
           >
-            <aside class="notes" data-markdown>Colour the board like a chessboard, and there are four kinds of domino. Give each kind a job: a flat step, a step up, a step down, or nothing.</aside>
+            <aside class="notes" data-markdown>Here's the trick. Colour the board like a chessboard.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_547a8ab2267a1e28.mp4"
+          data-background-video="presentation_assets/s19_b5c073e2a3fb9525.mp4"
           >
-            <aside class="notes" data-markdown>Now the dominoes link up into paths, from the left side to the right. Dominoes never overlap, so the paths never touch, and every such family comes from exactly one tiling.</aside>
+            <aside class="notes" data-markdown>Now every domino is one of four kinds: lying flat or standing up, and starting on a light or a dark square.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_80cd6de37005c04d.mp4"
+          data-background-video="presentation_assets/s19_a88cbff1d0012f8e.mp4"
           >
-            <aside class="notes" data-markdown>So once again: count routes, take the determinant. Twelve times two minus four times four. Eight.</aside>
+            <aside class="notes" data-markdown>Give each kind a job: a flat step, a step up, a step down, or nothing at all.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_97ac90cd1870a828.mp4"
+          data-background-video="presentation_assets/s19_fc78149fb93a1035.mp4"
           >
-            <aside class="notes" data-markdown>One size up: sixty-four.</aside>
+            <aside class="notes" data-markdown>Put the steps together, and they link up into paths, from the left side to the right side.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_1accc1fbd5e4f26e.mp4"
+          data-background-video="presentation_assets/s19_cf30c4ba5452f6b4.mp4"
           >
-            <aside class="notes" data-markdown>In general, order n gives two to the n times n plus one over two. A determinant, hiding in a pile of dominoes.</aside>
+            <aside class="notes" data-markdown>Dominoes never overlap, so the paths never touch. And every pair of paths that never touch comes from exactly one tiling.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s19_5dbe38eed22ddd81.mp4"
+          >
+            <aside class="notes" data-markdown>So, same recipe as before: count the paths from each start to each end.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s19_5bc379153e8b8852.mp4"
+          >
+            <aside class="notes" data-markdown>Two times six, minus two times two: eight. Exactly the eight tilings.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s19_77ea27745098fcdb.mp4"
+          >
+            <aside class="notes" data-markdown>One size up, there are three paths, and a three-by-three determinant gives sixty-four.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s19_a2856a11d288543a.mp4"
+          >
+            <aside class="notes" data-markdown>In general, the diamond of order n has two to the power n times n plus one over two tilings. A determinant, hiding in a pile of dominoes.</aside>
         </section>
         <section
           data-background-size='contain'
@@ -757,168 +848,175 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_3593d03e4cb2e85b.mp4"
+          data-background-video="presentation_assets/s21_d7576b3b2af5d495.mp4"
           >
-            <aside class="notes" data-markdown>Back to the chessboard from the start. Dominoes aren't paths, but there's a determinant trick here too. Shrink it to a two-by-three board: three tilings.</aside>
+            <aside class="notes" data-markdown>But not every counting problem is secretly paths. What then?</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_b8ff84c35534194b.mp4"
+          data-background-video="presentation_assets/s22_3593d03e4cb2e85b.mp4"
+          >
+            <aside class="notes" data-markdown>Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board has three tilings.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s22_b8ff84c35534194b.mp4"
           >
             <aside class="notes" data-markdown>A domino joins a black square to a white neighbour. Write a one wherever they touch. Each tiling picks one entry in every row and every column: one term of the determinant.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_a0dfdf9e173a29d3.mp4"
+          data-background-video="presentation_assets/s22_a0dfdf9e173a29d3.mp4"
           >
             <aside class="notes" data-markdown>If determinants count pairings, this should give three. It gives minus one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_e2c89f0fd1c63a0e.mp4"
+          data-background-video="presentation_assets/s22_e2c89f0fd1c63a0e.mp4"
           >
             <aside class="notes" data-markdown>The terms come with signs: plus for this one, minus for these two. Here the cancellation eats the good ones.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_b1febbae8b42aa71.mp4"
+          data-background-video="presentation_assets/s23_b1febbae8b42aa71.mp4"
           >
             <aside class="notes" data-markdown>In 1961 the physicist Pieter Kasteleyn had an idea: if the signs don't cancel the way you want, change the signs.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_faf73c0ae7fdb76b.mp4"
+          data-background-video="presentation_assets/s23_faf73c0ae7fdb76b.mp4"
           >
             <aside class="notes" data-markdown>Put a minus sign on this one edge. Only the all-vertical tiling uses it, so only its sign flips.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_2fda1e3bbd230c4f.mp4"
+          data-background-video="presentation_assets/s23_2fda1e3bbd230c4f.mp4"
           >
             <aside class="notes" data-markdown>Now every tiling carries the same sign. The determinant is minus three. Ignore the sign: three.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s23_8fabb108b09ab8f7.mp4"
+          data-background-video="presentation_assets/s24_8fabb108b09ab8f7.mp4"
           >
             <aside class="notes" data-markdown>On a four-by-four board, the plain determinant says there are zero tilings. Very confident, very wrong.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s23_4b00bf2df8af9c6f.mp4"
+          data-background-video="presentation_assets/s24_4b00bf2df8af9c6f.mp4"
           >
             <aside class="notes" data-markdown>Put minus signs on the vertical edges of every other column, and the determinant gives thirty-six. Exactly right.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_07ec694e7a2b1f5c.mp4"
+          data-background-video="presentation_assets/s25_07ec694e7a2b1f5c.mp4"
           >
-            <aside class="notes" data-markdown>Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen. The five-month count, in an instant.</aside>
+            <aside class="notes" data-markdown>Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen tilings. Listing one per second would take five months. The determinant does it in an instant.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_02e181501ef03aa2.mp4"
+          data-background-video="presentation_assets/s25_02e181501ef03aa2.mp4"
           >
             <aside class="notes" data-markdown>The rule behind it: every little loop of four edges carries an odd number of minus signs.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_181c7b7d42a3385c.mp4"
+          data-background-video="presentation_assets/s25_181c7b7d42a3385c.mp4"
           >
             <aside class="notes" data-markdown>And it's not really about chessboards. Squares are vertices, dominoes are edges, and a tiling is a perfect matching.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_884e3863a288212c.mp4"
+          data-background-video="presentation_assets/s25_884e3863a288212c.mp4"
           >
             <aside class="notes" data-markdown>Kasteleyn, Temperley and Fisher made this work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_b9d2df8dccaa9198.mp4"
+          data-background-video="presentation_assets/s25_b9d2df8dccaa9198.mp4"
           >
             <aside class="notes" data-markdown>When a physicist needs to count twelve million tilings, they don't count. They take a determinant, and then let the board go to infinity.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s25_2bcc6f0b9687579b.mp4"
+          data-background-video="presentation_assets/s26_2bcc6f0b9687579b.mp4"
           >
             <aside class="notes" data-markdown>Let's step back. Ants that never meet. Tilings of a hexagon. Boxes in a corner. Mountain ranges. Aztec diamonds. Chessboards.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s25_790d33c7dcb7eea1.mp4"
+          data-background-video="presentation_assets/s26_790d33c7dcb7eea1.mp4"
           >
             <aside class="notes" data-markdown>All counted by one determinant each.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_1b1a438119f50136.mp4"
+          data-background-video="presentation_assets/s27_1b1a438119f50136.mp4"
           >
-            <aside class="notes" data-markdown>And it's the same trick every time. Count everything, good and bad, each with a sign.</aside>
+            <aside class="notes" data-markdown>And it's the same trick every time. Count everything, the families that meet and the ones that don't, each with a sign.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_5069c5696c5890cf.mp4"
+          data-background-video="presentation_assets/s27_5069c5696c5890cf.mp4"
           >
-            <aside class="notes" data-markdown>The bad ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.</aside>
+            <aside class="notes" data-markdown>The meeting ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_33dba0466490bd97.mp4"
+          data-background-video="presentation_assets/s27_33dba0466490bd97.mp4"
           >
             <aside class="notes" data-markdown>For a computer scientist, that's remarkable. Counting is usually hopeless: counting perfect matchings of a general graph is sharp-P complete. That's Valiant, in 1979.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_28d67b21744fb27a.mp4"
+          data-background-video="presentation_assets/s27_28d67b21744fb27a.mp4"
           >
             <aside class="notes" data-markdown>But if your puzzle turns into non-touching paths, or a matching on a planar graph, it becomes one determinant, and polynomial time.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_72e7e8d5aa4c48f7.mp4"
+          data-background-video="presentation_assets/s27_72e7e8d5aa4c48f7.mp4"
           >
             <aside class="notes" data-markdown>Determinants can count, because minus signs can cancel.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s27_928912c338857bd7.mp4"
+          data-background-video="presentation_assets/s28_26202e8b2ee6bf10.mp4"
           >
             <aside class="notes" data-markdown>As for our ants: they can finally go home in peace. Twenty ways home, and they never had to meet.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s27_6373441c7a7a5eec.mp4"
+          data-background-video="presentation_assets/s28_bcd811dc6836acc4.mp4"
           >
             <aside class="notes" data-markdown>Thanks for watching.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s28_9af54d411f7aa41f.mp4"
+          data-background-video="presentation_assets/s29_9af54d411f7aa41f.mp4"
           >
         </section>
       </div>

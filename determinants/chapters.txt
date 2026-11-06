@@ -1,12 +1,10 @@
 0:41 Two ants and a question
-7:09 What can it count?
-7:40 Tilings of a hexagon
-9:00 Boxes in a corner
-9:30 Mountain ranges
-9:55 The Aztec diamond
-11:02 The arctic circle
-12:44 The FKT algorithm
-13:32 Why determinants can count
-14:29 Goodbye
+8:17 Boxes in a corner
+8:47 Mountain ranges
+9:12 The Aztec diamond
+10:19 The arctic circle
+12:02 The FKT algorithm
+12:49 Why determinants can count
+13:46 Goodbye
 
-total 15:05
+total 14:22

@@ -191,6 +191,31 @@
   "Brute force over n ants explodes. A determinant takes about n cubed steps, or n to the omega with fast matrix multiplication.",
   "And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
  ],
+ "PatternCard": [
+  "So any puzzle that is secretly a family of paths that never touch, a determinant can count.",
+  "Does the pattern repeat? Let's look.",
+  0.6
+ ],
+ "Hexagon": [
+  "Take a hexagon, cut into little triangles.",
+  0.6,
+  "Glue two neighbours together and you get a tile. Tiles point in three directions.",
+  0.6,
+  "Now cover the hexagon with tiles: no gaps, no overlaps. Notice anything? It looks like a stack of boxes.",
+  0.6,
+  "It's completely flat. Your brain is doing the 3D for free.",
+  0.6,
+  "How many ways can you tile it?",
+  2.0,
+  "Fade out the flat tiles. The others link up into chains, from left to right.",
+  0.8,
+  "Tiles never overlap, so the chains never touch.",
+  0.6,
+  "Now squash the hexagon onto our grid, and the two chains become our two ants.",
+  3.0,
+  "So there are twenty tilings. All this time, our ants were tiling a hexagon.",
+  1.0
+ ],
  "WhatLGVCounts": [
   "So what can it count? The grid doesn't matter. Any network of one-way roads with no loops: right, up, diagonal, some roads missing.",
   "Count the routes from every start to every end, and take the determinant.",

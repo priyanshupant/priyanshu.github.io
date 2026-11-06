@@ -21,6 +21,8 @@ Your taste calls were **not** applied; they are drafted at the end for you to ch
    weight-preserving involution" — exactly our tail-swap idea. This puts the determinant in GapL with a
    division-free algorithm.
 
+5. **Board4x4:** on-screen text cut to **det A = 0 ✗**, the rule (two lines), **|det A| = 36**; the "very confident, very wrong" joke is spoken only.
+
 ## Options for you (drafted, NOT in the video)
 - **A. Mahajan–Vinay beat** (Finale, before "Determinants can count…"):
   "And this isn't only a trick for puzzles. In 1997, Meena Mahajan and V. Vinay showed how to compute the

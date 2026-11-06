@@ -188,6 +188,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-06 · Claude (overnight) · Board4x4: on-screen text cut to det A = 0 ✗, the two-line rule, |det A| = 36 (the joke is spoken only). Rendered, slides tested.
 - 2026-11-06 · Claude (overnight) · New chapter list in assemble.py; consistency pass (no issues left); Mahajan–Vinay verified from the paper (drafted only). Overnight summary + options: OVERNIGHT.md at the repo root.
 - 2026-11-06 · Claude (overnight) · Sign section 2×3 board restyled without letter labels. Rendered, frame-checked, slides tested.
 - 2026-11-06 · Claude · Finished the first full pass: signs card, wording fixes in the sign section and ending, no letters in Goodbye. Full video 16:09. Rendered, slides tested.

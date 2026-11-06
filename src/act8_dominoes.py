@@ -174,18 +174,16 @@ class Board4x4(DScene):
         b = board(4, 4, s, origin=LEFT * 5.2 + UP * 1.6)
         self.cue(0)
         self.play(FadeIn(b))
-        plain = VGroup(T("plain table of 1s:", 28), T("det = 0", 40, BAD)).arrange(DOWN, aligned_edge=LEFT, buff=0.15)
-        plain.move_to(RIGHT * 0.6 + UP * 2.0)
-        self.play(FadeIn(plain))
-        joke = T("zero tilings. Very confident, very wrong.", 26, SOFT).next_to(plain, DOWN, buff=0.25, aligned_edge=LEFT)
+        plain = VGroup(T("det A = 0", 42, BAD), cross(0.35)).arrange(RIGHT, buff=0.3).move_to(RIGHT * 2.2 + UP * 2.0)
         self.sfx("buzz")
-        self.play(FadeIn(joke))
+        self.play(FadeIn(plain), run_time=0.7)            # "very confident, very wrong" is spoken, not written
+        joke = plain
         self.cue(1)
         g = signed_graph(b, 4, 4, s)
         self.play(Create(g), run_time=1.5)
-        rule = T("minus signs: vertical edges, every other column", 24, FLIP).next_to(joke, DOWN, buff=0.5, aligned_edge=LEFT)
+        rule = T("−1 on the vertical edges\nof every other column", 26, FLIP, line_spacing=1.1).next_to(joke, DOWN, buff=0.6, aligned_edge=LEFT)
         self.play(FadeIn(rule))
-        signed = T(f"|det| = {abs(kast_det(4, 4))}", 44, YELLOW).next_to(rule, DOWN, buff=0.35, aligned_edge=LEFT)
+        signed = T(f"|det A| = {abs(kast_det(4, 4))}", 44, YELLOW).next_to(rule, DOWN, buff=0.4, aligned_edge=LEFT)
         self.sfx("chime")
         self.play(Write(signed))
         tils = all_tilings(4, 4)
@@ -195,7 +193,7 @@ class Board4x4(DScene):
             bb.add(*[domino(bb.sq, x, y, 0.3) for x, y in t])
             sample.add(bb)
         sample.arrange(RIGHT, buff=0.3).to_edge(DOWN, buff=0.4).shift(RIGHT * 1.6)
-        lab = T("6 of the 36", 22, SOFT).next_to(sample, UP, buff=0.15)
+        lab = VGroup()
         self.play(LaggedStartMap(FadeIn, sample, lag_ratio=0.2), FadeIn(lab), run_time=1.5)
 
 

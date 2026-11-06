@@ -81,37 +81,53 @@
   "Let's get back to our two ants, and work it out.",
   0.4
  ],
- "ReadCounts": [
-  "Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that meet.",
-  "That's the twenty that never meet, plus the sixteen that do.",
-  "Four times four counts something stranger: each ant walking to the other one's house.",
-  "So the determinant is: never meet, plus meet, minus swapped. For that to equal twenty, the swapped pairs must cancel the meeting pairs exactly. Not roughly. Exactly. Let's match them up."
+ "SwappedToMeet": [
+  "Take a pair where the ants swap houses.",
+  2.2,
+  "The blue ant starts to the left of the orange one, and ends to its right.",
+  2.2,
+  "So somewhere, they must share a dot.",
+  0.6,
+  "Take the first shared dot, and swap the tails from there.",
+  1.0,
+  "Now each ant is at its own home, and their paths meet.",
+  3.6
  ],
- "SwapPaths": [
-  "Take a pair that meets.",
-  "Walk along the blue ant's path, and stop at the first dot the orange ant also visits.",
-  "From that dot on, swap their tails. The blue ant keeps its start but takes the orange ant's ending, and the orange ant does the opposite.",
-  "Look where they end up: each at the other's house. A meeting pair became a swapped pair."
+ "MeetToSwapped": [
+  "Now the other way: a pair that meets on the way home.",
+  0.8,
+  "Swap the tails at the first shared dot, and they end up in each other's houses.",
+  1.0,
+  "Swap again at the same dot, and we're back where we started.",
+  0.8
  ],
- "SwapTwice": [
-  "And the swap undoes itself.",
-  "Nothing before that dot changed, so it's still the first meeting point, and swapping there again puts everything back.",
-  "Do it twice and nothing happened. Mathematicians call that an involution. Like most committee meetings.",
-  "So meeting pairs and swapped pairs come in perfect couples."
+ "Bijection": [
+  "So swapped pairs and meeting pairs match up, one to one.",
+  0.4,
+  "This meeting pair goes with this swapped pair.",
+  1.6,
+  "This one, with this one.",
+  1.6,
+  "And this one, with this one.",
+  1.2,
+  "And so on.",
+  4.5,
+  "Sixteen of each.",
+  0.6
  ],
- "DiagonalSweep": [
-  "One worry left: could a swapped pair avoid meeting, and have no partner?",
-  "Sweep a diagonal across the grid. Every step moves an ant onto the next diagonal, so on each diagonal, each ant stands on exactly one dot.",
-  "Track the gap between their columns. At the start, the blue ant is one column to the left.",
-  "At the end, it's one column to the right.",
-  "And from one diagonal to the next, the gap changes by at most one.",
-  "So somewhere it is zero: they share a dot. That's the intermediate value theorem, in its most humble form."
- ],
- "PutTogether": [
-  "So every meeting pair has exactly one swapped partner, and every swapped pair has exactly one meeting partner.",
-  "In the determinant, they cancel. The minus sign isn't throwing things away at random: it removes an exact copy of the meeting pairs.",
-  "What survives is exactly the twenty pairs that never meet.",
-  "A bijective proof: the only kind a combinatorialist fully trusts."
+ "Formula": [
+  "Now, the formula.",
+  0.6,
+  "Six times six counts every pair going home: twenty that never meet, and sixteen that meet.",
+  1.0,
+  "Four times four counts the sixteen swapped pairs.",
+  1.0,
+  "They cancel the meeting pairs exactly.",
+  0.8,
+  "Leaving twenty.",
+  1.0,
+  "A bijective proof: the only kind a combinatorialist fully trusts.",
+  0.6
  ],
  "MoveHomes": [
   "You might be thinking: surely that's a fluke of this little grid. Move the second house around, and each time, brute force and the determinant agree.",
@@ -228,5 +244,37 @@
   1.5,
   "Thanks for watching."
  ],
- "Credits": []
+ "Credits": [],
+ "ReadCounts": [
+  "Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that meet.",
+  "That's the twenty that never meet, plus the sixteen that do.",
+  "Four times four counts something stranger: each ant walking to the other one's house.",
+  "So the determinant is: never meet, plus meet, minus swapped. For that to equal twenty, the swapped pairs must cancel the meeting pairs exactly. Not roughly. Exactly. Let's match them up."
+ ],
+ "SwapPaths": [
+  "Take a pair that meets.",
+  "Walk along the blue ant's path, and stop at the first dot the orange ant also visits.",
+  "From that dot on, swap their tails. The blue ant keeps its start but takes the orange ant's ending, and the orange ant does the opposite.",
+  "Look where they end up: each at the other's house. A meeting pair became a swapped pair."
+ ],
+ "SwapTwice": [
+  "And the swap undoes itself.",
+  "Nothing before that dot changed, so it's still the first meeting point, and swapping there again puts everything back.",
+  "Do it twice and nothing happened. Mathematicians call that an involution. Like most committee meetings.",
+  "So meeting pairs and swapped pairs come in perfect couples."
+ ],
+ "DiagonalSweep": [
+  "One worry left: could a swapped pair avoid meeting, and have no partner?",
+  "Sweep a diagonal across the grid. Every step moves an ant onto the next diagonal, so on each diagonal, each ant stands on exactly one dot.",
+  "Track the gap between their columns. At the start, the blue ant is one column to the left.",
+  "At the end, it's one column to the right.",
+  "And from one diagonal to the next, the gap changes by at most one.",
+  "So somewhere it is zero: they share a dot. That's the intermediate value theorem, in its most humble form."
+ ],
+ "PutTogether": [
+  "So every meeting pair has exactly one swapped partner, and every swapped pair has exactly one meeting partner.",
+  "In the determinant, they cancel. The minus sign isn't throwing things away at random: it removes an exact copy of the meeting pairs.",
+  "What survives is exactly the twenty pairs that never meet.",
+  "A bijective proof: the only kind a combinatorialist fully trusts."
+ ]
 }

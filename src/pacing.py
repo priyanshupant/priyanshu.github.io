@@ -18,8 +18,8 @@ SCENES = [
     ("act3_two_walkers.py", "TableAndDet", 35),
     ("act3b_more.py", "ThreeAnts", 40), ("act3b_more.py", "WhyCard", 6),
     # ListRoutes and Slots cut (v12): the puzzle already counts the paths one by one
-    ("act4_proof.py", "ReadCounts", 30), ("act4b_proof.py", "SwapPaths", 25), ("act4b_proof.py", "SwapTwice", 25),
-    ("act4b_proof.py", "DiagonalSweep", 30), ("act4b_proof.py", "PutTogether", 25),
+    ("act4c_proof.py", "SwappedToMeet", 30), ("act4c_proof.py", "MeetToSwapped", 20),
+    ("act4c_proof.py", "Bijection", 20), ("act4c_proof.py", "Formula", 30),
     ("act5_lgv.py", "MoveHomes", 25), ("act5_lgv.py", "LemmaVisual", 60),
     ("act5_lgv.py", "WhatLGVCounts", 35),
     ("act6_hexagon.py", "HexTiling", 45), ("act6_hexagon.py", "TilesToPaths", 50),

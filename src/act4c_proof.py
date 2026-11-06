@@ -269,3 +269,69 @@ class Formula(DScene):
         self.cue_end(5)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
+
+
+class AllPairs(DScene):
+    """Before the proof: the 36 pairs going home (20 never meet + 16 meet) and the 16 swapped pairs;
+    the minus sign must cancel 16 against 16, so they must match up — let's see how."""
+
+    def construct(self):
+        own, sw = plus_pairs(), minus_pairs()
+        left = VGroup(*[pair_icon(p, q, size=0.44, meet=False) for p, q in own]).arrange_in_grid(6, 6, buff=0.06)
+        right = VGroup(*[pair_icon(p, q, size=0.44, meet=False) for p, q in sw]).arrange_in_grid(4, 4, buff=0.06)
+        left.move_to(UP * 0.35).to_edge(LEFT, buff=0.45)
+        right.next_to(left, RIGHT, buff=0.55).align_to(left, DOWN)
+        rows = aligned([("det A", f"{N11} · {N22}  −  {N12} · {N21}", INK),
+                        (None, f"({NGOOD} + {NBAD})  −  {N12 * N21}", INK)], x_eq=right.get_right()[0] + 2.4, y0=2.4, dy=0.8, size=32)
+
+        # 0: six times six counts all thirty-six pairs going home
+        self.cue(0)
+        self.play(Write(rows[0]), run_time=1.0)
+        r0 = rows[0][1]
+        b66 = SurroundingRectangle(r0[0:3], color=YELLOW, buff=0.08, corner_radius=0.08)
+        self.cue_at(0, "Six times six", lead=0.2)
+        self.play(Create(b66), LaggedStartMap(FadeIn, left, lag_ratio=0.03), run_time=2.0)
+        l36 = T("36 pairs going home", 26, YELLOW).next_to(left, DOWN, buff=0.15)
+        self.play(FadeIn(l36), run_time=0.5)
+
+        # 1: twenty never meet, sixteen do
+        self.cue(1)
+        cols = [BAD if first_meet(*pq) is not None else GOOD for pq in own]
+        self.cue_at(1, "Twenty", lead=0.2)
+        self.play(*[ic[0].animate.set_stroke(c, 2.5) for ic, c in zip(left, cols) if c == GOOD], run_time=0.9)
+        self.cue_at(1, "Sixteen", lead=0.2)
+        self.play(*[ic[0].animate.set_stroke(c, 2.5) for ic, c in zip(left, cols) if c == BAD], run_time=0.9)
+        split = VGroup(T(f"{NGOOD} never meet", 26, GOOD), T("+", 26), T(f"{NBAD} meet", 26, BAD)).arrange(RIGHT, buff=0.15)
+        split.next_to(l36, DOWN, buff=0.12)
+        if split.width > left.width:
+            split.scale_to_fit_width(left.width)
+        split.set_x(left.get_x())
+        r1 = rows[1]
+        self.play(FadeIn(split), Write(VGroup(r1[0], r1[1][0:7])), FadeOut(b66), run_time=1.0)
+
+        # 2: four times four counts the swapped pairs: also sixteen
+        self.cue(2)
+        b44 = SurroundingRectangle(r0[-3:], color=ORANGE, buff=0.08, corner_radius=0.08)
+        self.play(Create(b44), LaggedStartMap(FadeIn, right, lag_ratio=0.05), run_time=1.6)
+        for ic in right:
+            ic[0].set_stroke(ORANGE, 2.5)
+        l16 = T(f"{N12 * N21} swapped", 26, ORANGE).next_to(right, DOWN, buff=0.15)
+        self.play(FadeIn(l16), Write(r1[1][7:]), FadeOut(b44), run_time=0.8)
+
+        # 3: the minus sign must cancel the sixteen meeting pairs against the sixteen swapped ones
+        self.cue(3)
+        t = r1[1]
+        arc = CurvedArrow(t[5].get_bottom() + DOWN * 0.1, t[-2].get_bottom() + DOWN * 0.1, angle=PI / 3, color=YELLOW)
+        self.play(Create(arc), Indicate(split[2], color=BAD, scale_factor=1.3), Indicate(l16, color=ORANGE, scale_factor=1.3),
+                  run_time=1.2)
+
+        # 4: so they must match up, one to one. Let's see how.
+        self.cue(4)
+        reds = VGroup(*[ic for ic, c in zip(left, cols) if c == BAD])
+        link = CurvedArrow(reds.get_top() + UP * 0.1, right.get_top() + UP * 0.1, angle=-PI / 4, color=YELLOW)
+        qm = T("?", 40, YELLOW).next_to(link, UP, buff=0.05)
+        self.play(Indicate(reds, color=BAD, scale_factor=1.06), run_time=0.8)
+        self.play(Create(link), FadeIn(qm), run_time=0.9)
+        self.cue_end(4)
+        self.wait(0.6)
+        self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)

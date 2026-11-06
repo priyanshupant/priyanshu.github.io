@@ -81,6 +81,18 @@
   "Let's get back to our two ants, and work it out.",
   0.4
  ],
+ "AllPairs": [
+  "Here's the thing that bugged me. Six times six counts all thirty-six pairs going home.",
+  0.6,
+  "Twenty never meet. Sixteen do.",
+  0.8,
+  "Four times four counts the pairs where the ants swap houses: also sixteen.",
+  0.8,
+  "So for the determinant to give twenty, the minus sign must cancel the sixteen meeting pairs against the sixteen swapped ones.",
+  0.6,
+  "So they must match up, one to one. Let's see how.",
+  0.8
+ ],
  "SwappedToMeet": [
   "Take a pair where the ants swap houses.",
   2.2,

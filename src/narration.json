@@ -390,7 +390,7 @@
   "Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen tilings. Listing one per second would take five months. The determinant does it in an instant.",
   "The rule behind it: every little loop of four edges carries an odd number of minus signs.",
   "And it's not really about chessboards. Squares are vertices, dominoes are edges, and a tiling is a perfect matching.",
-  "Kasteleyn, Temperley and Fisher made this work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.",
+  "And by 1967, Kasteleyn had made it work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.",
   "When a physicist needs to count twelve million tilings, they don't count. They take a determinant, and then let the board go to infinity."
  ],
  "Map": [

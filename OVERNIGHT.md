@@ -23,6 +23,8 @@ Your taste calls were **not** applied; they are drafted at the end for you to ch
 
 5. **Board4x4:** on-screen text cut to **det A = 0 ✗**, the rule (two lines), **|det A| = 36**; the "very confident, very wrong" joke is spoken only.
 
+6. **FKT history fixed:** the 1961 results were for rectangles like the chessboard (Kasteleyn, and Temperley & Fisher, independently); Kasteleyn extended it to **all planar graphs by 1967**. On-screen credit and the narration line now say so.
+
 ## Options for you (drafted, NOT in the video)
 - **A. Mahajan–Vinay beat** (Finale, before "Determinants can count…"):
   "And this isn't only a trick for puzzles. In 1997, Meena Mahajan and V. Vinay showed how to compute the
@@ -35,3 +37,4 @@ Your taste calls were **not** applied; they are drafted at the end for you to ch
 - **D. Opening quote pair** (Axler 1995 "Determinants are difficult, non-intuitive…" → Wigderson
   "The determinant is undoubtedly the most important polynomial function in mathematics.").
 - **E. Chapter cards** on screen (we already have four in-video cards; adding the rest would be small).
+- **F. TCS follow-ups to FKT** (one line in the sign section or the ending): "Vijay Vazirani extended it to graphs with no K₃,₃ (1989), and it later became the foundation of Valiant's holographic algorithms."

@@ -259,11 +259,15 @@ class FKT(DScene):
         self.cue_at(3, "without crossings")
         self.play(Create(pmat), run_time=0.8)
         fkt = VGroup(T("the FKT algorithm", 34, YELLOW),
-                     T("Fisher · Kasteleyn · Temperley, 1961", 26),
+                     T("chessboard: Kasteleyn; Temperley & Fisher, 1961", 24),
+                     T("all planar graphs: Kasteleyn, 1967", 24),
                      T("perfect matchings of any planar graph", 28),
                      T("in polynomial time", 30, GOOD)).arrange(DOWN, buff=0.1)
+        fkt.scale_to_fit_width(min(fkt.width, 5.6))
         box = SurroundingRectangle(fkt, color=YELLOW, buff=0.2, corner_radius=0.15)
         VGroup(fkt, box).next_to(pm, DOWN, buff=0.35)
+        if box.get_right()[0] > 6.9:
+            VGroup(fkt, box).shift(LEFT * (box.get_right()[0] - 6.9))
         self.cue_at(3, "the FKT")
         self.play(Create(box), FadeIn(fkt, lag_ratio=0.2))
         # 4: let the board go to infinity

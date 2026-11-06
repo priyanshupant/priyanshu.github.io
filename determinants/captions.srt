@@ -753,201 +753,210 @@ trick here too. Start small: a
 two-by-three board has three tilings.
 
 165
-00:12:42,281 --> 00:12:47,794
-A domino joins a black square to a white
-neighbour. Write a one wherever they touch.
+00:12:42,881 --> 00:12:47,254
+A domino always covers one dark square
+and one light square next to it.
 
 166
-00:12:47,794 --> 00:12:52,651
-Each tiling picks one entry in every
-row and every column: one term of the
+00:12:48,654 --> 00:12:53,952
+So build a matrix: rows for the dark squares,
+columns for the light ones, and a one
 
 167
-00:12:52,651 --> 00:12:53,438
-determinant.
+00:12:53,952 --> 00:12:56,569
+wherever a dark and a light square touch.
 
 168
-00:12:54,238 --> 00:12:58,718
-If determinants count pairings, this
-should give three. It gives minus one.
+00:12:58,169 --> 00:13:03,641
+Each tiling picks exactly one entry in
+every row and every column: one term of the
 
 169
-00:12:59,518 --> 00:13:04,289
-The terms come with signs: plus for
-this one, minus for these two. Here the
+00:13:03,641 --> 00:13:04,441
+determinant.
 
 170
-00:13:04,289 --> 00:13:06,324
-cancellation eats the good ones.
+00:13:06,041 --> 00:13:09,113
+So the determinant should
+be three. It's minus one.
 
 171
-00:13:08,320 --> 00:13:14,861
-In 1961 the physicist Pieter Kasteleyn
-had an idea: if the signs don't cancel the
+00:13:10,713 --> 00:13:15,326
+The terms come with signs: plus for
+this tiling, minus for these two. The
 
 172
-00:13:14,861 --> 00:13:17,365
-way you want, change the signs.
+00:13:15,326 --> 00:13:17,348
+cancellation eats the good ones.
 
 173
-00:13:18,165 --> 00:13:23,843
-Put a minus sign on this one edge. Only the
-all-vertical tiling uses it, so only its
+00:13:20,120 --> 00:13:26,607
+In 1961, the physicist Pieter Kasteleyn
+had an idea: if the signs don't cancel the
 
 174
-00:13:23,843 --> 00:13:24,587
-sign flips.
+00:13:26,607 --> 00:13:29,059
+way you want, change the signs.
 
 175
-00:13:25,387 --> 00:13:31,174
+00:13:30,459 --> 00:13:32,443
+Put a minus sign on this one edge.
+
+176
+00:13:33,843 --> 00:13:37,875
+Only the all-vertical tiling
+uses it, so only its sign flips.
+
+177
+00:13:39,275 --> 00:13:45,062
 Now every tiling carries the same sign.
 The determinant is minus three. Ignore the
 
-176
-00:13:31,174 --> 00:13:32,021
+178
+00:13:45,062 --> 00:13:45,909
 sign: three.
 
-177
-00:13:34,020 --> 00:13:39,190
+179
+00:13:48,886 --> 00:13:54,056
 On a four-by-four board, the plain
 determinant says there are zero tilings. Very
 
-178
-00:13:39,190 --> 00:13:40,612
+180
+00:13:54,056 --> 00:13:55,478
 confident, very wrong.
 
-179
-00:13:41,412 --> 00:13:46,806
+181
+00:13:56,278 --> 00:14:01,673
 Put minus signs on the vertical edges of
 every other column, and the determinant
 
-180
-00:13:46,806 --> 00:13:48,964
+182
+00:14:01,673 --> 00:14:03,830
 gives thirty-six. Exactly right.
 
-181
-00:13:50,953 --> 00:13:56,293
+183
+00:14:05,820 --> 00:14:11,159
 Now the full chessboard: twelve million,
 nine hundred eighty-eight thousand, eight
 
-182
-00:13:56,293 --> 00:14:01,176
+184
+00:14:11,159 --> 00:14:16,043
 hundred sixteen tilings. Listing one
 per second would take five months. The
 
-183
-00:14:01,176 --> 00:14:03,390
+185
+00:14:16,043 --> 00:14:18,257
 determinant does it in an instant.
 
-184
-00:14:04,190 --> 00:14:09,578
+186
+00:14:19,057 --> 00:14:24,444
 The rule behind it: every little loop of
 four edges carries an odd number of minus
 
-185
-00:14:09,578 --> 00:14:09,972
+187
+00:14:24,444 --> 00:14:24,839
 signs.
 
-186
-00:14:10,772 --> 00:14:16,366
+188
+00:14:25,639 --> 00:14:31,232
 And it's not really about chessboards.
 Squares are vertices, dominoes are edges, and
 
-187
-00:14:16,366 --> 00:14:18,430
+189
+00:14:31,232 --> 00:14:33,297
 a tiling is a perfect matching.
 
-188
-00:14:19,230 --> 00:14:24,801
-Kasteleyn, Temperley and Fisher made this
+190
+00:14:34,097 --> 00:14:39,801
+And by 1967, Kasteleyn had made it
 work for any graph you can draw without
 
-189
-00:14:24,801 --> 00:14:30,577
+191
+00:14:39,801 --> 00:14:46,277
 crossings: the FKT algorithm counts perfect
 matchings of planar graphs in polynomial
 
-190
-00:14:30,577 --> 00:14:30,921
+192
+00:14:46,277 --> 00:14:46,663
 time.
 
-191
-00:14:31,721 --> 00:14:37,020
+193
+00:14:47,463 --> 00:14:52,761
 When a physicist needs to count twelve
 million tilings, they don't count. They take
 
-192
-00:14:37,020 --> 00:14:40,404
+194
+00:14:52,761 --> 00:14:56,145
 a determinant, and then let
 the board go to infinity.
 
-193
-00:14:42,386 --> 00:14:48,271
+195
+00:14:58,119 --> 00:15:04,004
 Let's step back. Ants that never meet.
 Tilings of a hexagon. Boxes in a corner.
 
-194
-00:14:48,271 --> 00:14:51,623
+196
+00:15:04,004 --> 00:15:07,356
 Mountain ranges. Aztec
 diamonds. Chessboards.
 
-195
-00:14:52,423 --> 00:14:54,663
+197
+00:15:08,156 --> 00:15:10,396
 All counted by one determinant each.
 
-196
-00:14:56,653 --> 00:15:01,770
+198
+00:15:12,386 --> 00:15:17,503
 And it's the same trick every time. Count
 everything, the families that meet and the
 
-197
-00:15:01,770 --> 00:15:03,842
+199
+00:15:17,503 --> 00:15:19,575
 ones that don't, each with a sign.
 
-198
-00:15:04,642 --> 00:15:09,727
+200
+00:15:20,375 --> 00:15:25,460
 The meeting ones pair up with opposite
 signs, and cancel. What's left is exactly
 
-199
-00:15:09,727 --> 00:15:10,744
+201
+00:15:25,460 --> 00:15:26,477
 what you wanted.
 
-200
-00:15:11,544 --> 00:15:17,929
+202
+00:15:27,277 --> 00:15:33,662
 For a computer scientist, that's remarkable.
 Counting is usually hopeless: counting
 
-201
-00:15:17,929 --> 00:15:24,237
+203
+00:15:33,662 --> 00:15:39,970
 perfect matchings of a general graph is
 sharp-P complete. That's Valiant, in 1979.
 
-202
-00:15:25,037 --> 00:15:30,392
+204
+00:15:40,770 --> 00:15:46,125
 But if your puzzle turns into non-touching
 paths, or a matching on a planar graph,
 
-203
-00:15:30,392 --> 00:15:33,528
+205
+00:15:46,125 --> 00:15:49,261
 it becomes one determinant,
 and polynomial time.
 
-204
-00:15:34,328 --> 00:15:37,848
+206
+00:15:50,061 --> 00:15:53,581
 Determinants can count,
 because minus signs can cancel.
 
-205
-00:15:41,319 --> 00:15:46,658
+207
+00:15:57,052 --> 00:16:02,391
 As for our ants: they can finally go home
 in peace. Twenty ways home, and they never
 
-206
-00:15:46,658 --> 00:15:47,420
+208
+00:16:02,391 --> 00:16:03,153
 had to meet.
 
-207
-00:15:49,720 --> 00:15:51,043
+209
+00:16:05,453 --> 00:16:06,776
 Thanks for watching.
 

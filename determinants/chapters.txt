@@ -1,7 +1,16 @@
-0:41 Two ants and a question
+0:00 Determinants you met in school
+0:41 A simple puzzle
+1:52 An old friend: the determinant
+2:40 Three ants
+3:14 Why does this work?
+5:36 The general lemma (Lindström–Gessel–Viennot)
+7:10 Does the pattern repeat?
+7:21 Hexagon tilings
+8:17 Boxes in a corner
+8:53 Mountain ranges (Catalan numbers)
+10:15 The Aztec diamond
 12:00 The arctic circle
-13:50 The FKT algorithm
-14:41 Why determinants can count
-15:40 Goodbye
+12:24 When the signs go wrong (Kasteleyn, FKT)
+14:57 Why minus signs count
 
-total 16:16
+total 16:32

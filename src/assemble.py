@@ -11,15 +11,13 @@ import pacing
 HERE = os.path.dirname(os.path.abspath(__file__))
 q = next((a for a in sys.argv[1:] if not a.startswith("--")), "720p30")
 # YouTube-style chapters: a title starts a new chapter at the first scene listed.
-CHAPTERS = {"Hook": "Two ants and a question", "ListRoutes": "Counting routes for one ant",
-            "OneGoodPair": "Two ants: brute force vs a determinant", "ReadCounts": "Why it works: swapping tails",
-            "DiagonalSweep": "Swapped pairs must meet", "MoveHomes": "More ants, any network",
-            "LemmaVisual": "The Lindström–Gessel–Viennot lemma", "WhatLGVCounts": "What can it count?",
-            "HexTiling": "Tilings of a hexagon", "BoxesCorner": "Boxes in a corner",
-            "CatalanMountains": "Mountain ranges", "AztecIntro": "The Aztec diamond",
-            "ArcticCircle": "The arctic circle", "TreesBrief": "Spanning trees",
-            "Dominoes8x8": "Dominoes and Kasteleyn's signs", "FKT": "The FKT algorithm",
-            "Map": "Why determinants can count", "Goodbye": "Goodbye"}
+CHAPTERS = {"Opening": "Determinants you met in school", "Hook": "A simple puzzle",
+            "TableAndDet": "An old friend: the determinant", "ThreeAnts": "Three ants",
+            "WhyCard": "Why does this work?", "LemmaCard": "The general lemma (Lindström–Gessel–Viennot)",
+            "PatternCard": "Does the pattern repeat?", "Hexagon": "Hexagon tilings", "Boxes": "Boxes in a corner",
+            "Mountains": "Mountain ranges (Catalan numbers)", "AztecTiles": "The Aztec diamond",
+            "ArcticCircle": "The arctic circle", "SignsCard": "When the signs go wrong (Kasteleyn, FKT)",
+            "Map": "Why minus signs count"}
 files, chapters, t = [], [], 0.0
 for f, sc, _ in pacing.SCENES:
     v = os.path.join(HERE, "media", "videos", f[:-3], q, sc + ".mp4")

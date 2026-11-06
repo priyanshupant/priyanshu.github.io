@@ -1,14 +1,14 @@
 0:41 Two ants and a question
-5:04 More ants, any network
-5:30 The Lindström–Gessel–Viennot lemma
-7:24 What can it count?
-7:55 Tilings of a hexagon
-9:14 Boxes in a corner
-9:44 Mountain ranges
-10:09 The Aztec diamond
-11:16 The arctic circle
-12:59 The FKT algorithm
-13:46 Why determinants can count
-14:43 Goodbye
+5:36 More ants, any network
+6:02 The Lindström–Gessel–Viennot lemma
+7:56 What can it count?
+8:27 Tilings of a hexagon
+9:46 Boxes in a corner
+10:16 Mountain ranges
+10:41 The Aztec diamond
+11:48 The arctic circle
+13:31 The FKT algorithm
+14:18 Why determinants can count
+15:15 Goodbye
 
-total 15:19
+total 15:51

@@ -238,6 +238,20 @@
   "So the number of tilings is twenty. The same twenty. All this time, our ants were tiling a hexagon.",
   1.0
  ],
+ "Boxes": [
+  "Make the box bigger: three by three by three, and stack the boxes in.",
+  0.8,
+  "Now there are three chains, so three ants.",
+  0.6,
+  "Squash it onto a grid: three ants that never touch.",
+  0.8,
+  "Same recipe as before: count the paths from each ant to each house, and take the determinant.",
+  0.8,
+  "Nine hundred and eighty stacks of boxes.",
+  0.8,
+  "Percy MacMahon counted these over a century ago, with heavy algebra. Our ants do it with one determinant.",
+  0.8
+ ],
  "BoxesCorner": [
   "Seen in 3D, a tiling is a stack of boxes in a corner, each stack no taller than the ones behind it.",
   "A bigger box, three by three by three, gives a bigger hexagon and three chains: three ants that never meet.",

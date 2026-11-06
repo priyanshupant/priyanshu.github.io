@@ -145,3 +145,89 @@ class Hexagon(DScene):
         self.cue_end(8)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
+
+
+# ------------------------------------------------------------------ boxes in a corner (3 x 3 x 3 box)
+from act6b_disguises import BOX3, PART3, box_walker
+from math import comb
+
+M3B = [[comb(6, 3 + z - zz) for zz in range(3)] for z in range(3)]        # rows/cols: blue, orange, purple
+assert M3B == [[20, 15, 6], [15, 20, 15], [6, 15, 20]] and round(np.linalg.det(np.array(M3B, float))) == len(PART3) == 980
+
+
+class Boxes(DScene):
+    def construct(self):
+        cols = [ANT1, ANT2, ANT3]
+        c, s = LEFT * 3.6 + DOWN * 0.3, 0.85
+        hexo = outline(s, c, BOX3)
+        h = [[0] * 3 for _ in range(3)]
+        til = tiling(tuple(map(tuple, h)), s, c, box=BOX3)
+
+        # 0: a bigger box: three by three by three; stack the boxes in
+        self.cue(0)
+        self.play(Create(hexo), FadeIn(til), run_time=1.0)
+        order = [(0, 0), (0, 1), (1, 0), (0, 0), (1, 1), (0, 2), (2, 0), (0, 1), (0, 0), (1, 0)]
+        for k, (i, j) in enumerate(order):
+            h[i][j] += 1
+            if k % 2 == 0:
+                self.sfx("tick")
+            self.play(Transform(til, tiling(tuple(map(tuple, h)), s, c, box=BOX3)), run_time=0.4)
+        H = tuple(map(tuple, h))
+
+        # 1: now three chains, so three ants
+        self.cue(1)
+        for t in til:
+            if t.kind == "T":
+                t.set_fill(opacity=0).set_stroke(GREY_B, 1.2)
+        self.play(Transform(til, til.copy()), run_time=0.8)
+        chs = [chain(H, z, s, c, cols[2 - z], BOX3, width=7) for z in range(3)]
+        for ch in reversed(chs):
+            self.play(Create(ch), run_time=1.0)
+
+        # 2: squash onto a grid: three ants that never touch
+        self.cue(2)
+        lat = Lattice(6, spacing=0.72, center=RIGHT * 3.4 + DOWN * 0.3)
+        ends = VGroup(*[VGroup(Dot(lat.p(*box_walker(H, z)[0]), radius=0.09, color=cols[2 - z]),
+                               house(cols[2 - z], 0.36).move_to(lat.p(*box_walker(H, z)[-1]))) for z in range(3)])
+        self.play(FadeIn(lat), FadeIn(ends), run_time=0.8)
+        paths = [path_mob(lat, box_walker(H, z), cols[2 - z], 7) for z in range(3)]
+        self.sfx("whoosh")
+        self.play(*[ReplacementTransform(chs[z].copy(), paths[z]) for z in range(3)], run_time=2.0)
+        ants_ = VGroup(*[ant(cols[2 - z], 0.5).move_to(lat.p(*box_walker(H, z)[0])) for z in range(3)])
+        self.sfx("pop")
+        self.play(FadeIn(ants_, scale=0.4), run_time=0.6)
+
+        # 3: same recipe: count paths ant -> house, take the determinant
+        self.cue(3)
+        board = VGroup(lat, ends, ants_, *paths)
+        self.play(FadeOut(VGroup(hexo, til, *chs)), board.animate.move_to(LEFT * 3.6 + DOWN * 0.3), run_time=1.2)
+        M = matrix_mob([[str(v) for v in r] for r in M3B], size=44, h_buff=0.8, v_buff=0.55)
+        Aeq = T("A  =", 42)
+        VGroup(Aeq, M).arrange(RIGHT, buff=0.3).move_to(RIGHT * 3.0 + UP * 1.3)
+        col_lab = VGroup(*[house(cols[k], 0.4).next_to(M.cells[k], UP, buff=0.35) for k in range(3)])
+        row_lab = VGroup(*[ant(cols[k], 0.45).next_to(M, RIGHT, buff=0.3).match_y(M.cells[3 * k]) for k in range(3)])
+        for cl in M.cells:
+            cl.set_opacity(0)
+        self.play(FadeIn(Aeq), FadeIn(VGroup(M[0], M[2])), FadeIn(col_lab), FadeIn(row_lab), run_time=0.8)
+        self.add(M.cells)
+        self.cue_at(3, "count the paths", lead=0.2)
+        for k in range(9):
+            self.sfx("tick")
+            self.play(M.cells[k].animate.set_opacity(1), run_time=0.25)
+
+        # 4: nine hundred and eighty stacks of boxes
+        self.cue(4)
+        eq = T("=", 38).move_to(np.array([Aeq[-1].get_x(), -1.2, 0]))
+        row = VGroup(eq, T("det A", 38).next_to(eq, LEFT, buff=0.3),
+                     T("980", 46, YELLOW, weight=BOLD).next_to(eq, RIGHT, buff=0.3))
+        self.sfx("chime")
+        self.play(Write(row), run_time=0.9)
+
+        # 5: MacMahon counted these over a century ago; the ants do it with one determinant
+        self.cue(5)
+        mac = T("Percy MacMahon, 1915", 26, SOFT).next_to(row, DOWN, buff=0.5).align_to(row, LEFT)
+        self.cue_at(5, "MacMahon", lead=0.2)
+        self.play(FadeIn(mac), run_time=0.6)
+        self.cue_end(5)
+        self.wait(0.6)
+        self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)

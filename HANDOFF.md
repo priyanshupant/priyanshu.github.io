@@ -184,6 +184,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-06 · Claude · Pages deploy of the AllPairs build timed out on GitHub's side (10-min limit; the site is ~91 MB of clips). Re-triggered by a root-only push (HANDOFF.md), which redeploys Pages without re-running the video build. If it recurs, consider lighter presenter clips.
 - 2026-11-06 · Claude · Added AllPairs (36 = 20 + 16, 16 swapped, "let's see how") before the proof. GitHub build for proof v13 SUCCEEDED (site live). Rendered, slides tested.
 - 2026-11-06 · Claude · Proof v13 (act4c_proof.py) in Priyanshu's order. Rendered, frame-checked, slides mode tested, no cue lags.
 - 2026-11-06 · Claude · Added ThreeAnts (3 ants, det 50 = 50 never meet) and WhyCard after the matrix; SekiJoins dropped from pacing. Rendered, frame-checked, slides mode tested.

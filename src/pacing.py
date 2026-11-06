@@ -20,7 +20,8 @@ SCENES = [
     # ListRoutes and Slots cut (v12): the puzzle already counts the paths one by one
     ("act4c_proof.py", "AllPairs", 30), ("act4c_proof.py", "SwappedToMeet", 30), ("act4c_proof.py", "MeetToSwapped", 20),
     ("act4c_proof.py", "Bijection", 20), ("act4c_proof.py", "Formula", 30),
-    ("act5_lgv.py", "MoveHomes", 25), ("act5_lgv.py", "LemmaVisual", 60),
+    ("act5b_lemma.py", "LemmaCard", 6), ("act5b_lemma.py", "BookQuote", 20), ("act5b_lemma.py", "LGVNames", 15),
+    ("act5b_lemma.py", "GeneralLemma", 50),
     ("act5_lgv.py", "WhatLGVCounts", 35),
     ("act6_hexagon.py", "HexTiling", 45), ("act6_hexagon.py", "TilesToPaths", 50),
     ("act6b_disguises.py", "BoxesCorner", 35), ("act6b_disguises.py", "CatalanMountains", 30),

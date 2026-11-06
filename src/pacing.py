@@ -24,7 +24,7 @@ SCENES = [
     ("act5b_lemma.py", "GeneralLemma", 50),
     ("act6d_pattern.py", "PatternCard", 8), ("act6d_pattern.py", "Hexagon", 60),
     ("act6d_pattern.py", "Boxes", 45), ("act6d_pattern.py", "Mountains", 50),
-    ("act6b_disguises.py", "AztecIntro", 30), ("act6b_disguises.py", "AztecPaths", 45),
+    ("act6d_pattern.py", "AztecTiles", 45), ("act6d_pattern.py", "AztecPathsD", 70),
     ("act6c_arctic.py", "ArcticCircle", 30),
     ("act8_dominoes.py", "SmallBoard2", 35), ("act8_dominoes.py", "SignFix2", 25),
     ("act8_dominoes.py", "Board4x4", 20), ("act8_dominoes.py", "FKT", 35),

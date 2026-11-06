@@ -55,6 +55,7 @@ if SLIDES:
     _mfc = _MC.max_files_cached
     _MC.max_files_cached = property(_mfc.fget, lambda self, v: _mfc.fset(self, -1 if v == float("inf") else v))
     from manim_slides import Slide as _Base
+    config.max_files_cached = 100000   # slides need every partial clip; long scenes (Hook: 140+ anims) exceed the default 100
 else:
     _Base = Scene
 

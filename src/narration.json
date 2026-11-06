@@ -347,6 +347,30 @@
   "But not every counting problem is secretly paths. What then?",
   0.4
  ],
+ "Dominoes2x3": [
+  "Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board has three tilings.",
+  0.6,
+  "A domino always covers one dark square and one light square next to it.",
+  0.6,
+  "So build a matrix: rows for the dark squares, columns for the light ones, and a one wherever a dark and a light square touch.",
+  0.8,
+  "Each tiling picks exactly one entry in every row and every column: one term of the determinant.",
+  0.8,
+  "So the determinant should be three. It's minus one.",
+  0.8,
+  "The terms come with signs: plus for this tiling, minus for these two. The cancellation eats the good ones.",
+  0.8
+ ],
+ "KastFix": [
+  "In 1961, the physicist Pieter Kasteleyn had an idea: if the signs don't cancel the way you want, change the signs.",
+  0.6,
+  "Put a minus sign on this one edge.",
+  0.6,
+  "Only the all-vertical tiling uses it, so only its sign flips.",
+  0.6,
+  "Now every tiling carries the same sign. The determinant is minus three. Ignore the sign: three.",
+  1.0
+ ],
  "SmallBoard2": [
   "Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board has three tilings.",
   "A domino joins a black square to a white neighbour. Write a one wherever they touch. Each tiling picks one entry in every row and every column: one term of the determinant.",

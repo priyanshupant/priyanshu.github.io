@@ -26,7 +26,7 @@ SCENES = [
     ("act6d_pattern.py", "Boxes", 45), ("act6d_pattern.py", "Mountains", 50),
     ("act6d_pattern.py", "AztecTiles", 45), ("act6d_pattern.py", "AztecPathsD", 70),
     ("act6c_arctic.py", "ArcticCircle", 30),
-    ("act6d_pattern.py", "SignsCard", 6), ("act8_dominoes.py", "SmallBoard2", 35), ("act8_dominoes.py", "SignFix2", 25),
+    ("act6d_pattern.py", "SignsCard", 6), ("act8b_signs.py", "Dominoes2x3", 50), ("act8b_signs.py", "KastFix", 30),
     ("act8_dominoes.py", "Board4x4", 20), ("act8_dominoes.py", "FKT", 35),
     ("act9_ending.py", "Map", 25), ("act9_ending.py", "Finale", 45),
     ("act9_ending.py", "Goodbye", 15), ("act9_ending.py", "Credits", 25),

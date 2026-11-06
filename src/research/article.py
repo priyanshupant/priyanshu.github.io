@@ -34,26 +34,23 @@ E = html.escape
 # Acts: (title, the viewer's question, [scenes], article prose per scene, optional tip boxes per scene)
 ACTS = [
  ("Act 0 · The hook", "How can a formula possibly count?", [
-   ("Opening", "We start on familiar ground. Every linear-algebra student knows the determinant as a d − b c, and as the thing that decides unique solutions, finds eigenvalues and changes variables. Then the turn: it can also <b>count</b>. The chessboard makes that concrete: about thirteen million domino tilings, five months to list one per second, yet one determinant gives 12,988,816 instantly.",
-    "From the reference video: get to the question fast. Keep this opening to about 25 seconds, and speak the puzzle to the viewer (“Your job: get both ants home”).")]),
+   ("Opening", "Familiar ground first: the determinant as a d − b c, and what school taught us it does. It decides whether a linear system has a unique solution (two lines meet, then turn parallel when det = 0), it measures how much a linear transformation scales area (here every area doubles, det = 2), it is zero exactly when the plane is squashed flat (two points land on one), and it even gives the area of any polygon (signed triangles cancel the overhang). Then the turn: one of the most beautiful places it shows up is combinatorics. Title, then “Let's start with a simple puzzle.”", None)]),
  ("Act 1 · The puzzle", "How many ways can both ants get home without touching?", [
-   ("Hook", "Two ants on a 4×4 grid, each step right or up. They had a fight: neither will step on any dot the other walks on, <i>not even later</i>, because ants leave a scent trail. This matters mathematically: we count pairs of routes that share no dot at all (vertex-disjoint paths), not just routes that avoid meeting at the same moment. On a grid, crossing means sharing a dot.", None),
+   ("Hook", "The whole puzzle on one screen. Two ants (“hi!”, “yo!”) in a grid-like world want to get home. Rules, as bullets on the right: step up or right; paths never touch, because they had a fight, and not even later, because ants leave a scent trail (so we count vertex-disjoint paths). Many paths home, some crossing. How many pairs of paths get them home without intersecting? One is easy to find; one crosses. Then all 36 pairs are checked, the first few slowly, then fast: 20 never meet, 16 meet.", None),
    ("OneGoodPair", "One peaceful pair, to show the goal is possible.", None),
    ("BruteForce", "The honest way: 6 × 6 = 36 pairs, checked one by one, and 20 never meet. This is the naive method we'll beat.",
     "From the reference video: name the idea before using it. “When counting the good ones is hard, count everything and subtract the bad ones.”"),
-   ("TableAndDet", "The surprise. Put the route counts in a 2×2 table, ant by home: [[6, 4], [4, 6]]. Its determinant 6·6 − 4·4 = 20 is exactly the brute-force answer. Coincidence? Hardly. Then the title card.", None)]),
+   ("TableAndDet", "Same grid; only the right-hand side changes. “Here comes an old friend”: a 2×2 matrix A whose rows are the ants and columns the houses. Each entry is counted path by path: 6 from the blue ant to its home, 4 to the orange house, and by symmetry 4 and 6. Then det A = 6·6 − 4·4 = 36 − 16 = 20, the same number. Coincidence? Hardly.", None)]),
  ("Act 2 · Where the numbers come from", "What are the 6 and the 4?", [
    ("ListRoutes", "Ant one's six routes, walked as they are read aloud. Each is four steps: two right, two up.", None),
    ("Slots", "A route is a choice of which steps go right, so a steps right and b steps up give (a+b choose a) routes. Our four numbers are 6, 4, 4, 6.", None)]),
  ("Act 3 · Reading the formula", "What do 6·6 and 4·4 count?", [
-   ("ReadCounts", "6·6 counts every pair sending each ant to its own home: 20 good + 16 bad. 4·4 counts pairs where the ants go to each other's homes (swapped). So det = good + bad − swapped, and it equals good exactly when bad = swapped.",
-    "From the reference video: say it as “total minus bad”. 6·6 is everything; 4·4 is what we remove.")]),
+   ("ReadCounts", "6·6 counts every pair sending each ant to its own home: 20 that never meet plus 16 that meet. 4·4 counts the swapped pairs, each ant at the other's house. So det A = never meet + meet − swapped, and it equals 20 exactly when the swapped pairs cancel the meeting pairs.", None)]),
  ("Act 4 · The proof", "Why is #bad = #swapped?", [
-   ("SwapPaths", "Take a bad pair. Find the first dot of ant one's route that ant two also visits, and swap the tails from there. The ants end at each other's homes: a swapped pair.", None),
-   ("SwapTwice", "Swapping again at the same first meeting point restores the original, because nothing before it changed. The map is an involution, so bad and swapped pairs come in couples.", None),
-   ("DiagonalSweep", "Could a swapped pair avoid meeting, and so have no partner? Sweep the diagonals x + y = s. The column gap starts at −1, ends at +1, and changes by at most 1 per step, so it hits 0: the ants share a dot. This is a discrete intermediate value theorem.",
-    "From the reference video: first show both routes straightened into lines that obviously cross (2 seconds of intuition), then the sweep for rigour."),
-   ("PutTogether", "Every bad pair has exactly one swapped partner and vice versa. In the determinant they cancel, leaving exactly the 20 good pairs. A bijective proof.", None)]),
+   ("SwapPaths", "On the puzzle's board: the blue ant walks its path to the first dot the orange path also visits; from there the tails swap, and both ants walk their new paths to the other's house. A meeting pair became a swapped pair.", None),
+   ("SwapTwice", "Nothing before the shared dot changed, so it is still the first meeting point, and swapping there again puts everything back: an involution (“like most committee meetings”). Meeting pairs and swapped pairs come in perfect couples.", None),
+   ("DiagonalSweep", "Could a swapped pair avoid meeting? Sweep the diagonals x + y = s: on each, each ant stands on one dot. The column gap goes −1, −1, 0, +1, +1: it starts at −1, ends at +1, and changes by at most 1, so it hits 0 and they share a dot.", None),
+   ("PutTogether", "All 16 meeting pairs are swapped into their partners on the grid (two slowly, then the rest). In the determinant they cancel: det A = (20 + 16) − 16 = 20. A bijective proof.", None)]),
  ("Act 5 · It's not about ants", "Is this a fluke of the grid?", [
    ("MoveHomes", "Move a house and the counts keep agreeing, as long as the starts and homes stay in the same order. Reverse the order and there are 0 peaceful routes; the determinant then counts the swapped pairing with a minus sign.",
     "From the reference video: draw a shaded <b>lane</b> per ant. Non-overlapping lanes is the visual form of “same order”; overlapping lanes give zero."),
@@ -83,6 +80,10 @@ parts = []
 slide_no = 0
 for act, q, scenes in ACTS:
     parts.append(f"<h2>{E(act)}</h2><p class='q'>The viewer's question: <i>{E(q)}</i></p>")
+    scenes = [x for x in scenes if x[0] in FILE]          # skip scenes no longer in the video (pacing.py)
+    if not scenes:
+        parts.pop()
+        continue
     for sc, prose, tip in scenes:
         sj = json.load(open(f"slides/{sc}.json"))["slides"]
         lines = [(None, None, x["notes"] or "(no narration)") for x in sj]

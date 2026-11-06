@@ -181,6 +181,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-06 · Claude · Build fix 2: research/article.py had a fixed scene list including removed scenes (OneGoodPair, BruteForce, ListRoutes, Slots) and crashed; it now skips scenes not in pacing.py, and its descriptions of the opening, puzzle, matrix and proof are updated. Tested locally.
 - 2026-11-06 · Claude · **Build fix:** the last three GitHub builds FAILED (site still showed the old version): slides mode crashed on Hook because Manim keeps only 100 partial clips and Hook has 140+ animations. common.py now sets config.max_files_cached = 100000 in SLIDES mode. All new scenes tested in slides mode locally. Lesson: after every push, check the Actions run finishes green.
 - 2026-11-05 · Claude · Proof v12 rebuilt on the big board in the puzzle's style (act4b_proof.py). Rendered and frame-checked; no cue lags.
 - 2026-11-05 · Claude · Cut ListRoutes + Slots; ReadCounts reworded (never meet / meet, paths). Rendered and frame-checked.

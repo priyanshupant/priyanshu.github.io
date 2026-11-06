@@ -498,366 +498,370 @@ So there are twenty tilings. All this
 time, our ants were tiling a hexagon.
 
 110
-00:08:17,687 --> 00:08:23,451
-Seen in 3D, a tiling is a stack of boxes
-in a corner, each stack no taller than the
+00:08:17,687 --> 00:08:22,188
+Make the box bigger: three by three
+by three, and stack the boxes in.
 
 111
-00:08:23,451 --> 00:08:24,492
-ones behind it.
+00:08:23,788 --> 00:08:26,220
+Now there are three chains, so three ants.
 
 112
-00:08:25,292 --> 00:08:30,333
-A bigger box, three by three by three,
-gives a bigger hexagon and three chains:
+00:08:27,620 --> 00:08:30,820
+Squash it onto a grid:
+three ants that never touch.
 
 113
-00:08:30,333 --> 00:08:32,055
-three ants that never meet.
+00:08:32,420 --> 00:08:37,615
+Same recipe as before: count the paths
+from each ant to each house, and take the
 
 114
-00:08:32,855 --> 00:08:36,780
-A three-by-three determinant counts
-them: nine hundred and eighty.
+00:08:37,615 --> 00:08:38,394
+determinant.
 
 115
-00:08:37,580 --> 00:08:43,610
-Percy MacMahon found a formula for every
-box, over a century ago. Combinatorialists
+00:08:39,994 --> 00:08:42,703
+Nine hundred and eighty stacks of boxes.
 
 116
-00:08:43,610 --> 00:08:45,644
-call these plane partitions.
+00:08:44,303 --> 00:08:49,887
+Percy MacMahon counted these over a century
+ago, with heavy algebra. Our ants do it
 
 117
-00:08:47,621 --> 00:08:52,990
+00:08:49,887 --> 00:08:51,300
+with one determinant.
+
+118
+00:08:54,087 --> 00:08:59,456
 Another disguise. A mountain range: each
 step goes up or down, and it never dips
 
-118
-00:08:52,990 --> 00:08:54,064
+119
+00:08:59,456 --> 00:09:00,530
 below sea level.
 
-119
-00:08:54,864 --> 00:08:59,472
+120
+00:09:01,330 --> 00:09:05,938
 How many ways can you draw two ranges,
 one inside the other, without touching?
 
-120
-00:09:00,272 --> 00:09:05,627
+121
+00:09:06,738 --> 00:09:12,093
 A single range is counted by the Catalan
 numbers. Put four of them in a two-by-two
 
-121
-00:09:05,627 --> 00:09:07,717
+122
+00:09:12,093 --> 00:09:14,183
 table: the determinant is three.
 
-122
-00:09:08,517 --> 00:09:10,736
+123
+00:09:14,983 --> 00:09:17,202
 And here they are. Exactly three.
 
-123
-00:09:12,721 --> 00:09:18,378
+124
+00:09:19,187 --> 00:09:24,844
 And one more, a beauty. This is an Aztec
 diamond: rows of two, four, six squares,
 
-124
-00:09:18,378 --> 00:09:19,356
+125
+00:09:24,844 --> 00:09:25,822
 and back down.
 
-125
-00:09:20,156 --> 00:09:25,521
+126
+00:09:26,622 --> 00:09:31,988
 Tile it with dominoes. The smallest one
 has two tilings. The next has eight. The
 
-126
-00:09:25,521 --> 00:09:26,662
+127
+00:09:31,988 --> 00:09:33,128
 next, sixty-four.
 
-127
-00:09:27,462 --> 00:09:28,678
+128
+00:09:33,928 --> 00:09:35,144
 Guess the next one.
 
-128
-00:09:31,278 --> 00:09:36,398
+129
+00:09:37,744 --> 00:09:42,864
 One thousand and twenty-four. Powers
 of two, every time. That's suspicious.
 
-129
-00:09:38,387 --> 00:09:43,461
+130
+00:09:44,854 --> 00:09:49,928
 Colour the board like a chessboard, and
 there are four kinds of domino. Give each
 
-130
-00:09:43,461 --> 00:09:47,219
+131
+00:09:49,928 --> 00:09:53,686
 kind a job: a flat step, a step
 up, a step down, or nothing.
 
-131
-00:09:48,019 --> 00:09:53,680
+132
+00:09:54,486 --> 00:10:00,147
 Now the dominoes link up into paths, from
 the left side to the right. Dominoes never
 
-132
-00:09:53,680 --> 00:09:59,004
+133
+00:10:00,147 --> 00:10:05,470
 overlap, so the paths never touch, and
 every such family comes from exactly one
 
-133
-00:09:59,004 --> 00:09:59,475
+134
+00:10:05,470 --> 00:10:05,942
 tiling.
 
-134
-00:10:00,275 --> 00:10:05,745
+135
+00:10:06,742 --> 00:10:12,212
 So once again: count routes, take the
 determinant. Twelve times two minus four times
 
-135
-00:10:05,745 --> 00:10:06,526
+136
+00:10:12,212 --> 00:10:12,993
 four. Eight.
 
-136
-00:10:07,326 --> 00:10:09,438
+137
+00:10:13,793 --> 00:10:15,905
 One size up: sixty-four.
 
-137
-00:10:10,238 --> 00:10:15,937
+138
+00:10:16,705 --> 00:10:22,404
 In general, order n gives two to the n
 times n plus one over two. A determinant,
 
-138
-00:10:15,937 --> 00:10:18,003
+139
+00:10:22,404 --> 00:10:24,470
 hiding in a pile of dominoes.
 
-139
-00:10:19,987 --> 00:10:25,468
+140
+00:10:26,454 --> 00:10:31,935
 Now pick one tiling at random, every tiling
 equally likely, on a big diamond, and
 
-140
-00:10:25,468 --> 00:10:26,280
+141
+00:10:31,935 --> 00:10:32,747
 let it grow.
 
-141
-00:10:27,080 --> 00:10:28,531
+142
+00:10:33,547 --> 00:10:34,998
 This is order sixty.
 
-142
-00:10:29,331 --> 00:10:34,815
+143
+00:10:35,798 --> 00:10:41,281
 The corners freeze into brick walls. The
 middle is chaos. And as the diamond grows,
 
-143
-00:10:34,815 --> 00:10:38,184
+144
+00:10:41,281 --> 00:10:44,651
 the boundary between them
 becomes a perfect circle.
 
-144
-00:10:38,984 --> 00:10:41,054
+145
+00:10:45,451 --> 00:10:47,521
 It's called the arctic circle theorem.
 
-145
-00:10:44,054 --> 00:10:48,633
+146
+00:10:50,521 --> 00:10:55,100
 Back to the chessboard from the start.
 Dominoes aren't paths, but there's a
 
-146
-00:10:48,633 --> 00:10:53,334
+147
+00:10:55,100 --> 00:10:59,801
 determinant trick here too. Shrink it
 to a two-by-three board: three tilings.
 
-147
-00:10:54,134 --> 00:10:59,647
+148
+00:11:00,601 --> 00:11:06,113
 A domino joins a black square to a white
 neighbour. Write a one wherever they touch.
 
-148
-00:10:59,647 --> 00:11:04,503
+149
+00:11:06,113 --> 00:11:10,970
 Each tiling picks one entry in every
 row and every column: one term of the
 
-149
-00:11:04,503 --> 00:11:05,291
+150
+00:11:10,970 --> 00:11:11,758
 determinant.
 
-150
-00:11:06,091 --> 00:11:10,571
+151
+00:11:12,558 --> 00:11:17,038
 If determinants count pairings, this
 should give three. It gives minus one.
 
-151
-00:11:11,371 --> 00:11:16,141
+152
+00:11:17,838 --> 00:11:22,608
 The terms come with signs: plus for
 this one, minus for these two. Here the
 
-152
-00:11:16,141 --> 00:11:18,177
+153
+00:11:22,608 --> 00:11:24,644
 cancellation eats the good ones.
 
-153
-00:11:20,154 --> 00:11:26,695
+154
+00:11:26,621 --> 00:11:33,162
 In 1961 the physicist Pieter Kasteleyn
 had an idea: if the signs don't cancel the
 
-154
-00:11:26,695 --> 00:11:29,199
+155
+00:11:33,162 --> 00:11:35,666
 way you want, change the signs.
 
-155
-00:11:29,999 --> 00:11:35,677
+156
+00:11:36,466 --> 00:11:42,144
 Put a minus sign on this one edge. Only the
 all-vertical tiling uses it, so only its
 
-156
-00:11:35,677 --> 00:11:36,421
+157
+00:11:42,144 --> 00:11:42,888
 sign flips.
 
-157
-00:11:37,221 --> 00:11:43,008
+158
+00:11:43,688 --> 00:11:49,475
 Now every tiling carries the same sign.
 The determinant is minus three. Ignore the
 
-158
-00:11:43,008 --> 00:11:43,855
+159
+00:11:49,475 --> 00:11:50,322
 sign: three.
 
-159
-00:11:45,854 --> 00:11:51,024
+160
+00:11:52,321 --> 00:11:57,491
 On a four-by-four board, the plain
 determinant says there are zero tilings. Very
 
-160
-00:11:51,024 --> 00:11:52,446
+161
+00:11:57,491 --> 00:11:58,913
 confident, very wrong.
 
-161
-00:11:53,246 --> 00:11:58,640
+162
+00:11:59,713 --> 00:12:05,107
 Put minus signs on the vertical edges of
 every other column, and the determinant
 
-162
-00:11:58,640 --> 00:12:00,798
+163
+00:12:05,107 --> 00:12:07,265
 gives thirty-six. Exactly right.
 
-163
-00:12:02,787 --> 00:12:07,931
+164
+00:12:09,254 --> 00:12:14,398
 Now the full chessboard: twelve million,
 nine hundred eighty-eight thousand, eight
 
-164
-00:12:07,931 --> 00:12:11,256
+165
+00:12:14,398 --> 00:12:17,723
 hundred sixteen. The five-month
 count, in an instant.
 
-165
-00:12:12,056 --> 00:12:17,444
+166
+00:12:18,523 --> 00:12:23,911
 The rule behind it: every little loop of
 four edges carries an odd number of minus
 
-166
-00:12:17,444 --> 00:12:17,838
+167
+00:12:23,911 --> 00:12:24,305
 signs.
 
-167
-00:12:18,638 --> 00:12:24,232
+168
+00:12:25,105 --> 00:12:30,699
 And it's not really about chessboards.
 Squares are vertices, dominoes are edges, and
 
-168
-00:12:24,232 --> 00:12:26,296
+169
+00:12:30,699 --> 00:12:32,763
 a tiling is a perfect matching.
 
-169
-00:12:27,096 --> 00:12:32,667
+170
+00:12:33,563 --> 00:12:39,133
 Kasteleyn, Temperley and Fisher made this
 work for any graph you can draw without
 
-170
-00:12:32,667 --> 00:12:38,443
+171
+00:12:39,133 --> 00:12:44,910
 crossings: the FKT algorithm counts perfect
 matchings of planar graphs in polynomial
 
-171
-00:12:38,443 --> 00:12:38,787
+172
+00:12:44,910 --> 00:12:45,254
 time.
 
-172
-00:12:39,587 --> 00:12:44,886
+173
+00:12:46,054 --> 00:12:51,353
 When a physicist needs to count twelve
 million tilings, they don't count. They take
 
-173
-00:12:44,886 --> 00:12:48,270
+174
+00:12:51,353 --> 00:12:54,737
 a determinant, and then let
 the board go to infinity.
 
-174
-00:12:50,253 --> 00:12:56,138
+175
+00:12:56,720 --> 00:13:02,605
 Let's step back. Ants that never meet.
 Tilings of a hexagon. Boxes in a corner.
 
-175
-00:12:56,138 --> 00:12:59,490
+176
+00:13:02,605 --> 00:13:05,957
 Mountain ranges. Aztec
 diamonds. Chessboards.
 
-176
-00:13:00,290 --> 00:13:02,530
+177
+00:13:06,757 --> 00:13:08,997
 All counted by one determinant each.
 
-177
-00:13:04,520 --> 00:13:09,616
+178
+00:13:10,987 --> 00:13:16,083
 And it's the same trick every time. Count
 everything, good and bad, each with a
 
-178
-00:13:09,616 --> 00:13:09,939
+179
+00:13:16,083 --> 00:13:16,406
 sign.
 
-179
-00:13:10,739 --> 00:13:15,941
+180
+00:13:17,206 --> 00:13:22,408
 The bad ones pair up with opposite signs,
 and cancel. What's left is exactly what
 
-180
-00:13:15,941 --> 00:13:16,648
+181
+00:13:22,408 --> 00:13:23,115
 you wanted.
 
-181
-00:13:17,448 --> 00:13:23,833
+182
+00:13:23,915 --> 00:13:30,300
 For a computer scientist, that's remarkable.
 Counting is usually hopeless: counting
 
-182
-00:13:23,833 --> 00:13:30,141
+183
+00:13:30,300 --> 00:13:36,608
 perfect matchings of a general graph is
 sharp-P complete. That's Valiant, in 1979.
 
-183
-00:13:30,941 --> 00:13:36,297
+184
+00:13:37,408 --> 00:13:42,763
 But if your puzzle turns into non-touching
 paths, or a matching on a planar graph,
 
-184
-00:13:36,297 --> 00:13:39,432
+185
+00:13:42,763 --> 00:13:45,899
 it becomes one determinant,
 and polynomial time.
 
-185
-00:13:40,232 --> 00:13:43,752
+186
+00:13:46,699 --> 00:13:50,219
 Determinants can count,
 because minus signs can cancel.
 
-186
-00:13:47,220 --> 00:13:52,558
+187
+00:13:53,687 --> 00:13:59,025
 As for our ants: they can finally go home
 in peace. Twenty ways home, and they never
 
-187
-00:13:52,558 --> 00:13:53,321
+188
+00:13:59,025 --> 00:13:59,788
 had to meet.
 
-188
-00:13:55,621 --> 00:13:56,944
+189
+00:14:02,088 --> 00:14:03,411
 Thanks for watching.
 

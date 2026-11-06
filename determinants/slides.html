@@ -21,7 +21,7 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_479267a8da38207f.mp4"
+          data-background-video="presentation_assets/s00_268078593393b294.mp4"
           data-background-video-muted
           >
             <aside class="notes" data-markdown>Most of us met the determinant as a formula: a d minus b c.</aside>
@@ -29,875 +29,882 @@
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_903fe952ea64d992.mp4"
+          data-background-video="presentation_assets/s00_da8d826b2ae2398f.mp4"
           >
-            <aside class="notes" data-markdown>It helps us solve equations.</aside>
+            <aside class="notes" data-markdown>It tells us whether a system of linear equations has a unique solution.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_efca48850382a9c4.mp4"
+          data-background-video="presentation_assets/s00_6cca1ee7aa3bbe13.mp4"
           >
-            <aside class="notes" data-markdown>It measures area.</aside>
+            <aside class="notes" data-markdown>It measures how much a linear transformation scales area. Here, every area doubles.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_f355699691499f80.mp4"
+          data-background-video="presentation_assets/s00_d9ef967e55f2306d.mp4"
           >
-            <aside class="notes" data-markdown>And it tells us when a transformation cannot be reversed.</aside>
+            <aside class="notes" data-markdown>And when it's zero, everything gets squashed flat.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_ebe1e3a949f57ec3.mp4"
+          data-background-video="presentation_assets/s00_60991217772b5c4a.mp4"
           >
-            <aside class="notes" data-markdown>But here's the surprise: a determinant can also count.</aside>
+            <aside class="notes" data-markdown>It even finds the area of any polygon.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s00_e91a151c38218145.mp4"
+          data-background-video="presentation_assets/s00_bc2fcf4b869bcfba.mp4"
           >
-            <aside class="notes" data-markdown>Let's see how, starting with two ants.</aside>
+            <aside class="notes" data-markdown>One of the most beautiful and unexpected places I've found determinants is combinatorics.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_0d9f0f78604bfa3a.mp4"
+          data-background-video="presentation_assets/s00_5a0c5befc5b796df.mp4"
           >
-            <aside class="notes" data-markdown>Meet two ants. They live on a grid.</aside>
+            <aside class="notes" data-markdown>And today, I want to show you how determinants can count.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_207d65a38d70c7e7.mp4"
+          data-background-video="presentation_assets/s00_2bb18d68764ffbb0.mp4"
           >
-            <aside class="notes" data-markdown>Every step goes one dot right, or one dot up. Never left, never down.</aside>
+            <aside class="notes" data-markdown>Let's start with a simple puzzle.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_63db8b139305d400.mp4"
+          data-background-video="presentation_assets/s01_1985d7660989e182.mp4"
           >
-            <aside class="notes" data-markdown>The blue ant, ant one, lives here. The orange ant, ant two, lives there.</aside>
+            <aside class="notes" data-markdown>Meet these two ants.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_51166e954080ea3a.mp4"
+          data-background-video="presentation_assets/s01_0d629f6a211e2508.mp4"
           >
-            <aside class="notes" data-markdown>There's one small problem. They had a fight. Now neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.</aside>
+            <aside class="notes" data-markdown>They both live in a grid-like world.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_362178206385f823.mp4"
+          data-background-video="presentation_assets/s01_5de29e3b87dc39d5.mp4"
           >
-            <aside class="notes" data-markdown>So their two routes can't touch, anywhere. How many pairs of routes get both ants home?</aside>
+            <aside class="notes" data-markdown>And they both want to get back home, right now.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s01_b794e20791ff5840.mp4"
+          data-background-video="presentation_assets/s01_ff4ecb2e04d57d4e.mp4"
           >
-            <aside class="notes" data-markdown>Maybe pause, and try to find one.</aside>
+            <aside class="notes" data-markdown>On this grid there are rules. An ant can only step up, or to the right. Never down, and never left.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s02_0f60174026eef925.mp4"
+          data-background-video="presentation_assets/s01_cdf9616d80e1c0f6.mp4"
           >
-            <aside class="notes" data-markdown>Here's one. Ant one goes up first, ant two goes right first.</aside>
+            <aside class="notes" data-markdown>Of course, there are many paths home. The blue ant could go this way, or this way. And the orange ant, this way, or that way.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s02_f9b8b4b0125a3515.mp4"
+          data-background-video="presentation_assets/s01_070165c6f9a3a691.mp4"
           >
-            <aside class="notes" data-markdown>They never meet. Peace in our time.</aside>
+            <aside class="notes" data-markdown>But today, they can't just take any path. They had a fight, and if they meet, they'll start fighting again.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s03_294bf83db5ce4300.mp4"
+          data-background-video="presentation_assets/s01_3d181c596656c093.mp4"
           >
-            <aside class="notes" data-markdown>To find them all, the honest way: each ant has six routes, so thirty-six pairs.</aside>
+            <aside class="notes" data-markdown>So neither will set foot on any dot the other one walks on. Not even later: ants leave a scent trail.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s03_b6bf251ffa450363.mp4"
+          data-background-video="presentation_assets/s01_3824bebd524dda0e.mp4"
           >
-            <aside class="notes" data-markdown>Check them one by one. This pair never meets. This one meets. So does this one. And so on.</aside>
+            <aside class="notes" data-markdown>So, how many pairs of paths get them home without intersecting?</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s03_f4d2bc98020713ae.mp4"
+          data-background-video="presentation_assets/s01_d2b681787e984c40.mp4"
           >
-            <aside class="notes" data-markdown>Twenty pairs never meet.</aside>
+            <aside class="notes" data-markdown>You can always find one easily. Here, the blue one goes up and around, and the orange one goes right and around. They never meet.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s04_d175d7bfaf3824b8.mp4"
+          data-background-video="presentation_assets/s01_7eb3231a193e8f44.mp4"
           >
-            <aside class="notes" data-markdown>Now something that looks completely unrelated. Count the routes from each ant to each home, and put those four numbers in a little square.</aside>
+            <aside class="notes" data-markdown>And here's one where they cross.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s04_ea60e84be0945ef9.mp4"
+          data-background-video="presentation_assets/s01_3989c654d556089e.mp4"
           >
-            <aside class="notes" data-markdown>Take the determinant: six times six, minus four times four.</aside>
+            <aside class="notes" data-markdown>Let's check them all, one by one. This pair works. This one doesn't. Neither does this one. Or this one. And so on.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s04_afac9f134e013383.mp4"
+          data-background-video="presentation_assets/s01_c6fe03423a6c9fe5.mp4"
           >
-            <aside class="notes" data-markdown>Twenty.</aside>
+            <aside class="notes" data-markdown>Twenty pairs never meet, and sixteen do.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s04_9856294c6588bed2.mp4"
+          data-background-video="presentation_assets/s02_e982f70cb93ff999.mp4"
           >
-            <aside class="notes" data-markdown>The same twenty. Coincidence? Hardly. Let's find out why.</aside>
+            <aside class="notes" data-markdown>Consider this two-by-two matrix, A. Its rows are the ants, and its columns are the houses.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s05_c3c0d458a49fae2b.mp4"
+          data-background-video="presentation_assets/s02_7bccbf622ac57373.mp4"
           >
-            <aside class="notes" data-markdown>First, those four numbers. How many ways can ant one get home? Take a guess.</aside>
+            <aside class="notes" data-markdown>The first entry counts the paths from the blue ant to its own home. There are six.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s05_852b64780db30590.mp4"
+          data-background-video="presentation_assets/s02_e137f2e87c0074af.mp4"
           >
-            <aside class="notes" data-markdown>Let's list them. Right, right, up, up. Right, up, right, up. Right, up, up, right. Up, right, right, up. Up, right, up, right. And up, up, right, right.</aside>
+            <aside class="notes" data-markdown>The second entry is a little sneakier: the paths from the blue ant to the orange ant's house. There are four.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s05_5493634ecaf4185d.mp4"
+          data-background-video="presentation_assets/s02_04adb719acb063f0.mp4"
           >
-            <aside class="notes" data-markdown>Six.</aside>
+            <aside class="notes" data-markdown>And by symmetry, the orange ant gives the same numbers the other way round: four, and six.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s05_a5fc7f68e1a93b1f.mp4"
+          data-background-video="presentation_assets/s02_1f8855f22df383e1.mp4"
           >
-            <aside class="notes" data-markdown>Notice: every route is four steps, two right and two up. That's forced: home is two columns right and two rows up.</aside>
+            <aside class="notes" data-markdown>Now find the determinant of A: six times six, minus four times four,</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s06_ccf3dd0fc80c2952.mp4"
+          data-background-video="presentation_assets/s02_dcd4d315d98cbf45.mp4"
           >
-            <aside class="notes" data-markdown>So a route is just a choice of which two of the four steps go right.</aside>
+            <aside class="notes" data-markdown>which is twenty. Voilà!</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s06_fa11d982d0fe1ca7.mp4"
+          data-background-video="presentation_assets/s02_638f1aeee2af95ed.mp4"
           >
-            <aside class="notes" data-markdown>Four choose two: six.</aside>
+            <aside class="notes" data-markdown>The same number as before.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s06_1be41c27ac515d55.mp4"
+          data-background-video="presentation_assets/s03_43a57e06a77312dd.mp4"
           >
-            <aside class="notes" data-markdown>The same works for any start and home: a steps right and b steps up gives a plus b choose a routes.</aside>
+            <aside class="notes" data-markdown>In fact, there's nothing special about this scenario.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s06_cef6d0272d201ff3.mp4"
+          data-background-video="presentation_assets/s03_87197d5885b2c5ce.mp4"
           >
-            <aside class="notes" data-markdown>Ant one to its own home: six. To the other home: four. Ant two to the first home: four. To its own: six. That's our little square.</aside>
+            <aside class="notes" data-markdown>Make the grid bigger, and bring in a third ant, with a house of its own.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s07_cd65fec73d753fb1.mp4"
+          data-background-video="presentation_assets/s03_62a4c1afd578b731.mp4"
           >
-            <aside class="notes" data-markdown>Here's the thing that bugged me when I first saw this. Six times six counts every way to send each ant to its own home, including the pairs that crash into each other.</aside>
+            <aside class="notes" data-markdown>Build the same kind of matrix: three ants, three houses, and each entry counts the paths from one ant to one house.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s07_d8ba223fbb57b97d.mp4"
+          data-background-video="presentation_assets/s03_ad06e6d822ad6da3.mp4"
           >
-            <aside class="notes" data-markdown>Twenty good, sixteen bad.</aside>
+            <aside class="notes" data-markdown>Its determinant is fifty.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s07_db6e3e56d3663fb2.mp4"
+          data-background-video="presentation_assets/s03_721418aa5b272900.mp4"
           >
-            <aside class="notes" data-markdown>Four times four counts something stranger: each ant walking to the other one's house.</aside>
+            <aside class="notes" data-markdown>And fifty is exactly the number of ways all three ants can get home without any of their paths intersecting.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s07_aa843c1445ce62f8.mp4"
+          data-background-video="presentation_assets/s04_137971d48dc4c1e0.mp4"
           >
-            <aside class="notes" data-markdown>So the determinant is good, plus bad, minus swapped. For that to equal the good ones, the swapped pairs must cancel the bad ones exactly. Not roughly. Exactly. Let's match them up.</aside>
+            <aside class="notes" data-markdown>So, why does this work?</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s08_60ef484035b78408.mp4"
+          data-background-video="presentation_assets/s04_423cbf21c3990e01.mp4"
           >
-            <aside class="notes" data-markdown>Take a bad pair.</aside>
+            <aside class="notes" data-markdown>Let's get back to our two ants, and work it out.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s08_14dda3cb9a129838.mp4"
+          data-background-video="presentation_assets/s05_59e446e35523a878.mp4"
           >
-            <aside class="notes" data-markdown>Walk along ant one's route, and stop at the first dot that ant two also visits.</aside>
+            <aside class="notes" data-markdown>Take a pair where the ants swap houses.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s08_444528744375486d.mp4"
+          data-background-video="presentation_assets/s05_a9ab8235151330d4.mp4"
           >
-            <aside class="notes" data-markdown>From that dot on, swap their tails. Ant one keeps its start and takes ant two's ending; ant two does the opposite.</aside>
+            <aside class="notes" data-markdown>The blue ant starts to the left of the orange one, and ends to its right.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s08_110550630d757757.mp4"
+          data-background-video="presentation_assets/s05_dae78c868877e5ea.mp4"
           >
-            <aside class="notes" data-markdown>Look where they end: each at the other's house. A bad pair became a swapped pair.</aside>
+            <aside class="notes" data-markdown>So somewhere, they must share a dot.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s09_7fcf2ba53543cae1.mp4"
+          data-background-video="presentation_assets/s05_5c5a8e63d59410fe.mp4"
           >
-            <aside class="notes" data-markdown>And it undoes itself.</aside>
+            <aside class="notes" data-markdown>Take the first shared dot, and swap the tails from there.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s09_04a99ece0150d696.mp4"
+          data-background-video="presentation_assets/s05_f3f8f4f61a790563.mp4"
           >
-            <aside class="notes" data-markdown>Nothing before that dot changed, so it's still the first meeting point, and swapping there puts everything back.</aside>
+            <aside class="notes" data-markdown>Now each ant is at its own home, and their paths meet.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s09_5b59373ca8474ffe.mp4"
+          data-background-video="presentation_assets/s06_22d409b97591c8e3.mp4"
           >
-            <aside class="notes" data-markdown>Do it twice and nothing happened. Mathematicians call that an involution. Like most committee meetings.</aside>
+            <aside class="notes" data-markdown>Now the other way: a pair that meets on the way home.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s09_dd9cb3d4c6086cdd.mp4"
+          data-background-video="presentation_assets/s06_9efa3c3951e469e9.mp4"
           >
-            <aside class="notes" data-markdown>So bad pairs and swapped pairs that meet come in perfect couples.</aside>
+            <aside class="notes" data-markdown>Swap the tails at the first shared dot, and they end up in each other's houses.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s10_6d9d7081b3c7e14f.mp4"
+          data-background-video="presentation_assets/s06_12d01679df15f086.mp4"
           >
-            <aside class="notes" data-markdown>One worry left: could a swapped pair avoid meeting, and have no partner?</aside>
+            <aside class="notes" data-markdown>Swap again at the same dot, and we're back where we started.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s10_5fc7014066afeabf.mp4"
+          data-background-video="presentation_assets/s07_d81a11f51cbc6659.mp4"
           >
-            <aside class="notes" data-markdown>Sweep a diagonal across the grid. Every step moves an ant onto the next diagonal, so on each diagonal, each ant stands on exactly one dot.</aside>
+            <aside class="notes" data-markdown>So swapped pairs and meeting pairs match up, one to one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s10_ad979aaf9997bfd5.mp4"
+          data-background-video="presentation_assets/s07_2db79878f7c7bcc9.mp4"
           >
-            <aside class="notes" data-markdown>Track the gap between their columns. At the start, ant one is one column to the left.</aside>
+            <aside class="notes" data-markdown>This meeting pair goes with this swapped pair.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s10_e1462b111e2ad923.mp4"
+          data-background-video="presentation_assets/s07_1af8c8e13e054bcc.mp4"
           >
-            <aside class="notes" data-markdown>At the end, it's one column to the right.</aside>
+            <aside class="notes" data-markdown>This one, with this one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s10_05cbb215ca07dd05.mp4"
+          data-background-video="presentation_assets/s07_d644df43dadfee18.mp4"
           >
-            <aside class="notes" data-markdown>And from one diagonal to the next, the gap changes by at most one.</aside>
+            <aside class="notes" data-markdown>And this one, with this one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s10_c33d5ded521adca5.mp4"
+          data-background-video="presentation_assets/s07_5e899788c969a514.mp4"
           >
-            <aside class="notes" data-markdown>So somewhere it is zero: they share a dot. That's the intermediate value theorem, in its most humble form.</aside>
+            <aside class="notes" data-markdown>And so on.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s11_b8a1c4607091b0d8.mp4"
+          data-background-video="presentation_assets/s07_1d63ae840e8bc35b.mp4"
           >
-            <aside class="notes" data-markdown>So every bad pair has exactly one swapped partner, and every swapped pair has exactly one bad partner.</aside>
+            <aside class="notes" data-markdown>Sixteen of each.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s11_4afe3339b364f0bd.mp4"
+          data-background-video="presentation_assets/s08_cc9d151d3b6f196d.mp4"
           >
-            <aside class="notes" data-markdown>In the determinant they cancel. The minus sign isn't throwing things away at random. It removes an exact copy of the bad pairs.</aside>
+            <aside class="notes" data-markdown>Now, the formula.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s11_04c415c0512d2281.mp4"
+          data-background-video="presentation_assets/s08_b230d0c099a312e4.mp4"
           >
-            <aside class="notes" data-markdown>What survives is exactly the twenty pairs that never meet.</aside>
+            <aside class="notes" data-markdown>Six times six counts every pair going home: twenty that never meet, and sixteen that meet.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s11_4084deb04062d448.mp4"
+          data-background-video="presentation_assets/s08_f9ce893d283c6c79.mp4"
+          >
+            <aside class="notes" data-markdown>Four times four counts the sixteen swapped pairs.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s08_dad23bd6228c4c5f.mp4"
+          >
+            <aside class="notes" data-markdown>They cancel the meeting pairs exactly.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s08_fef4bc9285be9bf1.mp4"
+          >
+            <aside class="notes" data-markdown>Leaving twenty.</aside>
+        </section>
+        <section
+          data-background-size='contain'
+          data-background-color="black"
+          data-background-video="presentation_assets/s08_c2d2015e80b5a0ab.mp4"
           >
             <aside class="notes" data-markdown>A bijective proof: the only kind a combinatorialist fully trusts.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s12_39e048c4f45eb54a.mp4"
+          data-background-video="presentation_assets/s09_39e048c4f45eb54a.mp4"
           >
             <aside class="notes" data-markdown>You might be thinking: surely that's a fluke of this little grid. Move the second house around, and each time, brute force and the determinant agree.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s12_77b9bd10b6d3142c.mp4"
+          data-background-video="presentation_assets/s09_77b9bd10b6d3142c.mp4"
           >
             <aside class="notes" data-markdown>As long as the order stays the same: ant one's house up and to the left of ant two's.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s12_d1b39d38a5bb8618.mp4"
+          data-background-video="presentation_assets/s09_d1b39d38a5bb8618.mp4"
           >
             <aside class="notes" data-markdown>Swap the order and there are no peaceful routes at all. The determinant notices: it counts the swapped pairing instead, with a minus sign.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s13_660da3775e9097a1.mp4"
-          >
-            <aside class="notes" data-markdown>Add a third ant, with its own start and its own house.</aside>
-        </section>
-        <section
-          data-background-size='contain'
-          data-background-color="black"
-          data-background-video="presentation_assets/s13_5800506430ed10ef.mp4"
-          >
-            <aside class="notes" data-markdown>A three-by-three table: fifty. Brute force over all the triples: fifty.</aside>
-        </section>
-        <section
-          data-background-size='contain'
-          data-background-color="black"
-          data-background-video="presentation_assets/s14_52455fcc26c41db0.mp4"
+          data-background-video="presentation_assets/s10_52455fcc26c41db0.mp4"
           >
             <aside class="notes" data-markdown>Here's the general statement, on our three ants. Take a one-way network with some starts and some ends, and count the paths from each start to each end. That's the matrix.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_16c767f202df3af5.mp4"
+          data-background-video="presentation_assets/s10_16c767f202df3af5.mp4"
           >
             <aside class="notes" data-markdown>Expand the determinant. Each term picks an end for every start, a pairing, with a plus or a minus sign, and counts every family of paths for that pairing.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_a3065134ed177798.mp4"
+          data-background-video="presentation_assets/s10_a3065134ed177798.mp4"
           >
             <aside class="notes" data-markdown>Here: two hundred and sixteen, minus ninety-six, minus ninety-six, minus six, plus sixteen, plus sixteen.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_e52d585a157f0f7d.mp4"
+          data-background-video="presentation_assets/s10_e52d585a157f0f7d.mp4"
           >
             <aside class="notes" data-markdown>Of the two hundred and sixteen, only fifty never touch. And when the starts and ends are lined up in order, a crossed pairing always touches.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_3686071ffc50314c.mp4"
+          data-background-video="presentation_assets/s10_3686071ffc50314c.mp4"
           >
             <aside class="notes" data-markdown>Now the tail swap from before pairs every touching family with one of opposite sign: one hundred ninety-eight against one hundred ninety-eight. Mathematicians call this a sign-reversing involution. They all cancel.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_793008de5688151b.mp4"
+          data-background-video="presentation_assets/s10_793008de5688151b.mp4"
           >
             <aside class="notes" data-markdown>What's left is exactly the fifty families that never touch. And that is true for any such network.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_164f2cf75249d705.mp4"
+          data-background-video="presentation_assets/s10_164f2cf75249d705.mp4"
           >
             <aside class="notes" data-markdown>This is the Lindström–Gessel–Viennot lemma. Lindström found it in 1973; Gessel and Viennot rediscovered it in 1985 and showed how much it can do.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_a9a6c075327516c9.mp4"
+          data-background-video="presentation_assets/s10_a9a6c075327516c9.mp4"
           >
             <aside class="notes" data-markdown>Physicists call walkers like ours vicious walkers. Given that our ants had a fight, that seems fair.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_cf7077563b864ec5.mp4"
+          data-background-video="presentation_assets/s10_cf7077563b864ec5.mp4"
           >
             <aside class="notes" data-markdown>Brute force over n ants explodes. A determinant takes about n cubed steps, or n to the omega with fast matrix multiplication.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s14_3485c17be81ce6b3.mp4"
+          data-background-video="presentation_assets/s10_4a326ffcf2052033.mp4"
           >
-            <aside class="notes" data-markdown>And omega keeps falling. Strassen broke three in 1969, and this month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026.</aside>
+            <aside class="notes" data-markdown>And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s15_a3ab4db9ec95b4a8.mp4"
+          data-background-video="presentation_assets/s11_a3ab4db9ec95b4a8.mp4"
           >
             <aside class="notes" data-markdown>So what can it count? The grid doesn't matter. Any network of one-way roads with no loops: right, up, diagonal, some roads missing.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s15_9cfcf138f21438aa.mp4"
+          data-background-video="presentation_assets/s11_9cfcf138f21438aa.mp4"
           >
             <aside class="notes" data-markdown>Count the routes from every start to every end, and take the determinant.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s15_d78db4a545c33cf2.mp4"
+          data-background-video="presentation_assets/s11_d78db4a545c33cf2.mp4"
           >
             <aside class="notes" data-markdown>You get the number of ways for everyone to travel without ever meeting. Here it's forty-two. Of course it is.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s15_e8d75e2c728c344d.mp4"
+          data-background-video="presentation_assets/s11_e8d75e2c728c344d.mp4"
           >
             <aside class="notes" data-markdown>So any puzzle that is secretly a family of non-touching paths, a determinant can count. And these puzzles are everywhere.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s16_00c2cd181b3feea2.mp4"
+          data-background-video="presentation_assets/s12_00c2cd181b3feea2.mp4"
           >
             <aside class="notes" data-markdown>Here's a hexagon with every side of length two, cut into little triangles.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s16_5c0c1ab5c0804337.mp4"
+          data-background-video="presentation_assets/s12_5c0c1ab5c0804337.mp4"
           >
             <aside class="notes" data-markdown>Glue two neighbouring triangles together and you get a tile: a lozenge. Lozenges come in three orientations.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s16_0e0f2325db41077f.mp4"
+          data-background-video="presentation_assets/s12_0e0f2325db41077f.mp4"
           >
             <aside class="notes" data-markdown>A tiling covers the hexagon exactly with lozenges. Nothing sticking out, nothing overlapping.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s16_7d7a4e22c28ee064.mp4"
+          data-background-video="presentation_assets/s12_7d7a4e22c28ee064.mp4"
           >
             <aside class="notes" data-markdown>Here's one. Notice anything? It looks like a stack of boxes in the corner of a room.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s16_7ab5080a5d4b6e23.mp4"
+          data-background-video="presentation_assets/s12_7ab5080a5d4b6e23.mp4"
           >
             <aside class="notes" data-markdown>It's completely flat. Your brain is doing the 3D rendering for free.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s16_001b2809589f0bba.mp4"
+          data-background-video="presentation_assets/s12_001b2809589f0bba.mp4"
           >
             <aside class="notes" data-markdown>So how many tilings are there?</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_a2cbfd10a4b6d2c1.mp4"
+          data-background-video="presentation_assets/s13_a2cbfd10a4b6d2c1.mp4"
           >
             <aside class="notes" data-markdown>Here's the trick. Fade out the flat tiles.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_87058c9e8d368fc7.mp4"
+          data-background-video="presentation_assets/s13_87058c9e8d368fc7.mp4"
           >
             <aside class="notes" data-markdown>Every other tile has two vertical edges. Enter through one, leave through the other, and keep going. Two edges on the left give two chains.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_0ee7d19450c8c507.mp4"
+          data-background-video="presentation_assets/s13_0ee7d19450c8c507.mp4"
           >
             <aside class="notes" data-markdown>Tiles never overlap, so the chains never touch. And going backwards, any two chains that don't touch fill in to exactly one tiling.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_83514c94ca942e0e.mp4"
+          data-background-video="presentation_assets/s13_83514c94ca942e0e.mp4"
           >
             <aside class="notes" data-markdown>Now squash the hexagon onto our square grid. Each chain becomes a route of two steps right and two steps up, starting and ending exactly where our ants do.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s17_a59d5ea07c100175.mp4"
+          data-background-video="presentation_assets/s13_a59d5ea07c100175.mp4"
           >
             <aside class="notes" data-markdown>So the number of tilings is twenty. The same twenty. All this time, our ants were tiling a hexagon.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_ad3cb40d9f88cfa3.mp4"
+          data-background-video="presentation_assets/s14_ad3cb40d9f88cfa3.mp4"
           >
             <aside class="notes" data-markdown>Seen in 3D, a tiling is a stack of boxes in a corner, each stack no taller than the ones behind it.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_5a864638ba700a0e.mp4"
+          data-background-video="presentation_assets/s14_5a864638ba700a0e.mp4"
           >
             <aside class="notes" data-markdown>A bigger box, three by three by three, gives a bigger hexagon and three chains: three ants that never meet.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_64903ce386c62009.mp4"
+          data-background-video="presentation_assets/s14_64903ce386c62009.mp4"
           >
             <aside class="notes" data-markdown>A three-by-three determinant counts them: nine hundred and eighty.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s18_c44142181d3274a4.mp4"
+          data-background-video="presentation_assets/s14_c44142181d3274a4.mp4"
           >
             <aside class="notes" data-markdown>Percy MacMahon found a formula for every box, over a century ago. Combinatorialists call these plane partitions.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_3baca82b815d0551.mp4"
+          data-background-video="presentation_assets/s15_3baca82b815d0551.mp4"
           >
             <aside class="notes" data-markdown>Another disguise. A mountain range: each step goes up or down, and it never dips below sea level.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_93866474508774ff.mp4"
+          data-background-video="presentation_assets/s15_93866474508774ff.mp4"
           >
             <aside class="notes" data-markdown>How many ways can you draw two ranges, one inside the other, without touching?</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_c6f0c6d763320dfd.mp4"
+          data-background-video="presentation_assets/s15_c6f0c6d763320dfd.mp4"
           >
             <aside class="notes" data-markdown>A single range is counted by the Catalan numbers. Put four of them in a two-by-two table: the determinant is three.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s19_ef2e2d0a321767ae.mp4"
+          data-background-video="presentation_assets/s15_ef2e2d0a321767ae.mp4"
           >
             <aside class="notes" data-markdown>And here they are. Exactly three.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s20_89a03a43a6c118ac.mp4"
+          data-background-video="presentation_assets/s16_89a03a43a6c118ac.mp4"
           >
             <aside class="notes" data-markdown>And one more, a beauty. This is an Aztec diamond: rows of two, four, six squares, and back down.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s20_5e0f18d1af6694b2.mp4"
+          data-background-video="presentation_assets/s16_5e0f18d1af6694b2.mp4"
           >
             <aside class="notes" data-markdown>Tile it with dominoes. The smallest one has two tilings. The next has eight. The next, sixty-four.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s20_04f1977bb4ec7f50.mp4"
+          data-background-video="presentation_assets/s16_04f1977bb4ec7f50.mp4"
           >
             <aside class="notes" data-markdown>Guess the next one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s20_ed5c872699a4d27c.mp4"
+          data-background-video="presentation_assets/s16_ed5c872699a4d27c.mp4"
           >
             <aside class="notes" data-markdown>One thousand and twenty-four. Powers of two, every time. That's suspicious.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_1887117f83d38125.mp4"
+          data-background-video="presentation_assets/s17_1887117f83d38125.mp4"
           >
             <aside class="notes" data-markdown>Colour the board like a chessboard, and there are four kinds of domino. Give each kind a job: a flat step, a step up, a step down, or nothing.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_547a8ab2267a1e28.mp4"
+          data-background-video="presentation_assets/s17_547a8ab2267a1e28.mp4"
           >
             <aside class="notes" data-markdown>Now the dominoes link up into paths, from the left side to the right. Dominoes never overlap, so the paths never touch, and every such family comes from exactly one tiling.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_80cd6de37005c04d.mp4"
+          data-background-video="presentation_assets/s17_80cd6de37005c04d.mp4"
           >
             <aside class="notes" data-markdown>So once again: count routes, take the determinant. Twelve times two minus four times four. Eight.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_97ac90cd1870a828.mp4"
+          data-background-video="presentation_assets/s17_97ac90cd1870a828.mp4"
           >
             <aside class="notes" data-markdown>One size up: sixty-four.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s21_1accc1fbd5e4f26e.mp4"
+          data-background-video="presentation_assets/s17_1accc1fbd5e4f26e.mp4"
           >
             <aside class="notes" data-markdown>In general, order n gives two to the n times n plus one over two. A determinant, hiding in a pile of dominoes.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_4b64dcf523ec593c.mp4"
+          data-background-video="presentation_assets/s18_4b64dcf523ec593c.mp4"
           >
             <aside class="notes" data-markdown>Now pick one tiling at random, every tiling equally likely, on a big diamond, and let it grow.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_3784586264756183.mp4"
+          data-background-video="presentation_assets/s18_3784586264756183.mp4"
           >
             <aside class="notes" data-markdown>This is order sixty.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_d499a81f976331c3.mp4"
+          data-background-video="presentation_assets/s18_d499a81f976331c3.mp4"
           >
-            <aside class="notes" data-markdown>The corners freeze into brick walls. The middle is chaos. And the boundary between them is a perfect circle.</aside>
+            <aside class="notes" data-markdown>The corners freeze into brick walls. The middle is chaos. And as the diamond grows, the boundary between them becomes a perfect circle.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s22_2e4caac0140573a0.mp4"
+          data-background-video="presentation_assets/s18_2e4caac0140573a0.mp4"
           >
-            <aside class="notes" data-markdown>That's the picture we started with. It's called the arctic circle theorem.</aside>
+            <aside class="notes" data-markdown>It's called the arctic circle theorem.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s23_3593d03e4cb2e85b.mp4"
+          data-background-video="presentation_assets/s19_3593d03e4cb2e85b.mp4"
           >
             <aside class="notes" data-markdown>Back to the chessboard from the start. Dominoes aren't paths, but there's a determinant trick here too. Shrink it to a two-by-three board: three tilings.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s23_b8ff84c35534194b.mp4"
+          data-background-video="presentation_assets/s19_b8ff84c35534194b.mp4"
           >
             <aside class="notes" data-markdown>A domino joins a black square to a white neighbour. Write a one wherever they touch. Each tiling picks one entry in every row and every column: one term of the determinant.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s23_a0dfdf9e173a29d3.mp4"
+          data-background-video="presentation_assets/s19_a0dfdf9e173a29d3.mp4"
           >
             <aside class="notes" data-markdown>If determinants count pairings, this should give three. It gives minus one.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s23_e2c89f0fd1c63a0e.mp4"
+          data-background-video="presentation_assets/s19_e2c89f0fd1c63a0e.mp4"
           >
             <aside class="notes" data-markdown>The terms come with signs: plus for this one, minus for these two. Here the cancellation eats the good ones.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_b1febbae8b42aa71.mp4"
+          data-background-video="presentation_assets/s20_b1febbae8b42aa71.mp4"
           >
             <aside class="notes" data-markdown>In 1961 the physicist Pieter Kasteleyn had an idea: if the signs don't cancel the way you want, change the signs.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_faf73c0ae7fdb76b.mp4"
+          data-background-video="presentation_assets/s20_faf73c0ae7fdb76b.mp4"
           >
             <aside class="notes" data-markdown>Put a minus sign on this one edge. Only the all-vertical tiling uses it, so only its sign flips.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s24_2fda1e3bbd230c4f.mp4"
+          data-background-video="presentation_assets/s20_2fda1e3bbd230c4f.mp4"
           >
             <aside class="notes" data-markdown>Now every tiling carries the same sign. The determinant is minus three. Ignore the sign: three.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s25_8fabb108b09ab8f7.mp4"
+          data-background-video="presentation_assets/s21_8fabb108b09ab8f7.mp4"
           >
             <aside class="notes" data-markdown>On a four-by-four board, the plain determinant says there are zero tilings. Very confident, very wrong.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s25_8e9e3ff3b531d924.mp4"
+          data-background-video="presentation_assets/s21_8e9e3ff3b531d924.mp4"
           >
             <aside class="notes" data-markdown>Put minus signs on the vertical edges of every other column, and the determinant gives thirty-six. Exactly right.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_07ec694e7a2b1f5c.mp4"
+          data-background-video="presentation_assets/s22_07ec694e7a2b1f5c.mp4"
           >
             <aside class="notes" data-markdown>Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen. The five-month count, in an instant.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_02e181501ef03aa2.mp4"
+          data-background-video="presentation_assets/s22_02e181501ef03aa2.mp4"
           >
             <aside class="notes" data-markdown>The rule behind it: every little loop of four edges carries an odd number of minus signs.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_181c7b7d42a3385c.mp4"
+          data-background-video="presentation_assets/s22_181c7b7d42a3385c.mp4"
           >
             <aside class="notes" data-markdown>And it's not really about chessboards. Squares are vertices, dominoes are edges, and a tiling is a perfect matching.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_884e3863a288212c.mp4"
+          data-background-video="presentation_assets/s22_884e3863a288212c.mp4"
           >
             <aside class="notes" data-markdown>Kasteleyn, Temperley and Fisher made this work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s26_b9d2df8dccaa9198.mp4"
+          data-background-video="presentation_assets/s22_b9d2df8dccaa9198.mp4"
           >
             <aside class="notes" data-markdown>When a physicist needs to count twelve million tilings, they don't count. They take a determinant, and then let the board go to infinity.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s27_495f4862ff416aef.mp4"
+          data-background-video="presentation_assets/s23_495f4862ff416aef.mp4"
           >
             <aside class="notes" data-markdown>Let's step back. Ants that never meet. Tilings of a hexagon. Boxes in a corner. Mountain ranges. Aztec diamonds. Chessboards.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s27_31048b192e95264a.mp4"
+          data-background-video="presentation_assets/s23_31048b192e95264a.mp4"
           >
             <aside class="notes" data-markdown>All counted by one determinant each.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s28_1b1a438119f50136.mp4"
+          data-background-video="presentation_assets/s24_1b1a438119f50136.mp4"
           >
             <aside class="notes" data-markdown>And it's the same trick every time. Count everything, good and bad, each with a sign.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s28_5069c5696c5890cf.mp4"
+          data-background-video="presentation_assets/s24_5069c5696c5890cf.mp4"
           >
             <aside class="notes" data-markdown>The bad ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s28_33dba0466490bd97.mp4"
+          data-background-video="presentation_assets/s24_33dba0466490bd97.mp4"
           >
             <aside class="notes" data-markdown>For a computer scientist, that's remarkable. Counting is usually hopeless: counting perfect matchings of a general graph is sharp-P complete. That's Valiant, in 1979.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s28_28d67b21744fb27a.mp4"
+          data-background-video="presentation_assets/s24_28d67b21744fb27a.mp4"
           >
             <aside class="notes" data-markdown>But if your puzzle turns into non-touching paths, or a matching on a planar graph, it becomes one determinant, and polynomial time.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s28_72e7e8d5aa4c48f7.mp4"
+          data-background-video="presentation_assets/s24_72e7e8d5aa4c48f7.mp4"
           >
             <aside class="notes" data-markdown>Determinants can count, because minus signs can cancel.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s29_b283a768fe3f17b4.mp4"
+          data-background-video="presentation_assets/s25_b283a768fe3f17b4.mp4"
           >
             <aside class="notes" data-markdown>As for our ants: they can finally go home in peace. Twenty ways home, and they never had to meet.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s29_6373441c7a7a5eec.mp4"
+          data-background-video="presentation_assets/s25_6373441c7a7a5eec.mp4"
           >
             <aside class="notes" data-markdown>Thanks for watching.</aside>
         </section>
         <section
           data-background-size='contain'
           data-background-color="black"
-          data-background-video="presentation_assets/s30_9af54d411f7aa41f.mp4"
+          data-background-video="presentation_assets/s26_9af54d411f7aa41f.mp4"
           >
         </section>
       </div>

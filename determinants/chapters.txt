@@ -1,18 +1,14 @@
-0:19 Two ants and a question
-0:51 Two ants: brute force vs a determinant
-1:39 Counting routes for one ant
-2:28 Why it works: swapping tails
-3:40 Swapped pairs must meet
-4:42 More ants, any network
-5:16 The Lindström–Gessel–Viennot lemma
-7:00 What can it count?
-7:29 Tilings of a hexagon
-8:42 Boxes in a corner
-9:09 Mountain ranges
-9:32 The Aztec diamond
-10:33 The arctic circle
-12:07 The FKT algorithm
-12:51 Why determinants can count
-13:43 Goodbye
+0:41 Two ants and a question
+5:04 More ants, any network
+5:30 The Lindström–Gessel–Viennot lemma
+7:24 What can it count?
+7:55 Tilings of a hexagon
+9:14 Boxes in a corner
+9:44 Mountain ranges
+10:09 The Aztec diamond
+11:16 The arctic circle
+12:59 The FKT algorithm
+13:46 Why determinants can count
+14:43 Goodbye
 
-total 14:18
+total 15:19

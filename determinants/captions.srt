@@ -1,958 +1,929 @@
 1
-00:00:00,600 --> 00:00:04,739
+00:00:00,600 --> 00:00:04,909
 Most of us met the determinant
 as a formula: a d minus b c.
 
 2
-00:00:05,189 --> 00:00:06,874
-It helps us solve equations.
+00:00:05,709 --> 00:00:09,933
+It tells us whether a system of linear
+equations has a unique solution.
 
 3
-00:00:07,324 --> 00:00:08,476
-It measures area.
+00:00:11,333 --> 00:00:16,859
+It measures how much a linear transformation
+scales area. Here, every area doubles.
 
 4
-00:00:08,926 --> 00:00:12,126
-And it tells us when a
-transformation cannot be reversed.
+00:00:18,259 --> 00:00:21,117
+And when it's zero,
+everything gets squashed flat.
 
 5
-00:00:12,576 --> 00:00:15,669
-But here's the surprise: a
-determinant can also count.
+00:00:21,917 --> 00:00:24,435
+It even finds the area of any polygon.
 
 6
-00:00:16,119 --> 00:00:18,210
-Let's see how, starting with two ants.
+00:00:26,835 --> 00:00:31,786
+One of the most beautiful and unexpected
+places I've found determinants is
 
 7
-00:00:19,831 --> 00:00:21,986
-Meet two ants. They live on a grid.
+00:00:31,786 --> 00:00:32,723
+combinatorics.
 
 8
-00:00:22,436 --> 00:00:26,980
-Every step goes one dot right, or
-one dot up. Never left, never down.
+00:00:33,523 --> 00:00:36,808
+And today, I want to show you
+how determinants can count.
 
 9
-00:00:27,430 --> 00:00:31,696
-The blue ant, ant one, lives here.
-The orange ant, ant two, lives there.
+00:00:38,608 --> 00:00:40,571
+Let's start with a simple puzzle.
 
 10
-00:00:32,146 --> 00:00:37,081
-There's one small problem. They had a
-fight. Now neither will set foot on any dot
+00:00:42,565 --> 00:00:43,930
+Meet these two ants.
 
 11
-00:00:37,081 --> 00:00:41,042
-the other one walks on. Not even
-later: ants leave a scent trail.
+00:00:44,730 --> 00:00:46,778
+They both live in a grid-like world.
 
 12
-00:00:41,492 --> 00:00:45,892
-So their two routes can't touch, anywhere.
-How many pairs of routes get both ants
+00:00:47,578 --> 00:00:50,181
+And they both want to
+get back home, right now.
 
 13
-00:00:45,892 --> 00:00:46,164
-home?
+00:00:50,981 --> 00:00:56,311
+On this grid there are rules. An ant can
+only step up, or to the right. Never down,
 
 14
-00:00:46,614 --> 00:00:48,705
-Maybe pause, and try to find one.
+00:00:56,311 --> 00:00:57,274
+and never left.
 
 15
-00:00:51,831 --> 00:00:55,266
-Here's one. Ant one goes up
-first, ant two goes right first.
+00:00:58,074 --> 00:01:03,055
+Of course, there are many paths home. The
+blue ant could go this way, or this way.
 
 16
-00:00:55,716 --> 00:00:57,764
-They never meet. Peace in our time.
+00:01:03,055 --> 00:01:05,605
+And the orange ant, this way, or that way.
 
 17
-00:00:59,397 --> 00:01:04,304
-To find them all, the honest way: each
-ant has six routes, so thirty-six pairs.
+00:01:06,405 --> 00:01:10,760
+But today, they can't just take any
+path. They had a fight, and if they meet,
 
 18
-00:01:04,754 --> 00:01:09,828
-Check them one by one. This pair never
-meets. This one meets. So does this one. And
+00:01:10,760 --> 00:01:12,400
+they'll start fighting again.
 
 19
-00:01:09,828 --> 00:01:10,194
-so on.
+00:01:13,200 --> 00:01:18,098
+So neither will set foot on any dot the
+other one walks on. Not even later: ants
 
 20
-00:01:10,644 --> 00:01:12,094
-Twenty pairs never meet.
+00:01:18,098 --> 00:01:19,322
+leave a scent trail.
 
 21
-00:01:15,930 --> 00:01:20,478
-Now something that looks completely
-unrelated. Count the routes from each ant to
+00:01:20,122 --> 00:01:23,685
+So, how many pairs of paths get
+them home without intersecting?
 
 22
-00:01:20,478 --> 00:01:23,717
-each home, and put those four
-numbers in a little square.
+00:01:24,485 --> 00:01:29,451
+You can always find one easily. Here,
+the blue one goes up and around, and the
 
 23
-00:01:24,167 --> 00:01:28,135
-Take the determinant: six times
-six, minus four times four.
+00:01:29,451 --> 00:01:32,634
+orange one goes right and
+around. They never meet.
 
 24
-00:01:28,585 --> 00:01:29,417
-Twenty.
+00:01:33,434 --> 00:01:35,120
+And here's one where they cross.
 
 25
-00:01:31,067 --> 00:01:34,949
-The same twenty. Coincidence?
-Hardly. Let's find out why.
+00:01:35,920 --> 00:01:40,983
+Let's check them all, one by one. This
+pair works. This one doesn't. Neither does
 
 26
-00:01:39,894 --> 00:01:44,225
-First, those four numbers. How many
-ways can ant one get home? Take a guess.
+00:01:40,983 --> 00:01:43,045
+this one. Or this one. And so on.
 
 27
-00:01:46,175 --> 00:01:51,702
-Let's list them. Right, right, up, up.
-Right, up, right, up. Right, up, up, right.
+00:01:48,345 --> 00:01:50,798
+Twenty pairs never meet, and sixteen do.
 
 28
-00:01:51,702 --> 00:01:56,351
-Up, right, right, up. Up, right,
-up, right. And up, up, right, right.
+00:01:53,356 --> 00:01:58,232
+I know what you're thinking: this is stupid.
+There must be an easier way. Well, here
 
 29
-00:01:56,801 --> 00:01:57,569
-Six.
+00:01:58,232 --> 00:01:59,393
+comes an old friend.
 
 30
-00:01:58,019 --> 00:02:03,190
-Notice: every route is four steps, two
-right and two up. That's forced: home is two
+00:02:00,193 --> 00:02:05,618
+Consider this two-by-two matrix, A. Its
+rows are the ants, and its columns are the
 
 31
-00:02:03,190 --> 00:02:05,059
-columns right and two rows up.
+00:02:05,618 --> 00:02:06,081
+houses.
 
 32
-00:02:06,678 --> 00:02:10,326
-So a route is just a choice of which
-two of the four steps go right.
+00:02:06,881 --> 00:02:11,681
+The first entry counts the paths from the
+blue ant to its own home. There are six.
 
 33
-00:02:10,776 --> 00:02:12,440
-Four choose two: six.
+00:02:13,481 --> 00:02:18,127
+The second entry is a little sneakier:
+the paths from the blue ant to the orange
 
 34
-00:02:12,890 --> 00:02:17,727
-The same works for any start and home: a
-steps right and b steps up gives a plus b
+00:02:18,127 --> 00:02:19,753
+ant's house. There are four.
 
 35
-00:02:17,727 --> 00:02:18,671
-choose a routes.
+00:02:21,553 --> 00:02:26,874
+And by symmetry, the orange ant gives the
+same numbers the other way round: four,
 
 36
-00:02:19,121 --> 00:02:24,319
-Ant one to its own home: six. To the other
-home: four. Ant two to the first home:
+00:02:26,874 --> 00:02:27,399
+and six.
 
 37
-00:02:24,319 --> 00:02:27,399
-four. To its own: six.
-That's our little square.
+00:02:28,199 --> 00:02:32,807
+Now find the determinant of A: six
+times six, minus four times four,
 
 38
-00:02:29,039 --> 00:02:33,950
-Here's the thing that bugged me when I
-first saw this. Six times six counts every
+00:02:33,607 --> 00:02:35,335
+which is twenty. Voilà!
 
 39
-00:02:33,950 --> 00:02:38,680
-way to send each ant to its own home,
-including the pairs that crash into each
+00:02:37,135 --> 00:02:38,756
+The same number as before.
 
 40
-00:02:38,680 --> 00:02:39,044
-other.
+00:02:41,122 --> 00:02:44,023
+In fact, there's nothing
+special about this scenario.
 
 41
-00:02:39,494 --> 00:02:41,180
-Twenty good, sixteen bad.
+00:02:44,823 --> 00:02:48,749
+Make the grid bigger, and bring in a
+third ant, with a house of its own.
 
 42
-00:02:41,630 --> 00:02:46,087
-Four times four counts something stranger:
-each ant walking to the other one's
+00:02:49,549 --> 00:02:54,827
+Build the same kind of matrix: three ants,
+three houses, and each entry counts the
 
 43
-00:02:46,087 --> 00:02:46,430
-house.
+00:02:54,827 --> 00:02:56,887
+paths from one ant to one house.
 
 44
-00:02:46,880 --> 00:02:52,096
-So the determinant is good, plus bad,
-minus swapped. For that to equal the good
+00:02:57,687 --> 00:02:59,394
+Its determinant is fifty.
 
 45
-00:02:52,096 --> 00:02:57,313
-ones, the swapped pairs must cancel the
-bad ones exactly. Not roughly. Exactly.
+00:03:00,194 --> 00:03:05,409
+And fifty is exactly the number of ways
+all three ants can get home without any of
 
 46
-00:02:57,313 --> 00:02:58,634
-Let's match them up.
+00:03:05,409 --> 00:03:06,999
+their paths intersecting.
 
 47
-00:03:00,272 --> 00:03:01,445
-Take a bad pair.
+00:03:14,789 --> 00:03:16,304
+So, why does this work?
 
 48
-00:03:01,895 --> 00:03:06,610
-Walk along ant one's route, and stop at
-the first dot that ant two also visits.
+00:03:17,104 --> 00:03:19,706
+Let's get back to our two
+ants, and work it out.
 
 49
-00:03:07,060 --> 00:03:11,937
-From that dot on, swap their tails. Ant
-one keeps its start and takes ant two's
+00:03:22,089 --> 00:03:24,265
+Take a pair where the ants swap houses.
 
 50
-00:03:11,937 --> 00:03:14,036
-ending; ant two does the opposite.
+00:03:27,265 --> 00:03:31,446
+The blue ant starts to the left of
+the orange one, and ends to its right.
 
 51
-00:03:14,486 --> 00:03:19,051
-Look where they end: each at the other's
-house. A bad pair became a swapped pair.
+00:03:34,446 --> 00:03:36,473
+So somewhere, they must share a dot.
 
 52
-00:03:20,670 --> 00:03:22,035
-And it undoes itself.
+00:03:37,873 --> 00:03:41,201
+Take the first shared dot,
+and swap the tails from there.
 
 53
-00:03:22,485 --> 00:03:27,086
-Nothing before that dot changed, so it's
-still the first meeting point, and swapping
+00:03:43,001 --> 00:03:46,222
+Now each ant is at its own
+home, and their paths meet.
 
 54
-00:03:27,086 --> 00:03:28,565
-there puts everything back.
+00:03:51,789 --> 00:03:54,946
+Now the other way: a pair
+that meets on the way home.
 
 55
-00:03:29,015 --> 00:03:34,015
-Do it twice and nothing happened. Mathematicians
-call that an involution. Like most
+00:03:56,546 --> 00:04:01,197
+Swap the tails at the first shared dot,
+and they end up in each other's houses.
 
 56
-00:03:34,015 --> 00:03:35,159
-committee meetings.
+00:04:02,997 --> 00:04:06,325
+Swap again at the same dot, and
+we're back where we started.
 
 57
-00:03:35,609 --> 00:03:39,385
-So bad pairs and swapped pairs
-that meet come in perfect couples.
+00:04:09,122 --> 00:04:12,429
+So swapped pairs and meeting
+pairs match up, one to one.
 
 58
-00:03:41,004 --> 00:03:45,207
-One worry left: could a swapped pair
-avoid meeting, and have no partner?
+00:04:13,629 --> 00:04:15,997
+This meeting pair goes
+with this swapped pair.
 
 59
-00:03:45,657 --> 00:03:51,386
-Sweep a diagonal across the grid. Every
-step moves an ant onto the next diagonal, so
+00:04:18,397 --> 00:04:19,826
+This one, with this one.
 
 60
-00:03:51,386 --> 00:03:55,001
-on each diagonal, each ant
-stands on exactly one dot.
+00:04:22,226 --> 00:04:23,847
+And this one, with this one.
 
 61
-00:03:55,451 --> 00:04:00,346
-Track the gap between their columns. At
-the start, ant one is one column to the
+00:04:25,847 --> 00:04:26,829
+And so on.
 
 62
-00:04:00,346 --> 00:04:00,656
-left.
+00:04:32,129 --> 00:04:33,302
+Sixteen of each.
 
 63
-00:04:01,106 --> 00:04:03,367
-At the end, it's one column to the right.
+00:04:35,888 --> 00:04:37,147
+Now, the formula.
 
 64
-00:04:03,817 --> 00:04:07,764
-And from one diagonal to the next,
-the gap changes by at most one.
+00:04:38,547 --> 00:04:44,104
+Six times six counts every pair going home:
+twenty that never meet, and sixteen that
 
 65
-00:04:08,214 --> 00:04:13,180
-So somewhere it is zero: they share a dot.
-That's the intermediate value theorem, in
+00:04:44,104 --> 00:04:44,435
+meet.
 
 66
-00:04:13,180 --> 00:04:14,422
-its most humble form.
+00:04:46,235 --> 00:04:49,243
+Four times four counts
+the sixteen swapped pairs.
 
 67
-00:04:16,068 --> 00:04:20,980
-So every bad pair has exactly one swapped
-partner, and every swapped pair has
+00:04:51,043 --> 00:04:53,283
+They cancel the meeting pairs exactly.
 
 68
-00:04:20,980 --> 00:04:22,511
-exactly one bad partner.
+00:04:54,883 --> 00:04:56,077
+Leaving twenty.
 
 69
-00:04:22,961 --> 00:04:28,309
-In the determinant they cancel. The minus
-sign isn't throwing things away at random.
-
-70
-00:04:28,309 --> 00:04:30,982
-It removes an exact copy of the bad pairs.
-
-71
-00:04:31,432 --> 00:04:34,931
-What survives is exactly the
-twenty pairs that never meet.
-
-72
-00:04:36,381 --> 00:04:40,541
+00:04:57,877 --> 00:05:02,208
 A bijective proof: the only kind
 a combinatorialist fully trusts.
 
-73
-00:04:42,967 --> 00:04:47,462
+70
+00:05:04,788 --> 00:05:09,552
 You might be thinking: surely that's a
 fluke of this little grid. Move the second
 
-74
-00:04:47,462 --> 00:04:51,180
+71
+00:05:09,552 --> 00:05:13,492
 house around, and each time, brute
 force and the determinant agree.
 
-75
-00:04:51,630 --> 00:04:56,167
+72
+00:05:14,292 --> 00:05:19,066
 As long as the order stays the same: ant
 one's house up and to the left of ant
 
-76
-00:04:56,167 --> 00:04:56,516
+73
+00:05:19,066 --> 00:05:19,433
 two's.
 
-77
-00:04:56,966 --> 00:05:02,032
+74
+00:05:20,233 --> 00:05:25,584
 Swap the order and there are no peaceful
 routes at all. The determinant notices: it
 
-78
-00:05:02,032 --> 00:05:05,328
+75
+00:05:25,584 --> 00:05:29,065
 counts the swapped pairing
 instead, with a minus sign.
 
-79
-00:05:06,967 --> 00:05:10,039
-Add a third ant, with its
-own start and its own house.
-
-80
-00:05:10,489 --> 00:05:15,140
-A three-by-three table: fifty. Brute
-force over all the triples: fifty.
-
-81
-00:05:16,767 --> 00:05:21,604
+76
+00:05:31,055 --> 00:05:36,095
 Here's the general statement, on our three
 ants. Take a one-way network with some
 
-82
-00:05:21,604 --> 00:05:26,440
+77
+00:05:36,095 --> 00:05:41,136
 starts and some ends, and count the paths
 from each start to each end. That's the
 
-83
-00:05:26,440 --> 00:05:26,858
+78
+00:05:41,136 --> 00:05:41,572
 matrix.
 
-84
-00:05:27,308 --> 00:05:32,469
+79
+00:05:42,372 --> 00:05:47,872
 Expand the determinant. Each term picks
 an end for every start, a pairing, with a
 
-85
-00:05:32,469 --> 00:05:37,057
+80
+00:05:47,872 --> 00:05:52,762
 plus or a minus sign, and counts every
 family of paths for that pairing.
 
-86
-00:05:37,507 --> 00:05:43,074
+81
+00:05:53,562 --> 00:05:59,398
 Here: two hundred and sixteen, minus
 ninety-six, minus ninety-six, minus six, plus
 
-87
-00:05:43,074 --> 00:05:44,568
+82
+00:05:59,398 --> 00:06:00,964
 sixteen, plus sixteen.
 
-88
-00:05:45,018 --> 00:05:50,023
+83
+00:06:01,764 --> 00:06:06,999
 Of the two hundred and sixteen, only fifty
 never touch. And when the starts and ends
 
-89
-00:05:50,023 --> 00:05:53,360
+84
+00:06:06,999 --> 00:06:10,490
 are lined up in order, a
 crossed pairing always touches.
 
-90
-00:05:53,810 --> 00:05:59,177
+85
+00:06:11,290 --> 00:06:16,919
 Now the tail swap from before pairs every
 touching family with one of opposite sign:
 
-91
-00:05:59,177 --> 00:06:04,481
+86
+00:06:16,919 --> 00:06:22,482
 one hundred ninety-eight against one hundred
 ninety-eight. Mathematicians call this
 
-92
-00:06:04,481 --> 00:06:07,356
+87
+00:06:22,482 --> 00:06:25,498
 a sign-reversing
 involution. They all cancel.
 
-93
-00:06:07,806 --> 00:06:12,794
+88
+00:06:26,298 --> 00:06:31,507
 What's left is exactly the fifty families
 that never touch. And that is true for any
 
-94
-00:06:12,794 --> 00:06:13,566
+89
+00:06:31,507 --> 00:06:32,314
 such network.
 
-95
-00:06:14,016 --> 00:06:20,758
+90
+00:06:33,114 --> 00:06:40,269
 This is the Lindström–Gessel–Viennot lemma.
 Lindström found it in 1973; Gessel and
 
-96
-00:06:20,758 --> 00:06:25,856
+91
+00:06:40,269 --> 00:06:45,679
 Viennot rediscovered it in 1985
 and showed how much it can do.
 
-97
-00:06:26,306 --> 00:06:31,207
+92
+00:06:46,479 --> 00:06:51,594
 Physicists call walkers like ours vicious
 walkers. Given that our ants had a fight,
 
-98
-00:06:31,207 --> 00:06:32,152
+93
+00:06:51,594 --> 00:06:52,580
 that seems fair.
 
-99
-00:06:32,602 --> 00:06:38,527
+94
+00:06:53,380 --> 00:06:59,672
 Brute force over n ants explodes. A
 determinant takes about n cubed steps, or n to
 
-100
-00:06:38,527 --> 00:06:41,562
+95
+00:06:59,672 --> 00:07:02,895
 the omega with fast matrix multiplication.
 
-101
-00:06:42,012 --> 00:06:48,580
+96
+00:07:03,695 --> 00:07:10,701
 And omega keeps falling. Strassen broke
-three in 1969, and this month it reached
+three in 1969, and last month it reached
 
-102
-00:06:48,580 --> 00:06:55,230
+97
+00:07:10,701 --> 00:07:17,795
 nine quarters. Proved by an AI model at
 OpenAI, checked in Lean, and explained to
 
-103
-00:06:55,230 --> 00:06:59,910
+98
+00:07:17,795 --> 00:07:22,788
 the rest of us by Amir Shpilka.
 Division of labour, 2026.
 
-104
-00:07:01,534 --> 00:07:06,832
+99
+00:07:24,755 --> 00:07:30,243
 So what can it count? The grid doesn't
 matter. Any network of one-way roads with no
 
-105
-00:07:06,832 --> 00:07:09,833
+100
+00:07:30,243 --> 00:07:33,352
 loops: right, up, diagonal,
 some roads missing.
 
-106
-00:07:10,283 --> 00:07:14,208
+101
+00:07:34,152 --> 00:07:38,184
 Count the routes from every start to
 every end, and take the determinant.
 
-107
-00:07:14,658 --> 00:07:19,202
+102
+00:07:38,984 --> 00:07:43,816
 You get the number of ways for everyone
 to travel without ever meeting. Here it's
 
-108
-00:07:19,202 --> 00:07:20,717
+103
+00:07:43,816 --> 00:07:45,427
 forty-two. Of course it is.
 
-109
-00:07:21,167 --> 00:07:26,130
+104
+00:07:46,227 --> 00:07:51,347
 So any puzzle that is secretly a family
 of non-touching paths, a determinant can
 
-110
-00:07:26,130 --> 00:07:28,612
+105
+00:07:51,347 --> 00:07:53,907
 count. And these puzzles are everywhere.
 
-111
-00:07:30,234 --> 00:07:34,330
+106
+00:07:55,888 --> 00:08:00,261
 Here's a hexagon with every side of
 length two, cut into little triangles.
 
-112
-00:07:34,780 --> 00:07:39,932
+107
+00:08:01,061 --> 00:08:06,532
 Glue two neighbouring triangles together
 and you get a tile: a lozenge. Lozenges
 
-113
-00:07:39,932 --> 00:07:41,671
+108
+00:08:06,532 --> 00:08:08,379
 come in three orientations.
 
-114
-00:07:42,121 --> 00:07:47,500
+109
+00:08:09,179 --> 00:08:14,781
 A tiling covers the hexagon exactly with
 lozenges. Nothing sticking out, nothing
 
-115
-00:07:47,500 --> 00:07:48,307
+110
+00:08:14,781 --> 00:08:15,621
 overlapping.
 
-116
-00:07:48,757 --> 00:07:53,749
+111
+00:08:16,421 --> 00:08:21,563
 Here's one. Notice anything? It looks like
 a stack of boxes in the corner of a room.
 
-117
-00:07:54,199 --> 00:07:58,509
+112
+00:08:22,363 --> 00:08:26,864
 It's completely flat. Your brain
 is doing the 3D rendering for free.
 
-118
-00:07:58,959 --> 00:08:00,601
+113
+00:08:27,664 --> 00:08:29,349
 So how many tilings are there?
 
-119
-00:08:04,000 --> 00:08:06,304
+114
+00:08:32,688 --> 00:08:35,120
 Here's the trick. Fade out the flat tiles.
 
-120
-00:08:06,754 --> 00:08:11,884
+115
+00:08:35,920 --> 00:08:41,400
 Every other tile has two vertical edges.
 Enter through one, leave through the other,
 
-121
-00:08:11,884 --> 00:08:15,181
+116
+00:08:41,400 --> 00:08:44,923
 and keep going. Two edges
 on the left give two chains.
 
-122
-00:08:15,631 --> 00:08:20,807
+117
+00:08:45,723 --> 00:08:51,089
 Tiles never overlap, so the chains never
 touch. And going backwards, any two chains
 
-123
-00:08:20,807 --> 00:08:23,737
+118
+00:08:51,089 --> 00:08:54,128
 that don't touch fill in
 to exactly one tiling.
 
-124
-00:08:24,187 --> 00:08:29,389
+119
+00:08:54,928 --> 00:09:00,385
 Now squash the hexagon onto our square grid.
 Each chain becomes a route of two steps
 
-125
-00:08:29,389 --> 00:08:33,723
+120
+00:09:00,385 --> 00:09:04,933
 right and two steps up, starting and
 ending exactly where our ants do.
 
-126
-00:08:34,173 --> 00:08:39,217
+121
+00:09:05,733 --> 00:09:11,041
 So the number of tilings is twenty. The
 same twenty. All this time, our ants were
 
-127
-00:08:39,217 --> 00:08:40,275
+122
+00:09:11,041 --> 00:09:12,155
 tiling a hexagon.
 
-128
-00:08:42,900 --> 00:08:48,447
+123
+00:09:15,155 --> 00:09:20,954
 Seen in 3D, a tiling is a stack of boxes
 in a corner, each stack no taller than the
 
-129
-00:08:48,447 --> 00:08:49,449
+124
+00:09:20,954 --> 00:09:22,003
 ones behind it.
 
-130
-00:08:49,899 --> 00:08:54,669
+125
+00:09:22,803 --> 00:09:27,779
 A bigger box, three by three by three,
 gives a bigger hexagon and three chains:
 
-131
-00:08:54,669 --> 00:08:56,299
+126
+00:09:27,779 --> 00:09:29,480
 three ants that never meet.
 
-132
-00:08:56,749 --> 00:09:00,483
+127
+00:09:30,280 --> 00:09:34,227
 A three-by-three determinant counts
 them: nine hundred and eighty.
 
-133
-00:09:00,933 --> 00:09:06,676
+128
+00:09:35,027 --> 00:09:40,993
 Percy MacMahon found a formula for every
 box, over a century ago. Combinatorialists
 
-134
-00:09:06,676 --> 00:09:08,613
+129
+00:09:40,993 --> 00:09:43,006
 call these plane partitions.
 
-135
-00:09:10,234 --> 00:09:15,283
+130
+00:09:44,988 --> 00:09:50,375
 Another disguise. A mountain range: each
 step goes up or down, and it never dips
 
-136
-00:09:15,283 --> 00:09:16,293
+131
+00:09:50,375 --> 00:09:51,452
 below sea level.
 
-137
-00:09:16,743 --> 00:09:21,137
+132
+00:09:52,252 --> 00:09:56,860
 How many ways can you draw two ranges,
 one inside the other, without touching?
 
-138
-00:09:21,587 --> 00:09:26,759
+133
+00:09:57,660 --> 00:10:03,061
 A single range is counted by the Catalan
 numbers. Put four of them in a two-by-two
 
-139
-00:09:26,759 --> 00:09:28,777
+134
+00:10:03,061 --> 00:10:05,169
 table: the determinant is three.
 
-140
-00:09:29,227 --> 00:09:31,317
+135
+00:10:05,969 --> 00:10:08,188
 And here they are. Exactly three.
 
-141
-00:09:32,934 --> 00:09:38,299
+136
+00:10:10,155 --> 00:10:15,830
 And one more, a beauty. This is an Aztec
 diamond: rows of two, four, six squares,
 
-142
-00:09:38,299 --> 00:09:39,227
+137
+00:10:15,830 --> 00:10:16,811
 and back down.
 
-143
-00:09:39,677 --> 00:09:44,850
+138
+00:10:17,611 --> 00:10:23,030
 Tile it with dominoes. The smallest one
 has two tilings. The next has eight. The
 
-144
-00:09:44,850 --> 00:09:45,949
+139
+00:10:23,030 --> 00:10:24,182
 next, sixty-four.
 
-145
-00:09:46,399 --> 00:09:47,551
+140
+00:10:24,982 --> 00:10:26,198
 Guess the next one.
 
-146
-00:09:49,801 --> 00:09:54,751
+141
+00:10:28,798 --> 00:10:33,918
 One thousand and twenty-four. Powers
 of two, every time. That's suspicious.
 
-147
-00:09:56,400 --> 00:10:01,254
+142
+00:10:35,888 --> 00:10:40,937
 Colour the board like a chessboard, and
 there are four kinds of domino. Give each
 
-148
-00:10:01,254 --> 00:10:04,848
+143
+00:10:40,937 --> 00:10:44,677
 kind a job: a flat step, a step
 up, a step down, or nothing.
 
-149
-00:10:05,298 --> 00:10:10,738
+144
+00:10:45,477 --> 00:10:51,138
 Now the dominoes link up into paths, from
 the left side to the right. Dominoes never
 
-150
-00:10:10,738 --> 00:10:15,853
+145
+00:10:51,138 --> 00:10:56,461
 overlap, so the paths never touch, and
 every such family comes from exactly one
 
-151
-00:10:15,853 --> 00:10:16,306
+146
+00:10:56,461 --> 00:10:56,933
 tiling.
 
-152
-00:10:16,756 --> 00:10:21,927
+147
+00:10:57,733 --> 00:11:03,128
 So once again: count routes, take the
 determinant. Twelve times two minus four times
 
-153
-00:10:21,927 --> 00:10:22,665
+148
+00:11:03,128 --> 00:11:03,899
 four. Eight.
 
-154
-00:10:23,115 --> 00:10:25,035
+149
+00:11:04,699 --> 00:11:06,811
 One size up: sixty-four.
 
-155
-00:10:25,485 --> 00:10:30,887
+150
+00:11:07,611 --> 00:11:13,248
 In general, order n gives two to the n
 times n plus one over two. A determinant,
 
-156
-00:10:30,887 --> 00:10:32,845
+151
+00:11:13,248 --> 00:11:15,291
 hiding in a pile of dominoes.
 
-157
-00:10:34,467 --> 00:10:39,744
+152
+00:11:17,288 --> 00:11:22,751
 Now pick one tiling at random, every tiling
 equally likely, on a big diamond, and
 
-158
-00:10:39,744 --> 00:10:40,526
+153
+00:11:22,751 --> 00:11:23,560
 let it grow.
 
-159
-00:10:40,976 --> 00:10:42,362
+154
+00:11:24,360 --> 00:11:25,811
 This is order sixty.
 
-160
-00:10:42,812 --> 00:10:47,603
+155
+00:11:26,611 --> 00:11:32,028
 The corners freeze into brick walls. The
-middle is chaos. And the boundary between
+middle is chaos. And as the diamond grows,
 
-161
-00:10:47,603 --> 00:10:49,063
-them is a perfect circle.
+156
+00:11:32,028 --> 00:11:35,357
+the boundary between them
+becomes a perfect circle.
 
-162
-00:10:49,513 --> 00:10:53,268
-That's the picture we started with.
+157
+00:11:36,157 --> 00:11:38,227
 It's called the arctic circle theorem.
 
-163
-00:10:55,900 --> 00:11:00,300
+158
+00:11:41,221 --> 00:11:45,842
 Back to the chessboard from the start.
 Dominoes aren't paths, but there's a
 
-164
-00:11:00,300 --> 00:11:04,817
+159
+00:11:45,842 --> 00:11:50,586
 determinant trick here too. Shrink it
 to a two-by-three board: three tilings.
 
-165
-00:11:05,267 --> 00:11:10,475
+160
+00:11:51,386 --> 00:11:56,889
 A domino joins a black square to a white
 neighbour. Write a one wherever they touch.
 
-166
-00:11:10,475 --> 00:11:15,063
+161
+00:11:56,889 --> 00:12:01,736
 Each tiling picks one entry in every
 row and every column: one term of the
 
-167
-00:11:15,063 --> 00:11:15,806
+162
+00:12:01,736 --> 00:12:02,522
 determinant.
 
-168
-00:11:16,256 --> 00:11:20,501
+163
+00:12:03,322 --> 00:12:07,824
 If determinants count pairings, this
 should give three. It gives minus one.
 
-169
-00:11:20,951 --> 00:11:25,527
+164
+00:12:08,624 --> 00:12:13,349
 The terms come with signs: plus for
 this one, minus for these two. Here the
 
-170
-00:11:25,527 --> 00:11:27,479
+165
+00:12:13,349 --> 00:12:15,365
 cancellation eats the good ones.
 
-171
-00:11:29,100 --> 00:11:35,303
+166
+00:12:17,355 --> 00:12:23,912
 In 1961 the physicist Pieter Kasteleyn
 had an idea: if the signs don't cancel the
 
-172
-00:11:35,303 --> 00:11:37,676
+167
+00:12:23,912 --> 00:12:26,422
 way you want, change the signs.
 
-173
-00:11:38,126 --> 00:11:43,616
+168
+00:12:27,222 --> 00:12:32,899
 Put a minus sign on this one edge. Only the
 all-vertical tiling uses it, so only its
 
-174
-00:11:43,616 --> 00:11:44,334
+169
+00:12:32,899 --> 00:12:33,643
 sign flips.
 
-175
-00:11:44,784 --> 00:11:50,237
+170
+00:12:34,443 --> 00:12:40,175
 Now every tiling carries the same sign.
 The determinant is minus three. Ignore the
 
-176
-00:11:50,237 --> 00:11:51,035
+171
+00:12:40,175 --> 00:12:41,014
 sign: three.
 
-177
-00:11:52,667 --> 00:11:57,670
+172
+00:12:42,988 --> 00:12:48,158
 On a four-by-four board, the plain
 determinant says there are zero tilings. Very
 
-178
-00:11:57,670 --> 00:11:59,046
+173
+00:12:48,158 --> 00:12:49,580
 confident, very wrong.
 
-179
-00:11:59,496 --> 00:12:04,585
+174
+00:12:50,380 --> 00:12:55,668
 Put minus signs on the vertical edges of
 every other column, and the determinant
 
-180
-00:12:04,585 --> 00:12:06,621
+175
+00:12:55,668 --> 00:12:57,783
 gives thirty-six. Exactly right.
 
-181
-00:12:08,267 --> 00:12:13,191
+176
+00:12:59,755 --> 00:13:04,912
 Now the full chessboard: twelve million,
 nine hundred eighty-eight thousand, eight
 
-182
-00:12:13,191 --> 00:12:16,374
+177
+00:13:04,912 --> 00:13:08,246
 hundred sixteen. The five-month
 count, in an instant.
 
-183
-00:12:16,824 --> 00:12:21,913
+178
+00:13:09,046 --> 00:13:14,413
 The rule behind it: every little loop of
 four edges carries an odd number of minus
 
-184
-00:12:21,913 --> 00:12:22,285
+179
+00:13:14,413 --> 00:13:14,806
 signs.
 
-185
-00:12:22,735 --> 00:12:28,033
+180
+00:13:15,606 --> 00:13:21,199
 And it's not really about chessboards.
 Squares are vertices, dominoes are edges, and
 
-186
-00:12:28,033 --> 00:12:29,988
+181
+00:13:21,199 --> 00:13:23,264
 a tiling is a perfect matching.
 
-187
-00:12:30,438 --> 00:12:35,724
+182
+00:13:24,064 --> 00:13:29,664
 Kasteleyn, Temperley and Fisher made this
 work for any graph you can draw without
 
-188
-00:12:35,724 --> 00:12:41,206
+183
+00:13:29,664 --> 00:13:35,473
 crossings: the FKT algorithm counts perfect
 matchings of planar graphs in polynomial
 
-189
-00:12:41,206 --> 00:12:41,532
+184
+00:13:35,473 --> 00:13:35,819
 time.
 
-190
-00:12:41,982 --> 00:12:47,034
+185
+00:13:36,619 --> 00:13:41,957
 When a physicist needs to count twelve
 million tilings, they don't count. They take
 
-191
-00:12:47,034 --> 00:12:50,259
+186
+00:13:41,957 --> 00:13:45,366
 a determinant, and then let
 the board go to infinity.
 
-192
-00:12:51,900 --> 00:12:57,458
+187
+00:13:47,354 --> 00:13:53,225
 Let's step back. Ants that never meet.
 Tilings of a hexagon. Boxes in a corner.
 
-193
-00:12:57,458 --> 00:13:00,625
+188
+00:13:53,225 --> 00:13:56,570
 Mountain ranges. Aztec
 diamonds. Chessboards.
 
-194
-00:13:01,075 --> 00:13:03,187
+189
+00:13:57,370 --> 00:13:59,610
 All counted by one determinant each.
 
-195
-00:13:04,833 --> 00:13:09,709
+190
+00:14:01,587 --> 00:14:06,684
 And it's the same trick every time. Count
 everything, good and bad, each with a
 
-196
-00:13:09,709 --> 00:13:10,017
+191
+00:14:06,684 --> 00:14:07,006
 sign.
 
-197
-00:13:10,467 --> 00:13:15,444
+192
+00:14:07,806 --> 00:14:12,990
 The bad ones pair up with opposite signs,
 and cancel. What's left is exactly what
 
-198
-00:13:15,444 --> 00:13:16,120
+193
+00:14:12,990 --> 00:14:13,694
 you wanted.
 
-199
-00:13:16,570 --> 00:13:22,623
+194
+00:14:14,494 --> 00:14:20,847
 For a computer scientist, that's remarkable.
 Counting is usually hopeless: counting
 
-200
-00:13:22,623 --> 00:13:28,602
+195
+00:14:20,847 --> 00:14:27,123
 perfect matchings of a general graph is
 sharp-P complete. That's Valiant, in 1979.
 
-201
-00:13:29,052 --> 00:13:34,098
+196
+00:14:27,923 --> 00:14:33,252
 But if your puzzle turns into non-touching
 paths, or a matching on a planar graph,
 
-202
-00:13:34,098 --> 00:13:37,052
+197
+00:14:33,252 --> 00:14:36,371
 it becomes one determinant,
 and polynomial time.
 
-203
-00:13:37,502 --> 00:13:40,809
+198
+00:14:37,171 --> 00:14:40,691
 Determinants can count,
 because minus signs can cancel.
 
-204
-00:13:43,933 --> 00:13:48,973
+199
+00:14:44,187 --> 00:14:49,563
 As for our ants: they can finally go home
 in peace. Twenty ways home, and they never
 
-205
-00:13:48,973 --> 00:13:49,693
+200
+00:14:49,563 --> 00:14:50,331
 had to meet.
 
-206
-00:13:51,643 --> 00:13:52,902
+201
+00:14:52,631 --> 00:14:53,954
 Thanks for watching.
 

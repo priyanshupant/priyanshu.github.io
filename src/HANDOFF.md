@@ -188,6 +188,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-06 · Claude (overnight) · Full watch-through: the crossing pair in the puzzle now stays up 1 s longer; AllPairs equation pulled inside the frame; credits match the video (added Aigner & Ziegler as the quote's source and Kasteleyn's 1967 planar result; removed vicious walkers, ω and portraits, which are no longer in the video).
 - 2026-11-06 · Claude (overnight) · FKT history fixed: 1961 = chessboard/rectangles (Kasteleyn; Temperley & Fisher, independently); all planar graphs = Kasteleyn by 1967 (on-screen credit and narration "And by 1967, Kasteleyn had made it work for any graph you can draw without crossings…"). Rendered, slides tested.
 - 2026-11-06 · Claude (overnight) · Board4x4: on-screen text cut to det A = 0 ✗, the two-line rule, |det A| = 36 (the joke is spoken only). Rendered, slides tested.
 - 2026-11-06 · Claude (overnight) · New chapter list in assemble.py; consistency pass (no issues left); Mahajan–Vinay verified from the paper (drafted only). Overnight summary + options: OVERNIGHT.md at the repo root.

@@ -229,16 +229,13 @@ class Goodbye(DScene):
 CREDITS = [
     ("Written, narrated and produced by", AUTHOR),
     ("Lattice paths", "Lindström 1973 · Gessel & Viennot 1985 · Karlin & McGregor 1959"),
-    ("Vicious walkers", "M. E. Fisher, Walks, walls, wetting, and melting (1984)"),
+    ("The quote", "Aigner & Ziegler, Proofs from THE BOOK: \"Lattice paths and determinants\""),
     ("Plane partitions", "P. A. MacMahon, Combinatory Analysis (1915–16)"),
-    ("Aztec diamond", "Elkies, Kuperberg, Larsen & Propp (1992) · paths proof: Eu & Fu (2005)"),
     ("Catalan determinants", "via non-intersecting Dyck paths (Gessel–Viennot)"),
+    ("Aztec diamond", "Elkies, Kuperberg, Larsen & Propp (1992) · paths proof: Eu & Fu (2005)"),
     ("Arctic circle", "Jockusch, Propp & Shor (1995) · domino shuffling: Elkies, Kuperberg, Larsen & Propp"),
-    ("Dimers", "P. W. Kasteleyn (1961) · Temperley & Fisher (1961)"),
+    ("Dimers", "P. W. Kasteleyn (1961; planar graphs 1967) · Temperley & Fisher (1961)"),
     ("Counting is hard", "L. G. Valiant, The complexity of computing the permanent (1979)"),
-    ("ω ≤ 9/4", "A. Shpilka, ECCC TR26-281 (exposition of OpenAI's result)"),
-    ("Further reading", "Aigner & Ziegler, Proofs from THE BOOK: \"Lattice paths and determinants\""),
-    ("Portraits", "Wikimedia Commons (public domain)"),
     ("Animation", "Manim Community; code written with AI assistance"),
 ]
 

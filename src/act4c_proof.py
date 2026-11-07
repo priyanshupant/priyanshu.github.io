@@ -282,7 +282,7 @@ class AllPairs(DScene):
         left.move_to(UP * 0.35).to_edge(LEFT, buff=0.45)
         right.next_to(left, RIGHT, buff=0.55).align_to(left, DOWN)
         rows = aligned([("det A", f"{N11} · {N22}  −  {N12} · {N21}", INK),
-                        (None, f"({NGOOD} + {NBAD})  −  {N12 * N21}", INK)], x_eq=right.get_right()[0] + 2.4, y0=2.4, dy=0.8, size=32)
+                        (None, f"({NGOOD} + {NBAD})  −  {N12 * N21}", INK)], x_eq=right.get_right()[0] + 1.75, y0=2.4, dy=0.8, size=32)
 
         # 0: six times six counts all thirty-six pairs going home
         self.cue(0)

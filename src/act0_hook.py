@@ -188,6 +188,7 @@ class Hook(DScene):
         self.sfx("buzz")
         self.play(Create(mring), FadeIn(nop), run_time=0.5)
         self.cue_end(9)
+        self.wait(1.0)                                   # let the crossing pair sit
         self.play(FadeOut(VGroup(bp, mring, nop)), run_time=0.3)
 
         # 10: check them all, one by one — fast; counters climb to 20 and 16

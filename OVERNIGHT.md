@@ -25,6 +25,9 @@ Your taste calls were **not** applied; they are drafted at the end for you to ch
 
 6. **FKT history fixed:** the 1961 results were for rectangles like the chessboard (Kasteleyn, and Temperley & Fisher, independently); Kasteleyn extended it to **all planar graphs by 1967**. On-screen credit and the narration line now say so.
 
+7. **Full watch-through review** (every narration line's frame): fixed the crossing pair in the puzzle (now held 1 s so it can be seen), the "36 pairs" equation (was poking off the right edge), and the **credits** (now match the video: added Aigner & Ziegler for the quote and Kasteleyn's 1967 planar result; removed vicious walkers, ω ≤ 9/4 and portraits, which are no longer in the video). Everything else checked clean.
+8. **Morning video:** `full_video_morning.mp4` in the project folder (local renders, voice, no sound effects); the site's video.mp4 is the full build with sound effects.
+
 ## Options for you (drafted, NOT in the video)
 - **A. Mahajan–Vinay beat** (Finale, before "Determinants can count…"):
   "And this isn't only a trick for puzzles. In 1997, Meena Mahajan and V. Vinay showed how to compute the
@@ -38,3 +41,4 @@ Your taste calls were **not** applied; they are drafted at the end for you to ch
   "The determinant is undoubtedly the most important polynomial function in mathematics.").
 - **E. Chapter cards** on screen (we already have four in-video cards; adding the rest would be small).
 - **F. TCS follow-ups to FKT** (one line in the sign section or the ending): "Vijay Vazirani extended it to graphs with no K₃,₃ (1989), and it later became the foundation of Valiant's holographic algorithms."
+- **G. Credits line "Written, narrated and produced by":** the voice is still the AI placeholder; change to "narrated" only once you record your voice, or add "voice: placeholder AI (Kokoro)".

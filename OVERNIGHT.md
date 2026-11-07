@@ -42,3 +42,5 @@ Your taste calls were **not** applied; they are drafted at the end for you to ch
 - **E. Chapter cards** on screen (we already have four in-video cards; adding the rest would be small).
 - **F. TCS follow-ups to FKT** (one line in the sign section or the ending): "Vijay Vazirani extended it to graphs with no K₃,₃ (1989), and it later became the foundation of Valiant's holographic algorithms."
 - **G. Credits line "Written, narrated and produced by":** the voice is still the AI placeholder; change to "narrated" only once you record your voice, or add "voice: placeholder AI (Kokoro)".
+
+**Status: all live** — build for c13f638 succeeded (24m35s), Pages deployed 2026-11-07 02:52 UTC; presenter is up to date.

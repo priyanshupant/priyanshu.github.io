@@ -106,6 +106,12 @@ Each act answers the question the viewer is asking at that point.
 
 ## 6. Current state (update this when you change things)
 
+- **TheTrick (new, after ThreeProof):** "How a determinant counts": perm A = 6·6 + 4·4 = 52 (every pair, meeting or not) vs det A = 6·6 − 4·4 = 20 (only never meet; the minus boxed) → Benjamin & Quinn's D.I.E. method ("D.I.E., which stands for Description, Involution, Exception", verified in their PDF): Description = families of paths; Involution = swap the tails at the first meeting; Exception = the families that never meet. Sources verified this session: Benjamin & Cameron, "Counting on Determinants", Amer. Math. Monthly 112 (2005) 481–492, opens with "THE PROBLEM OF THE DETERMINED ANTS" (ants, permanent = all, determinant = non-intersecting; "for every intersecting n-path, we can uniquely identify another intersecting n-path with opposite sign") — our ant picture follows the same idea, so it is credited. Both added to CREDITS.
+
+- **ThreeProof (new, act4c_proof.py, after Formula; Priyanshu asked how the 3×3 case works):** 5×5 grid, 3 ants (S3/E3, A = [[6,4,1],[4,6,4],[1,4,6]]); the six terms as rows, each with a little ant→house diagram, sign, product and count (216, 96, 96, 6, 16, 16), det A = 50; a meeting family: first meeting, swap the two tails → it moves to a term of opposite sign; swap again → back; then all 198 cancelling pairs run (counters fall to 50, 0, 0, 0, 0, 0); what's left: never-meeting families, all going home, 50 = det A. Rule (verified at import): lowest ant that meets anyone, its first shared dot, lowest other ant there; it is an involution and flips the sign.
+
+- **Proof intro v14 (8 Nov, act4c_proof.py AllPairs; old act4c_proof_v13.py.bak):** WhyCard says only "Why does this work?"; AllPairs then: "Let's get back to our two ants" (grid, ants, houses + matrix A with house/ant labels) → det A = 6·6 − 4·4 (LaTeX) → why 6·6: six blue ways, six orange ways drawn on the grid; any with any → the 36 pairs (grid fades, thumbnails) → 20 never meet / 16 meet → why 4·4: the 16 pairs where the ants end up in the **wrong houses** (new name for "swapped") → "= all − wrong houses", "never meet = all − meet", "meet = 16 = wrong houses" (= aligned) → "But why is that?" → the grid comes back for SwappedToMeet. "Swapped" renamed to "wrong houses" in narration and bullets of SwappedToMeet, Bijection, Formula.
+
 - **More ants v13c (8 Nov, Priyanshu chose layout "U" from two drawn sheets, ant_layouts.png / ant_layouts2.png):** grid grows to 7×7 with the old 4×4 as its middle (shifted by (1,1)); purple and pink ants + homes appear in a neat staircase (G4S/G4E); "Now move the ants and their homes anywhere you like": all four ants slide to S4 = blue (3,3), orange (1,1), purple (2,4), pink (1,3), then the homes to E4 = (6,5), (6,3), (5,6), (3,6) (each ant ≥ 5 steps from home; paths free to cross). A = [[10,1,10,1],[126,21,126,21],[5,0,10,3],[21,1,35,10]], det A = 252 = number of never-meeting ways (verified at import, other pairings impossible).
 
 - **More ants v13b (8 Nov): all four ants and homes scattered — blue (3,2)→(5,5), orange (3,0)→(5,2), purple (0,1)→(1,4), pink (0,5)→(3,5); A = [[10,1,0,1],[21,6,0,1],[126,6,4,35],[1,0,0,1]], det A = 136 = the number of ways the ants get home without ever meeting (shown as two aligned lines); then "Isn't this so simple, and beautiful? … in understanding why this works lies the essence of how determinants can be used in counting problems. So, let's get into that." → WhyCard "Why does this work?". Verified exhaustively as before.**
@@ -212,6 +218,11 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-08 · Claude · TheTrick: involution explained in words ("a rule that pairs things up: apply it once, you jump to a partner; again, you come right back") with an A ⇄ B picture; layout fixed so Exception stays in frame.
+- 2026-11-08 · Claude · TheTrick: permanent vs determinant, D.I.E. method; credits for Benjamin–Cameron (ants, 2005) and Benjamin–Quinn.
+- 2026-11-08 · Claude · ThreeProof: the 3-ant cancellation shown term by term (198 pairs, 50 left).
+- 2026-11-08 · Claude · Bijection/Formula: no 'couples'; every meeting pair has a matching wrong-house pair and vice versa → one-to-one → meet = wrong houses; det A = all − wrong houses = all − meet = never meet = 20.
+- 2026-11-08 · Claude · Proof intro v14: back to the ants, why 6·6 / 4·4, 'wrong houses' naming, equal counts → why?
 - 2026-11-08 · Claude · More ants v13c: 7×7, staircase then layout U, det 252.
 - 2026-11-08 · Claude · More ants v13b: all ants/homes scattered, det 136, closing lines.
 - 2026-11-08 · Claude · More ants: 6×6 grid, four ants, scattered homes, det 486 (verified).

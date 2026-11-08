@@ -33,7 +33,7 @@ jobs:
       - name: System packages
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core
+          sudo apt-get install -y ffmpeg libcairo2-dev libpango1.0-dev pkg-config fonts-dejavu-core texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-latex-extra dvisvgm
 
       - name: Python packages
         run: pip install -r src/requirements.txt

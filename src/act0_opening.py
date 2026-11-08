@@ -1,4 +1,5 @@
-"""Act 0 — short visual opening (v8.1: same beats as v8, clearer and in sync).
+"""Act 0 — opening v11 (Priyanshu's script, 8 Nov): school 2x2 and 3x3, general forms, uses, combinatorics, title.
+(previous version: act0_opening_v10.py.bak)
 
 Six narration lines, six presenter slides:
   0 familiar 2x2 determinant
@@ -14,28 +15,76 @@ from act0_hook import GRID_HOOK
 
 class Opening(DScene):
     def construct(self):
-        # 0 — familiar formula. Neutral colours: green/red mean good/bad later.
+        # 0 — most of us have seen the determinant in school
         self.cue(0)
-        m = matrix_mob([["a", "b"], ["c", "d"]], size=80).shift(LEFT * 2.6)
-        cells = m.cells
+        big = MathTex(r"\det", color=YELLOW).scale(3.2)
+        self.play(Write(big), run_time=1.0)
+
+        # 1 — 2x2: a d − b c (diagonals, then they fade)
+        self.cue(1)
+        m = Matrix([["a", "b"], ["c", "d"]], h_buff=1.1, v_buff=0.9).scale(1.5).shift(LEFT * 2.4)
+        cells = m.get_entries()
         diag = Line(cells[0].get_center(), cells[3].get_center(), color=SOFT, stroke_width=10).set_opacity(0.65)
         anti = Line(cells[1].get_center(), cells[2].get_center(), color=SOFT, stroke_width=10).set_opacity(0.65)
-        dl = T("det", 58, YELLOW).next_to(m, LEFT, buff=0.35)
-        eq = T("=", 66).next_to(m, RIGHT, buff=0.55)
-        ad = T("a d", 66).next_to(eq, RIGHT, buff=0.3)
-        minus = T("−", 66, YELLOW).next_to(ad, RIGHT, buff=0.3)
-        bc = T("b c", 66).next_to(minus, RIGHT, buff=0.3)
-        self.play(FadeIn(m), FadeIn(dl), run_time=0.65)
-        self.cue_at(0, "a d minus", lead=0.35)
-        self.play(Create(diag), FadeIn(eq), FadeIn(ad), run_time=0.55)
-        self.play(Create(anti), FadeIn(minus), FadeIn(bc), run_time=0.55)
-        formula = VGroup(dl, m, eq, ad, minus, bc)
-        self.cue_end(0)
-        self.play(FadeOut(diag), FadeOut(anti), run_time=0.3)        # the diagonals have done their job
+        dl = MathTex(r"\det", color=YELLOW).scale(1.9).next_to(m, LEFT, buff=0.3)
+        rhs = MathTex("=", "ad", "-", "bc").scale(1.9).next_to(m, RIGHT, buff=0.4)
+        rhs[2].set_color(YELLOW)
+        self.play(ReplacementTransform(big, dl), FadeIn(m), run_time=0.7)
+        self.cue_at(1, "a d minus", lead=0.3)
+        self.play(Create(diag), FadeIn(rhs[:2]), run_time=0.55)
+        self.play(Create(anti), FadeIn(rhs[2:]), run_time=0.55)
+        formula = VGroup(dl, m, rhs)
+        self.cue_end(1)
+        self.play(FadeOut(diag), FadeOut(anti), run_time=0.3)
         self.play(formula.animate.scale(0.47).to_edge(UP, buff=0.35), run_time=0.5)
 
-        # 1 — equations. The dot is the unique solution; when the lines turn
-        # parallel it slides off along them (no solution), then det = 0.
+        # 2 — 3x3: six products, three with +, three with − (built quickly)
+        self.cue(2)
+        L = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"]]
+        m3 = Matrix(L, h_buff=1.0, v_buff=0.8).scale(1.1).move_to(LEFT * 3.4 + DOWN * 0.3)
+        e3 = m3.get_entries()
+        d3 = MathTex(r"\det", color=YELLOW).scale(1.3).next_to(m3, LEFT, buff=0.25)
+        self.play(FadeIn(m3), FadeIn(d3), run_time=0.5)
+        terms = [((0, 4, 8), "+"), ((1, 5, 6), "+"), ((2, 3, 7), "+"), ((2, 4, 6), "-"), ((1, 3, 8), "-"), ((0, 5, 7), "-")]
+        eq3 = MathTex("=").scale(1.3).next_to(m3, RIGHT, buff=0.35)
+        txts = VGroup()
+        for k, (ix, sg) in enumerate(terms):
+            col = GOOD if sg == "+" else BAD
+            txts.add(MathTex(sg, "".join(L[i // 3][i % 3] for i in ix)).scale(1.3))
+            txts[-1][0].set_color(col)
+        r1, r2 = VGroup(*txts[:3]).arrange(RIGHT, buff=0.35), VGroup(*txts[3:]).arrange(RIGHT, buff=0.35)
+        VGroup(r1, r2).arrange(DOWN, buff=0.45, aligned_edge=LEFT).next_to(eq3, RIGHT, buff=0.3)
+        VGroup(r1, r2).shift(UP * (eq3.get_y() - r1.get_y()))
+        txts[0][0].set_opacity(0)                         # no leading +
+        out = VGroup(eq3, txts)
+        self.play(FadeIn(eq3), run_time=0.2)
+        for k, (ix, sg) in enumerate(terms):
+            col = GOOD if sg == "+" else BAD
+            boxes = VGroup(*[SurroundingRectangle(e3[i], color=col, buff=0.1) for i in ix])
+            self.play(Create(boxes), FadeIn(txts[k], shift=RIGHT * 0.1), run_time=0.25)
+            self.play(FadeOut(boxes), run_time=0.1)
+
+        # 3-6 — general forms of the determinant (one per phrase)
+        self.cue(3)
+        self.play(FadeOut(VGroup(m3, d3, out)), run_time=0.6)
+        fm = VGroup(
+            MathTex(r"\det A", "=", r"\sum_{j=1}^{n} (-1)^{1+j}\, a_{1j}\, \det A_{1j}"),
+            MathTex(r"\det A", "=", r"\lambda_1 \lambda_2 \cdots \lambda_n"),
+            MathTex(r"\det A", "=", r"\sum_{\sigma \in S_n} \operatorname{sgn}(\sigma)\, a_{1\sigma(1)}\, a_{2\sigma(2)} \cdots a_{n\sigma(n)}"),
+        )
+        fm.arrange(DOWN, buff=0.55).move_to(DOWN * 0.5)
+        for f in fm[1:]:                                   # the = signs one under the other
+            f.shift(RIGHT * (fm[0][1].get_x() - f[1].get_x()))
+        fm.move_to(DOWN * 0.5)
+        for k, cue in ((0, 4), (1, 5), (2, 6)):
+            self.cue(cue)
+            self.play(FadeIn(fm[k], shift=UP * 0.15), run_time=0.8)
+
+        # 7 — it shows up all over mathematics
+        self.cue(7)
+        self.play(FadeOut(fm, shift=DOWN * 0.3), run_time=0.8)
+
+        # 8 — equations. The dot is the unique solution; when the lines turn parallel it slides off.
         origin = DOWN * 0.55
         pivot = origin + UP * 0.8
         slope = 0.36
@@ -59,111 +108,117 @@ class Opening(DScene):
             return origin + np.linalg.solve(mat, (pivot - origin)[:2])[0] * d1
 
         point = always_redraw(lambda: Dot(meet(), radius=0.13, color=YELLOW))
-        self.cue(1)
-        nonzero = T("det ≠ 0", 34, SOFT).to_edge(DOWN, buff=0.6)
+        self.cue(8)
+        nonzero = MathTex(r"\det \neq 0", color=SOFT).to_edge(DOWN, buff=0.6)
         self.play(Create(fixed), Create(moving), FadeIn(nonzero), run_time=0.6)
         self.add(point)
-        self.cue_at(1, "unique", lead=0.1)
+        self.cue_at(8, "unique", lead=0.1)
         self.play(Flash(point, color=YELLOW, line_length=0.25, flash_radius=0.3), run_time=0.5)
         self.play(angle.animate.set_value(par), run_time=1.6, rate_func=rate_functions.ease_in_quad)
         self.remove(point)
-        zero1 = T("det = 0", 34, SOFT).to_edge(DOWN, buff=0.6)
+        zero1 = MathTex(r"\det = 0", color=SOFT).to_edge(DOWN, buff=0.6)
         self.play(FadeOut(nonzero), FadeIn(zero1), run_time=0.3)
 
-        # 2 — area: unit square -> parallelogram; the ghost square stays for comparison.
-        self.cue(2)
+        # 9 — scaling: unit square -> stretch x2 -> shear; the ghost square stays for comparison
+        self.cue(9)
         self.play(FadeOut(VGroup(fixed, moving, zero1)), run_time=0.35)
         center = DOWN * 0.6 + LEFT * 1.0
-        u = 0.9                                          # grid unit
+        u = 0.9
         P = lambda x, y: center + u * np.array([x, y, 0.0])
         grid = VGroup(*[Line(P(x, -2), P(x, 2), color=DIM, stroke_width=2) for x in range(-2, 3)],
                       *[Line(P(-2, y), P(2, y), color=DIM, stroke_width=2) for y in range(-2, 3)])
         sq_pts = [P(0, 0), P(1, 0), P(1, 1), P(0, 1)]
         square = Polygon(*sq_pts, stroke_color=YELLOW, stroke_width=5, fill_color=YELLOW, fill_opacity=0.3)
         ghost = Polygon(*sq_pts, stroke_color=SOFT, stroke_width=2.5, fill_opacity=0).set_stroke(opacity=0.8)
-        # two points one above the other: they will land on one point in beat 3
-        p_top = Dot(P(-2, 1), radius=0.11, color=ANT1)
-        p_bot = Dot(P(-2, -1), radius=0.11, color=ANT2)
         plane = VGroup(grid, square)
-        one = T("1", 34, YELLOW).move_to(square)
-        self.play(LaggedStart(*[Create(l) for l in grid], lag_ratio=0.03), FadeIn(square), FadeIn(one), run_time=0.7)
+        self.play(LaggedStart(*[Create(l) for l in grid], lag_ratio=0.03), FadeIn(square), run_time=0.7)
         self.add(ghost)
-        # A = shear · stretch = [[1, 0.5], [0, 1]] · [[2, 0], [0, 1]] = [[2, 1], [0, 1]], det 2
-        self.cue_at(2, "scales", lead=0.2)
-        one2 = one.copy()
-        self.play(ApplyMatrix([[2, 0], [0, 1]], plane, about_point=center),
-                  one.animate.move_to(P(0.5, 0.5)), one2.animate.move_to(P(1.5, 0.5)), run_time=1.0)
-        halves = DashedLine(P(1, 0), P(1, 1), color=YELLOW, stroke_width=2)      # exactly two unit squares
-        self.play(Create(halves), run_time=0.3)
-        two = T("2", 34, YELLOW).move_to(P(1, 0.5))
-        self.play(FadeOut(halves), ReplacementTransform(VGroup(one, one2), two), run_time=0.5)
-        one = two
-        self.play(ApplyMatrix([[1, 0.5], [0, 1]], plane, about_point=center),
-                  one.animate.move_to(P(1.5, 0.5)), run_time=1.0)                 # base 2, height 1: still 2
-        A = [[2, 1], [0, 1]]
-        area = T("det = 2", 34, YELLOW).to_edge(DOWN, buff=0.6)
-        self.cue_at(2, "doubles", lead=0.2)
-        self.play(FadeIn(area), Indicate(one, color=YELLOW, scale_factor=1.4), run_time=0.6)
+        self.cue_at(9, "scales", lead=0.2)
+        self.play(ApplyMatrix([[2, 0], [0, 1]], plane, about_point=center), run_time=1.0)
+        self.play(ApplyMatrix([[1, 0.5], [0, 1]], plane, about_point=center), run_time=1.0)
+        self.play(Indicate(square, color=YELLOW, scale_factor=1.08), run_time=0.7)
 
-        # 3 — can't undo: flatten onto a line; the parallelogram becomes a segment
-        # and two different points land on the same point.
-        self.cue(3)
-        p_top.move_to(P(*(np.array(A) @ [-2, 1])))
-        p_bot.move_to(P(*(np.array(A) @ [-2, -1])))
-        self.play(FadeOut(ghost), FadeOut(one), FadeIn(p_top, scale=1.6), FadeIn(p_bot, scale=1.6), run_time=0.6)
-        dif = p_top.get_center() - p_bot.get_center()
-        k = dif[0] / dif[1]     # kernel of the flattening contains top - bot, so they land together
-        flat = lambda p: np.array([p[0] - (p[1] - center[1]) * k, center[1], 0])   # rank-1 map
-        self.cue_at(3, "zero", lead=0.1)
-        self.play(plane.animate.apply_function(flat), p_top.animate.move_to(flat(p_top.get_center())),
-                  p_bot.animate.move_to(flat(p_bot.get_center())), FadeOut(area), run_time=1.5)
-        zero3 = T("det = 0", 34, SOFT).to_edge(DOWN, buff=0.6)
-        self.play(Flash(p_bot.get_center(), color=YELLOW, line_length=0.2, flash_radius=0.3),
-                  FadeIn(zero3), run_time=0.5)
-
-        # 4 — polygon area (shoelace), minimal. Fan from O: triangle areas det(v_i, v_i+1)/2 =
-        # +5, +6.5, +2 (yellow) and −0.5, −2.5 (grey, exactly the overhang); 13.5 − 3 = 10.5.
-        self.cue(4)
-        U, O = 0.8, LEFT * 2.0 + DOWN * 2.9
+        # 10 — polygon area (shoelace): fan from O; +5, +6.5, +2 and −0.5, −2.5 (the overhang); 10.5
+        self.cue(10)
+        U, O = 0.8, LEFT * 4.6 + DOWN * 2.9
         Q = lambda x, y: O + U * np.array([x, y, 0.0])
         V = [(2, 1), (5, 2), (5, 4), (3, 5), (1, 3)]
         poly = Polygon(*[Q(*v) for v in V], stroke_color=INK, stroke_width=5, fill_opacity=0)
         tris = [(V[i], V[(i + 1) % 5]) for i in range(5)]
         tri = lambda a, b, col, op: Polygon(O, Q(*a), Q(*b), stroke_color=col, stroke_width=2, fill_color=col, fill_opacity=op)
-        pos = VGroup(*[tri(a, b, YELLOW, 0.4) for a, b in tris if a[0] * b[1] - a[1] * b[0] > 0])
-        neg = VGroup(*[tri(a, b, SOFT, 0.55) for a, b in tris if a[0] * b[1] - a[1] * b[0] < 0])
-        self.play(FadeOut(VGroup(grid, square, p_top, p_bot, zero3)), Create(poly), run_time=0.8)
-        self.play(LaggedStart(*[FadeIn(t) for t in pos], lag_ratio=0.5), run_time=1.0)
-        self.play(LaggedStart(*[FadeIn(t) for t in neg], lag_ratio=0.5), run_time=0.7)
+        signed = [(a, b, a[0] * b[1] - a[1] * b[0]) for a, b in tris]
+        tv = VGroup(*[tri(a, b, YELLOW if d > 0 else SOFT, 0.4 if d > 0 else 0.55) for a, b, d in signed])
+        labs = VGroup(*[MathTex(str(k + 1), color=BLACK if d > 0 else WHITE).scale(0.9)
+                        .move_to((O + Q(*a) + Q(*b)) / 3) for k, (a, b, d) in enumerate(signed)])
+        for k, (a, b, d) in enumerate(signed):              # thin overhang triangles: label just outside
+            if d < 0:
+                labs[k].set_color(SOFT).move_to((O + Q(*a) + Q(*b)) / 3 + normalize((Q(*a) + Q(*b)) / 2 - O) * 0.0 + LEFT * 0.35)
+        assert sum(d for _, _, d in signed) / 2 == 10.5
+        self.play(FadeOut(plane), FadeOut(ghost), Create(poly), run_time=0.8)
+        self.remove(plane, ghost, *grid, square)
+        self.play(LaggedStart(*[AnimationGroup(FadeIn(t), FadeIn(l)) for t, l in zip(tv, labs)], lag_ratio=0.45), run_time=1.6)
         self.add(poly)
-        self.wait(0.5)
-        shoe = T("area = ½ Σ det", 34, YELLOW).to_edge(DOWN, buff=0.6)
-        self.play(FadeOut(neg), FadeOut(pos), poly.animate.set_fill(YELLOW, 0.4), FadeIn(shoe), run_time=0.8)
+        shoe = VGroup(MathTex(r"\text{Area} = \tfrac{1}{2}\sum_{i=1}^{5} \det M_{T_i}"),
+                      MathTex(r"M_{T_i} = \begin{bmatrix} x_i & x_{i+1} \\ y_i & y_{i+1} \end{bmatrix}"))
+        shoe[0].move_to(RIGHT * 3.0 + UP * 0.1)
+        shoe[1].next_to(shoe[0], DOWN, buff=0.4).align_to(shoe[0], LEFT)
+        self.play(Write(shoe[0]), run_time=1.0)
+        self.play(FadeIn(shoe[1]), run_time=0.6)
+        self.wait(0.6)
+        self.play(FadeOut(tv), FadeOut(labs), poly.animate.set_fill(YELLOW, 0.4), run_time=0.8)
 
-        # 5 — the turn: combinatorics (no grid yet; the formula stays on top)
-        self.cue(5)
+        # 11 — combinatorics = counting: paths across a grid, domino tilings, hexagon tilings (no text)
+        self.cue(11)
         self.play(FadeOut(VGroup(poly, shoe)), run_time=0.6)
-        self.cue_at(5, "combinatorics", lead=0.2)
-        self.play(formula.animate.set_color(YELLOW), run_time=0.6)
+        self.cue_at(11, "combinatorics", lead=0.3)
+        from itertools import combinations
+        from act7_kasteleyn import board as dboard, domino as ddomino
+        from act8_dominoes import all_tilings
+        from act6_hexagon import tiling as hex_tiling, outline as hex_outline, PARTITIONS
+        # panel 1: all six paths across a 2x2 grid, one after another (they stay)
+        g0, gs = LEFT * 5.6 + DOWN * 1.3, 1.0
+        G = lambda x, y: g0 + gs * np.array([x, y, 0.0])
+        dots = VGroup(*[Dot(G(x, y), radius=0.07, color=SOFT) for x in range(3) for y in range(3)])
+        cols = [ANT1, ANT2, YELLOW, GOOD, PURPLE_B, PINK]
+        pths = VGroup()
+        for k, ups in enumerate(combinations(range(4), 2)):
+            x = y = 0
+            pts = [G(0, 0)]
+            for st in range(4):
+                x, y = (x, y + 1) if st in ups else (x + 1, y)
+                pts.append(G(x, y))
+            off = (k - 2.5) * 0.035 * np.array([-1, 1, 0])
+            pths.add(VMobject(stroke_color=cols[k], stroke_width=5).set_points_as_corners([p + off for p in pts]))
+        self.play(formula.animate.set_color(YELLOW), FadeIn(dots, lag_ratio=0.05), run_time=0.6)
+        self.play(LaggedStart(*[Create(p) for p in pths], lag_ratio=0.5), run_time=1.8)
+        # panel 2: a 2x4 board cycling through its 5 domino tilings
+        s2 = 0.55
+        bd = dboard(2, 4, s2, origin=LEFT * 0.85 + UP * 0.0)
+        tl = all_tilings(2, 4)
+        assert len(tl) == 5
+        doms = [VGroup(*[ddomino(bd.sq, a2, b2, s2) for a2, b2 in t]) for t in tl]
+        # panel 3: the hexagon cycling through some of its 20 tilings
+        hc = RIGHT * 4.6 + DOWN * 0.3
+        hx = [VGroup(hex_outline(0.55, hc), hex_tiling(h, 0.55, hc, stroke=1)) for h in PARTITIONS[::3][:6]]
+        self.play(FadeIn(bd), FadeIn(doms[0]), FadeIn(hx[0]), run_time=0.6)
+        cd, ch = doms[0], hx[0]
+        for k in range(1, 5):
+            nd, nh = doms[k % 5], hx[k]
+            self.play(FadeOut(cd), FadeIn(nd), FadeOut(ch), FadeIn(nh), run_time=0.3)
+            self.wait(0.25)
+            cd, ch = nd, nh
+        prev = VGroup(dots, pths, bd, cd, ch)
 
-        # 6 — the title, in the centre of the screen, as it is said (no name)
-        self.cue(6)
+        # 12 — today: how determinants can count (title in the centre as it is said)
+        self.cue(12)
         title = T("How Determinants Can Count", 50, weight=BOLD)
-        self.play(FadeOut(formula), run_time=0.4)
-        self.cue_at(6, "how determinants", lead=0.2)
+        self.cue_at(12, "how determinants", lead=0.2)
+        self.play(FadeOut(prev), formula.animate.move_to(UP * 0.0).set_opacity(0), run_time=0.5)
+        self.remove(formula)
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
 
-        # 7 — (option B) the stakes: counting is usually hard, sometimes one determinant does it
-        self.cue(7)
-        stake = VGroup(T("counting: usually brutally hard", 28, SOFT),
-                       T("sometimes: one determinant", 28, YELLOW)).arrange(DOWN, buff=0.18).next_to(title, DOWN, buff=0.6)
-        self.play(FadeIn(stake[0], shift=UP * 0.15), run_time=0.7)
-        self.cue_at(7, "But sometimes", lead=0.2)
-        self.play(FadeIn(stake[1], shift=UP * 0.15), run_time=0.7)
-
-        # 8 — "let's start with a simple puzzle": clear the screen (the Hook brings the ants)
-        self.cue(8)
-        self.play(FadeOut(stake), run_time=0.5)
-        self.cue_at(8, "simple puzzle", lead=0.2)
+        # 13 — "let's start with a simple puzzle": clear the screen (the Hook brings the ants)
+        self.cue(13)
+        self.cue_at(13, "simple puzzle", lead=0.2)
         self.play(FadeOut(title), run_time=0.8)

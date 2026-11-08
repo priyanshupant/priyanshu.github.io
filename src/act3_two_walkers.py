@@ -182,7 +182,56 @@ class TableAndDet(DScene):
         self.sfx("pop")
         self.play(cells[2].animate.set_opacity(1), cells[3].animate.set_opacity(1), run_time=0.8)
 
-        # 5-6: det A, each '=' directly under the '=' of "A ="
+        # 5-8: counting paths on a grid is easy: count the rights and the ups, then choose
+        self.cue(5)
+        P1 = [(0, 1), (1, 1), (2, 1), (2, 2), (2, 3)]           # R R U U
+        P2 = [(0, 1), (0, 2), (1, 2), (1, 3), (2, 3)]           # U R U R
+        P3 = [(0, 1), (1, 1), (2, 1), (3, 1), (3, 2)]           # R R R U (to the orange house)
+
+        def steps(P):
+            return ["R" if P[i + 1][0] > P[i][0] else "U" for i in range(len(P) - 1)]
+
+        slots = VGroup(*[Square(0.62, color=SOFT, stroke_width=3) for _ in range(4)]).arrange(RIGHT, buff=0.14)
+        slots.move_to(RIGHT * 2.6 + DOWN * 1.15)
+        arrow = {"R": r"\rightarrow", "U": r"\uparrow"}
+
+        def fill(P, col):
+            return VGroup(*[MathTex(arrow[st], color=col).scale(1.1).move_to(sq) for st, sq in zip(steps(P), slots)])
+
+        pm = path_mob(lat, P1, ANT1, 7)
+        self.play(Create(pm), FadeIn(slots), run_time=0.9)
+        # 6: two rights and two ups, in some order
+        self.cue(6)
+        self.cue_at(6, "two steps right", lead=0.2)
+        ar = fill(P1, ANT1)
+        self.play(LaggedStart(*[FadeIn(x, shift=DOWN * 0.1) for x in ar], lag_ratio=0.3), run_time=1.0)
+        self.cue_at(6, "different order", lead=0.2)
+        pm2 = path_mob(lat, P2, ANT1, 7)
+        ar2 = fill(P2, ANT1)
+        self.play(ReplacementTransform(pm, pm2), ReplacementTransform(ar, ar2), run_time=0.9)
+        pm, ar = pm2, ar2
+        # 7: which two of the four go right: 4 choose 2 = 6
+        self.cue(7)
+        self.cue_at(7, "which two", lead=0.2)
+        rs = VGroup(*[SurroundingRectangle(x, color=YELLOW, buff=0.12) for x, st in zip(ar, steps(P2)) if st == "R"])
+        self.play(Create(rs), run_time=0.6)
+        c42 = MathTex(r"\binom{4}{2} = 6", color=YELLOW).scale(1.0).next_to(slots, RIGHT, buff=0.45)
+        self.cue_at(7, "four choose two", lead=0.2)
+        self.play(Write(c42), FadeOut(rs), run_time=0.8)
+        self.play(Indicate(cells[0], color=YELLOW, scale_factor=1.3), run_time=0.7)
+        # 8: to the orange house: three rights, one up: 4 choose 1 = 4
+        self.cue(8)
+        pm3 = path_mob(lat, P3, ANT1, 7)
+        ar3 = fill(P3, ANT1)
+        self.play(ReplacementTransform(pm, pm3), ReplacementTransform(ar, ar3), FadeOut(c42), run_time=0.9)
+        c41 = MathTex(r"\binom{4}{1} = 4", color=YELLOW).scale(1.0).next_to(slots, RIGHT, buff=0.45)
+        self.cue_at(8, "Four choose one", lead=0.2)
+        self.play(Write(c41), run_time=0.8)
+        self.play(Indicate(cells[1], color=YELLOW, scale_factor=1.3), run_time=0.7)
+        self.cue_end(8)
+        self.play(FadeOut(VGroup(pm3, ar3, slots, c41)), run_time=0.5)
+
+        # 9-10: det A, each '=' directly under the '=' of "A ="
         x_eq = Aeq[-1].get_x()
         lines = [(T("det A", 36), T(f"{N11} · {N22}  −  {N12} · {N21}", 36)),
                  (None, T(f"{N11 * N22}  −  {N12 * N21}", 36)),
@@ -196,19 +245,19 @@ class TableAndDet(DScene):
                 lhs.next_to(eq, LEFT, buff=0.3)
                 grp.add(lhs)
             rows.add(grp)
-        self.cue(5)
-        self.cue_at(5, "determinant of A", lead=0.2)
+        self.cue(9)
+        self.cue_at(9, "determinant of A", lead=0.2)
         self.play(Write(rows[0][2]), Write(rows[0][0]), run_time=0.7)
-        self.cue_at(5, "six times six", lead=0.2)
+        self.cue_at(9, "six times six", lead=0.2)
         self.play(Write(rows[0][1]), run_time=1.0)
         self.play(Write(rows[1]), run_time=0.8)
-        self.cue(6)
+        self.cue(10)
         self.sfx("chime")
         self.play(Write(rows[2]), run_time=0.8)
 
-        # 7: the same number as before; then only the right-hand side clears (the next scene grows the grid)
-        self.cue(7)
+        # 11: the same number as before; then only the right-hand side clears (the next scene grows the grid)
+        self.cue(11)
         self.play(Indicate(rows[2], color=YELLOW, scale_factor=1.2), run_time=0.9)
-        self.cue_end(7)
+        self.cue_end(11)
         self.play(FadeOut(VGroup(Aeq, M, col_lab, row_lab, rows)), run_time=0.6)
 

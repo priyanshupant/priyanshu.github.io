@@ -265,6 +265,8 @@ class AztecPaths(DScene):
                      T("dominoes never overlap → paths never touch", 24, YELLOW),
                      T("and every such pair of paths = one tiling", 24)).arrange(DOWN, aligned_edge=LEFT, buff=0.12)
         msg.next_to(legend, DOWN, buff=0.5, aligned_edge=LEFT)
+        if msg.get_right()[0] > 6.7:                          # keep it inside the frame
+            msg.scale((6.7 - msg.get_left()[0]) / msg.width, about_edge=LEFT)
         self.play(FadeIn(msg, lag_ratio=0.3), run_time=2.5)
         cur = VGroup(plain, board[1])
         for k in (0, 3, 6, 5):

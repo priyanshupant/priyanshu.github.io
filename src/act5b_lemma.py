@@ -185,6 +185,15 @@ class GeneralLemma(DScene):
         self.cue_at(4, "Here", lead=0.2)
         self.sfx("chime")
         self.play(Write(here), Indicate(fam, scale_factor=1.03), run_time=1.0)
-        self.cue_end(4)
+
+        # 5: (option C) and it is fast: about n^3 steps, while listing every family explodes
+        self.cue(5)
+        cost = VGroup(T("n × n determinant:  about n³ steps", 26, GOOD),
+                      T("checking every family:  explodes", 26, BAD)).arrange(DOWN, buff=0.12, aligned_edge=LEFT)
+        cost.next_to(here, DOWN, buff=0.3).align_to(here, LEFT)
+        self.play(FadeIn(cost[0], shift=UP * 0.1), run_time=0.7)
+        self.cue_at(5, "while checking", lead=0.2)
+        self.play(FadeIn(cost[1], shift=UP * 0.1), run_time=0.7)
+        self.cue_end(5)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)

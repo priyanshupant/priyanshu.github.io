@@ -46,10 +46,50 @@ def scenes():
         lines = [{"start": s, "end": e, "text": c} for s, e, c in timing.get(sc, {}).get("lines", [])]
         if not lines:                      # a scene with no narration: one slide for the whole scene
             lines = [{"start": 0.0, "end": d, "text": "(no narration)"}]
+        spoken = [x if isinstance(x, str) else x[1] for x in nar.get(sc, []) if not isinstance(x, (int, float))]
+        man = rec_manifest().get(sc, {})
+        recs = []
+        for k, txt in enumerate(spoken):
+            have = os.path.exists(os.path.join(REC, sc, f"{k}.wav"))
+            recs.append(None if not have else ("mine" if man.get(str(k)) == txt else "stale"))
         out.append({"name": sc, "file": f, "line": line, "offset": t, "duration": d,
-                    "lines": lines, "narration": nar.get(sc, [])})
+                    "lines": lines, "narration": nar.get(sc, []), "recs": recs})
         t += d
     return out
+
+
+REC = os.path.join(ROOT, "audio", "recorded")
+
+
+def rec_manifest():
+    f = os.path.join(REC, "manifest.json")
+    return json.load(open(f, encoding="utf8")) if os.path.exists(f) else {}
+
+
+def spoken_line(scene, k):
+    nar = json.load(open(os.path.join(ROOT, "narration.json"), encoding="utf8"))[scene]
+    return [x if isinstance(x, str) else x[1] for x in nar if not isinstance(x, (int, float))][k]
+
+
+def save_take(scene, k, raw):
+    """Browser audio (webm/ogg/wav/mp3/m4a) -> 24 kHz mono wav, silence trimmed at both ends, loudness evened."""
+    if not re.fullmatch(r"[A-Za-z0-9_]+", scene):
+        raise ValueError("bad scene name")
+    text = spoken_line(scene, k)
+    d = os.path.join(REC, scene)
+    os.makedirs(d, exist_ok=True)
+    tmp = os.path.join(d, f"{k}.upload")
+    open(tmp, "wb").write(raw)
+    trim = "silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.15"
+    af = f"{trim},areverse,{trim},areverse,loudnorm=I=-18:TP=-2:LRA=11"
+    r = subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", tmp, "-ac", "1", "-ar", "24000", "-af", af,
+                        os.path.join(d, f"{k}.wav")], capture_output=True, text=True)
+    os.remove(tmp)
+    if r.returncode:
+        raise ValueError("could not read that audio: " + r.stderr[-300:])
+    m = rec_manifest()
+    m.setdefault(scene, {})[str(k)] = text
+    json.dump(m, open(os.path.join(REC, "manifest.json"), "w", encoding="utf8"), indent=1, ensure_ascii=False)
 
 
 def run(cmd):
@@ -113,6 +153,13 @@ class H(BaseHTTPRequestHandler):
             return self.send(200, json.dumps({"text": open(self.safe(q["path"][0]), encoding="utf8").read()}))
         if path == "/video.mp4":
             return self.video()
+        if path == "/api/rec":
+            from urllib.parse import parse_qs
+            q = parse_qs(self.path.split("?", 1)[1])
+            sc, k = q["scene"][0], int(q["k"][0])
+            f = os.path.join(REC, sc, f"{k}.wav")
+            if re.fullmatch(r"[A-Za-z0-9_]+", sc) and os.path.exists(f):
+                return self.send(200, open(f, "rb").read(), "audio/wav")
         self.send(404, "{}")
 
     def video(self):
@@ -149,7 +196,21 @@ class H(BaseHTTPRequestHandler):
     def do_POST(self):
         path = self.path.split("?")[0]
         try:
+            if path == "/api/record":
+                from urllib.parse import parse_qs
+                q = parse_qs(self.path.split("?", 1)[1])
+                raw = self.rfile.read(int(self.headers.get("Content-Length", 0)))
+                save_take(q["scene"][0], int(q["k"][0]), raw)
+                return self.send(200, '{"ok":true}')
             d = self.body()
+            if path == "/api/rec_delete":
+                f = os.path.join(REC, d["scene"], f"{int(d['k'])}.wav")
+                if re.fullmatch(r"[A-Za-z0-9_]+", d["scene"]) and os.path.exists(f):
+                    os.remove(f)
+                m = rec_manifest()
+                m.get(d["scene"], {}).pop(str(int(d["k"])), None)
+                json.dump(m, open(os.path.join(REC, "manifest.json"), "w", encoding="utf8"), indent=1, ensure_ascii=False)
+                return self.send(200, '{"ok":true}')
             if path == "/api/narration":
                 f = os.path.join(ROOT, "narration.json")
                 nar = json.load(open(f, encoding="utf8"))
@@ -195,6 +256,9 @@ button:disabled{opacity:.5}
 .item{display:flex;gap:6px;margin:6px 0;align-items:flex-start}.item .k{color:var(--soft);width:26px;padding-top:6px}
 .item textarea{flex:1;min-height:54px;background:#151515;color:var(--fg);border:1px solid #333;border-radius:4px;padding:6px;font:inherit}
 .item.cur textarea{border-color:var(--acc)}
+.rec{display:flex;flex-direction:column;gap:3px}.rec button{padding:3px 7px}.rec button.live{background:#7a1f1f;border-color:#b33}
+.badge{font-size:11px;padding:1px 5px;border-radius:8px;background:#2a2a2a;color:var(--soft);text-align:center}
+.badge.mine{background:#173b1f;color:#7fd18b}.badge.stale{background:#4a2a10;color:#f0a050}
 .item input{width:70px;background:#151515;color:var(--fg);border:1px solid #333;border-radius:4px;padding:4px}
 #code{width:100%;height:calc(100% - 44px);background:#0d0d0d;color:#ddd;border:1px solid #333;font:12.5px/1.4 ui-monospace,monospace;padding:8px;white-space:pre;tab-size:4}
 #log{white-space:pre-wrap;font:12px ui-monospace,monospace;color:#bbb;background:#0d0d0d;padding:8px;border-radius:4px;min-height:200px}
@@ -211,6 +275,7 @@ label{color:var(--soft)}
   <button onclick="go(-1)">◀ prev</button><button class="primary" onclick="playSlide()">▶ play slide</button>
   <button onclick="go(1)">next ▶</button>
   <label><input type="checkbox" id="through"> play through (don't stop at slide end)</label>
+  <label><input type="checkbox" id="recplay" checked> while recording, play the slide silently (to match the pictures)</label>
  </div>
  <div id="now"></div><div id="meta"></div>
 </div>
@@ -219,6 +284,10 @@ label{color:var(--soft)}
  <div class="pane on" id="nar"><div id="items"></div>
   <button onclick="addLine()">+ line</button> <button onclick="addPause()">+ pause</button>
   <button class="primary" onclick="saveNar()">Save narration</button>
+  <p style="color:var(--soft)"><b style="color:var(--acc)">Your voice:</b> 🎙 records that line (click again to stop), ▶ plays your take,
+  ⤒ uploads an audio file instead, ✕ goes back to the AI voice. Takes are trimmed and levelled automatically.
+  Then open <i>Rebuild</i> (keep "re-record voice" ticked): your takes replace the AI voice and the animation follows your pace.
+  "stale" = the words changed after you recorded; record that line again.</p>
   <p style="color:var(--soft)">A number is a pause in seconds. Line numbers match <code>self.cue(k)</code> in the code.
   After changing words, rebuild the scene with "re-record voice" ticked.</p></div>
  <div class="pane" id="code"><div style="display:flex;gap:8px;margin-bottom:6px"><span id="fname" style="color:var(--soft);flex:1"></span>
@@ -257,7 +326,26 @@ document.addEventListener('keydown',e=>{if(['TEXTAREA','INPUT'].includes(e.targe
  if(e.key=='ArrowRight'){e.preventDefault();go(1)}else if(e.key=='ArrowLeft'){e.preventDefault();go(-1)}else if(e.key==' '){e.preventDefault();v.paused?playSlide():v.pause()}});
 function renderItems(){const S=sc();let k=0;$('items').innerHTML=S.narration.map((x,i)=>{
  if(typeof x=='number')return `<div class="item"><span class="k">⏸</span><input type="number" step="0.1" value="${x}" data-i="${i}"> s <button onclick="delItem(${i})">✕</button></div>`;
- const t=Array.isArray(x)?x[0]:x;const h=`<div class="item" data-k="${k}"><span class="k">${k}</span><textarea data-i="${i}">${t.replace(/</g,'&lt;')}</textarea><button onclick="delItem(${i})">✕</button></div>`;k++;return h}).join('')}
+ const t=Array.isArray(x)?x[0]:x;const st=(S.recs||[])[k];
+ const badge=st=='mine'?'<span class="badge mine">your voice</span>':st=='stale'?'<span class="badge stale">stale</span>':'<span class="badge">AI voice</span>';
+ const h=`<div class="item" data-k="${k}"><span class="k">${k}</span><textarea data-i="${i}">${t.replace(/</g,'&lt;')}</textarea>
+ <div class="rec">${badge}<div><button id="rb${k}" title="record this line" onclick="rec(${k})">🎙</button>${st?`<button title="play your take" onclick="playTake(${k})">▶</button><button title="back to the AI voice" onclick="delTake(${k})">✕</button>`:''}<button title="upload an audio file" onclick="upTake(${k})">⤒</button></div></div>
+ <button title="delete this line" onclick="delItem(${i})">🗑</button></div>`;k++;return h}).join('')}
+let mr=null,chunks=[],recK=null;
+async function rec(k){if(mr&&mr.state=='recording'){mr.stop();return}
+ let st;try{st=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}
+ catch(e){alert('The browser would not give me the microphone ('+e.name+'). You can record on your phone and use ⤒ to upload the file instead.');return}
+ chunks=[];recK=k;mr=new MediaRecorder(st);mr.ondataavailable=e=>chunks.push(e.data);
+ mr.onstop=async()=>{st.getTracks().forEach(t=>t.stop());v.muted=false;v.pause();$('rb'+k)&&$('rb'+k).classList.remove('live');
+  await sendTake(k,new Blob(chunks,{type:mr.mimeType}))};
+ mr.start();$('rb'+k).classList.add('live');$('rb'+k).textContent='■';
+ if($('recplay').checked){const i=slides.findIndex(s=>s.si==slides[cur].si&&s.k==k);if(i>=0){show(i);v.muted=true;stopAt=null;v.play()}}}
+async function sendTake(k,blob){const S=sc();const r=await fetch(`/api/record?scene=${S.name}&k=${k}`,{method:'POST',body:blob});
+ if(!r.ok){alert((await r.json()).error);return}await refresh()}
+function upTake(k){const f=document.createElement('input');f.type='file';f.accept='audio/*';f.onchange=()=>f.files[0]&&sendTake(k,f.files[0]);f.click()}
+function playTake(k){const S=sc();new Audio(`/api/rec?scene=${S.name}&k=${k}&t=${Date.now()}`).play()}
+async function delTake(k){const S=sc();await fetch('/api/rec_delete',{method:'POST',body:JSON.stringify({scene:S.name,k})});await refresh()}
+async function refresh(){const keep=cur;D=await (await fetch('/api/data')).json();lastScene=-1;show(keep,false)}
 function collect(){const S=sc();return S.narration.map((x,i)=>{const el=document.querySelector(`[data-i="${i}"]`);
  if(!el)return x; if(typeof x=='number')return parseFloat(el.value)||0; return el.value.trim()}).filter(x=>x!==null)}
 function delItem(i){const S=sc();S.narration=collect();S.narration.splice(i,1);renderItems()}

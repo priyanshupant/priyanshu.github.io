@@ -186,11 +186,29 @@ class Finale(DScene):
         self.cue_at(3, "one determinant")
         self.sfx("chime")
         self.play(Write(easy[2]), FadeIn(easy[3]))
-        # 4: thesis
+        # 4: (option A) Mahajan & Vinay 1997: the determinant itself, by pairing up and cancelling
         self.cue(4)
+        self.play(FadeOut(VGroup(hard, easy, bar)), run_time=0.6)
+        mv = VGroup(T("Meena Mahajan  &  V. Vinay", 40, YELLOW), T("1997", 30, SOFT)).arrange(DOWN, buff=0.15).move_to(UP * 2.2)
+        self.play(FadeIn(mv, shift=DOWN * 0.2), run_time=0.8)
+        steps = VGroup(T("the determinant itself:", 30),
+                       T("1.  write it as a big signed sum", 28),
+                       T("2.  pair each unwanted term with one of opposite sign", 28),
+                       T("3.  they cancel", 28, GOOD),
+                       T("no division needed", 26, SOFT)).arrange(DOWN, buff=0.22, aligned_edge=LEFT).next_to(mv, DOWN, buff=0.5)
+        self.cue_at(4, "computed the determinant", lead=0.2)
+        self.play(FadeIn(steps[0]), run_time=0.6)
+        for k, ph in ((1, "write it"), (2, "pair up"), (3, "let them cancel"), (4, "No division")):
+            self.cue_at(4, ph, lead=0.2)
+            self.play(FadeIn(steps[k], shift=RIGHT * 0.15), run_time=0.6)
+        self.cue_end(4)
+        self.wait(0.4)
+
+        # 5: thesis
+        self.cue(5)
         thesis = VGroup(T("Determinants can count,", 48), T("because minus signs can cancel.", 48, YELLOW)) \
             .arrange(DOWN, buff=0.3)
-        self.play(FadeOut(VGroup(hard, easy, bar)), run_time=0.6)
+        self.play(FadeOut(VGroup(mv, steps)), run_time=0.6)
         self.play(Write(thesis[0]), run_time=1.2)
         self.play(Write(thesis[1]), run_time=1.4)
         self.wait(1.5)
@@ -227,7 +245,9 @@ class Goodbye(DScene):
 
 
 CREDITS = [
-    ("Written, narrated and produced by", AUTHOR),
+    ("Written and produced by", AUTHOR),
+    ("Voice", "placeholder AI voice (Kokoro text-to-speech)"),
+    ("Opening quotes", "S. Axler, Down with Determinants! (1995) · A. Wigderson"),
     ("Lattice paths", "Lindström 1973 · Gessel & Viennot 1985 · Karlin & McGregor 1959"),
     ("The quote", "Aigner & Ziegler, Proofs from THE BOOK: \"Lattice paths and determinants\""),
     ("Plane partitions", "P. A. MacMahon, Combinatory Analysis (1915–16)"),
@@ -235,7 +255,9 @@ CREDITS = [
     ("Aztec diamond", "Elkies, Kuperberg, Larsen & Propp (1992) · paths proof: Eu & Fu (2005)"),
     ("Arctic circle", "Jockusch, Propp & Shor (1995) · domino shuffling: Elkies, Kuperberg, Larsen & Propp"),
     ("Dimers", "P. W. Kasteleyn (1961; planar graphs 1967) · Temperley & Fisher (1961)"),
+    ("Beyond planar", "V. V. Vazirani (1989) · L. G. Valiant, holographic algorithms (2004)"),
     ("Counting is hard", "L. G. Valiant, The complexity of computing the permanent (1979)"),
+    ("The determinant by cancellation", "M. Mahajan & V. Vinay (1997)"),
     ("Animation", "Manim Community; code written with AI assistance"),
 ]
 

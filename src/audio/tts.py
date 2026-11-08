@@ -19,6 +19,23 @@ from narration import NARRATION  # noqa: E402
 LEAD, GAP, SPEED, SR = 0.6, 0.8, 0.9, 24000     # slower: Priyanshu won't narrate faster than this
 
 
+REC = os.path.join(HERE, "recorded")      # audio/recorded/<Scene>/<k>.wav + manifest.json (from studio.py)
+
+
+def recorded(scene, k, text):
+    """The recorded take for spoken line k of a scene, if one exists and was made for this exact text."""
+    mf = os.path.join(REC, "manifest.json")
+    if not os.path.exists(mf):
+        return None
+    m = json.load(open(mf, encoding="utf8")).get(scene, {}).get(str(k))
+    f = os.path.join(REC, scene, f"{k}.wav")
+    if not m or m != text or not os.path.exists(f):
+        return None
+    a, sr = sf.read(f, dtype="float32")
+    assert sr == SR, (f, sr)
+    return a if a.ndim == 1 else a.mean(axis=1)
+
+
 def main(voice="af_heart", only=None):
     """only: a list of scene names to re-synthesize; the others keep their audio and timing."""
     from kokoro_onnx import Kokoro
@@ -38,9 +55,11 @@ def main(voice="af_heart", only=None):
                 t += ln
                 continue
             spoken, caption = (ln, ln) if isinstance(ln, str) else ln
-            a, sr = k.create(spoken, voice=voice, speed=SPEED, lang="en-us")
-            assert sr == SR
-            a = a.astype(np.float32)
+            a = recorded(scene, len(spans), caption)          # Priyanshu's own recording, if he made one
+            if a is None:
+                a, sr = k.create(spoken, voice=voice, speed=SPEED, lang="en-us")
+                assert sr == SR
+                a = a.astype(np.float32)
             spans.append([round(t, 3), round(t + len(a) / SR, 3), caption])
             parts += [a, np.zeros(int(GAP * SR), np.float32)]
             t += len(a) / SR + GAP

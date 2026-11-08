@@ -1,4 +1,14 @@
 {
+ "QuoteOpen": [
+  "In 1995, Sheldon Axler wrote a paper with a fighting title: Down with Determinants!",
+  0.4,
+  "In it, he says: determinants are difficult, non-intuitive, and often defined without motivation.",
+  1.0,
+  "Avi Wigderson sees it very differently: the determinant is undoubtedly the most important polynomial function in mathematics.",
+  1.0,
+  "So which is it? Let's take a look.",
+  0.6
+ ],
  "Opening": [
   "Most of us met the determinant as a formula: a d minus b c.",
   "It tells us whether a system of linear equations has a unique solution.",
@@ -10,6 +20,7 @@
   1.6,
   "One of the most beautiful and unexpected places I've found determinants is combinatorics.",
   "And today, I want to show you how determinants can count.",
+  "Counting is usually brutally hard. But sometimes, one determinant does it.",
   1.0,
   "Let's start with a simple puzzle."
  ],
@@ -168,6 +179,8 @@
   "Then the determinant of M counts the families of paths, a one to b one, all the way to a n to b n, that never touch.",
   0.6,
   "As long as, like on our grid, any crossed pairing is forced to touch. Here, the determinant is thirteen: exactly thirteen families that never touch.",
+  0.8,
+  "And a determinant is fast: about n cubed steps for an n by n matrix, while checking every family one by one explodes.",
   0.8
  ],
  "MoveHomes": [
@@ -345,31 +358,52 @@
  ],
  "SignsCard": [
   "But not every counting problem is secretly paths. What then?",
-  0.4
+  0.6,
+  "With the ants, the bad terms cancelled on their own: every pair that met had a swapped partner with the opposite sign.",
+  0.6,
+  "With dominoes, nothing like that happens by itself. So we'll have to fix the signs ourselves.",
+  0.6
  ],
  "Dominoes2x3": [
-  "Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board has three tilings.",
+  "Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board.",
+  "It can be tiled in exactly three ways: three standing dominoes; one standing on the left and two lying flat; or two lying flat and one standing on the right.",
   0.6,
-  "A domino always covers one dark square and one light square next to it.",
+  "Notice: a domino always covers one dark square and one light square, right next to each other.",
   0.6,
-  "So build a matrix: rows for the dark squares, columns for the light ones, and a one wherever a dark and a light square touch.",
+  "So build a matrix: one row for each dark square, and one column for each light square.",
+  "Put a one wherever a dark and a light square touch, and a zero where they don't.",
   0.8,
-  "Each tiling picks exactly one entry in every row and every column: one term of the determinant.",
+  "Now, a three-by-three determinant is a sum of six terms. Each term picks one entry from every row and every column, and multiplies them.",
+  "Let's go through all six.",
+  7.0,
+  "Three of the six terms pick up a zero, so they vanish.",
+  0.4,
+  "The other three pick only ones. And each of them is exactly a tiling: a picked one is a dark and a light square that touch, which is a domino.",
   0.8,
   "So the determinant should be three. It's minus one.",
   0.8,
-  "The terms come with signs: plus for this tiling, minus for these two. The cancellation eats the good ones.",
+  "The culprit is the signs. Each term also gets a sign: plus if its pattern can be sorted with an even number of swaps, minus if it takes an odd number.",
+  0.6,
+  "This tiling needs two swaps, so it gets a plus. These two need one swap each, so they get a minus.",
+  0.4,
+  "One, minus one, minus one: minus one. The cancellation eats the good ones.",
   0.8
  ],
  "KastFix": [
   "In 1961, the physicist Pieter Kasteleyn had an idea: if the signs don't cancel the way you want, change the signs.",
   0.6,
-  "Put a minus sign on this one edge.",
+  "Draw the board as a graph: a dot for each square, and an edge for each pair of squares that touch. Every edge is a place a domino could go.",
   0.6,
-  "Only the all-vertical tiling uses it, so only its sign flips.",
+  "Now put a minus sign on just this one edge. In the matrix, its one becomes a minus one.",
+  0.8,
+  "Which tilings notice? Only the ones that use this edge, and only the all-standing tiling does.",
   0.6,
-  "Now every tiling carries the same sign. The determinant is minus three. Ignore the sign: three.",
-  1.0
+  "Its term was plus one. Now one of its three entries is minus one, so the term becomes minus one. The other two terms never use that edge, so they stay the same.",
+  0.8,
+  "Now every tiling carries the same sign, so nothing can cancel. The determinant is minus one, minus one, minus one: minus three.",
+  0.4,
+  "Ignore the sign, and you get three: exactly the number of tilings.",
+  0.8
  ],
  "SmallBoard2": [
   "Take dominoes on a chessboard. Dominoes aren't paths, but there's a determinant trick here too. Start small: a two-by-three board has three tilings.",
@@ -383,14 +417,50 @@
   "Now every tiling carries the same sign. The determinant is minus three. Ignore the sign: three."
  ],
  "Board4x4": [
-  "On a four-by-four board, the plain determinant says there are zero tilings. Very confident, very wrong.",
-  "Put minus signs on the vertical edges of every other column, and the determinant gives thirty-six. Exactly right."
+  "Let's try a bigger board: four by four. It has thirty-six tilings.",
+  0.6,
+  "Build the plain matrix, eight by eight, and take its determinant. It says there are zero tilings. Very confident, very wrong.",
+  0.6,
+  "Here's what happened: eighteen tilings come with a plus sign, and eighteen with a minus. They cancel perfectly.",
+  0.8,
+  "So use Kasteleyn's trick: put minus signs on the vertical edges of every other column.",
+  0.6,
+  "Now all thirty-six tilings get the same sign, and the determinant gives thirty-six. Exactly right.",
+  0.8
+ ],
+ "KastWhy": [
+  "Why does every other column work? Look at any little square of four edges. It always has exactly one minus sign: an odd number.",
+  0.6,
+  "That's Kasteleyn's rule: if every little square has an odd number of minus signs, then every tiling gets the same sign. Let's see why.",
+  0.8,
+  "Take two tilings, and lay one on top of the other.",
+  0.6,
+  "Where they agree, nothing happens. Where they differ, their dominoes join up into closed loops. Here, there are two.",
+  0.8,
+  "To go from one tiling to the other, you turn each loop: every domino on it slides over by one.",
+  0.8,
+  "The small loop first. Two flat dominoes become two standing ones. That's one swap, so the sign flips once.",
+  0.6,
+  "But the standing pair uses exactly one minus edge, so it flips once more. Two flips: no change.",
+  0.8,
+  "Now the big loop. Turning it takes three swaps: three flips. And it picks up one minus edge: a fourth flip. Again, no change.",
+  0.8,
+  "Kasteleyn showed that this always happens: if every little square has an odd number of minus signs, every loop flips the sign an even number of times.",
+  0.8,
+  "So any two tilings have the same sign. Nothing cancels, and the determinant counts every single tiling.",
+  0.8
  ],
  "FKT": [
-  "Now the full chessboard: twelve million, nine hundred eighty-eight thousand, eight hundred sixteen tilings. Listing one per second would take five months. The determinant does it in an instant.",
-  "The rule behind it: every little loop of four edges carries an odd number of minus signs.",
+  "Now the full chessboard, with the same signs: minus on the vertical edges of every other column. The determinant is twelve million, nine hundred eighty-eight thousand, eight hundred sixteen.",
+  0.4,
+  "Listing one tiling per second would take five months. The determinant does it in an instant.",
+  0.8,
   "And it's not really about chessboards. Squares are vertices, dominoes are edges, and a tiling is a perfect matching.",
-  "And by 1967, Kasteleyn had made it work for any graph you can draw without crossings: the FKT algorithm counts perfect matchings of planar graphs in polynomial time.",
+  0.6,
+  "By 1967, Kasteleyn had made it work for any graph you can draw without crossings. This is the FKT algorithm: it counts the perfect matchings of any planar graph, in polynomial time.",
+  0.8,
+  "And the story kept going. In 1989, Vijay Vazirani pushed it to graphs with no K three three hiding inside, and Leslie Valiant later built his holographic algorithms on top of it.",
+  0.8,
   "When a physicist needs to count twelve million tilings, they don't count. They take a determinant, and then let the board go to infinity."
  ],
  "Map": [
@@ -402,6 +472,8 @@
   "The meeting ones pair up with opposite signs, and cancel. What's left is exactly what you wanted.",
   "For a computer scientist, that's remarkable. Counting is usually hopeless: counting perfect matchings of a general graph is sharp-P complete. That's Valiant, in 1979.",
   "But if your puzzle turns into non-touching paths, or a matching on a planar graph, it becomes one determinant, and polynomial time.",
+  "And this isn't only a trick for puzzles. In 1997, Meena Mahajan and V. Vinay computed the determinant itself the same way: write it as a big signed sum, pair up every unwanted term with one of opposite sign, and let them cancel. No division needed.",
+  0.8,
   "Determinants can count, because minus signs can cancel.",
   1.5
  ],
@@ -442,5 +514,20 @@
   "In the determinant, they cancel. The minus sign isn't throwing things away at random: it removes an exact copy of the meeting pairs.",
   "What survives is exactly the twenty pairs that never meet.",
   "A bijective proof: the only kind a combinatorialist fully trusts."
+ ],
+ "PuzzleCard": [
+  1.4
+ ],
+ "ExCard1": [
+  1.2
+ ],
+ "ExCard2": [
+  1.2
+ ],
+ "ExCard3": [
+  1.2
+ ],
+ "EndCard": [
+  1.4
  ]
 }

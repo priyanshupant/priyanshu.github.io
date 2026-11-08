@@ -154,7 +154,16 @@ class Opening(DScene):
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
 
-        # 7 — "let's start with a simple puzzle": clear the screen (the Hook brings the ants)
+        # 7 — (option B) the stakes: counting is usually hard, sometimes one determinant does it
         self.cue(7)
-        self.cue_at(7, "simple puzzle", lead=0.2)
+        stake = VGroup(T("counting: usually brutally hard", 28, SOFT),
+                       T("sometimes: one determinant", 28, YELLOW)).arrange(DOWN, buff=0.18).next_to(title, DOWN, buff=0.6)
+        self.play(FadeIn(stake[0], shift=UP * 0.15), run_time=0.7)
+        self.cue_at(7, "But sometimes", lead=0.2)
+        self.play(FadeIn(stake[1], shift=UP * 0.15), run_time=0.7)
+
+        # 8 — "let's start with a simple puzzle": clear the screen (the Hook brings the ants)
+        self.cue(8)
+        self.play(FadeOut(stake), run_time=0.5)
+        self.cue_at(8, "simple puzzle", lead=0.2)
         self.play(FadeOut(title), run_time=0.8)

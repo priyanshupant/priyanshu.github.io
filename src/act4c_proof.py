@@ -521,21 +521,9 @@ class ThreeProof(DScene):
         self.play(Create(gm), Indicate(cnts[0], color=GOOD, scale_factor=1.4), run_time=1.0)
         self.cue_at(6, "Exactly the determinant", lead=0.2)
         self.play(Indicate(total, color=YELLOW, scale_factor=1.15), run_time=0.9)
-        self.cue_end(4)
+        self.cue_end(6)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
-
-        # 5: closing card, in Benjamin & Quinn's own words (verified in the 2008 paper)
-        self.cue(5)
-        line = T("Matching is easier than counting.", 46, YELLOW, weight=BOLD)
-        by = T("Arthur Benjamin & Jennifer Quinn", 26, SOFT).next_to(line, DOWN, buff=0.35)
-        self.cue_at(5, "matching", lead=0.3)
-        self.sfx("chime")
-        self.play(Write(line), run_time=1.4)
-        self.play(FadeIn(by), run_time=0.6)
-        self.cue_end(5)
-        self.wait(1.2)
-        self.play(FadeOut(VGroup(line, by)), run_time=0.8)
 
 
 class TheTrick(DScene):
@@ -558,10 +546,11 @@ class TheTrick(DScene):
         die = T("D . I . E .", 50, YELLOW, weight=BOLD).to_edge(UP, buff=0.35)
         xs = [-4.6, 0.0, 4.6]
         cols = [INK, ORANGE, GOOD]
-        heads = VGroup(*[T(w, 32, c, weight=BOLD).move_to(np.array([x, 2.05, 0]))
+        heads = VGroup(*[T(w, 32, c, weight=BOLD).move_to(np.array([x, 1.85, 0]))
                          for w, c, x in zip(("Description", "Involution", "Exception"), cols, xs)])
+        paper = T("Arthur Benjamin & Jennifer Quinn, “A Method to DIE For”", 22, SOFT).next_to(die, DOWN, buff=0.12)
         self.cue_at(1, "D.I.E.", lead=0.2)
-        self.play(Write(die), run_time=0.9)
+        self.play(Write(die), FadeIn(paper), run_time=0.9)
         self.play(LaggedStart(*[FadeIn(h, shift=DOWN * 0.15) for h in heads], lag_ratio=0.35), run_time=1.4)
         self.play(heads.animate.set_opacity(0.3), run_time=0.4)
 
@@ -627,18 +616,17 @@ class TheTrick(DScene):
         tk = VGroup(sign_badge(+1, 0.3), tick(0.3)).arrange(RIGHT, buff=0.2).move_to(np.array([xs[2], badge_y, 0]))
         self.cue_at(4, "what the determinant counts", lead=0.2)
         self.play(FadeIn(tk), Indicate(g3, color=GOOD, scale_factor=1.05), run_time=0.8)
-        self.cue_end(4)
-        self.wait(0.8)
-        self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
 
-        # 5: closing card, in Benjamin & Quinn's own words (verified in the 2008 paper)
+        # 5: on the same slide: matching is easier than counting (Benjamin & Quinn's own words)
         self.cue(5)
-        line = T("Matching is easier than counting.", 46, YELLOW, weight=BOLD)
-        by = T("Arthur Benjamin & Jennifer Quinn", 26, SOFT).next_to(line, DOWN, buff=0.35)
+        badges = VGroup(pm, tk)
+        line = T("Matching is easier than counting.", 36, YELLOW, weight=BOLD).move_to(np.array([0, -3.15, 0]))
         self.cue_at(5, "matching", lead=0.3)
+        self.play(FadeOut(badges), run_time=0.4)
         self.sfx("chime")
-        self.play(Write(line), run_time=1.4)
-        self.play(FadeIn(by), run_time=0.6)
+        self.play(Write(line), run_time=1.3)
         self.cue_end(5)
-        self.wait(1.2)
-        self.play(FadeOut(VGroup(line, by)), run_time=0.8)
+        self.wait(1.5)
+        self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.8)
+
+

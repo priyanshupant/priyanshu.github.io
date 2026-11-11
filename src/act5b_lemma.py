@@ -114,14 +114,15 @@ class BookQuote(DScene):
             photo.shift(LEFT * (photo.get_right()[0] - 6.9))
         photo.move_to(np.array([cover.get_x(), -2.05, 0]))
         frame = SurroundingRectangle(photo, color=GREY_B, buff=0.03, stroke_width=2)
-        self.play(FadeIn(photo), Create(frame), run_time=0.8)
+        pcred = T("photo: Kmhkmh, CC BY 3.0", 14, SOFT).next_to(frame, LEFT, buff=0.12).align_to(frame, DOWN)
+        self.play(FadeIn(photo), Create(frame), FadeIn(pcred), run_time=0.8)
         self.cue_at(4, "You don't have to", lead=0.2)
         self.play(FadeIn(er, shift=UP * 0.15), run_time=0.9)
         # 5: and this is one of those lemmas
         self.cue(5)
         self.cue_end(5)
         self.wait(0.5)
-        self.play(FadeOut(q), FadeOut(cover), FadeOut(er), FadeOut(photo), FadeOut(frame), run_time=0.6)
+        self.play(FadeOut(q), FadeOut(cover), FadeOut(er), FadeOut(photo), FadeOut(frame), FadeOut(pcred), run_time=0.6)
 
 
 def name_card(name, year, line, col=YELLOW):

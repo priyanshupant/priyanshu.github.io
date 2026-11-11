@@ -245,8 +245,8 @@
   "So here is the idea behind all of this: count everything, each with a sign, and let the things you don't want cancel in pairs.",
   0.6,
   [
-   "Arthur Benjamin and Jennifer Quinn call this the die method: Description, Involution, Exception.",
-   "Arthur Benjamin and Jennifer Quinn call this the D.I.E. method: Description, Involution, Exception."
+   "In a paper called A Method to Die For, Arthur Benjamin and Jennifer Quinn call this the die method: Description, Involution, Exception.",
+   "In a paper called “A Method to DIE For”, Arthur Benjamin and Jennifer Quinn call this the D.I.E. method: Description, Involution, Exception."
   ],
   0.8,
   "Description: first, say what you are counting, forgetting the signs. Here, every pair of paths: pairs going to their own houses count plus, and pairs going to the wrong houses count minus.",
@@ -255,7 +255,7 @@
   1.0,
   "Exception: whatever has no partner is left over. Here, the pairs that never meet have nowhere to swap. They survive, and that's what the determinant counts.",
   1.0,
-  "Or, as Benjamin and Quinn put it: matching is easier than counting.",
+  "And as Benjamin and Quinn put it: matching is easier than counting.",
   1.5
  ],
  "LemmaCard": [
@@ -594,9 +594,8 @@
   1.5
  ],
  "Goodbye": [
-  "As for our ants: they can finally go home in peace. Twenty ways home, and they never had to meet.",
-  1.5,
-  "Thanks for watching."
+  "Thanks for watching.",
+  1.0
  ],
  "Credits": [],
  "ReadCounts": [

@@ -26,7 +26,7 @@ SCENES = [
     ("act6d_pattern.py", "PatternCard", 8), ("act6d_pattern.py", "Hexagon", 60),
     # 12 Nov: Aztec, arctic circle, the whole signs/Kasteleyn/FKT part, map and finale removed (Priyanshu)
     ("act4c_proof.py", "TheTrick", 60),  # Hope (Valiant ending) removed 12 Nov
-    ("act9_ending.py", "Goodbye", 15), ("act9_ending.py", "Credits", 25),
+    ("act9_ending.py", "Goodbye", 15),  # Credits removed 12 Nov (Priyanshu: end with thanks only)
 ]
 
 if __name__ == "__main__":

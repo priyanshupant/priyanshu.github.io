@@ -525,6 +525,18 @@ class ThreeProof(DScene):
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
 
+        # 5: closing card, in Benjamin & Quinn's own words (verified in the 2008 paper)
+        self.cue(5)
+        line = T("Matching is easier than counting.", 46, YELLOW, weight=BOLD)
+        by = T("Arthur Benjamin & Jennifer Quinn", 26, SOFT).next_to(line, DOWN, buff=0.35)
+        self.cue_at(5, "matching", lead=0.3)
+        self.sfx("chime")
+        self.play(Write(line), run_time=1.4)
+        self.play(FadeIn(by), run_time=0.6)
+        self.cue_end(5)
+        self.wait(1.2)
+        self.play(FadeOut(VGroup(line, by)), run_time=0.8)
+
 
 class TheTrick(DScene):
     """How a determinant counts: without signs (the permanent) every family is counted; the signs let the
@@ -571,3 +583,15 @@ class TheTrick(DScene):
         self.cue_end(4)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
+
+        # 5: closing card, in Benjamin & Quinn's own words (verified in the 2008 paper)
+        self.cue(5)
+        line = T("Matching is easier than counting.", 46, YELLOW, weight=BOLD)
+        by = T("Arthur Benjamin & Jennifer Quinn", 26, SOFT).next_to(line, DOWN, buff=0.35)
+        self.cue_at(5, "matching", lead=0.3)
+        self.sfx("chime")
+        self.play(Write(line), run_time=1.4)
+        self.play(FadeIn(by), run_time=0.6)
+        self.cue_end(5)
+        self.wait(1.2)
+        self.play(FadeOut(VGroup(line, by)), run_time=0.8)

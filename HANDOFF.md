@@ -219,6 +219,7 @@ Everything is in the project folder (`determinants_video/`).
 - Gessel & Viennot (1985); Jockusch, Propp & Shor (1995, arXiv math/9801068); Valiant (1979); Kasteleyn (1961).
 
 ## 10. Change log (newest first; one line each: date, who, what)
+- 2026-11-11 · Claude · v28 (14:17): TheTrick ends with a closing card 'Matching is easier than counting.' — Arthur Benjamin & Jennifer Quinn (exact line from their 2008 CMJ paper, which does not mention LGV; its examples are binomial sums, Fibonacci tilings, derangements; first use credited to Franklin 1881). No photos of Benjamin/Quinn.
 - 2026-11-11 · Claude · v27: TheTrick without the permanent: title card 'Count everything, cancel the rest' + overview line, then D.I.E. (cues 0–4). Full video 14:11.
 - 2026-11-11 · Claude · v26 (14:23): Hope (Gauss/complexity/permanent/Valiant ending) removed from pacing per Priyanshu; video ends hexagon → TheTrick (D.I.E.) → Goodbye → Credits. Credits: removed counting-is-hard, computing-fast, Valiant photo, Gauss portrait. PatternCard simplified (det M = families stays on; Gessel–Viennot said only).
 - 2026-11-11 · Claude · v24 PatternCard: 'det M = number of families of paths that never touch'; Gessel & Viennot 1985 ('Binomial determinants, paths, and hook length formulae', Adv. Math. 58) showed the pattern across combinatorics: Young tableaux, permutations (given descent set), and in their follow-up, plane partitions (stacks of boxes) — checked against the paper's text/references.

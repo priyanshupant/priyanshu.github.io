@@ -254,7 +254,9 @@
   "Involution: a rule that pairs things up. Apply it once, and you jump to a partner; apply it again, and you come right back. Every object counted with a plus gets a partner counted with a minus. Here, the rule is: swap the tails at the first meeting.",
   0.6,
   "Exception: whatever has no partner is what's left. Here, the families that never meet.",
-  0.8
+  0.8,
+  "Or, as Benjamin and Quinn put it: matching is easier than counting.",
+  1.5
  ],
  "LemmaCard": [
   "So far, ants on a grid. Now, the general lemma.",

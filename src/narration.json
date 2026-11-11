@@ -258,11 +258,18 @@
   0.4
  ],
  "BookQuote": [
-  "Martin Aigner and Günter Ziegler begin their chapter on this lemma like this: The essence of mathematics is proving theorems, and so, that is what mathematicians do: they prove theorems.",
+  "Here's how one famous book begins its chapter on this lemma.",
+  0.5,
+  "The essence of mathematics is proving theorems, and so, that is what mathematicians do: they prove theorems.",
+  0.3,
   "But to tell the truth, what they really want to prove, once in their lifetime, is a Lemma.",
   0.8,
+  "That's from Proofs from THE BOOK, by Martin Aigner and Günter Ziegler.",
+  0.6,
+  "The title comes from Paul Erdős, who liked to imagine that God keeps a book with the most beautiful proof of every theorem. You don't have to believe in God, he said, but you should believe in The Book.",
+  0.8,
   "And this is one of those lemmas.",
-  0.4
+  0.6
  ],
  "LGVNames": [
   "It's called the Lindström–Gessel–Viennot lemma.",
@@ -271,18 +278,18 @@
   0.6
  ],
  "GeneralLemma": [
-  "Take any one-way network: roads you can only travel in one direction, with no loops.",
+  "It's called the Lindström–Gessel–Viennot lemma. Bernt Lindström found it in 1973, and Ira Gessel and Xavier Viennot rediscovered it in 1985.",
   0.6,
-  "Pick some starting points, a one up to a n, and the same number of ends, b one up to b n.",
+  "First, take a directed acyclic graph: dots joined by one-way arrows. Here, every arrow points to the right, so you can never come back to where you started.",
   0.6,
-  "Build a matrix M: the entry in row i, column j counts the paths from a i to b j. From a one to b two, there are four.",
-  0.8,
+  "Now pick any starting points on the left, a one up to a n, and the same number of ends on the right, b one up to b n.",
+  0.4,
+  "But keep the ends in the same order as the starts: first to first, second to second, like lanes. Then if the destinations get mixed up, say a two going to b three and a three going to b two, the paths are forced to cross.",
+  0.6,
+  "Build a matrix M: the entry in row i, column j is the number of paths from a i to b j. For example, from a one to b two.",
+  1.2,
   "Then the determinant of M counts the families of paths, a one to b one, all the way to a n to b n, that never touch.",
-  0.6,
-  "As long as, like on our grid, any crossed pairing is forced to touch. Here, the determinant is thirteen: exactly thirteen families that never touch.",
-  0.8,
-  "And a determinant is fast: about n cubed steps for an n by n matrix, while checking every family one by one explodes.",
-  0.8
+  2.6
  ],
  "MoveHomes": [
   "You might be thinking: surely that's a fluke of this little grid. Move the second house around, and each time, brute force and the determinant agree.",

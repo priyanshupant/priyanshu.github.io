@@ -250,7 +250,6 @@ CREDITS = [
     ("Opening quotes", "S. Axler, Down with Determinants! (1995) · A. Wigderson"),
     ("Lattice paths", "Lindström 1973 · Gessel & Viennot 1985 · Karlin & McGregor 1959"),
     ("Ants on a grid", "A. T. Benjamin & N. T. Cameron, Counting on Determinants (Amer. Math. Monthly, 2005)"),
-    ("The D.I.E. method", "A. T. Benjamin & J. J. Quinn, An Alternate Approach to Alternating Sums: A Method to DIE For"),
     ("The quote", "Aigner & Ziegler, Proofs from THE BOOK: \"Lattice paths and determinants\""),
     ("Plane partitions", "P. A. MacMahon, Combinatory Analysis (1915–16)"),
     ("Catalan determinants", "via non-intersecting Dyck paths (Gessel–Viennot)"),
@@ -260,6 +259,8 @@ CREDITS = [
     ("Beyond planar", "V. V. Vazirani (1989) · L. G. Valiant, holographic algorithms (2004)"),
     ("Counting is hard", "L. G. Valiant, The complexity of computing the permanent (1979)"),
     ("The determinant by cancellation", "M. Mahajan & V. Vinay (1997)"),
+    ("Photo of Paul Erdős", "Kmhkmh, Wikimedia Commons (CC BY 3.0)"),
+    ("Book cover", "Proofs from THE BOOK, 6th ed., Springer"),
     ("Animation", "Manim Community; code written with AI assistance"),
 ]
 

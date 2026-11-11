@@ -9,18 +9,35 @@
 from itertools import permutations, product
 from common import *
 
-# ---- a general-looking one-way network: a jittered 5 x 4 grid, edges only right / up / up-right (planar)
+# ---- a general-looking one-way network (v16): EVERY arrow points to the right (horizontal or diagonal, at most
+# one diagonal per square, so the drawing is planar). Starts down the LEFT edge, ends down the RIGHT edge, in the
+# same top-to-bottom order: lanes a_i -> b_i.
 import random
-_rng = random.Random(120)
-COLS, ROWS = 5, 4
+COLS, ROWS = 6, 6
 NODES = [(c, r) for c in range(COLS) for r in range(ROWS)]
-EDGES = []
-for c, r in NODES:
-    for dc, dr, pr in [(1, 0, 0.75), (0, 1, 0.7), (1, 1, 0.3)]:
-        if c + dc < COLS and r + dr < ROWS and _rng.random() < pr:
-            EDGES.append(((c, r), (c + dc, r + dr)))
-SRC = [(0, 2), (0, 1), (0, 0)]          # a1, a2, a3 down the left side
-SNK = [(2, 3), (3, 3), (4, 3)]          # b1, b2, b3 along the top
+
+
+def _build(seed):
+    rng = random.Random(seed)
+    E = []
+    for c in range(COLS - 1):
+        for r in range(ROWS):
+            if rng.random() < 0.85:
+                E.append(((c, r), (c + 1, r)))
+        for r in range(ROWS - 1):
+            x = rng.random()
+            if x < 0.4:
+                E.append(((c, r), (c + 1, r + 1)))
+            elif x < 0.8:
+                E.append(((c, r + 1), (c + 1, r)))
+    return E
+
+
+EDGES = _build(55)
+assert all(b[0] == a[0] + 1 for a, b in EDGES)          # every arrow goes one step to the right
+SRC = [(0, 5), (0, 3), (0, 1)]          # a1, a2, a3: three of the six dots on the left, top to bottom
+SNK = [(5, 5), (5, 4), (5, 2)]          # b1, b2, b3: three of the six on the right, same order
+assert all(any(a == v or b == v for a, b in EDGES) for v in NODES)       # no dot left on its own
 OUT = {v: [b for a, b in EDGES if a == v] for v in NODES}
 
 
@@ -41,7 +58,7 @@ def disjoint(fam):
 NT = {s: sum(1 for f in product(*[gpaths(SRC[i], SNK[s[i]]) for i in range(3)]) if disjoint(f))
       for s in permutations(range(3))}
 assert all(NT[s] == 0 for s in NT if s != (0, 1, 2)), NT      # only the straight pairing can avoid touching
-assert DETG == NT[(0, 1, 2)] == 13 and MG == [[3, 4, 2], [7, 11, 9], [8, 13, 14]], (MG, DETG, NT)
+assert DETG == NT[(0, 1, 2)] == 8 and MG == [[3, 5, 0], [3, 6, 7], [1, 2, 5]], (MG, DETG, NT)
 GOODFAM = next(f for f in product(*[gpaths(SRC[i], SNK[i]) for i in range(3)]) if disjoint(f))
 
 
@@ -63,21 +80,48 @@ QUOTE = ("“The essence of mathematics is proving theorems —\n"
 
 
 class BookQuote(DScene):
+    """The quote first, then the book's cover as its source is said (names spoken, not written)."""
+
     def construct(self):
-        q = T(QUOTE, 30, line_spacing=1.35).move_to(UP * 0.6)
+        import os
+        q = T(QUOTE, 30, line_spacing=1.35).move_to(UP * 0.3)
         q.scale_to_fit_width(min(q.width, 12.4))
-        who = T("Martin Aigner & Günter M. Ziegler, Proofs from THE BOOK", 26, SOFT).next_to(q, DOWN, buff=0.6)
-        # 0-1: the quote, read slowly
+        split = sum(len(l.replace(' ', '')) for l in QUOTE.split('\n')[:2])
+        # 0: how a famous book opens its chapter on this lemma
         self.cue(0)
-        self.play(FadeIn(q[:sum(len(l.replace(' ', '')) for l in QUOTE.split('\n')[:2])], lag_ratio=0.02), run_time=2.0)
+        # 1-2: the quote, read slowly
         self.cue(1)
-        self.play(FadeIn(q[sum(len(l.replace(' ', '')) for l in QUOTE.split('\n')[:2]):], lag_ratio=0.02), run_time=2.0)
-        self.play(FadeIn(who), run_time=0.6)
-        # 2: and this is one of them
+        self.play(FadeIn(q[:split], lag_ratio=0.02), run_time=2.0)
         self.cue(2)
-        self.cue_end(2)
+        self.play(FadeIn(q[split:], lag_ratio=0.02), run_time=2.0)
+        # 3: the source, said aloud, with the book's cover
+        self.cue(3)
+        cover = ImageMobject(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "book", "proofs_from_the_book.png"))
+        cover.set_height(5.6)
+        self.play(q.animate.scale(0.62).to_edge(LEFT, buff=0.5), run_time=0.8)
+        cover.to_edge(RIGHT, buff=0.9)
+        self.play(FadeIn(cover, shift=LEFT * 0.3), run_time=0.9)
+        # 4: where the title comes from: Erdős's Book of perfect proofs
+        self.cue(4)
+        er = VGroup(T("“You don't have to believe in God,\nbut you should believe in The Book.”", 26, YELLOW, line_spacing=1.2),
+                    T("Paul Erdős", 24, SOFT)).arrange(DOWN, aligned_edge=RIGHT, buff=0.15)
+        er.next_to(q, DOWN, buff=0.7).align_to(q, LEFT)
+        photo = ImageMobject(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "book", "erdos.png")).set_height(2.9)
+        self.cue_at(4, "Paul Erdős", lead=0.2)
+        self.play(cover.animate.set_height(3.6).move_to(np.array([3.9, 1.6, 0])), run_time=0.7)
+        photo.next_to(cover, RIGHT, buff=0.3).align_to(cover, UP).shift(DOWN * 2.2)
+        if photo.get_right()[0] > 6.9:
+            photo.shift(LEFT * (photo.get_right()[0] - 6.9))
+        photo.move_to(np.array([cover.get_x(), -2.05, 0]))
+        frame = SurroundingRectangle(photo, color=GREY_B, buff=0.03, stroke_width=2)
+        self.play(FadeIn(photo), Create(frame), run_time=0.8)
+        self.cue_at(4, "You don't have to", lead=0.2)
+        self.play(FadeIn(er, shift=UP * 0.15), run_time=0.9)
+        # 5: and this is one of those lemmas
+        self.cue(5)
+        self.cue_end(5)
         self.wait(0.5)
-        self.play(FadeOut(q), FadeOut(who), run_time=0.6)
+        self.play(FadeOut(q), FadeOut(cover), FadeOut(er), FadeOut(photo), FadeOut(frame), run_time=0.6)
 
 
 def name_card(name, year, line, col=YELLOW):
@@ -109,91 +153,109 @@ class LGVNames(DScene):
 
 
 class GeneralLemma(DScene):
+    """v14 (Priyanshu: no calculations here): the LGV title stays on top; a directed acyclic graph; starts
+    a_1..a_n and ends b_1..b_n; M_ij = number of paths a_i -> b_j (symbolic); det M = number of families
+    a_1->b_1, ..., a_n->b_n that never touch (when every other pairing must touch); cost ~ n^3."""
+
     def construct(self):
         rnd = random.Random(3)
-        sp, org = 1.35, LEFT * 6.0 + DOWN * 2.4
+        sp, org = 0.95, LEFT * 6.2 + DOWN * 2.65
         pos = {v: org + sp * np.array([v[0], v[1] * 0.95, 0]) + np.array([rnd.uniform(-0.18, 0.18), rnd.uniform(-0.15, 0.15), 0])
                for v in NODES}
-        for v in SRC + SNK:                             # keep the starts and ends neatly in a column
-            pos[v] = org + sp * np.array([v[0], v[1] * 0.95, 0])
+        for v in NODES:                                 # the two side columns stay neat (all possible ends)
+            if v[0] in (0, COLS - 1):
+                pos[v] = org + sp * np.array([v[0], v[1] * 0.95, 0])
         dots = VGroup(*[Dot(pos[v], radius=0.07, color=SOFT) for v in NODES])
         arrows = VGroup(*[Arrow(pos[a], pos[b], buff=0.1, stroke_width=3, color=DIM, max_tip_length_to_length_ratio=0.18,
                                 tip_length=0.16) for a, b in EDGES])
         cols3 = [ANT1, ANT2, ANT3]
-        alab = VGroup(*[T(f"a{'₁₂₃'[i]}", 30, cols3[i]).next_to(pos[SRC[i]], LEFT, buff=0.2) for i in range(3)])
-        blab = VGroup(*[T(f"b{'₁₂₃'[i]}", 30, cols3[i]).next_to(pos[SNK[i]], UP, buff=0.2) for i in range(3)])
+        alab = VGroup(*[MathTex(f"a_{i + 1}", color=cols3[i]).next_to(pos[SRC[i]], LEFT, buff=0.2) for i in range(3)])
+        blab = VGroup(*[MathTex(f"b_{i + 1}", color=cols3[i]).next_to(pos[SNK[i]], RIGHT, buff=0.2) for i in range(3)])
         sdots = VGroup(*[Dot(pos[SRC[i]], radius=0.12, color=cols3[i]) for i in range(3)])
         edots = VGroup(*[Dot(pos[SNK[i]], radius=0.12, color=cols3[i]) for i in range(3)])
 
         def gpath_mob(p, col, w=7):
             return VMobject(stroke_color=col, stroke_width=w).set_points_as_corners([pos[v] for v in p])
 
-        # 0: any one-way network
+        # 0: its name (said, not written): the title stays on top for the whole scene
+        title = T("Lindström – Gessel – Viennot lemma", 32, YELLOW).to_edge(UP, buff=0.25)
         self.cue(0)
+        self.play(Write(title), run_time=1.2)
+
+        # 1: a directed acyclic graph: one-way arrows, no cycles
+        self.cue(1)
         self.play(LaggedStartMap(FadeIn, dots, lag_ratio=0.03), run_time=0.8)
         self.play(LaggedStartMap(GrowArrow, arrows, lag_ratio=0.03), run_time=2.0)
 
-        # 1: starts a1..an and ends b1..bn
-        self.cue(1)
-        self.cue_at(1, "starting points", lead=0.2)
-        self.play(FadeIn(sdots), FadeIn(alab), run_time=0.8)
-        self.cue_at(1, "ends", lead=0.2)
-        self.play(FadeIn(edots), FadeIn(blab), run_time=0.8)
-
-        # 2: the matrix: entry (i, j) counts the paths from a_i to b_j
+        # 2: starts a_1..a_n and ends b_1..b_n
         self.cue(2)
-        M = matrix_mob([[str(v) for v in r] for r in MG], size=42, h_buff=0.75, v_buff=0.55)
-        Meq = T("M  =", 42)
-        VGroup(Meq, M).arrange(RIGHT, buff=0.3).move_to(RIGHT * 3.3 + UP * 1.9)
-        for c in M.cells:
-            c.set_opacity(0)
-        rl = VGroup(*[T(f"a{'₁₂₃'[i]}", 26, cols3[i]).next_to(M, RIGHT, buff=0.3).match_y(M.cells[3 * i]) for i in range(3)])
-        cl = VGroup(*[T(f"b{'₁₂₃'[j]}", 26, cols3[j]).next_to(M.cells[j], UP, buff=0.3) for j in range(3)])
-        self.play(FadeIn(Meq), FadeIn(VGroup(M[0], M[2])), FadeIn(rl), FadeIn(cl), run_time=0.8)
-        self.add(M.cells)
-        # show one entry being counted: paths a1 -> b2
-        self.cue_at(2, "counts the paths", lead=0.2)
-        ring = SurroundingRectangle(M.cells[1], color=MEET, buff=0.15)
-        self.play(Create(ring), run_time=0.4)
-        shown = VGroup()
-        for p in gpaths(SRC[0], SNK[1]):
-            pm = gpath_mob(p, ANT1, 6)
-            self.play(Create(pm), *([shown.animate.set_stroke(opacity=0.2)] if len(shown) else []), run_time=0.45)
-            shown.add(pm)
-        self.sfx("tick")
-        self.play(M.cells[1].animate.set_opacity(1), FadeOut(shown), FadeOut(ring), run_time=0.5)
-        self.play(*[c.animate.set_opacity(1) for k, c in enumerate(M.cells) if k != 1], run_time=0.8)
+        sides = VGroup(*[dots[NODES.index(v)] for v in NODES if v[0] in (0, COLS - 1)])
+        self.play(Indicate(sides, color=YELLOW, scale_factor=1.6), run_time=0.9)
+        self.cue_at(2, "starting points", lead=0.2)
+        self.play(LaggedStart(*[FadeIn(d, scale=1.6) for d in sdots], lag_ratio=0.3), FadeIn(alab), run_time=1.0)
+        self.cue_at(2, "ends", lead=0.2)
+        self.play(LaggedStart(*[FadeIn(d, scale=1.6) for d in edots], lag_ratio=0.3), FadeIn(blab), run_time=1.0)
 
-        # 3: the determinant counts the families a_i -> b_i that never touch
+        # 3: the order matters: ends lined up like the starts, so a mixed-up pairing is forced to cross
         self.cue(3)
+        self.cue_at(3, "same order", lead=0.2)
+        order = VGroup(*[Line(pos[SRC[i]], pos[SNK[i]], color=cols3[i], stroke_width=2).set_stroke(opacity=0.35) for i in range(3)])
+        lanes = VGroup(*[DashedLine(pos[SRC[i]], pos[SNK[i]], color=cols3[i], stroke_width=3, dash_length=0.12) for i in range(3)])
+        self.play(LaggedStart(*[Create(l) for l in lanes], lag_ratio=0.3), run_time=1.2)
+        self.play(FadeOut(lanes), run_time=0.4)
+        mp = gpaths(SRC[1], SNK[2])[0]
+        mq = next(q for q in gpaths(SRC[2], SNK[1]) if set(q) & set(mp))
+        meet = next(v for v in mp if v in mq)
+        mix = VGroup(gpath_mob(mp, ANT2, 7), gpath_mob(mq, ANT3, 7))
+        self.cue_at(3, "a two going to b three", lead=0.2)
+        self.play(Create(mix[0]), run_time=0.9)
+        self.cue_at(3, "a three going to b two", lead=0.2)
+        self.play(Create(mix[1]), run_time=0.9)
+        ring = Circle(radius=0.3, color=MEET, stroke_width=6).move_to(pos[meet])
+        self.cue_at(3, "forced to cross", lead=0.2)
+        self.sfx("buzz")
+        self.play(Create(ring), Flash(pos[meet], color=MEET), run_time=0.7)
+        self.wait(0.6)
+        self.play(*[FadeOut(x) for x in (*mix, ring)], run_time=0.5)
+
+        # 3: the matrix M: entry (i, j) = number of paths from a_i to b_j (symbols only, no numbers)
+        self.cue(4)
+        M = MathTex(r"M = \begin{bmatrix} m_{11} & m_{12} & \cdots & m_{1n} \\ m_{21} & m_{22} & \cdots & m_{2n} \\"
+                    r" \vdots & \vdots & \ddots & \vdots \\ m_{n1} & m_{n2} & \cdots & m_{nn} \end{bmatrix}").scale(0.85)
+        M.move_to(RIGHT * 3.4 + UP * 1.45)
+        mij = MathTex(r"m_{ij}", "=", r"\#\,\text{paths from } a_i \text{ to } b_j").scale(0.85).next_to(M, DOWN, buff=0.3)
+        self.play(Write(M), run_time=1.4)
+        self.cue_at(4, "number of paths", lead=0.2)
+        self.play(Write(mij), run_time=1.0)
+        # illustrate one entry: a few paths from a_1 to b_2, drawn and gone (no counting)
+        allp = gpaths(SRC[0], SNK[1])                     # ALL the paths from a_1 to b_2, one after another
+        hl = VGroup(SurroundingRectangle(alab[0], color=YELLOW, buff=0.06), SurroundingRectangle(blab[1], color=YELLOW, buff=0.06))
+        self.play(Create(hl), run_time=0.4)
+        shown = VGroup()
+        for pth in allp:
+            pm = gpath_mob(pth, ANT1, 6)
+            self.play(Create(pm), *([shown.animate.set_stroke(opacity=0.25)] if len(shown) else []), run_time=0.6)
+            shown.add(pm)
+        self.wait(0.3)
+        self.play(*[FadeOut(x) for x in shown], FadeOut(hl), run_time=0.4)
+
+        # 4: det M counts the families a_1 -> b_1, ..., a_n -> b_n that never touch
+        self.cue(5)
         fam = VGroup(*[gpath_mob(GOODFAM[i], cols3[i], 8) for i in range(3)])
-        self.cue_at(3, "never touch", lead=0.2)
+        self.cue_at(5, "never touch", lead=0.2)
         self.play(LaggedStart(*[Create(m) for m in fam], lag_ratio=0.4), run_time=1.6)
-        st = VGroup(T("det M", 34), T("=", 34), T("number of families", 30, YELLOW)).arrange(RIGHT, buff=0.22)
-        st2 = T("a₁→b₁, …, aₙ→bₙ that never touch", 28, YELLOW).next_to(st[2], DOWN, buff=0.15).align_to(st[2], LEFT)
+        st = MathTex(r"\det M", "=", r"\#\,\text{families } a_1\!\to b_1,\ \dots,\ a_n\!\to b_n", color=WHITE).scale(0.72)
+        st2 = MathTex(r"\text{that never touch}", color=YELLOW).scale(0.72)
+        st.next_to(mij, DOWN, buff=0.55)
+        st.shift(RIGHT * (mij[1].get_x() - st[1].get_x()))
+        st[2].set_color(YELLOW)
+        st2.next_to(st[2], DOWN, buff=0.12).align_to(st[2], LEFT)
         blk = VGroup(st, st2)
-        blk.scale_to_fit_width(min(blk.width, 6.0)).move_to(np.array([0.6, -0.55, 0]), aligned_edge=LEFT)
-        self.play(Write(st), run_time=1.0)
+        if blk.get_right()[0] > 6.9:
+            blk.shift(LEFT * (blk.get_right()[0] - 6.9))
+        self.play(Write(st), run_time=1.2)
         self.play(FadeIn(st2), run_time=0.6)
 
-        # 4: the condition, said plainly (and the signed version, small, for the experts)
-        self.cue(4)
-        note = T("(when every crossed pairing must touch;\n in general, a signed count over pairings)", 22, SOFT, line_spacing=1.1)
-        note.next_to(blk, DOWN, buff=0.35).align_to(blk, LEFT)
-        self.play(FadeIn(note), run_time=0.7)
-        here = T(f"here:  det M = {DETG}", 32).next_to(note, DOWN, buff=0.35).align_to(blk, LEFT)
-        self.cue_at(4, "Here", lead=0.2)
-        self.sfx("chime")
-        self.play(Write(here), Indicate(fam, scale_factor=1.03), run_time=1.0)
-
-        # 5: (option C) and it is fast: about n^3 steps, while listing every family explodes
-        self.cue(5)
-        cost = VGroup(T("n × n determinant:  about n³ steps", 26, GOOD),
-                      T("checking every family:  explodes", 26, BAD)).arrange(DOWN, buff=0.12, aligned_edge=LEFT)
-        cost.next_to(here, DOWN, buff=0.3).align_to(here, LEFT)
-        self.play(FadeIn(cost[0], shift=UP * 0.1), run_time=0.7)
-        self.cue_at(5, "while checking", lead=0.2)
-        self.play(FadeIn(cost[1], shift=UP * 0.1), run_time=0.7)
         self.cue_end(5)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)

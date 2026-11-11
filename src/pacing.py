@@ -20,8 +20,8 @@ SCENES = [
     ("act3b_more.py", "ThreeAnts", 40), ("act3b_more.py", "WhyCard", 6),
     # ListRoutes and Slots cut (v12): the puzzle already counts the paths one by one
     ("act4c_proof.py", "AllPairs", 30), ("act4c_proof.py", "SwappedToMeet", 30), ("act4c_proof.py", "MeetToSwapped", 20),
-    ("act4c_proof.py", "Bijection", 20), ("act4c_proof.py", "Formula", 30), ("act4c_proof.py", "ThreeProof", 60), ("act4c_proof.py", "TheTrick", 45),
-    ("act5b_lemma.py", "LemmaCard", 6), ("act5b_lemma.py", "BookQuote", 20), ("act5b_lemma.py", "LGVNames", 15),
+    ("act4c_proof.py", "Bijection", 20), ("act4c_proof.py", "Formula", 30), ("act4c_proof.py", "ThreeProof", 60),  # TheTrick (D.I.E.) removed 11 Nov
+    ("act5b_lemma.py", "LemmaCard", 6), ("act5b_lemma.py", "BookQuote", 20), 
     ("act5b_lemma.py", "GeneralLemma", 50),
     ("act6d_pattern.py", "PatternCard", 8), ("act_extras.py", "ExCard1", 3), ("act6d_pattern.py", "Hexagon", 60),
     ("act6d_pattern.py", "Boxes", 45), ("act_extras.py", "ExCard2", 3), ("act6d_pattern.py", "Mountains", 50),

@@ -9,7 +9,7 @@ and add a line to §10 *Change log*. Keep it truthful: say what was verified and
 ## 1. The project in one paragraph
 
 - **What:** an expository video, *How Determinants Can Count*, by **Priyanshu** (research scholar, IIT Indore).
-- **Competition:** **DepthTCS 2026** video competition, co-located with FSTTCS 2026. Limit 20 minutes; deadline **5 Nov 2026, Anywhere on Earth**.
+- **Competition:** **DepthTCS 2026** video competition, co-located with FSTTCS 2026. Limit 20 minutes; deadline **extended to 12 Nov 2026, Anywhere on Earth** (was 5 Nov). Rules (https://vaishs.github.io/DepthTCS/index.html#videos): creators must be students/postdocs; no AI video generators; **narration must be by one of the creators**; SoME AI policy applies (https://some.3b1b.co/ai-policy): AI may help with coding animations, editing, research, grammar; NOT script/narration/storytelling, core explanations, AI voices, or significant visual assets.
 - **Audience:** theoretical computer scientists and mathematicians.
 - **Animation:** Manim Community, default Manim look.
 - **Voice:** currently a placeholder AI voice (Kokoro). Priyanshu may replace it with his own.
@@ -219,6 +219,7 @@ Everything is in the project folder (`determinants_video/`).
 - Gessel & Viennot (1985); Jockusch, Propp & Shor (1995, arXiv math/9801068); Valiant (1979); Kasteleyn (1961).
 
 ## 10. Change log (newest first; one line each: date, who, what)
+- 2026-11-11 · Claude · Opening narration lines 0–14 now Priyanshu's own recording (his wording in narration.json; takes in audio/recorded/Opening, manifest updated). Cleaned: DeepFilterNet3 + HPF 80 Hz, mild EQ/de-ess/compression, loudnorm −16 LUFS; long pauses inside lines shortened, tempo ×1.07. Lines 15–17 still AI (to record). cue_at phrases updated for lines 12, 14.
 - 2026-11-11 · Claude · v18: Part 5 cut to hexagon + Aztec (Boxes, ExCard2, Mountains removed from pacing.py); ExCard1 subtitle 'tilings of a hexagon', ExCard3 now 'Example 2'; Map shows 4 panels (Aztec formula in LaTeX); Credits drop MacMahon/Catalan and the unused opening-quotes line. Length 23:51 (AI voice). First voice test of Priyanshu cleaned with DeepFilterNet + EQ/compress/loudnorm, takes in audio/recorded_demo/Opening_test1 (not active).
 - 2026-11-11 · Claude · Video board (shared editor): https://claude.ai/artifact/7rr6uxYgBdgaTGuWyUS66H — 36 scene clips + editable narration/notes in its database (`scenes/<Scene>`). Priyanshu saves → status "changed"; Claude applies, re-renders, republishes the clip and sets status "done" + claude_reply. Source in `board/`.
 

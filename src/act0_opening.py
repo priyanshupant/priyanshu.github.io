@@ -258,7 +258,7 @@ class Opening(DScene):
         self.play(FadeOut(speed), FadeOut(gpic), run_time=0.5)
         self.cue_at(12, "algebraic complexity", lead=0.2)
         self.play(FadeIn(head_c, shift=DOWN * 0.15), run_time=0.7)
-        self.cue_at(12, "There, the determinant", lead=0.2)
+        self.cue_at(12, "there, the determinant", lead=0.2)
         self.play(FadeIn(easy), Indicate(dform, color=GOOD, scale_factor=1.05), run_time=0.8)
 
         # 11 — its twin, the permanent: the same sum without the signs; believed much harder
@@ -297,7 +297,7 @@ class Opening(DScene):
 
         imp = MathTex(r"\text{efficient algorithm} \;\Rightarrow\; \mathrm{P} = \mathrm{NP} \text{ (and much more)}", color=BAD).scale(0.75)
         imp.move_to(DOWN * 3.45 + RIGHT * 0.6)
-        self.cue_at(14, "An efficient algorithm", lead=0.2)
+        self.cue_at(14, "efficient algorithm", lead=0.2)
         self.play(Write(imp), run_time=1.0)
 
         # 13 — so counting is usually hard; and yet determinants are one of the rare tricks that count efficiently

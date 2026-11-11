@@ -529,3 +529,11 @@ def board(lat):
     """Start dots and houses in the ants' colours (symbols only, no A/B labels)."""
     return VGroup(Dot(lat.p(*A1), radius=0.12, color=ANT1), Dot(lat.p(*A2), radius=0.12, color=ANT2),
                   house(ANT1, 0.6).move_to(lat.p(*B1)), house(ANT2, 0.6).move_to(lat.p(*B2)))
+
+
+def paper_page(name, height=4.8):
+    """Top half of a paper's first page (assets/papers/<name>.png), framed, as an image mobject."""
+    import os as _o
+    f = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), "assets", "papers", name + ".png")
+    im = ImageMobject(f).set_height(height)
+    return Group(im, SurroundingRectangle(im, color=GREY_B, buff=0.03, stroke_width=2))

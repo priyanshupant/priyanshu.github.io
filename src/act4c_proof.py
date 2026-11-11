@@ -549,8 +549,12 @@ class TheTrick(DScene):
         heads = VGroup(*[T(w, 32, c, weight=BOLD).move_to(np.array([x, 1.85, 0]))
                          for w, c, x in zip(("Description", "Involution", "Exception"), cols, xs)])
         paper = T("Arthur Benjamin & Jennifer Quinn, “A Method to DIE For”", 22, SOFT).next_to(die, DOWN, buff=0.12)
+        bq = paper_page("benjamin_quinn_2008", 5.0).move_to(DOWN * 0.4)
+        self.play(FadeIn(bq, shift=UP * 0.3), run_time=0.8)
         self.cue_at(1, "D.I.E.", lead=0.2)
         self.play(Write(die), FadeIn(paper), run_time=0.9)
+        self.cue_at(1, "Description,", lead=0.3)
+        self.play(FadeOut(bq, shift=DOWN * 0.3), run_time=0.5)
         self.play(LaggedStart(*[FadeIn(h, shift=DOWN * 0.15) for h in heads], lag_ratio=0.35), run_time=1.4)
         self.play(heads.animate.set_opacity(0.3), run_time=0.4)
 

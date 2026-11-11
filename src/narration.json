@@ -284,7 +284,7 @@
  ],
  "GeneralLemma": [
   "It's called the Lindström–Gessel–Viennot lemma. Bernt Lindström found it in 1973, and Ira Gessel and Xavier Viennot rediscovered it in 1985.",
-  0.6,
+  1.8,
   "First, take a directed acyclic graph: dots joined by one-way arrows. Here, every arrow points to the right, so you can never come back to where you started.",
   0.6,
   "Now pick any starting points on the left, a one up to a n, and the same number of ends on the right, b one up to b n.",

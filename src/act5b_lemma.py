@@ -140,6 +140,12 @@ class LGVNames(DScene):
         # 0: it's called the Lindström–Gessel–Viennot lemma
         self.cue(0)
         self.play(Write(title), run_time=1.2)
+        gv = paper_page("gessel_viennot_1985", 5.2).move_to(DOWN * 0.45)
+        self.cue_at(0, "Ira Gessel", lead=0.3)
+        self.play(FadeIn(gv, shift=UP * 0.3), run_time=0.8)
+        self.cue_end(0)
+        self.wait(0.6)
+        self.play(FadeOut(gv, shift=DOWN * 0.3), run_time=0.6)
         # 1: Lindström found it in 1973
         self.cue(1)
         self.play(FadeIn(c1, shift=UP * 0.2), run_time=0.7)

@@ -20,8 +20,13 @@ class PatternCard(DScene):
         recap = VGroup(MathTex(r"\det M", "=").scale(1.2), T("number of families of paths that never touch", 32, YELLOW)) \
             .arrange(RIGHT, buff=0.3)
         self.play(FadeIn(recap, shift=UP * 0.2), run_time=1.0)
-        # 1: Gessel and Viennot showed it appears in many difficult counting problems
+        # 1: Gessel and Viennot showed it appears in many difficult counting problems (their paper appears)
         self.cue(1)
+        gv = paper_page("gessel_viennot_1985", 4.9).move_to(DOWN * 0.75)
+        self.play(recap.animate.to_edge(UP, buff=0.45), run_time=0.6)
+        self.play(FadeIn(gv, shift=UP * 0.3), run_time=0.8)
+        self.cue_end(1)
+        self.play(FadeOut(gv, shift=DOWN * 0.3), recap.animate.move_to(ORIGIN), run_time=0.7)
         # 2: let's look at one such example
         self.cue(2)
         self.cue_end(2)

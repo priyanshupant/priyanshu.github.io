@@ -220,6 +220,7 @@ Everything is in the project folder (`determinants_video/`).
 
 ## 10. Change log (newest first; one line each: date, who, what)
 
+- 2026-11-11 · Claude · scripts/setup_mac.sh: one-command Mac setup (Homebrew, Python 3.13, ffmpeg, cairo/pango, BasicTeX + Manim's LaTeX packages, venv, voice model, full render, mix) then starts the Studio on http://localhost:8765; `--studio` just starts it. Untested on a real Mac.
 - 2026-11-11 · Claude · Opening v17: no 'Determinants' card (starts with the big det again; nothing stays on top; per-use maths moved up); no counting montage after the Valiant slide — 'combinatorics' is only said, then the title is written.
 - 2026-11-11 · Claude · Opening: general forms back to calm animation speed, each with a very short line and a pause ("Expand along a row," / "multiply the eigenvalues," / "or add up signed products.").
 - 2026-11-11 · Claude · Opening v16 = v14 with only Priyanshu's changes: fast general forms (one line), speed said + 'O(n³) computations using Gaussian elimination' with Gauss's portrait, 'and even faster' (no n^ω timeline), then algebraic complexity (det easy ✓), perm believed hard, Valiant 1979 #P-complete + 'efficient ⇒ P = NP (and much more)' (no perfect-matching graph), "So counting is usually hard. And yet, determinants… are one of the rare tricks that can count efficiently…" → montage → title. v15 kept as act0_opening_v15.py.bak.

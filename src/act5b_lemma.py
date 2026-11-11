@@ -8,6 +8,7 @@
 """
 from itertools import permutations, product
 from common import *
+import os
 
 # ---- a general-looking one-way network (v16): EVERY arrow points to the right (horizontal or diagonal, at most
 # one diagonal per square, so the drawing is planar). Starts down the LEFT edge, ends down the RIGHT edge, in the
@@ -140,12 +141,6 @@ class LGVNames(DScene):
         # 0: it's called the Lindström–Gessel–Viennot lemma
         self.cue(0)
         self.play(Write(title), run_time=1.2)
-        gv = paper_page("gessel_viennot_1985", 5.2).move_to(DOWN * 0.45)
-        self.cue_at(0, "Ira Gessel", lead=0.3)
-        self.play(FadeIn(gv, shift=UP * 0.3), run_time=0.8)
-        self.cue_end(0)
-        self.wait(0.6)
-        self.play(FadeOut(gv, shift=DOWN * 0.3), run_time=0.6)
         # 1: Lindström found it in 1973
         self.cue(1)
         self.play(FadeIn(c1, shift=UP * 0.2), run_time=0.7)
@@ -187,6 +182,31 @@ class GeneralLemma(DScene):
         title = T("Lindström – Gessel – Viennot lemma", 32, YELLOW).to_edge(UP, buff=0.25)
         self.cue(0)
         self.play(Write(title), run_time=1.2)
+        here = os.path.dirname(os.path.abspath(__file__))
+
+        def face(key, name, x):
+            f = os.path.join(here, "assets", "portraits", key + ".jpg")
+            lab = T(name, 22)
+            if not os.path.exists(f):                       # no photo yet: the name alone
+                return Group(lab.scale(1.15)).move_to(np.array([x, 0.0, 0]))
+            im = ImageMobject(f).set_height(2.5)
+            g = Group(im, SurroundingRectangle(im, color=GREY_B, buff=0.02, stroke_width=1.5))
+            lab.next_to(g, DOWN, buff=0.15)
+            return Group(g, lab).move_to(np.array([x, 0.0, 0]))
+        lind = face("lindstrom", "Bernt Lindström", -5.3)
+        gess = face("gessel", "Ira Gessel", -2.85)
+        vien = face("viennot", "Xavier Viennot", -0.4)
+        y73 = T("1973", 26, YELLOW).move_to(np.array([-5.3, -2.05, 0]))
+        y85 = T("1985", 26, YELLOW).move_to(np.array([-1.62, -2.05, 0]))
+        gv = paper_page("gessel_viennot_1985", 4.2).move_to(np.array([4.1, -0.2, 0]))
+        self.cue_at(0, "Bernt Lindström", lead=0.3)
+        self.play(*([FadeIn(lind, shift=UP * 0.2)] if lind else []), FadeIn(y73), run_time=0.7)
+        self.cue_at(0, "Ira Gessel", lead=0.3)
+        self.play(*[FadeIn(m, shift=UP * 0.2) for m in (gess, vien) if m], FadeIn(y85), run_time=0.8)
+        self.play(FadeIn(gv, shift=LEFT * 0.3), run_time=0.7)
+        self.cue_end(0)
+        self.wait(0.8)
+        self.play(*[FadeOut(m) for m in (lind, gess, vien, gv, y73, y85) if m], run_time=0.6)
 
         # 1: a directed acyclic graph: one-way arrows, no cycles
         self.cue(1)

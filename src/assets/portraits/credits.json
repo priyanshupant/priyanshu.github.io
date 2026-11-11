@@ -48,5 +48,20 @@
   "license": "CC BY-SA 3.0",
   "artist": "David Eppstein",
   "source": "https://commons.wikimedia.org/wiki/File:Strassen_Knuth_Prize_lecture.jpg"
+ },
+ "gessel": {
+  "license": "unknown (supplied by Priyanshu)",
+  "artist": "Michael Gessel",
+  "source": "https://ecajournal.haifa.ac.il/Volume2022/ECA2022_S3I8.pdf"
+ },
+ "viennot": {
+  "license": "unknown (supplied by Priyanshu)",
+  "artist": "Sergey Dovgal, CIRM, Luminy, June 2021",
+  "source": "https://viennot.org/"
+ },
+ "lindstrom": {
+  "license": "unknown (supplied by Priyanshu)",
+  "artist": "KTH mathematics department staff page (1997)",
+  "source": "https://web.archive.org/web/19970706131424id_/http://www.math.kth.se:80/photos/bernt.jpg"
  }
 }

@@ -204,12 +204,9 @@ class GeneralLemma(DScene):
         self.cue_at(0, "Ira Gessel", lead=0.3)
         self.play(*[FadeIn(m, shift=UP * 0.2) for m in (gess, vien) if m], FadeIn(y85), run_time=0.8)
         self.play(FadeIn(gv, shift=LEFT * 0.3), run_time=0.7)
-        book = ImageMobject(os.path.join(here, "assets", "book", "proofs_from_the_book.png")).set_height(4.0).move_to(gv)
-        self.cue_at(0, "Proofs from THE BOOK", lead=0.4)
-        self.play(FadeOut(gv), FadeIn(book, shift=LEFT * 0.3), run_time=0.7)
         self.cue_end(0)
         self.wait(0.8)
-        self.play(*[FadeOut(m) for m in (lind, gess, vien, book, y73, y85) if m], run_time=0.6)
+        self.play(*[FadeOut(m) for m in (lind, gess, vien, gv, y73, y85) if m], run_time=0.6)
 
         # 1: a directed acyclic graph: one-way arrows, no cycles
         self.cue(1)
@@ -241,7 +238,7 @@ class GeneralLemma(DScene):
         self.cue_at(3, "a three going to b two", lead=0.2)
         self.play(Create(mix[1]), run_time=0.9)
         ring = Circle(radius=0.3, color=MEET, stroke_width=6).move_to(pos[meet])
-        self.cue_at(3, "forced to cross", lead=0.2)
+        self.cue_at(3, "forced to meet", lead=0.2)
         self.sfx("buzz")
         self.play(Create(ring), Flash(pos[meet], color=MEET), run_time=0.7)
         self.wait(0.6)

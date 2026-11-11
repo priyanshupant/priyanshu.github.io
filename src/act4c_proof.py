@@ -27,7 +27,7 @@ NBAD, NGOOD = len(MEETS), N11 * N22 - len(MEETS)
 assert (N11, N12, N21, N22, NBAD, NGOOD) == (6, 4, 4, 6, 16, 20)
 assert sorted(swap_tails(*pq) for pq in MEETS) == sorted(minus_pairs())        # the bijection, checked
 
-STEPS = ["wrong houses  →  meet", "meet  →  wrong houses", "one to one"]
+STEPS = ["wrong homes  →  meet", "meet  →  wrong homes", "one to one"]
 
 
 def pair(lat, p, q, w=7, op=1.0):
@@ -194,9 +194,9 @@ class Bijection(DScene):
                 self.play(Transform(a, pair(lat, ps, qs_, 6)), Transform(mi, nmi), Transform(si, nsi), Transform(cnt, c2), run_time=dt)
                 self.remove(a, ring)
 
-        # 5: a one-to-one match, so: meet = wrong houses
+        # 5: a one-to-one match, so: meet = wrong homes
         self.cue(5)
-        eqm = MathTex(r"\text{meet}", "=", r"\text{wrong houses}", color=YELLOW).scale(1.0)
+        eqm = MathTex(r"\text{meet}", "=", r"\text{wrong homes}", color=YELLOW).scale(1.0)
         eqm.move_to(RIGHT * RX + DOWN * 1.6)
         self.sfx("chime")
         self.play(Indicate(VGroup(lab, cnt), color=YELLOW, scale_factor=1.2), run_time=0.8)
@@ -208,7 +208,7 @@ class Bijection(DScene):
 
 
 class Formula(DScene):
-    """det A = all − wrong houses = all − meet = never meet = 20 (the = signs aligned), with examples on the grid."""
+    """det A = all − wrong homes = all − meet = never meet = 20 (the = signs aligned), with examples on the grid."""
 
     def construct(self):
         lat, ends, a1, a2 = setup(self)
@@ -217,7 +217,7 @@ class Formula(DScene):
             m = MathTex(lhs, "=", rhs, color=col)
             m.shift(np.array([x_eq, y, 0]) - m[1].get_center())
             return m
-        r0 = row(r"\det A", r"\text{all} - \text{wrong houses}", 2.0)
+        r0 = row(r"\det A", r"\text{all} - \text{wrong homes}", 2.0)
         r1 = row("", r"\text{all} - \text{meet}", 1.0)
         r2 = row("", r"\text{never meet}", 0.0, GOOD)
         r3 = row("", r"20", -1.0, YELLOW)
@@ -229,7 +229,7 @@ class Formula(DScene):
 
         # 0: now the formula falls into place
         self.cue(0)
-        # 1: det A = all − wrong houses (a wrong-house pair on the grid)
+        # 1: det A = all − wrong homes (a wrong-house pair on the grid)
         self.cue(1)
         self.play(Write(r0), run_time=1.2)
         b = pair(lat, *sw)
@@ -261,8 +261,8 @@ class Formula(DScene):
 
 class AllPairs(DScene):
     """v14 (Priyanshu): back to the two ants with the matrix; det A = 6·6 − 4·4; why 6·6 = all 36 pairs of
-    paths home (20 never meet + 16 meet), why 4·4 = the 16 pairs that go to the wrong houses; so
-    det = all − wrong houses while never meet = all − meet; equal exactly because 16 = 16. But why?"""
+    paths home (20 never meet + 16 meet), why 4·4 = the 16 pairs that go to the wrong homes; so
+    det = all − wrong homes while never meet = all − meet; equal exactly because 16 = 16. But why?"""
 
     def construct(self):
         own, sw = plus_pairs(), minus_pairs()
@@ -327,7 +327,7 @@ class AllPairs(DScene):
         split.next_to(l36, DOWN, buff=0.1)
         self.play(FadeIn(split), FadeOut(b66), run_time=0.6)
 
-        # 5: why 4·4: four ways each to the other's house: the 16 pairs that go to the wrong houses
+        # 5: why 4·4: four ways each to the other's house: the 16 pairs that go to the wrong homes
         self.cue(5)
         b44 = SurroundingRectangle(r0[2][-3:], color=ORANGE, buff=0.08)
         self.play(Create(b44), run_time=0.5)
@@ -335,33 +335,24 @@ class AllPairs(DScene):
         self.play(LaggedStartMap(FadeIn, right, lag_ratio=0.06), run_time=1.6)
         for ic in right:
             ic[0].set_stroke(ORANGE, 2.5)
-        l16 = T("16 wrong houses", 24, ORANGE).next_to(right, DOWN, buff=0.15)
+        l16 = T("16 wrong homes", 24, ORANGE).next_to(right, DOWN, buff=0.15)
         self.play(FadeIn(l16), run_time=0.5)
 
-        # 6: so det A = all pairs − wrong-house pairs
+        # 6: sixteen meet, sixteen go to the wrong homes: the same number
         self.cue(6)
-        r1 = MathTex("=", r"\text{all} - \text{wrong houses}").scale(0.95)
-        r1.shift(np.array([r0[1].get_x(), -0.3, 0]) - r1[0].get_center())
-        self.play(FadeOut(b44), Write(r1), run_time=1.2)
-        # 7: but never meet = all pairs − pairs that meet
-        self.cue(7)
-        r2 = row(r"\text{never meet}", r"\text{all} - \text{meet}", -1.35, col=GOOD, sc=0.95)
-        self.play(Write(r2), run_time=1.2)
-        # 8: equal exactly when meet = wrong houses: and they are, 16 and 16
-        self.cue(8)
-        self.cue_at(8, "And there are", lead=0.2)
-        r3 = row(r"\text{meet}", r"16 = \text{wrong houses}", -2.45, col=YELLOW, sc=0.95)
-        self.play(Write(r3), Indicate(split[1], color=BAD, scale_factor=1.3), Indicate(l16, color=ORANGE, scale_factor=1.3), run_time=1.2)
+        r3 = row(r"\text{meet}", r"16 = \text{wrong homes}", -1.0, col=YELLOW, sc=0.95)
+        self.play(FadeOut(b44), Write(r3), Indicate(split[1], color=BAD, scale_factor=1.3),
+                  Indicate(l16, color=ORANGE, scale_factor=1.3), run_time=1.4)
 
-        # 9: but why is that? (the grid comes back; the next scene shows how they correspond)
-        self.cue(9)
+        # 7: but why is that? (the grid comes back; the next scene shows how they correspond)
+        self.cue(7)
         reds = VGroup(*[ic for ic, c in zip(left, cols) if c == BAD])
         link = CurvedArrow(reds.get_top() + UP * 0.1, right.get_top() + UP * 0.1, angle=-PI / 4, color=YELLOW)
         qm = T("?", 40, YELLOW).next_to(link, UP, buff=0.05)
         self.play(Create(link), FadeIn(qm), run_time=0.9)
-        self.cue_end(9)
+        self.cue_end(7)
         self.wait(0.5)
-        self.play(FadeOut(VGroup(left, right, l36, l16, split, link, qm, mat, r0, r1, r2, r3)), run_time=0.7)
+        self.play(FadeOut(VGroup(left, right, l36, l16, split, link, qm, mat, r0, r3)), run_time=0.7)
         self.play(FadeIn(grid), run_time=0.7)
 
 
@@ -576,7 +567,7 @@ class TheTrick(DScene):
 
         badge_y = -3.05
 
-        # 2: Description: every pair of paths, + to their own houses, - to the wrong houses
+        # 2: Description: every pair of paths, + to their own houses, - to the wrong homes
         self.cue(2)
         lat1, e1 = mini(xs[0])
         self.play(heads[0].animate.set_opacity(1), FadeIn(lat1), FadeIn(e1), run_time=0.7)
@@ -594,7 +585,7 @@ class TheTrick(DScene):
             self.wait(0.45)
             cur = g
 
-        # 3: Involution: a meeting pair (+); swap the tails at the first meeting -> wrong houses (-); again -> back
+        # 3: Involution: a meeting pair (+); swap the tails at the first meeting -> wrong homes (-); again -> back
         self.cue(3)
         lat2, e2 = mini(xs[1])
         self.play(heads[1].animate.set_opacity(1), FadeIn(lat2), FadeIn(e2), run_time=0.7)

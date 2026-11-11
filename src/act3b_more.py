@@ -100,7 +100,7 @@ class ThreeAnts(DScene):
 
         # 4: "in order": if any ants swapped homes, some paths would be forced to meet
         self.cue(4)
-        rule = VGroup(T("swap homes", 30), MathTex(r"\Longrightarrow").scale(1.1), T("paths must meet", 30, BAD)) \
+        rule = VGroup(T("mix up homes", 30), MathTex(r"\Longrightarrow").scale(1.1), T("paths must meet", 30, BAD)) \
             .arrange(RIGHT, buff=0.3)
         rule.scale_to_fit_width(min(rule.width, 5.4)).move_to(RIGHT * 3.6 + UP * 1.3)
         self.play(FadeIn(rule, lag_ratio=0.3), run_time=1.0)

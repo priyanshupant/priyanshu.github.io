@@ -15,9 +15,8 @@ CHAPTERS = {"Opening": "Determinants you met in school",
             "Hook": "A simple puzzle",
             "TableAndDet": "An old friend: the determinant", "ThreeAnts": "Three ants",
             "WhyCard": "Why does this work?", "LemmaCard": "The general lemma (Lindström–Gessel–Viennot)",
-            "PatternCard": "Does the pattern repeat?", "ExCard1": "Hexagon tilings",
-            "ExCard3": "The Aztec diamond", "ArcticCircle": "The arctic circle",
-            "SignsCard": "When the signs go wrong (Kasteleyn, FKT)", "EndCard": "Why minus signs count"}
+            "PatternCard": "Another example: hexagon tilings", "TheTrick": "How a determinant counts (D.I.E.)",
+            "Hope": "Why it matters: counting is hard"}
 files, chapters, t = [], [], 0.0
 for f, sc, _ in pacing.SCENES:
     v = os.path.join(HERE, "media", "videos", f[:-3], q, sc + ".mp4")

@@ -245,7 +245,7 @@
   "So here's how a determinant really counts.",
   0.4,
   "Drop the minus signs, and the same sum just counts every family of paths, meeting or not. That's called the permanent: here, fifty-two.",
-  0.6,
+  1.4,
   "The signs make all the difference: they let the unwanted families cancel, and leave twenty.",
   0.8,
   [
@@ -321,7 +321,7 @@
  ],
  "PatternCard": [
   "So any puzzle that is secretly a family of paths that never touch, a determinant can count.",
-  "Does the pattern repeat? Let's look.",
+  "Does the pattern show up anywhere else? Let's look at one example.",
   0.6
  ],
  "Hexagon": [
@@ -644,5 +644,19 @@
  ],
  "EndCard": [
   1.4
+ ],
+ "Hope": [
+  "But for a computer scientist, the most interesting property of the determinant is that it is very fast to compute. Using Gaussian elimination, we can do it in order n cubed, and even faster if you really want to do that.",
+  0.6,
+  "And there is even a whole field, algebraic complexity theory, that asks how efficiently we can compute any polynomial. And there, the determinant is regarded as a polynomial which is easy, and in fact a measure of efficient computability.",
+  0.6,
+  "Its twin brother, the permanent, is the same sum without the minus signs, and is believed to be much, much harder.",
+  0.6,
+  "In 1979, Leslie Valiant showed that computing the permanent is sharp-P complete. That means it is as hard as counting the solutions of any problem in NP. And an efficient algorithm for this would mean P equals NP, and much more.",
+  1.0,
+  "So counting is usually hard. But the determinant gives us some hope: whenever the things we don't want can be paired up with opposite signs, its minus signs make them cancel, and counting becomes easy.",
+  1.0,
+  "Determinants can count, because minus signs can cancel.",
+  1.5
  ]
 }

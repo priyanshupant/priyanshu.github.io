@@ -554,7 +554,7 @@ class TheTrick(DScene):
         self.cue(2)
         self.play(Write(dett), run_time=1.0)
         mbox = SurroundingRectangle(dett[2][3], color=YELLOW, buff=0.08)
-        self.cue_at(2, "signs", lead=0.2)
+        self.cue_at(2, "cancel", lead=0.2)
         self.play(Create(mbox), FadeIn(dl), run_time=0.8)
 
         # 3-6: the D.I.E. method (the title makes room)

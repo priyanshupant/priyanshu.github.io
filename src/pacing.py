@@ -23,13 +23,9 @@ SCENES = [
     ("act4c_proof.py", "Bijection", 20), ("act4c_proof.py", "Formula", 30), ("act4c_proof.py", "ThreeProof", 60),  # TheTrick (D.I.E.) removed 11 Nov
     ("act5b_lemma.py", "LemmaCard", 6), ("act5b_lemma.py", "BookQuote", 20), 
     ("act5b_lemma.py", "GeneralLemma", 50),
-    ("act6d_pattern.py", "PatternCard", 8), ("act_extras.py", "ExCard1", 3), ("act6d_pattern.py", "Hexagon", 60),
-    # Boxes, ExCard2 and Mountains cut 11 Nov (Priyanshu: keep hexagon + Aztec)
-    ("act_extras.py", "ExCard3", 3), ("act6d_pattern.py", "AztecTiles", 45), ("act6d_pattern.py", "AztecPathsD", 70),
-    ("act6c_arctic.py", "ArcticCircle", 30),
-    ("act6d_pattern.py", "SignsCard", 6), ("act8b_signs.py", "Dominoes2x3", 50), ("act8b_signs.py", "KastFix", 30),
-    ("act8_dominoes.py", "Board4x4", 20), ("act8_dominoes.py", "KastWhy", 60), ("act8_dominoes.py", "FKT", 35),
-    ("act_extras.py", "EndCard", 3), ("act9_ending.py", "Map", 25), ("act9_ending.py", "Finale", 45),
+    ("act6d_pattern.py", "PatternCard", 8), ("act6d_pattern.py", "Hexagon", 60),
+    # 12 Nov: Aztec, arctic circle, the whole signs/Kasteleyn/FKT part, map and finale removed (Priyanshu)
+    ("act4c_proof.py", "TheTrick", 60), ("act9_ending.py", "Hope", 60),
     ("act9_ending.py", "Goodbye", 15), ("act9_ending.py", "Credits", 25),
 ]
 

@@ -247,15 +247,11 @@ CREDITS = [
     ("Voice", "placeholder AI voice (Kokoro text-to-speech)"),
     ("Lattice paths", "Lindström 1973 · Gessel & Viennot 1985 · Karlin & McGregor 1959"),
     ("Ants on a grid", "A. T. Benjamin & N. T. Cameron, Counting on Determinants (Amer. Math. Monthly, 2005)"),
+    ("The D.I.E. method", "A. T. Benjamin & J. J. Quinn, An Alternate Approach to Alternating Sums: A Method to DIE For"),
     ("The quote", "Aigner & Ziegler, Proofs from THE BOOK: \"Lattice paths and determinants\""),
-    ("Aztec diamond", "Elkies, Kuperberg, Larsen & Propp (1992) · paths proof: Eu & Fu (2005)"),
-    ("Arctic circle", "Jockusch, Propp & Shor (1995) · domino shuffling: Elkies, Kuperberg, Larsen & Propp"),
-    ("Dimers", "P. W. Kasteleyn (1961; planar graphs 1967) · Temperley & Fisher (1961)"),
-    ("Beyond planar", "V. V. Vazirani (1989) · L. G. Valiant, holographic algorithms (2004)"),
     ("Counting is hard", "L. G. Valiant, The complexity of computing the permanent (1979)"),
-    ("The determinant by cancellation", "M. Mahajan & V. Vinay (1997)"),
     ("Computing determinants fast", "Gauss · Strassen (1969) · Coppersmith & Winograd (1990) · Le Gall (2014) · Alman, Duan, Vassilevska Williams, Xu, Xu & Zhou (2024) · AlphaEvolve team, Google DeepMind (2026)"),
-    ("Photo of Volker Strassen", "David Eppstein, Wikimedia Commons (CC BY-SA 3.0)"),
+    ("Photo of Leslie Valiant", "Dennis Hamilton, Wikimedia Commons (CC BY 2.0)"),
     ("Portrait of Gauss", "Christian Albrecht Jensen (1840), public domain"),
     ("Photo of Paul Erdős", "Kmhkmh, Wikimedia Commons (CC BY 3.0)"),
     ("Book cover", "Proofs from THE BOOK, 6th ed., Springer"),
@@ -269,3 +265,98 @@ class Credits(DScene):
         rows.arrange(DOWN, buff=0.4).next_to(DOWN * 4.2, DOWN, buff=0)
         self.add(rows)
         self.play(rows.animate.shift(UP * (rows.height + 8.4)), run_time=22, rate_func=linear)
+
+
+class Hope(DScene):
+    """Ending (12 Nov plan): why this matters to a computer scientist. Determinants are fast (Gauss),
+    the model 'easy' polynomial (algebraic complexity); the permanent drops the signs and is #P-complete
+    (Valiant 1979). Counting is usually hard, but the minus signs give hope. Moved here from opening v17."""
+
+    def construct(self):
+        import os
+        here = os.path.dirname(os.path.abspath(__file__))
+        # 0 — fast: O(n^3) by Gaussian elimination (Gauss's portrait at the side), and even faster
+        self.cue(0)
+        head_c = T("algebraic complexity theory", 30, YELLOW).move_to(UP * 2.55)
+        dform = MathTex(r"\det A", "=", r"\sum_{\sigma} \operatorname{sgn}(\sigma)", r"\prod_{i} a_{i\sigma(i)}").scale(0.95)
+        dform.move_to(UP * 1.45 + LEFT * 1.6)
+        easy = VGroup(T("easy", 28, GOOD), tick(0.3)).arrange(RIGHT, buff=0.15).next_to(dform, RIGHT, buff=0.6)
+        speed = VGroup(MathTex(r"O(n^3) \text{ computations using Gaussian elimination}").scale(0.85),
+                       MathTex(r"\text{and even faster}", color=GOOD).scale(0.85)).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
+        speed.move_to(DOWN * 0.6 + LEFT * 0.9)
+        gpic = Group()
+        gf = os.path.join(here, "assets", "portraits", "gauss.jpg")
+        if os.path.exists(gf):
+            gim = ImageMobject(gf).set_height(2.0)
+            gpic = Group(gim, SurroundingRectangle(gim, color=GREY_B, buff=0.02, stroke_width=1.5))
+            gpic.next_to(speed, RIGHT, buff=0.6)
+            if gpic.get_right()[0] > 6.9:
+                gpic.shift(LEFT * (gpic.get_right()[0] - 6.9))
+        self.play(Write(dform), run_time=1.0)
+        self.cue_at(0, "Gaussian elimination", lead=0.2)
+        self.play(FadeIn(speed[0]), FadeIn(gpic), run_time=0.8)
+        self.cue_at(0, "even faster", lead=0.2)
+        self.play(FadeIn(speed[1], shift=UP * 0.1), run_time=0.6)
+
+        # 1 — algebraic complexity theory: the determinant is the model of an easy polynomial
+        self.cue(1)
+        self.play(FadeOut(speed), FadeOut(gpic), run_time=0.5)
+        self.cue_at(1, "algebraic complexity", lead=0.2)
+        self.play(FadeIn(head_c, shift=DOWN * 0.15), run_time=0.7)
+        self.cue_at(1, "there, the determinant", lead=0.2)
+        self.play(FadeIn(easy), Indicate(dform, color=GOOD, scale_factor=1.05), run_time=0.8)
+
+        # 2 — its twin, the permanent: the same sum without the signs; believed much harder
+        self.cue(2)
+        pform = MathTex(r"\operatorname{perm} A", "=", r"\sum_{\sigma}", r"\prod_{i} a_{i\sigma(i)}").scale(0.95)
+        pform.next_to(dform, DOWN, buff=0.55)
+        pform.shift(RIGHT * (dform[1].get_x() - pform[1].get_x()))
+        ghost_d = dform.copy()
+        self.play(ghost_d.animate.move_to(pform, aligned_edge=LEFT), run_time=0.6)
+        strike = Line(ghost_d[2].get_corner(DL), ghost_d[2].get_corner(UR), color=BAD, stroke_width=5)
+        self.cue_at(2, "without the minus signs", lead=0.2)
+        self.play(Create(strike), run_time=0.5)
+        self.play(ReplacementTransform(VGroup(ghost_d, strike), pform), run_time=0.8)
+        hard = T("believed hard", 28, BAD).next_to(pform, RIGHT, buff=0.6).align_to(easy, LEFT)
+        self.cue_at(2, "believed", lead=0.2)
+        self.play(FadeIn(hard), run_time=0.5)
+
+        # 3 — Valiant 1979: the permanent is #P-complete
+        self.cue(3)
+        vp = Group()
+        vf = os.path.join(here, "assets", "portraits", "valiant.jpg")
+        if os.path.exists(vf):
+            vim = ImageMobject(vf).set_height(1.7)
+            vp = Group(vim, SurroundingRectangle(vim, color=GREY_B, buff=0.02, stroke_width=1.5)).move_to(LEFT * 5.5 + DOWN * 1.9)
+        vt = VGroup(T("Leslie Valiant, 1979", 26, YELLOW),
+                    MathTex(r"\operatorname{perm} \text{ is } \#\mathrm{P}\text{-complete}").scale(0.8),
+                    MathTex(r"\#\mathrm{P}: \text{ count the solutions of an NP problem}", color=SOFT).scale(0.62)
+                    ).arrange(DOWN, aligned_edge=LEFT, buff=0.12)
+        vt.next_to(vp, RIGHT, buff=0.35) if len(vp) else vt.move_to(LEFT * 2.5 + DOWN * 1.85)
+        self.cue_at(3, "Leslie Valiant", lead=0.2)
+        self.play(FadeIn(vp), FadeIn(vt[0]), run_time=0.7)
+        self.cue_at(3, "sharp-P", lead=0.2)
+        self.play(FadeIn(vt[1]), run_time=0.6)
+        self.cue_at(3, "counting the solutions", lead=0.2)
+        self.play(FadeIn(vt[2]), run_time=0.6)
+        imp = MathTex(r"\text{efficient algorithm} \;\Rightarrow\; \mathrm{P} = \mathrm{NP} \text{ (and much more)}", color=BAD).scale(0.75)
+        imp.move_to(DOWN * 3.45 + RIGHT * 0.6)
+        self.cue_at(3, "efficient algorithm", lead=0.2)
+        self.play(Write(imp), run_time=1.0)
+
+        # 4 — so counting is usually hard; but the minus signs give hope
+        self.cue(4)
+        cplx = Group(head_c, easy, pform, hard, vp, vt, imp)
+        self.play(FadeOut(cplx), dform.animate.move_to(UP * 0.6).scale(1.25), run_time=1.0)
+        sg = SurroundingRectangle(dform[2][2:], color=YELLOW, buff=0.08)   # the sgn(σ)
+        self.cue_at(4, "minus signs", lead=0.2)
+        self.play(Create(sg), run_time=0.7)
+
+        # 5 — determinants can count, because minus signs can cancel
+        self.cue(5)
+        last = T("Determinants can count,\nbecause minus signs can cancel.", 40, YELLOW, line_spacing=1.2).move_to(DOWN * 1.6)
+        self.sfx("chime")
+        self.play(Write(last), run_time=1.6)
+        self.cue_end(5)
+        self.wait(1.2)
+        self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.8)

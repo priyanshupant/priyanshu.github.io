@@ -98,8 +98,43 @@ class ThreeAnts(DScene):
         self.play(*[houses[k].animate.move_to(lat.p(*E4[k])) for k in range(4)], run_time=1.6)
         self.bring_to_front(*[an for an, _ in movers])
 
-        # 4: the same kind of matrix: rows = ants, columns = houses; each entry counts paths
+        # 4: "in order": if any ants swapped homes, some paths would be forced to meet
         self.cue(4)
+        rule = VGroup(T("swap homes", 30), MathTex(r"\Longrightarrow").scale(1.1), T("paths must meet", 30, BAD)) \
+            .arrange(RIGHT, buff=0.3)
+        rule.scale_to_fit_width(min(rule.width, 5.4)).move_to(RIGHT * 3.6 + UP * 1.3)
+        self.play(FadeIn(rule, lag_ratio=0.3), run_time=1.0)
+
+        # 5: example: blue to the pink home, pink to the blue home; however pink goes, it hits blue's path
+        self.cue(5)
+        others = VGroup(movers[1][0], movers[1][1], movers[2][0], movers[2][1], houses[1], houses[2])
+        self.play(others.animate.set_opacity(0.25), run_time=0.5)
+        bp = all_paths(S4[0], E4[3])[0]                        # blue -> pink home: straight up
+        arrow1 = CurvedArrow(lat.p(*S4[0]) + RIGHT * 0.2, houses[3].get_center() + RIGHT * 0.3, angle=-PI / 4, color=ANT1)
+        arrow2 = CurvedArrow(lat.p(*S4[3]) + DOWN * 0.25, houses[0].get_center() + DOWN * 0.3, angle=PI / 5, color=ANT4)
+        self.play(Create(arrow1), Create(arrow2), run_time=1.0)
+        self.wait(0.4)
+        self.play(FadeOut(arrow1), FadeOut(arrow2), run_time=0.3)
+        bm = path_mob(lat, bp, ANT1, 7)
+        self.play(Create(bm), run_time=0.9)
+        bset = set(map(tuple, bp))
+        pinks = all_paths(S4[3], E4[0])
+        pick = [pinks[i] for i in (0, len(pinks) // 2, len(pinks) - 1)]
+        self.cue_at(5, "However", lead=0.3)
+        for k, pp in enumerate(pick):
+            pm = path_mob(lat, pp, ANT4, 7)
+            hit = next(q for q in pp if tuple(q) in bset)
+            self.play(Create(pm), run_time=0.8)
+            xx = cross(0.36).move_to(lat.p(*hit))
+            self.sfx("buzz")
+            self.play(FadeIn(xx, scale=1.5), Flash(lat.p(*hit), color=BAD, flash_radius=0.3), run_time=0.5)
+            self.wait(0.3)
+            self.play(FadeOut(pm), FadeOut(xx), run_time=0.3)
+        self.play(FadeOut(bm), FadeOut(rule), others.animate.set_opacity(1), run_time=0.6)
+        self.bring_to_front(*[an for an, _ in movers])
+
+        # 4: the same kind of matrix: rows = ants, columns = houses; each entry counts paths
+        self.cue(6)
         M = matrix_mob([[str(v) for v in r] for r in M4], size=38, h_buff=0.75, v_buff=0.5)
         Aeq = T("A  =", 40)
         VGroup(Aeq, M).arrange(RIGHT, buff=0.3).move_to(RIGHT * 3.2 + UP * 1.2)
@@ -112,7 +147,7 @@ class ThreeAnts(DScene):
         blk.scale_to_fit_width(min(blk.width, 6.6)).move_to(RIGHT * 3.4 + UP * 1.3)
         self.play(FadeIn(Aeq), FadeIn(VGroup(M[0], M[2])), FadeIn(row_lab), FadeIn(col_lab), run_time=0.8)
         self.add(cells)
-        self.cue_at(4, "each entry", lead=0.2)
+        self.cue_at(6, "each entry", lead=0.2)
         for k in range(16):
             i, j = divmod(k, 4)
             ring = VGroup(SurroundingRectangle(new_ants[i - 2][0] if i >= 2 else (a1 if i == 0 else a2), color=YELLOW, buff=0.05),
@@ -123,22 +158,22 @@ class ThreeAnts(DScene):
             self.remove(ring)
 
         # 5: its determinant
-        self.cue(5)
+        self.cue(7)
         x_eq = 1.3                                            # its own = column, clear of the grid
         eq = T("=", 36).move_to(np.array([x_eq, -1.25, 0]))
         row = VGroup(eq, T("det A", 36).next_to(eq, LEFT, buff=0.3), T(str(DET4), 44, YELLOW, weight=BOLD).next_to(eq, RIGHT, buff=0.3))
-        self.cue_at(5, "two hundred", lead=0.3)
+        self.cue_at(7, "two hundred", lead=0.3)
         self.sfx("chime")
         self.play(Write(row), run_time=0.9)
 
         # 6: = the number of ways all four get home without ever meeting (a sample flashes by)
-        self.cue(6)
+        self.cue(8)
         eq2 = T("=", 36).move_to(np.array([x_eq, -2.0, 0]))
         words = T("the number of ways\nthe ants get home\nwithout ever meeting", 28, GOOD, line_spacing=1.1)
         words.next_to(eq2, RIGHT, buff=0.3).align_to(eq2, UP).shift(UP * 0.12)
         rng = random.Random(4)
         sample = rng.sample(FAM4, 24)
-        self.cue_at(6, "exactly the number", lead=0.2)
+        self.cue_at(8, "exactly the number", lead=0.2)
         self.play(FadeIn(eq2), FadeIn(words), run_time=0.8)
         for k, f in enumerate(sample):
             fam = VGroup(*[path_mob(lat, f[i], COLS[i], 5) for i in range(4)])
@@ -152,11 +187,11 @@ class ThreeAnts(DScene):
                 self.remove(fam)
 
         # 7: isn't this simple and beautiful?  8: understanding why is the essence  9: let's get into that
-        self.cue(7)
-        self.play(Indicate(VGroup(row, eq2, words), color=YELLOW, scale_factor=1.06), run_time=1.0)
-        self.cue(8)
         self.cue(9)
-        self.cue_end(9)
+        self.play(Indicate(VGroup(row, eq2, words), color=YELLOW, scale_factor=1.06), run_time=1.0)
+        self.cue(10)
+        self.cue(11)
+        self.cue_end(11)
         self.wait(0.4)
         self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)
 

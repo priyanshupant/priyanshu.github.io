@@ -11,21 +11,35 @@ from act6_hexagon import (PARTITIONS, SHOW, TOP_C, X_C, Y_C, proj, tiling, trian
 
 
 class PatternCard(DScene):
+    """Bridge after the lemma (12 Nov): det = families of paths that never touch; Gessel & Viennot (1985) showed
+    the pattern all over combinatorics (paper: Young tableaux, permutations with given descents; their follow-up:
+    plane partitions = stacks of boxes). Checked in the 1985 paper's text and references."""
+
     def construct(self):
-        t = T("Does the pattern repeat?", 54, weight=BOLD)
-        # 0: so any puzzle that is secretly non-touching paths, a determinant can count
+        # 0: so the determinant counts the families of paths that never touch
         self.cue(0)
-        recap = VGroup(T("det", 40), T("=", 40), T("number of families that never touch", 34, YELLOW)).arrange(RIGHT, buff=0.25)
+        recap = VGroup(MathTex(r"\det M", "=").scale(1.2), T("number of families of paths that never touch", 32, YELLOW)) \
+            .arrange(RIGHT, buff=0.3).move_to(UP * 0.4)
         self.play(FadeIn(recap, shift=UP * 0.2), run_time=1.0)
-        # 1: does the pattern repeat?
+        # 1: Gessel and Viennot showed this pattern shows up all over combinatorics
         self.cue(1)
-        self.cue_at(1, "Does the pattern", lead=0.2)
-        self.sfx("whoosh")
-        self.play(FadeOut(recap, shift=UP * 0.3), run_time=0.5)
-        self.play(Write(t), run_time=1.2)
-        self.cue_end(1)
-        self.wait(0.5)
-        self.play(FadeOut(t), run_time=0.6)
+        self.play(recap.animate.scale(0.75).to_edge(UP, buff=0.6), run_time=0.7)
+        who = T("Ira Gessel & Xavier Viennot, 1985", 34, weight=BOLD).move_to(UP * 0.9)
+        paper = T("“Binomial determinants, paths, and hook length formulae”", 24, SOFT).next_to(who, DOWN, buff=0.2)
+        self.cue_at(1, "Ira Gessel", lead=0.2)
+        self.play(FadeIn(who), FadeIn(paper), run_time=0.9)
+        # 2: Young tableaux, permutations, and later plane partitions: stacks of boxes
+        self.cue(2)
+        items = VGroup(T("Young tableaux", 30), T("permutations", 30), T("plane partitions (stacks of boxes)", 30, YELLOW)) \
+            .arrange(DOWN, buff=0.3).next_to(paper, DOWN, buff=0.6)
+        for k, w in enumerate(("Young tableaux", "permutations", "plane partitions")):
+            self.cue_at(2, w, lead=0.2)
+            self.play(FadeIn(items[k], shift=UP * 0.1), run_time=0.5)
+        # 3: let's look at one of them
+        self.cue(3)
+        self.cue_end(3)
+        self.wait(0.3)
+        self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)
 
 
 class Hexagon(DScene):

@@ -320,9 +320,14 @@
   "And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
  ],
  "PatternCard": [
-  "So any puzzle that is secretly a family of paths that never touch, a determinant can count.",
-  "Does the pattern show up anywhere else? Let's look at one example.",
-  0.6
+  "So the determinant counts the families of paths that never touch.",
+  0.6,
+  "In 1985, Ira Gessel and Xavier Viennot showed that this pattern shows up all over combinatorics.",
+  0.4,
+  "In Young tableaux, in permutations, and, in their later work, in plane partitions: stacks of boxes.",
+  0.6,
+  "Let's look at the stacks of boxes.",
+  0.4
  ],
  "Hexagon": [
   "Take a hexagon, cut into little triangles.",

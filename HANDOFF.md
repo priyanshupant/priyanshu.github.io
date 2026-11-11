@@ -219,6 +219,7 @@ Everything is in the project folder (`determinants_video/`).
 - Gessel & Viennot (1985); Jockusch, Propp & Shor (1995, arXiv math/9801068); Valiant (1979); Kasteleyn (1961).
 
 ## 10. Change log (newest first; one line each: date, who, what)
+- 2026-11-11 · Claude · v18: Part 5 cut to hexagon + Aztec (Boxes, ExCard2, Mountains removed from pacing.py); ExCard1 subtitle 'tilings of a hexagon', ExCard3 now 'Example 2'; Map shows 4 panels (Aztec formula in LaTeX); Credits drop MacMahon/Catalan and the unused opening-quotes line. Length 23:51 (AI voice). First voice test of Priyanshu cleaned with DeepFilterNet + EQ/compress/loudnorm, takes in audio/recorded_demo/Opening_test1 (not active).
 - 2026-11-11 · Claude · Video board (shared editor): https://claude.ai/artifact/7rr6uxYgBdgaTGuWyUS66H — 36 scene clips + editable narration/notes in its database (`scenes/<Scene>`). Priyanshu saves → status "changed"; Claude applies, re-renders, republishes the clip and sets status "done" + claude_reply. Source in `board/`.
 
 - 2026-11-11 · Claude · scripts/setup_mac.sh: one-command Mac setup (Homebrew, Python 3.13, ffmpeg, cairo/pango, BasicTeX + Manim's LaTeX packages, venv, voice model, full render, mix) then starts the Studio on http://localhost:8765; `--studio` just starts it. Untested on a real Mac.

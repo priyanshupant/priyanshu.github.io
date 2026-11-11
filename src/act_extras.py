@@ -57,7 +57,7 @@ class PuzzleCard(DScene):
 
 class ExCard1(DScene):
     def construct(self):
-        chapter_card(self, "Example 1", "tilings of a hexagon, and boxes in a corner")
+        chapter_card(self, "Example 1", "tilings of a hexagon")
 
 
 class ExCard2(DScene):
@@ -67,7 +67,7 @@ class ExCard2(DScene):
 
 class ExCard3(DScene):
     def construct(self):
-        chapter_card(self, "Example 3", "the Aztec diamond")
+        chapter_card(self, "Example 2", "the Aztec diamond")
 
 
 class EndCard(DScene):

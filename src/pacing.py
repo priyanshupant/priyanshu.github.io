@@ -24,7 +24,7 @@ SCENES = [
     ("act5b_lemma.py", "LemmaCard", 6), ("act5b_lemma.py", "BookQuote", 20), 
     ("act5b_lemma.py", "GeneralLemma", 50),
     ("act6d_pattern.py", "PatternCard", 8), ("act_extras.py", "ExCard1", 3), ("act6d_pattern.py", "Hexagon", 60),
-    ("act6d_pattern.py", "Boxes", 45), ("act_extras.py", "ExCard2", 3), ("act6d_pattern.py", "Mountains", 50),
+    # Boxes, ExCard2 and Mountains cut 11 Nov (Priyanshu: keep hexagon + Aztec)
     ("act_extras.py", "ExCard3", 3), ("act6d_pattern.py", "AztecTiles", 45), ("act6d_pattern.py", "AztecPathsD", 70),
     ("act6c_arctic.py", "ArcticCircle", 30),
     ("act6d_pattern.py", "SignsCard", 6), ("act8b_signs.py", "Dominoes2x3", 50), ("act8b_signs.py", "KastFix", 30),

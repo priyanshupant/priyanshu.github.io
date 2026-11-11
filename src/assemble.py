@@ -15,7 +15,7 @@ CHAPTERS = {"Opening": "Determinants you met in school",
             "PuzzleCard": "A simple puzzle",
             "TableAndDet": "An old friend: the determinant", "ThreeAnts": "Three ants",
             "WhyCard": "Why does this work?", "LemmaCard": "The general lemma (Lindström–Gessel–Viennot)",
-            "PatternCard": "Does the pattern repeat?", "ExCard1": "Hexagon tilings and boxes", "ExCard2": "Mountain ranges (Catalan numbers)",
+            "PatternCard": "Does the pattern repeat?", "ExCard1": "Hexagon tilings",
             "ExCard3": "The Aztec diamond", "ArcticCircle": "The arctic circle",
             "SignsCard": "When the signs go wrong (Kasteleyn, FKT)", "EndCard": "Why minus signs count"}
 files, chapters, t = [], [], 0.0

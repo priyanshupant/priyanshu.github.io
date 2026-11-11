@@ -35,9 +35,6 @@ class Map(DScene):
         panels = [
             (pair_icon(GOOD_P, GOOD_Q, size=0.8, meet=False), "ants that never meet", "20"),
             (hexg, "hexagon tilings", "20"),
-            (VGroup(hex_outline(0.22, box=(3, 3, 3)), hex_tiling(((2, 1, 1), (1, 1, 0), (1, 0, 0)), 0.22, stroke=1, box=(3, 3, 3))),
-             "boxes in a corner", "980"),
-            (mt, "mountain ranges", "3"),
             (az_mob(AZ[2][5], 2, 0.24, ORIGIN), "Aztec diamonds", "2^(n(n+1)/2)"),
             (b, "domino tilings", "12,988,816"),
         ]
@@ -46,9 +43,10 @@ class Map(DScene):
             ang = PI / 2 - TAU * k / len(panels)
             pos = np.array([4.9 * np.cos(ang), 2.75 * np.sin(ang), 0])
             ic.scale(1.25)
-            g = VGroup(ic, T(name, 22), T(num, 24, YELLOW)).arrange(DOWN, buff=0.08).move_to(pos)
+            nm = MathTex(r"2^{n(n+1)/2}", color=YELLOW).scale(0.75) if num.startswith("2^") else T(num, 24, YELLOW)
+            g = VGroup(ic, T(name, 22), nm).arrange(DOWN, buff=0.08).move_to(pos)
             ln = Line(core.get_center(), pos, color=GREY_D)
-            ln.put_start_and_end_on(core.get_center() + 0.8 * normalize(pos), pos - 0.9 * normalize(pos))
+            ln.put_start_and_end_on(core.get_center() + 0.8 * normalize(pos), pos - (1.25 if abs(pos[0]) < 0.5 else 0.9) * normalize(pos))
             items.append((g, ln))
         for g, ln in items:
             self.play(Create(ln), FadeIn(g), run_time=0.7)
@@ -247,12 +245,9 @@ class Goodbye(DScene):
 CREDITS = [
     ("Written and produced by", AUTHOR),
     ("Voice", "placeholder AI voice (Kokoro text-to-speech)"),
-    ("Opening quotes", "S. Axler, Down with Determinants! (1995) · A. Wigderson"),
     ("Lattice paths", "Lindström 1973 · Gessel & Viennot 1985 · Karlin & McGregor 1959"),
     ("Ants on a grid", "A. T. Benjamin & N. T. Cameron, Counting on Determinants (Amer. Math. Monthly, 2005)"),
     ("The quote", "Aigner & Ziegler, Proofs from THE BOOK: \"Lattice paths and determinants\""),
-    ("Plane partitions", "P. A. MacMahon, Combinatory Analysis (1915–16)"),
-    ("Catalan determinants", "via non-intersecting Dyck paths (Gessel–Viennot)"),
     ("Aztec diamond", "Elkies, Kuperberg, Larsen & Propp (1992) · paths proof: Eu & Fu (2005)"),
     ("Arctic circle", "Jockusch, Propp & Shor (1995) · domino shuffling: Elkies, Kuperberg, Larsen & Propp"),
     ("Dimers", "P. W. Kasteleyn (1961; planar graphs 1967) · Temperley & Fisher (1961)"),

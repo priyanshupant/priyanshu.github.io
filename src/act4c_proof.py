@@ -521,7 +521,7 @@ class ThreeProof(DScene):
         self.play(Create(gm), Indicate(cnts[0], color=GOOD, scale_factor=1.4), run_time=1.0)
         self.cue_at(6, "Exactly the determinant", lead=0.2)
         self.play(Indicate(total, color=YELLOW, scale_factor=1.15), run_time=0.9)
-        self.cue_end(6)
+        self.cue_end(4)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
 
@@ -531,38 +531,17 @@ class TheTrick(DScene):
     unwanted ones cancel. Benjamin & Quinn's D.I.E. method: Description, Involution, Exception (wording checked)."""
 
     def construct(self):
-        # 0: so here's how a determinant really counts
+        # 0: an overview of how it works (no permanent): count everything with signs, cancel in pairs, the rest survives
         self.cue(0)
-        top = T("How a determinant counts", 44, weight=BOLD).to_edge(UP, buff=0.5)
-        self.play(Write(top), run_time=1.0)
+        top = T("Count everything, cancel the rest", 44, weight=BOLD)
+        self.play(Write(top), run_time=1.2)
 
-        # 1: drop the signs: the permanent counts every family (meeting or not)
+        # 1-4: the D.I.E. method (the title makes room)
         self.cue(1)
-        perm = MathTex(r"\operatorname{perm} A", "=", r"6 \cdot 6 + 4 \cdot 4", "=", "52").scale(1.05)
-        dett = MathTex(r"\det A", "=", r"6 \cdot 6 - 4 \cdot 4", "=", "20").scale(1.05)
-        VGroup(perm, dett).arrange(DOWN, buff=0.6).move_to(UP * 0.9)
-        dett.shift(RIGHT * (perm[1].get_x() - dett[1].get_x()))
-        pl = T("every pair of paths, meeting or not", 26, SOFT).next_to(perm, RIGHT, buff=0.4)
-        dl = T("only the pairs that never meet", 26, GOOD).next_to(dett, RIGHT, buff=0.4)
-        grp = VGroup(perm, dett, pl, dl)
-        grp.scale_to_fit_width(min(grp.width, 13.2)).move_to(UP * 0.9)
-        self.play(Write(perm), run_time=1.0)
-        self.cue_at(1, "every family", lead=0.2)
-        self.play(FadeIn(pl), run_time=0.6)
-
-        # 2: the signs make the difference: the unwanted families cancel
-        self.cue(2)
-        self.play(Write(dett), run_time=1.0)
-        mbox = SurroundingRectangle(dett[2][3], color=YELLOW, buff=0.08)
-        self.cue_at(2, "cancel", lead=0.2)
-        self.play(Create(mbox), FadeIn(dl), run_time=0.8)
-
-        # 3-6: the D.I.E. method (the title makes room)
-        self.cue(3)
-        self.play(FadeOut(VGroup(grp, mbox, top)), run_time=0.6)
+        self.play(FadeOut(top), run_time=0.6)
         die = T("D . I . E .", 56, YELLOW, weight=BOLD).to_edge(UP, buff=0.45)
         who = T("Arthur Benjamin & Jennifer Quinn, “A Method to DIE For”", 24, SOFT).next_to(die, DOWN, buff=0.15)
-        self.cue_at(3, "D.I.E.", lead=0.2)
+        self.cue_at(1, "D.I.E.", lead=0.2)
         self.play(Write(die), FadeIn(who), run_time=1.0)
         rows = VGroup()
         for word, rule, here, col in [
@@ -576,19 +555,19 @@ class TheTrick(DScene):
         if rows.get_bottom()[1] < -3.75:
             rows.scale_to_fit_height(rows.height - (-3.75 - rows.get_bottom()[1])).next_to(who, DOWN, buff=0.4).set_x(0)
         for k in range(3):
-            self.cue(4 + k)
+            self.cue(2 + k)
             self.play(FadeIn(rows[k][0], shift=RIGHT * 0.2), run_time=0.5)
             self.play(FadeIn(rows[k][1]), run_time=0.6)
             if k == 1:                                      # do it twice, you're back: a tiny A ⇄ B
                 ab = VGroup(T("A", 34), T("B", 34)).arrange(RIGHT, buff=1.2).move_to(np.array([4.6, rows[1].get_y(), 0]))
                 arr = VGroup(CurvedArrow(ab[0].get_top(), ab[1].get_top(), angle=-PI / 2, color=ORANGE),
                              CurvedArrow(ab[1].get_bottom(), ab[0].get_bottom(), angle=-PI / 2, color=ORANGE))
-                self.cue_at(5, "Apply it once", lead=0.2)
+                self.cue_at(3, "Apply it once", lead=0.2)
                 self.play(FadeIn(ab), Create(arr[0]), run_time=0.7)
-                self.cue_at(5, "apply it again", lead=0.2)
+                self.cue_at(3, "apply it again", lead=0.2)
                 self.play(Create(arr[1]), run_time=0.7)
-            self.cue_at(4 + k, "Here", lead=0.2)
+            self.cue_at(2 + k, "Here", lead=0.2)
             self.play(FadeIn(rows[k][2]), run_time=0.5)
-        self.cue_end(6)
+        self.cue_end(4)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)

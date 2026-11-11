@@ -242,12 +242,8 @@
   0.8
  ],
  "TheTrick": [
-  "So here's how a determinant really counts.",
-  0.4,
-  "Drop the minus signs, and the same sum just counts every family of paths, meeting or not. That's called the permanent: here, fifty-two.",
-  1.4,
-  "The signs make all the difference: they let the unwanted families cancel, and leave twenty.",
-  0.8,
+  "So here is the idea behind all of this: count everything, each with a sign, and let the things you don't want cancel in pairs.",
+  0.6,
   [
    "Arthur Benjamin and Jennifer Quinn have a name for this recipe: the die method. Description, Involution, Exception.",
    "Arthur Benjamin and Jennifer Quinn have a name for this recipe: the D.I.E. method. Description, Involution, Exception."

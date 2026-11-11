@@ -1,4 +1,5 @@
-"""Act 0 — opening v11 (Priyanshu's script, 8 Nov): school 2x2 and 3x3, general forms, uses, combinatorics, title.
+"""Act 0 — opening v20 (11 Nov): v11 base (school 2x2/3x3, general forms) + v17 uses with formulas on top; no matrix kept on top; combinatorics line on a clear screen, then the title.
+(previous: act0_opening_v19.py.bak; v11 = git 854a40e)
 (previous version: act0_opening_v10.py.bak)
 
 Six narration lines, six presenter slides:
@@ -10,7 +11,6 @@ Six narration lines, six presenter slides:
   5 the same two ants/grid that begin Hook
 """
 from common import *
-import os
 from act0_hook import GRID_HOOK
 
 
@@ -37,7 +37,7 @@ class Opening(DScene):
         formula = VGroup(dl, m, rhs)
         self.cue_end(1)
         self.play(FadeOut(diag), FadeOut(anti), run_time=0.3)
-        self.play(FadeOut(formula, shift=UP * 0.3), run_time=0.5)          # each use brings its own maths to the top
+        self.play(FadeOut(VGroup(diag, anti, formula)), run_time=0.5)
 
         # 2 — 3x3: six products, three with +, three with − (built quickly)
         self.cue(2)
@@ -65,76 +65,25 @@ class Opening(DScene):
             self.play(Create(boxes), FadeIn(txts[k], shift=RIGHT * 0.1), run_time=0.25)
             self.play(FadeOut(boxes), run_time=0.1)
 
-        # 3-4 — the general forms, quickly: row expansion, eigenvalues, permutations (one line, fast animations)
+        # 3-6 — general forms of the determinant (one per phrase)
         self.cue(3)
-        self.play(FadeOut(VGroup(m3, d3, out)), run_time=0.5)
+        self.play(FadeOut(VGroup(m3, d3, out)), run_time=0.6)
         fm = VGroup(
             MathTex(r"\det A", "=", r"\sum_{j=1}^{n} (-1)^{1+j}\, a_{1j}\, \det A_{1j}"),
             MathTex(r"\det A", "=", r"\lambda_1 \lambda_2 \cdots \lambda_n"),
             MathTex(r"\det A", "=", r"\sum_{\sigma \in S_n} \operatorname{sgn}(\sigma)\, a_{1\sigma(1)}\, a_{2\sigma(2)} \cdots a_{n\sigma(n)}"),
         )
-        for f in fm:
-            f.scale(0.78)
-        fm.arrange(DOWN, buff=0.6).move_to(RIGHT * 2.6 + DOWN * 0.4)
-        for f in fm[1:]:
+        fm.arrange(DOWN, buff=0.55).move_to(DOWN * 0.5)
+        for f in fm[1:]:                                   # the = signs one under the other
             f.shift(RIGHT * (fm[0][1].get_x() - f[1].get_x()))
-        if fm.get_right()[0] > 6.9:
-            fm.shift(LEFT * (fm.get_right()[0] - 6.9))
-        L3 = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"]]
-        LEFTC = LEFT * 3.7 + DOWN * 0.1
-        self.cue(4)
-        # expand along a row
-        mx = Matrix(L3, h_buff=0.85, v_buff=0.7).scale(1.0).move_to(LEFTC + UP * 0.6)
-        ent = mx.get_entries()
-        self.play(FadeIn(mx), run_time=0.5)
-        minors = [[(1, 1), (1, 2), (2, 1), (2, 2)], [(1, 0), (1, 2), (2, 0), (2, 2)], [(1, 0), (1, 1), (2, 0), (2, 1)]]
-        terms = VGroup()
-        for j in range(3):
-            keep = [3 * r + c for r, c in minors[j]]
-            dim = [k for k in range(9) if k not in keep and k != j]
-            box = SurroundingRectangle(ent[j], color=YELLOW, buff=0.08)
-            mn = [L3[r][c] for r, c in minors[j]]
-            sg = "+" if j % 2 == 0 else "-"
-            t = MathTex(sg, L3[0][j], r"\det\begin{bmatrix} %s & %s \\ %s & %s \end{bmatrix}" % tuple(mn)).scale(0.62)
-            t[0].set_color(GOOD if sg == "+" else BAD)
-            if j == 0:
-                t[0].set_opacity(0)
-            terms.add(t)
-            terms.arrange(RIGHT, buff=0.15).next_to(mx, DOWN, buff=0.35)
-            self.play(Create(box), *[ent[k].animate.set_opacity(0.2) for k in dim], run_time=0.45)
-            self.play(FadeIn(t, shift=DOWN * 0.1), run_time=0.45)
-            self.play(FadeOut(box), *[ent[k].animate.set_opacity(1) for k in dim], run_time=0.3)
-        self.play(FadeIn(fm[0], shift=LEFT * 0.2), run_time=0.7)
-        # multiply the eigenvalues
-        self.cue(5)
-        self.play(FadeOut(VGroup(mx, terms)), run_time=0.4)
-        o5 = LEFTC + DOWN * 1.0 + LEFT * 0.4
-        v1, v2 = np.array([1.4, 0.45, 0]), np.array([-0.45, 1.25, 0])
-        a1 = Arrow(o5, o5 + v1, buff=0, color=ANT1, stroke_width=6)
-        a2 = Arrow(o5, o5 + v2, buff=0, color=ANT2, stroke_width=6)
-        par = Polygon(o5, o5 + v1, o5 + v1 + v2, o5 + v2, stroke_width=0, fill_color=YELLOW, fill_opacity=0.3)
-        self.play(GrowArrow(a1), GrowArrow(a2), FadeIn(par), run_time=0.7)
-        l1, l2 = 2.0, 1.5
-        self.play(a1.animate.put_start_and_end_on(o5, o5 + l1 * v1), a2.animate.put_start_and_end_on(o5, o5 + l2 * v2),
-                  Transform(par, Polygon(o5, o5 + l1 * v1, o5 + l1 * v1 + l2 * v2, o5 + l2 * v2, stroke_width=0,
-                                         fill_color=YELLOW, fill_opacity=0.3)), run_time=1.2)
-        self.play(FadeIn(fm[1], shift=LEFT * 0.2), run_time=0.7)
-        # signed products over permutations
-        self.cue(6)
-        self.play(FadeOut(VGroup(a1, a2, par)), run_time=0.4)
-        my = Matrix(L3, h_buff=0.85, v_buff=0.7).scale(1.0).move_to(LEFTC + UP * 0.2)
-        ey = my.get_entries()
-        self.play(FadeIn(my), run_time=0.5)
-        for p, sg in [((0, 1, 2), "+"), ((1, 2, 0), "+"), ((2, 0, 1), "+"), ((2, 1, 0), "-"), ((0, 2, 1), "-"), ((1, 0, 2), "-")]:
-            col = GOOD if sg == "+" else BAD
-            bx = VGroup(*[SurroundingRectangle(ey[3 * i + p[i]], color=col, buff=0.08) for i in range(3)])
-            self.play(Create(bx), run_time=0.35)
-            self.play(FadeOut(bx), run_time=0.2)
-        self.play(FadeIn(fm[2], shift=LEFT * 0.2), run_time=0.7)
+        fm.move_to(DOWN * 0.5)
+        for k, cue in ((0, 4), (1, 5), (2, 6)):
+            self.cue(cue)
+            self.play(FadeIn(fm[k], shift=UP * 0.15), run_time=0.8)
 
-        # 5 — it shows up all over mathematics
+        # 7 — it shows up all over mathematics
         self.cue(7)
-        self.play(FadeOut(fm, shift=DOWN * 0.3), FadeOut(my), run_time=0.6)
+        self.play(FadeOut(fm, shift=DOWN * 0.3), run_time=0.8)
 
         # 8 — equations. The dot is the unique solution; when the lines turn parallel it slides off.
         origin = DOWN * 0.9
@@ -216,109 +165,28 @@ class Opening(DScene):
         for k, (a, b, d) in enumerate(signed):              # thin overhang triangles: label just outside
             if d < 0:
                 labs[k].set_color(SOFT).move_to((O + Q(*a) + Q(*b)) / 3 + normalize((Q(*a) + Q(*b)) / 2 - O) * 0.0 + LEFT * 0.35)
+        labs[0].move_to((O + Q(*V[0]) + Q(*V[1])) / 3 + DOWN * 0.32 + RIGHT * 0.25)   # thin sliver: label just below
         assert sum(d for _, _, d in signed) / 2 == 10.5
         self.play(FadeOut(plane), FadeOut(ghost), FadeOut(top9), Create(poly), run_time=0.8)
         self.remove(plane, ghost, *grid, square)
         self.play(LaggedStart(*[AnimationGroup(FadeIn(t), FadeIn(l)) for t, l in zip(tv, labs)], lag_ratio=0.45), run_time=1.6)
         self.add(poly)
-        shoe = VGroup(MathTex(r"\text{Area} = \tfrac{1}{2}\sum_{i=1}^{5} \det M_{T_i}"),
-                      MathTex(r"M_{T_i} = \begin{bmatrix} x_i & x_{i+1} \\ y_i & y_{i+1} \end{bmatrix}"))
-        shoe.arrange(RIGHT, buff=0.8).to_edge(UP, buff=0.5)
-        self.play(Write(shoe[0]), run_time=1.0)
-        self.play(FadeIn(shoe[1]), run_time=0.6)
+        shoe = MathTex(r"\text{Area} = \tfrac{1}{2}\left[\det\!\left(M_{\triangle_1}\right) + \det\!\left(M_{\triangle_2}\right) + \cdots + \det\!\left(M_{\triangle_5}\right)\right]")
+        shoe.scale(0.85).to_edge(UP, buff=0.5)
+        self.play(Write(shoe), run_time=1.2)
         self.wait(0.6)
-        self.play(FadeOut(tv), FadeOut(labs), poly.animate.set_fill(YELLOW, 0.4), run_time=0.8)
 
-        # 9 — fast: O(n^3) computations by Gaussian elimination (Gauss's portrait at the side), and even faster
+
+        # 11 — "one of the most surprising places ... combinatorics": no animation, a clear screen
         self.cue(11)
-        self.play(FadeOut(VGroup(poly, shoe)), run_time=0.6)
-        head_c = T("algebraic complexity theory", 30, YELLOW).move_to(UP * 2.55)
-        dform = MathTex(r"\det A", "=", r"\sum_{\sigma} \operatorname{sgn}(\sigma)", r"\prod_{i} a_{i\sigma(i)}").scale(0.95)
-        dform.move_to(UP * 1.45 + LEFT * 1.6)
-        easy = VGroup(T("easy", 28, GOOD), tick(0.3)).arrange(RIGHT, buff=0.15).next_to(dform, RIGHT, buff=0.6)
-        speed = VGroup(MathTex(r"O(n^3) \text{ computations using Gaussian elimination}").scale(0.85),
-                       MathTex(r"\text{and even faster}", color=GOOD).scale(0.85)).arrange(DOWN, buff=0.3, aligned_edge=LEFT)
-        speed.move_to(DOWN * 0.6 + LEFT * 0.9)
-        gpic = Group()
-        gf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "portraits", "gauss.jpg")
-        if os.path.exists(gf):
-            gim = ImageMobject(gf).set_height(2.0)
-            gpic = Group(gim, SurroundingRectangle(gim, color=GREY_B, buff=0.02, stroke_width=1.5))
-            gpic.next_to(speed, RIGHT, buff=0.6)
-            if gpic.get_right()[0] > 6.9:
-                gpic.shift(LEFT * (gpic.get_right()[0] - 6.9))
-        self.play(Write(dform), run_time=1.0)
-        self.cue_at(11, "Gaussian elimination", lead=0.2)
-        self.play(FadeIn(speed[0]), FadeIn(gpic), run_time=0.8)
-        self.cue_at(11, "even faster", lead=0.2)
-        self.play(FadeIn(speed[1], shift=UP * 0.1), run_time=0.6)
+        self.play(FadeOut(VGroup(poly, shoe, tv, labs)), run_time=0.6)
 
-        # 10 — algebraic complexity theory: the determinant is the model of an easy polynomial
+        # 12 — today: how determinants can count (title in the centre as it is said)
         self.cue(12)
-        self.play(FadeOut(speed), FadeOut(gpic), run_time=0.5)
-        self.cue_at(12, "algebraic complexity", lead=0.2)
-        self.play(FadeIn(head_c, shift=DOWN * 0.15), run_time=0.7)
-        self.cue_at(12, "there, the determinant", lead=0.2)
-        self.play(FadeIn(easy), Indicate(dform, color=GOOD, scale_factor=1.05), run_time=0.8)
-
-        # 11 — its twin, the permanent: the same sum without the signs; believed much harder
-        self.cue(13)
-        pform = MathTex(r"\operatorname{perm} A", "=", r"\sum_{\sigma}", r"\prod_{i} a_{i\sigma(i)}").scale(0.95)
-        pform.next_to(dform, DOWN, buff=0.55)
-        pform.shift(RIGHT * (dform[1].get_x() - pform[1].get_x()))
-        ghost_d = dform.copy()
-        self.play(ghost_d.animate.move_to(pform, aligned_edge=LEFT).shift(RIGHT * (dform[1].get_x() - pform[1].get_x()) * 0), run_time=0.6)
-        strike = Line(ghost_d[2].get_corner(DL), ghost_d[2].get_corner(UR), color=BAD, stroke_width=5)
-        self.cue_at(13, "without the minus signs", lead=0.2)
-        self.play(Create(strike), run_time=0.5)
-        self.play(ReplacementTransform(VGroup(ghost_d, strike), pform), run_time=0.8)
-        hard = VGroup(T("believed hard", 28, BAD)).next_to(pform, RIGHT, buff=0.6).align_to(easy, LEFT)
-        self.cue_at(13, "believed", lead=0.2)
-        self.play(FadeIn(hard), run_time=0.5)
-
-        # 12 — Valiant 1979: the permanent is #P-complete (#P = counting the solutions of NP problems)
-        self.cue(14)
-        vp = Group()
-        vf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "portraits", "valiant.jpg")
-        if os.path.exists(vf):
-            vim = ImageMobject(vf).set_height(1.7)
-            vp = Group(vim, SurroundingRectangle(vim, color=GREY_B, buff=0.02, stroke_width=1.5)).move_to(LEFT * 5.5 + DOWN * 1.9)
-        vt = VGroup(T("Leslie Valiant, 1979", 26, YELLOW),
-                    MathTex(r"\operatorname{perm} \text{ is } \#\mathrm{P}\text{-complete}").scale(0.8),
-                    MathTex(r"\#\mathrm{P}: \text{ count the solutions of an NP problem}", color=SOFT).scale(0.62)
-                    ).arrange(DOWN, aligned_edge=LEFT, buff=0.12)
-        vt.next_to(vp, RIGHT, buff=0.35) if len(vp) else vt.move_to(LEFT * 2.5 + DOWN * 1.85)
-        self.cue_at(14, "Leslie Valiant", lead=0.2)
-        self.play(FadeIn(vp), FadeIn(vt[0]), run_time=0.7)
-        self.cue_at(14, "sharp-P", lead=0.2)
-        self.play(FadeIn(vt[1]), run_time=0.6)
-        self.cue_at(14, "counting the solutions", lead=0.2)
-        self.play(FadeIn(vt[2]), run_time=0.6)
-
-        imp = MathTex(r"\text{efficient algorithm} \;\Rightarrow\; \mathrm{P} = \mathrm{NP} \text{ (and much more)}", color=BAD).scale(0.75)
-        imp.move_to(DOWN * 3.45 + RIGHT * 0.6)
-        self.cue_at(14, "efficient algorithm", lead=0.2)
-        self.play(Write(imp), run_time=1.0)
-
-        # 13 — so counting is usually hard; and yet determinants are one of the rare tricks that count efficiently
-        self.cue(15)
-        self.cue_at(15, "And yet", lead=0.2)
-        self.play(Indicate(dform, color=YELLOW, scale_factor=1.08), run_time=0.9)
-        cplx = Group(head_c, dform, easy, pform, hard, vp, vt, imp)
-
-        prev = cplx                                   # (no montage: 'combinatorics' is only said)
-
-        # 19 — today: how determinants can count (title in the centre as it is said)
-        self.cue(16)
         title = T("How Determinants Can Count", 50, weight=BOLD)
-        self.cue_at(16, "how determinants", lead=0.2)
-        self.play(FadeOut(prev), run_time=0.5)
+        self.cue_at(12, "how determinants", lead=0.2)
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
-
-        # 20 — "let's start with a simple puzzle": clear the screen (the Hook brings the ants)
-        self.cue(17)
-        self.cue_at(17, "simple puzzle", lead=0.2)
+        self.cue_end(12)
+        self.wait(1.0)
         self.play(FadeOut(title), run_time=0.8)
-
-

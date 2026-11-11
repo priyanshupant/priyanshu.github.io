@@ -11,35 +11,22 @@ from act6_hexagon import (PARTITIONS, SHOW, TOP_C, X_C, Y_C, proj, tiling, trian
 
 
 class PatternCard(DScene):
-    """Bridge after the lemma (12 Nov): det = families of paths that never touch; Gessel & Viennot (1985) showed
-    the pattern all over combinatorics (paper: Young tableaux, permutations with given descents; their follow-up:
-    plane partitions = stacks of boxes). Checked in the 1985 paper's text and references."""
+    """Bridge after the lemma (12 Nov): det M = families of paths that never touch stays on screen;
+    Gessel & Viennot showed the pattern in many hard counting problems (said, not written); one example."""
 
     def construct(self):
         # 0: so the determinant counts the families of paths that never touch
         self.cue(0)
         recap = VGroup(MathTex(r"\det M", "=").scale(1.2), T("number of families of paths that never touch", 32, YELLOW)) \
-            .arrange(RIGHT, buff=0.3).move_to(UP * 0.4)
+            .arrange(RIGHT, buff=0.3)
         self.play(FadeIn(recap, shift=UP * 0.2), run_time=1.0)
-        # 1: Gessel and Viennot showed this pattern shows up all over combinatorics
+        # 1: Gessel and Viennot showed it appears in many difficult counting problems
         self.cue(1)
-        self.play(recap.animate.scale(0.75).to_edge(UP, buff=0.6), run_time=0.7)
-        who = T("Ira Gessel & Xavier Viennot, 1985", 34, weight=BOLD).move_to(UP * 0.9)
-        paper = T("“Binomial determinants, paths, and hook length formulae”", 24, SOFT).next_to(who, DOWN, buff=0.2)
-        self.cue_at(1, "Ira Gessel", lead=0.2)
-        self.play(FadeIn(who), FadeIn(paper), run_time=0.9)
-        # 2: Young tableaux, permutations, and later plane partitions: stacks of boxes
+        # 2: let's look at one such example
         self.cue(2)
-        items = VGroup(T("Young tableaux", 30), T("permutations", 30), T("plane partitions (stacks of boxes)", 30, YELLOW)) \
-            .arrange(DOWN, buff=0.3).next_to(paper, DOWN, buff=0.6)
-        for k, w in enumerate(("Young tableaux", "permutations", "plane partitions")):
-            self.cue_at(2, w, lead=0.2)
-            self.play(FadeIn(items[k], shift=UP * 0.1), run_time=0.5)
-        # 3: let's look at one of them
-        self.cue(3)
-        self.cue_end(3)
-        self.wait(0.3)
-        self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)
+        self.cue_end(2)
+        self.wait(0.4)
+        self.play(FadeOut(recap), run_time=0.6)
 
 
 class Hexagon(DScene):

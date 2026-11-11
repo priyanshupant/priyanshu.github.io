@@ -14,7 +14,7 @@ MANIM = os.environ.get("MANIM", "manim")
 # (file, scene, target seconds) in video order; acts follow the script's clock.
 SCENES = [
     ("act0_opening.py", "Opening", 28),  # QuoteOpen (option D) removed 8 Nov
-    ("act_extras.py", "PuzzleCard", 3), ("act0_hook.py", "Hook", 45),
+    ("act0_hook.py", "Hook", 45),  # PuzzleCard removed 11 Nov: "First, a simple puzzle" is under the title
     # OneGoodPair and BruteForce now happen inside Hook (v10)
     ("act3_two_walkers.py", "TableAndDet", 35),
     ("act3b_more.py", "ThreeAnts", 40), ("act3b_more.py", "WhyCard", 6),

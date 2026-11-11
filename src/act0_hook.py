@@ -85,7 +85,8 @@ class Hook(DScene):
         self.play(FadeIn(ok2, scale=1.4), run_time=0.4)
         here = lat.p(1, 2)
         self.cue(6)
-        self.play(FadeOut(ok1), FadeOut(ok2), self.face(a1, PI), run_time=0.6)
+        self.play(FadeOut(ok1), FadeOut(ok2), a1.animate.flip(UP), run_time=0.6)   # turn round (mirror), not upside down
+        a1.heading = PI
         x2 = cross(0.4).move_to(lat.p(0.45, 2))
         self.sfx("buzz")
         self.play(a1.animate.shift(LEFT * 0.45), FadeIn(x2, scale=1.4), run_time=0.6)
@@ -97,8 +98,9 @@ class Hook(DScene):
         self.play(a1.animate.shift(DOWN * 0.45), FadeIn(x1, scale=1.4), run_time=0.6)
         self.play(a1.animate.move_to(here), run_time=0.5, rate_func=rush_from)
         self.cue_end(7)
-        self.play(FadeOut(x1), FadeOut(x2), run_time=0.3)
-        self.play(self.face(a1, 0))                            # turn first, then walk back
+        self.play(FadeOut(x1), FadeOut(x2), self.face(a1, PI), run_time=0.4)   # head left again (still mirrored)
+        self.play(a1.animate.flip(UP), run_time=0.4)          # turn round to face right, upright
+        a1.heading = 0
         self.play(a1.animate.move_to(o), run_time=0.6)        # (rotate + .animate in one play loses the turn)
 
         # 8: many paths home — several each, and some of them cross

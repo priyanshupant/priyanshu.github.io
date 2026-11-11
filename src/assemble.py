@@ -12,7 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 q = next((a for a in sys.argv[1:] if not a.startswith("--")), "720p30")
 # YouTube-style chapters: a title starts a new chapter at the first scene listed.
 CHAPTERS = {"Opening": "Determinants you met in school",
-            "PuzzleCard": "A simple puzzle",
+            "Hook": "A simple puzzle",
             "TableAndDet": "An old friend: the determinant", "ThreeAnts": "Three ants",
             "WhyCard": "Why does this work?", "LemmaCard": "The general lemma (Lindström–Gessel–Viennot)",
             "PatternCard": "Does the pattern repeat?", "ExCard1": "Hexagon tilings",

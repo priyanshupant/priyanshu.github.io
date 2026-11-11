@@ -33,7 +33,9 @@
   "But one of the most surprising places I've found the determinant is in combinatorics.",
   1.0,
   "And today, I want to show you how determinants can count.",
-  1.5
+  1.0,
+  "Let's start with a simple puzzle.",
+  0.4
  ],
  "Hook": [
   "Meet these two ants.",

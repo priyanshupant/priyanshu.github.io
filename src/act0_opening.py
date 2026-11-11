@@ -1,197 +1,177 @@
-"""Act 0 — opening v20 (11 Nov): v11 base (school 2x2/3x3, general forms) + v17 uses with formulas on top; no matrix kept on top; combinatorics line on a clear screen, then the title.
-(previous: act0_opening_v19.py.bak; v11 = git 854a40e)
-(previous version: act0_opening_v10.py.bak)
+"""Act 0 — opening v38 (12 Nov): set up the problem the 3Blue1Brown / Numberphile way.
 
-Six narration lines, six presenter slides:
-  0 familiar 2x2 determinant
-  1 equations: two lines meet in one dot; they turn parallel and the dot runs off
-  2 area: the unit square (ghost kept) becomes a parallelogram
-  3 det = 0: everything is squashed flat; two points land on one
-  4 surprising turn: determinants can count (the line becomes the ants' grid)
-  5 the same two ants/grid that begin Hook
+    a concrete surprise first (four ants, 21,000 ways to walk home, how many never meet?),
+    then the shortcut (one 4x4 determinant says 252, exactly right),
+    then the tool (the school determinant, and its general form with a sign on every term),
+    then the paradox (counting only adds; how can minus signs count?), then the promise and the title.
+(previous: act0_opening_v36.py.bak = v20, the school/forms/uses intro)
 """
+import random
 from common import *
-from act0_hook import GRID_HOOK
+from act3b_more import S4, E4, M4, DET4, COLS, FAM4
+
+DIAG = [M4[i][i] for i in range(4)]
+TOTAL = int(np.prod(DIAG))
+assert TOTAL == 21000 and DET4 == 252
+
+
+def _meeting_family(rng):
+    """A random 'everyone walks home' family in which some two ants meet."""
+    PS = [all_paths(S4[i], E4[i]) for i in range(4)]
+    while True:
+        fam = [rng.choice(PS[i]) for i in range(4)]
+        for i in range(4):
+            for j in range(i + 1, 4):
+                common = [q for q in fam[i] if tuple(q) in set(map(tuple, fam[j]))]
+                if common:
+                    return fam, common[0]
 
 
 class Opening(DScene):
     def construct(self):
-        # 0 — most of us have seen the determinant in school
+        rng = random.Random(5)
+        lat = Lattice(7, spacing=0.72, center=LEFT * 3.6 + DOWN * 0.25)
+        ants = VGroup(*[ant(COLS[i], 0.5).move_to(lat.p(*S4[i])) for i in range(4)])
+        homes = VGroup(*[house(COLS[i], 0.36).move_to(lat.p(*E4[i])) for i in range(4)])
+
+        def fam_mob(fam, w=5):
+            return VGroup(*[path_mob(lat, fam[i], COLS[i], w) for i in range(4)])
+
+        # 0: four ants want to walk home, stepping only up or right
         self.cue(0)
-        big = MathTex(r"\det", color=YELLOW).scale(3.2)
-        self.play(Write(big), run_time=1.0)
+        self.play(FadeIn(lat), run_time=0.6)
+        self.play(LaggedStart(*[FadeIn(a, shift=DOWN * 0.2) for a in ants], lag_ratio=0.2),
+                  LaggedStart(*[FadeIn(h, scale=1.4) for h in homes], lag_ratio=0.2), run_time=1.2)
+        rules = VGroup(T("↑", 34), T("→", 34)).arrange(RIGHT, buff=0.3).next_to(lat, DOWN, buff=0.25)
+        self.cue_at(0, "up or right", lead=0.2)
+        self.play(FadeIn(rules), run_time=0.5)
 
-        # 1 — 2x2: a d − b c (diagonals, then they fade)
+        # 1: each ant alone has 10 to 21 ways home: together 21,000 ways to walk
         self.cue(1)
-        m = Matrix([["a", "b"], ["c", "d"]], h_buff=1.1, v_buff=0.9).scale(1.5).shift(LEFT * 2.4)
-        cells = m.get_entries()
-        diag = Line(cells[0].get_center(), cells[3].get_center(), color=SOFT, stroke_width=10).set_opacity(0.65)
-        anti = Line(cells[1].get_center(), cells[2].get_center(), color=SOFT, stroke_width=10).set_opacity(0.65)
-        dl = MathTex(r"\det", color=YELLOW).scale(1.9).next_to(m, LEFT, buff=0.3)
-        rhs = MathTex("=", "ad", "-", "bc").scale(1.9).next_to(m, RIGHT, buff=0.4)
-        rhs[2].set_color(YELLOW)
-        self.play(ReplacementTransform(big, dl), FadeIn(m), run_time=0.7)
-        self.cue_at(1, "a d minus", lead=0.3)
-        self.play(Create(diag), FadeIn(rhs[:2]), run_time=0.55)
-        self.play(Create(anti), FadeIn(rhs[2:]), run_time=0.55)
-        formula = VGroup(dl, m, rhs)
-        self.cue_end(1)
-        self.play(FadeOut(diag), FadeOut(anti), run_time=0.3)
-        self.play(FadeOut(VGroup(diag, anti, formula)), run_time=0.5)
+        icons = VGroup(*[VGroup(ant(COLS[i], 0.42), MathTex(str(DIAG[i])).scale(0.9)).arrange(DOWN, buff=0.12)
+                         for i in range(4)])
+        prod = VGroup(icons[0], MathTex(r"\times"), icons[1], MathTex(r"\times"), icons[2], MathTex(r"\times"),
+                      icons[3]).arrange(RIGHT, buff=0.25).move_to(RIGHT * 3.4 + UP * 1.6)
+        tot = MathTex("=", r"21{,}000", r"\text{ ways}").scale(1.1).next_to(prod, DOWN, buff=0.45)
+        tot[1].set_color(YELLOW)
+        for k in range(4):                                  # a few of each ant's own paths flash by
+            ps = rng.sample(all_paths(S4[k], E4[k]), 3)
+            for p in ps:
+                m = path_mob(lat, p, COLS[k], 5)
+                self.add(m)
+                self.wait(0.12)
+                self.remove(m)
+            self.play(FadeIn(prod[2 * k]), *([FadeIn(prod[2 * k - 1])] if k else []), run_time=0.3)
+        self.cue_at(1, "twenty-one thousand", lead=0.2)
+        self.play(Write(tot), run_time=0.8)
 
-        # 2 — 3x3: six products, three with +, three with − (built quickly)
+        # 2: but their paths must never meet. How many of the 21,000 work?
         self.cue(2)
-        L = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"]]
-        m3 = Matrix(L, h_buff=1.0, v_buff=0.8).scale(1.1).move_to(LEFT * 3.4 + DOWN * 0.3)
-        e3 = m3.get_entries()
-        d3 = MathTex(r"\det", color=YELLOW).scale(1.3).next_to(m3, LEFT, buff=0.25)
-        self.play(FadeIn(m3), FadeIn(d3), run_time=0.5)
-        terms = [((0, 4, 8), "+"), ((1, 5, 6), "+"), ((2, 3, 7), "+"), ((2, 4, 6), "-"), ((1, 3, 8), "-"), ((0, 5, 7), "-")]
-        eq3 = MathTex("=").scale(1.3).next_to(m3, RIGHT, buff=0.35)
-        txts = VGroup()
-        for k, (ix, sg) in enumerate(terms):
-            col = GOOD if sg == "+" else BAD
-            txts.add(MathTex(sg, "".join(L[i // 3][i % 3] for i in ix)).scale(1.3))
-            txts[-1][0].set_color(col)
-        r1, r2 = VGroup(*txts[:3]).arrange(RIGHT, buff=0.35), VGroup(*txts[3:]).arrange(RIGHT, buff=0.35)
-        VGroup(r1, r2).arrange(DOWN, buff=0.45, aligned_edge=LEFT).next_to(eq3, RIGHT, buff=0.3)
-        VGroup(r1, r2).shift(UP * (eq3.get_y() - r1.get_y()))
-        txts[0][0].set_opacity(0)                         # no leading +
-        out = VGroup(eq3, txts)
-        self.play(FadeIn(eq3), run_time=0.2)
-        for k, (ix, sg) in enumerate(terms):
-            col = GOOD if sg == "+" else BAD
-            boxes = VGroup(*[SurroundingRectangle(e3[i], color=col, buff=0.1) for i in ix])
-            self.play(Create(boxes), FadeIn(txts[k], shift=RIGHT * 0.1), run_time=0.25)
-            self.play(FadeOut(boxes), run_time=0.1)
+        bad, at = _meeting_family(rng)
+        bm = fam_mob(bad)
+        self.play(Create(bm), run_time=1.0)
+        x = cross(0.32).move_to(lat.p(*at))
+        self.sfx("buzz")
+        self.play(FadeIn(x, scale=1.5), Flash(lat.p(*at), color=BAD, flash_radius=0.3), run_time=0.5)
+        self.wait(0.3)
+        self.play(FadeOut(bm), FadeOut(x), run_time=0.3)
+        gm = fam_mob(FAM4[37])
+        self.play(Create(gm), run_time=1.0)
+        ok = tick(0.35).next_to(lat, RIGHT, buff=0.2).shift(DOWN * 1.2)
+        self.play(FadeIn(ok, scale=1.4), run_time=0.4)
+        q = MathTex("?", color=YELLOW).scale(1.4).next_to(tot, DOWN, buff=0.4)
+        self.cue_at(2, "How many", lead=0.2)
+        self.play(FadeOut(gm), FadeOut(ok), FadeIn(q), run_time=0.5)
 
-        # 3-6 — general forms of the determinant (one per phrase)
+        # 3: checking them one by one would take forever (families flicker by)
         self.cue(3)
-        self.play(FadeOut(VGroup(m3, d3, out)), run_time=0.6)
-        fm = VGroup(
-            MathTex(r"\det A", "=", r"\sum_{j=1}^{n} (-1)^{1+j}\, a_{1j}\, \det A_{1j}"),
-            MathTex(r"\det A", "=", r"\lambda_1 \lambda_2 \cdots \lambda_n"),
-            MathTex(r"\det A", "=", r"\sum_{\sigma \in S_n} \operatorname{sgn}(\sigma)\, a_{1\sigma(1)}\, a_{2\sigma(2)} \cdots a_{n\sigma(n)}"),
-        )
-        fm.arrange(DOWN, buff=0.55).move_to(DOWN * 0.5)
-        for f in fm[1:]:                                   # the = signs one under the other
-            f.shift(RIGHT * (fm[0][1].get_x() - f[1].get_x()))
-        fm.move_to(DOWN * 0.5)
-        for k, cue in ((0, 4), (1, 5), (2, 6)):
-            self.cue(cue)
-            self.play(FadeIn(fm[k], shift=UP * 0.15), run_time=0.8)
+        for k in range(14):
+            f = fam_mob([rng.choice(all_paths(S4[i], E4[i])) for i in range(4)], 4)
+            self.add(f)
+            self.wait(0.09)
+            self.remove(f)
+        self.cue_at(3, "shortcut", lead=0.2)
 
-        # 7 — it shows up all over mathematics
+        # 4: write the 4x4 numbers: paths from each ant to each home; its determinant: 252, exactly the answer
+        self.cue(4)
+        top = VGroup(prod, tot, q)
+        M = matrix_mob([[str(v) for v in r] for r in M4], size=30, h_buff=0.55, v_buff=0.38)
+        cl = VGroup(*[house(COLS[k], 0.28).next_to(M.cells[k], UP, buff=0.22) for k in range(4)])
+        rl = VGroup(*[ant(COLS[k], 0.34).next_to(M, RIGHT, buff=0.2).match_y(M.cells[4 * k]) for k in range(4)])
+        mat = VGroup(M, cl, rl).move_to(RIGHT * 3.3 + UP * 0.7)
+        self.play(FadeOut(top), FadeIn(mat), run_time=0.9)
+        det = VGroup(MathTex(r"\det", "=").scale(1.1), T(str(DET4), 46, YELLOW, weight=BOLD)).arrange(RIGHT, buff=0.25)
+        det.next_to(mat, DOWN, buff=0.45)
+        self.cue_at(4, "determinant", lead=0.2)
+        self.sfx("chime")
+        self.play(Write(det), run_time=0.9)
+        self.cue_at(4, "exactly", lead=0.2)
+        good = VGroup(tick(0.3), T("never meet", 26, GOOD)).arrange(RIGHT, buff=0.15).next_to(det, DOWN, buff=0.25)
+        self.play(FadeIn(good), run_time=0.5)
+        for k in range(3):
+            f = fam_mob(FAM4[(k * 83) % len(FAM4)])
+            self.add(f)
+            self.wait(0.35)
+            self.remove(f)
+
+        # 5: the determinant from school: a d - b c, and the 3x3 (built quickly)
+        self.cue(5)
+        self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.6)
+        m2 = Matrix([["a", "b"], ["c", "d"]], h_buff=1.0, v_buff=0.8).scale(1.1)
+        d2 = VGroup(MathTex(r"\det").scale(1.4), m2, MathTex("=", "ad", "-", "bc").scale(1.4)).arrange(RIGHT, buff=0.3)
+        d2[2][2].set_color(BAD)
+        d2.move_to(UP * 1.6)
+        self.play(FadeIn(d2[:2]), run_time=0.5)
+        self.cue_at(5, "a d minus", lead=0.3)
+        self.play(Write(d2[2]), run_time=0.8)
+        L = [["a", "b", "c"], ["d", "e", "f"], ["g", "h", "i"]]
+        terms = [("+", "aei"), ("+", "bfg"), ("+", "cdh"), ("-", "ceg"), ("-", "bdi"), ("-", "afh")]
+        t3 = MathTex(*sum([[sg, t] for sg, t in terms], []))
+        t3[0].set_opacity(0)
+        for k, (sg, _) in enumerate(terms):
+            t3[2 * k].set_color(GOOD if sg == "+" else BAD)
+        d3 = VGroup(MathTex(r"\det").scale(1.1), Matrix(L, h_buff=0.8, v_buff=0.6).scale(0.8), MathTex("="), t3) \
+            .arrange(RIGHT, buff=0.25).move_to(DOWN * 0.6)
+        self.cue_at(5, "three-by-three", lead=0.2)
+        self.play(FadeIn(d3[:3]), run_time=0.5)
+        self.play(LaggedStart(*[FadeIn(t3[2 * k:2 * k + 2]) for k in range(6)], lag_ratio=0.35), run_time=1.6)
+
+        # 6: in general: a sum over all permutations, with a sign on every term
+        self.cue(6)
+        leib = MathTex(r"\det A", "=", r"\sum_{\sigma}", r"\operatorname{sgn}(\sigma)", r"\prod_{i} a_{i\sigma(i)}").scale(1.25)
+        leib.move_to(UP * 0.3)
+        self.play(FadeOut(d2), FadeOut(d3), run_time=0.5)
+        self.play(Write(leib), run_time=1.2)
+        sgbox = SurroundingRectangle(leib[3], color=YELLOW, buff=0.1)
+        pm = MathTex(r"\pm 1", color=YELLOW).scale(0.9).next_to(sgbox, DOWN, buff=0.2)
+        self.cue_at(6, "sign", lead=0.2)
+        self.play(Create(sgbox), FadeIn(pm), run_time=0.7)
+
+        # 7: the paradox: counting only adds; you can't have minus three ways. How can minus signs count?
         self.cue(7)
-        self.play(FadeOut(fm, shift=DOWN * 0.3), run_time=0.8)
+        nt = MathTex(r"-3", r"\text{ ways}").scale(1.2).move_to(DOWN * 2.0)
+        bx = SurroundingRectangle(nt, buff=0.12)
+        neg = VGroup(nt, VGroup(Line(bx.get_corner(DL), bx.get_corner(UR), color=BAD, stroke_width=6),
+                                Line(bx.get_corner(UL), bx.get_corner(DR), color=BAD, stroke_width=6)))
+        self.cue_at(7, "minus three ways", lead=0.2)
+        self.play(FadeIn(neg[0]), run_time=0.5)
+        self.play(Create(neg[1]), run_time=0.4)
+        self.cue_at(7, "how can", lead=0.2)
+        self.play(Indicate(VGroup(sgbox, pm, leib[3]), color=BAD, scale_factor=1.15), run_time=0.9)
 
-        # 8 — equations. The dot is the unique solution; when the lines turn parallel it slides off.
-        origin = DOWN * 0.9
-        pivot = origin + UP * 0.8
-        slope = 0.36
-        d1 = np.array([1.0, slope, 0.0]) / np.hypot(1, slope)
-        fixed = Line(origin - 2.8 * d1, origin + 2.8 * d1, color=ANT1, stroke_width=6)
-        angle = ValueTracker(-0.45)
-        par = float(np.arctan(slope))
-
-        def direction():
-            t = angle.get_value()
-            return np.array([np.cos(t), np.sin(t), 0.0])
-
-        moving = always_redraw(lambda: Line(pivot - 2.8 * direction(), pivot + 2.8 * direction(),
-                                            color=ANT2, stroke_width=6))
-
-        def meet():
-            dd = direction()
-            mat = np.column_stack((d1[:2], -dd[:2]))
-            if abs(np.linalg.det(mat)) < 1e-4:
-                return origin + 40 * d1
-            return origin + np.linalg.solve(mat, (pivot - origin)[:2])[0] * d1
-
-        def meet_dot():                                    # the solution, shown only while it is on the drawn lines
-            q = meet()
-            on = np.linalg.norm(q - origin) < 2.7 and np.linalg.norm(q - pivot) < 2.7
-            return Dot(q if on else origin, radius=0.13, color=YELLOW).set_opacity(1 if on else 0)
-
-        point = always_redraw(meet_dot)
+        # 8: today: how determinants can count, and why the minus signs are the secret (title)
         self.cue(8)
-        top8 = VGroup(MathTex(r"\begin{cases} a\,x + b\,y = e \\ c\,x + d\,y = f \end{cases}"),
-                      MathTex(r"\text{has a unique solution} \iff \det\begin{bmatrix} a & b \\ c & d \end{bmatrix} \neq 0")).arrange(RIGHT, buff=0.8)
-        top8.scale(0.75).to_edge(UP, buff=0.5)
-        nonzero = MathTex(r"\det \neq 0", color=SOFT).to_edge(DOWN, buff=0.6)
-        self.play(FadeIn(top8[0]), Create(fixed), Create(moving), FadeIn(nonzero), run_time=0.8)
-        self.play(FadeIn(top8[1]), run_time=0.6)
-        self.add(point)
-        self.cue_at(8, "unique", lead=0.1)
-        self.play(Flash(point, color=YELLOW, line_length=0.25, flash_radius=0.3), run_time=0.5)
-        self.play(angle.animate.set_value(par), run_time=1.6, rate_func=rate_functions.ease_in_quad)
-        self.remove(point)
-        zero1 = MathTex(r"\det = 0", color=SOFT).to_edge(DOWN, buff=0.6)
-        self.play(FadeOut(nonzero), FadeIn(zero1), run_time=0.3)
-
-        # 9 — scaling: unit square -> stretch x2 -> shear; the ghost square stays for comparison
-        self.cue(9)
-        self.play(FadeOut(VGroup(fixed, moving, zero1, top8)), run_time=0.35)
-        top9 = MathTex(r"\text{area}(A\,S) = |\det A| \cdot \text{area}(S)").to_edge(UP, buff=0.6)
-        center = DOWN * 0.6 + LEFT * 1.0
-        u = 0.9
-        P = lambda x, y: center + u * np.array([x, y, 0.0])
-        grid = VGroup(*[Line(P(x, -2), P(x, 2), color=DIM, stroke_width=2) for x in range(-2, 3)],
-                      *[Line(P(-2, y), P(2, y), color=DIM, stroke_width=2) for y in range(-2, 3)])
-        sq_pts = [P(0, 0), P(1, 0), P(1, 1), P(0, 1)]
-        square = Polygon(*sq_pts, stroke_color=YELLOW, stroke_width=5, fill_color=YELLOW, fill_opacity=0.3)
-        ghost = Polygon(*sq_pts, stroke_color=SOFT, stroke_width=2.5, fill_opacity=0).set_stroke(opacity=0.8)
-        plane = VGroup(grid, square)
-        self.play(LaggedStart(*[Create(l) for l in grid], lag_ratio=0.03), FadeIn(square), run_time=0.7)
-        self.add(ghost)
-        self.cue_at(9, "scales", lead=0.2)
-        self.play(FadeIn(top9), run_time=0.6)
-        self.play(ApplyMatrix([[2, 0], [0, 1]], plane, about_point=center), run_time=1.0)
-        self.play(ApplyMatrix([[1, 0.5], [0, 1]], plane, about_point=center), run_time=1.0)
-        self.play(Indicate(square, color=YELLOW, scale_factor=1.08), run_time=0.7)
-
-        # 10 — polygon area (shoelace): fan from O; +5, +6.5, +2 and −0.5, −2.5 (the overhang); 10.5
-        self.cue(10)
-        U, O = 0.8, LEFT * 2.4 + DOWN * 3.0
-        Q = lambda x, y: O + U * np.array([x, y, 0.0])
-        V = [(2, 1), (5, 2), (5, 4), (3, 5), (1, 3)]
-        poly = Polygon(*[Q(*v) for v in V], stroke_color=INK, stroke_width=5, fill_opacity=0)
-        tris = [(V[i], V[(i + 1) % 5]) for i in range(5)]
-        tri = lambda a, b, col, op: Polygon(O, Q(*a), Q(*b), stroke_color=col, stroke_width=2, fill_color=col, fill_opacity=op)
-        signed = [(a, b, a[0] * b[1] - a[1] * b[0]) for a, b in tris]
-        tv = VGroup(*[tri(a, b, YELLOW if d > 0 else SOFT, 0.4 if d > 0 else 0.55) for a, b, d in signed])
-        labs = VGroup(*[MathTex(str(k + 1), color=BLACK if d > 0 else WHITE).scale(0.9)
-                        .move_to((O + Q(*a) + Q(*b)) / 3) for k, (a, b, d) in enumerate(signed)])
-        for k, (a, b, d) in enumerate(signed):              # thin overhang triangles: label just outside
-            if d < 0:
-                labs[k].set_color(SOFT).move_to((O + Q(*a) + Q(*b)) / 3 + normalize((Q(*a) + Q(*b)) / 2 - O) * 0.0 + LEFT * 0.35)
-        labs[0].move_to((O + Q(*V[0]) + Q(*V[1])) / 3 + DOWN * 0.32 + RIGHT * 0.25)   # thin sliver: label just below
-        assert sum(d for _, _, d in signed) / 2 == 10.5
-        self.play(FadeOut(plane), FadeOut(ghost), FadeOut(top9), Create(poly), run_time=0.8)
-        self.remove(plane, ghost, *grid, square)
-        self.play(LaggedStart(*[AnimationGroup(FadeIn(t), FadeIn(l)) for t, l in zip(tv, labs)], lag_ratio=0.45), run_time=1.6)
-        self.add(poly)
-        shoe = MathTex(r"\text{Area} = \tfrac{1}{2}\left[\det\!\left(M_{\triangle_1}\right) + \det\!\left(M_{\triangle_2}\right) + \cdots + \det\!\left(M_{\triangle_5}\right)\right]")
-        shoe.scale(0.85).to_edge(UP, buff=0.5)
-        self.play(Write(shoe), run_time=1.2)
-        self.wait(0.6)
-
-
-        # 11 — "one of the most surprising places ... combinatorics": no animation, a clear screen
-        self.cue(11)
-        self.play(FadeOut(VGroup(poly, shoe, tv, labs)), run_time=0.6)
-
-        # 12 — today: how determinants can count (title in the centre as it is said)
-        self.cue(12)
+        self.cue_at(8, "how determinants", lead=0.2)
+        self.play(*[FadeOut(m) for m in self.mobjects], run_time=0.5)
         title = T("How Determinants Can Count", 50, weight=BOLD)
-        self.cue_at(12, "how determinants", lead=0.2)
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
-        # 13 — "let's start with a simple puzzle": the subtitle appears under the title (no separate card)
-        self.cue(13)
+
+        # 9: "let's start with just two ants": the subtitle appears under the title
+        self.cue(9)
         sub = T("First, a simple puzzle", 32, SOFT).next_to(title, DOWN, buff=0.45)
-        self.cue_at(13, "simple puzzle", lead=0.4)
+        self.cue_at(9, "two ants", lead=0.4)
         self.play(FadeIn(sub, shift=UP * 0.15), run_time=0.7)
-        self.cue_end(13)
+        self.cue_end(9)
         self.wait(0.8)
         self.play(FadeOut(VGroup(title, sub)), run_time=0.8)

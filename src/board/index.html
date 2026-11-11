@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Determinants Video Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* Plan: a working storyboard. Left: the clip; right: the words. One card per scene, grouped by part.
+   Ink-blue accent (the video's yellow/blue world, toned down for reading); status in form, not just colour. */
+:root {
+  --bg: #f4f5f8;
+  --panel: #ffffff;
+  --ink: #1b2130;
+  --soft: #5d6577;
+  --line: #dde1ea;
+  --accent: #2b55c9;
+  --changed: #b25e00;
+  --changed-bg: #fff1dc;
+  --done: #23794a;
+  --done-bg: #e2f4ea;
+  --font-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11141b; --panel: #1a1f29; --ink: #e8ebf2; --soft: #9aa3b5; --line: #2c3342;
+    --accent: #8fb0ff; --changed: #ffb35c; --changed-bg: #3a2a12; --done: #6fd39b; --done-bg: #173225;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11141b; --panel: #1a1f29; --ink: #e8ebf2; --soft: #9aa3b5; --line: #2c3342;
+  --accent: #8fb0ff; --changed: #ffb35c; --changed-bg: #3a2a12; --done: #6fd39b; --done-bg: #173225;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--bg); color: var(--ink); font: 15px/1.5 var(--font-body); }
+header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar { max-width: 1180px; margin: 0 auto; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+h1 { font-size: 18px; margin: 0; text-wrap: balance; }
+.sum { color: var(--soft); font-variant-numeric: tabular-nums; }
+.sum b { color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 999px; padding: 3px 10px; font: inherit; font-size: 13px; cursor: pointer; }
+.chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chip:focus-visible, button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main { max-width: 1180px; margin: 0 auto; padding: 16px; display: grid; gap: 14px; }
+.help { color: var(--soft); font-size: 14px; max-width: 70ch; margin: 0; }
+.part { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 14px 0 0; font-weight: 700; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 16px; padding: 14px; }
+.card.changed { border-left: 5px solid var(--changed); }
+.card.done { border-left: 5px solid var(--done); }
+@media (max-width: 820px) { .card { grid-template-columns: 1fr; } }
+video { width: 100%; border-radius: 6px; background: #000; aspect-ratio: 16 / 9; }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; margin-bottom: 8px; }
+.num { font-family: var(--font-mono); color: var(--soft); font-size: 13px; }
+.name { font-weight: 700; font-size: 16px; }
+.dur { font-family: var(--font-mono); color: var(--soft); font-size: 13px; }
+.pill { font-size: 12px; font-weight: 600; border-radius: 999px; padding: 1px 9px; }
+.pill.changed { color: var(--changed); background: var(--changed-bg); }
+.pill.done { color: var(--done); background: var(--done-bg); }
+.lines { display: grid; gap: 6px; }
+.row { display: grid; grid-template-columns: 28px 1fr auto; gap: 6px; align-items: start; }
+.row .k { font-family: var(--font-mono); font-size: 12px; color: var(--soft); padding-top: 7px; text-align: right; }
+textarea, input[type=number] { width: 100%; font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+textarea { resize: vertical; min-height: 40px; }
+.pause { display: flex; align-items: center; gap: 6px; color: var(--soft); font-size: 13px; }
+.pause input { width: 76px; }
+.mini { border: 1px solid var(--line); background: var(--panel); color: var(--soft); border-radius: 6px; font: inherit; font-size: 12px; padding: 4px 7px; cursor: pointer; }
+.mini:hover { color: var(--ink); }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+label.lab { display: block; font-size: 13px; color: var(--soft); margin: 10px 0 4px; }
+.save { border: 0; background: var(--accent); color: #fff; border-radius: 6px; font: inherit; font-weight: 600; padding: 7px 14px; cursor: pointer; }
+.save[disabled] { opacity: .5; cursor: default; }
+.reply { margin-top: 10px; padding: 8px 10px; border-radius: 6px; background: var(--bg); border: 1px dashed var(--line); font-size: 14px; }
+.reply b { color: var(--accent); }
+.foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+.msg { font-size: 13px; color: var(--soft); }
+.warn { background: var(--changed-bg); color: var(--changed); border-radius: 8px; padding: 10px 12px; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <h1>How Determinants Can Count · video board</h1>
+    <span class="sum" id="sum">Loading scenes…</span>
+    <div class="chips" id="filters">
+      <button class="chip" id="f-all" aria-pressed="true">All scenes</button>
+      <button class="chip" id="f-changed" aria-pressed="false">Waiting for Claude</button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <p class="help">Watch a scene, change its words, add or remove lines, or write what you want in the notes. Press <b>Save</b>: the scene is marked <i>waiting for Claude</i>. Claude makes the change, re-renders the clip and leaves a reply on the card. A number between lines is a pause in seconds.</p>
+  <div id="general"></div>
+  <div id="list"></div>
+</main>
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const el = (tag, attrs = {}, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs)) {
+      if (k === "class") n.className = v; else if (k === "text") n.textContent = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v); else n.setAttribute(k, v);
+    }
+    for (const k of kids) if (k != null) n.append(k);
+    return n;
+  };
+  const fmt = s => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+  let db = null, scenes = [], drafts = {}, filter = "all", canWrite = true;
+
+  function render() {
+    const list = $("#list"); list.textContent = "";
+    let t = 0, waiting = 0, part = null;
+    for (const sc of scenes) {
+      const d = sc.data;
+      if (d.status === "changed") waiting++;
+      const start = t; t += d.dur || 0;
+      if (filter === "changed" && d.status !== "changed") continue;
+      if (d.part && d.part !== part) { part = d.part; list.append(el("h2", { class: "part", text: part })); }
+      list.append(card(sc.id, d, start));
+    }
+    $("#sum").innerHTML = `<b>${scenes.length}</b> scenes · <b>${fmt(t)}</b> total · <b>${waiting}</b> waiting for Claude`;
+  }
+
+  function card(id, d, start) {
+    const draft = drafts[id] || (drafts[id] = { lines: JSON.parse(JSON.stringify(d.lines || [])), notes: d.notes || "", dirty: false });
+    const status = d.status === "changed" ? "changed" : (d.status === "done" ? "done" : "");
+    const v = el("video", { controls: "", preload: "none", src: d.clip || "", playsinline: "" });
+    const lines = el("div", { class: "lines" });
+    const save = el("button", { class: "save", text: "Save", type: "button" });
+    const msg = el("span", { class: "msg" });
+    const mark = () => { draft.dirty = true; save.disabled = !canWrite; msg.textContent = "Unsaved changes"; };
+    let k = 0;
+    draft.lines.forEach((ln, i) => {
+      const del = el("button", { class: "mini", type: "button", text: "✕", "aria-label": "Remove", onclick: () => { draft.lines.splice(i, 1); mark(); render(); } });
+      if (ln.t === "pause") {
+        const inp = el("input", { type: "number", step: "0.1", min: "0", value: ln.v, id: `${id}-p${i}`, "aria-label": "Pause in seconds" });
+        inp.addEventListener("input", () => { ln.v = parseFloat(inp.value) || 0; mark(); });
+        lines.append(el("div", { class: "row" }, el("span", { class: "k", text: "" }), el("div", { class: "pause" }, el("span", { text: "pause" }), inp, el("span", { text: "s" })), del));
+      } else {
+        const ta = el("textarea", { id: `${id}-l${i}`, rows: "2", "aria-label": `Line ${k}` });
+        ta.value = ln.v;
+        ta.addEventListener("input", () => { ln.v = ta.value; mark(); });
+        lines.append(el("div", { class: "row" }, el("span", { class: "k", text: String(k++) }), ta, del));
+      }
+    });
+    const notes = el("textarea", { id: `${id}-notes`, rows: "2", placeholder: "What should change here? (visuals, timing, a photo, remove this…)" });
+    notes.value = draft.notes;
+    notes.addEventListener("input", () => { draft.notes = notes.value; mark(); });
+    save.disabled = !draft.dirty || !canWrite;
+    save.addEventListener("click", async () => {
+      if (!db) return;
+      save.disabled = true; msg.textContent = "Saving…";
+      try {
+        await db.doc(`scenes/${id}`).update({ lines: draft.lines, notes: draft.notes, status: "changed", updated_by: "Priyanshu", updated_at: new Date().toISOString() });
+        draft.dirty = false; msg.textContent = "Saved. Claude will pick it up.";
+      } catch (e) {
+        msg.textContent = e && e.code === "invalid_argument" ? "You can't edit this board." : "Couldn't save. Try again.";
+        save.disabled = false;
+      }
+    });
+    const head = el("div", { class: "head" },
+      el("span", { class: "num", text: `#${d.order}` }),
+      el("span", { class: "name", text: d.title || id }),
+      el("span", { class: "dur", text: `${fmt(start)} · ${Math.round(d.dur || 0)} s` }),
+      status ? el("span", { class: `pill ${status}`, text: status === "changed" ? "waiting for Claude" : "updated by Claude" }) : null);
+    const right = el("div", {}, head, lines,
+      el("div", { class: "tools" },
+        el("button", { class: "mini", type: "button", text: "+ line", onclick: () => { draft.lines.push({ t: "line", v: "" }); mark(); render(); } }),
+        el("button", { class: "mini", type: "button", text: "+ pause", onclick: () => { draft.lines.push({ t: "pause", v: 1 }); mark(); render(); } })),
+      el("label", { class: "lab", for: `${id}-notes`, text: "Notes for Claude" }), notes,
+      d.claude_reply ? el("div", { class: "reply" }, el("b", { text: "Claude: " }), document.createTextNode(d.claude_reply)) : null,
+      el("div", { class: "foot" }, save, msg));
+    return el("article", { class: `card ${status}`, id: `s-${id}` }, el("div", {}, v), right);
+  }
+
+  function general(d) {
+    const g = $("#general"); g.textContent = "";
+    const ta = el("textarea", { id: "general-notes", rows: "3", placeholder: "Big-picture ideas, things to add, things to cut…" });
+    ta.value = d ? (d.notes || "") : "";
+    const msg = el("span", { class: "msg" });
+    const btn = el("button", { class: "save", type: "button", text: "Save idea" });
+    btn.addEventListener("click", async () => {
+      if (!db) return; btn.disabled = true; msg.textContent = "Saving…";
+      try { await db.doc("board/general").set({ notes: ta.value, status: "changed", reply: d ? (d.reply || "") : "", updated_at: new Date().toISOString() }); msg.textContent = "Saved."; }
+      catch (e) { msg.textContent = "Couldn't save. Try again."; }
+      btn.disabled = false;
+    });
+    g.append(el("article", { class: "card", style: "grid-template-columns:1fr" },
+      el("div", {}, el("div", { class: "head" }, el("span", { class: "name", text: "Ideas for the whole video" })), ta,
+        d && d.reply ? el("div", { class: "reply" }, el("b", { text: "Claude: " }), document.createTextNode(d.reply)) : null,
+        el("div", { class: "foot" }, btn, msg))));
+  }
+
+  for (const [id, f] of [["f-all", "all"], ["f-changed", "changed"]]) {
+    $("#" + id).addEventListener("click", () => {
+      filter = f;
+      $("#f-all").setAttribute("aria-pressed", f === "all"); $("#f-changed").setAttribute("aria-pressed", f === "changed");
+      render();
+    });
+  }
+
+  general(null);
+  (async () => {
+    db = await window.claude?.use?.("db");
+    if (!db) { $("#sum").textContent = "Open this page in Claude to load the scenes."; return; }
+    try { const u = await window.claude.use("user"); const c = u && u.can ? await u.can("data.write") : null; if (c === false) canWrite = false; } catch (e) {}
+    const timer = setTimeout(() => { if (!scenes.length) $("#sum").textContent = "Can't reach the scenes yet. They will appear when the connection is back."; }, 10000);
+    db.collection("scenes").orderBy("order").onSnapshot(snap => {
+      clearTimeout(timer);
+      scenes = snap.docs.map(d => ({ id: d.id, data: d.data() }));
+      for (const s of scenes) {               // keep the viewer's unsaved edits; refresh the rest from the store
+        if (drafts[s.id] && !drafts[s.id].dirty) delete drafts[s.id];
+      }
+      render();
+    }, () => { $("#sum").textContent = "The scenes couldn't be loaded."; });
+    db.doc("board/general").onSnapshot(s => { if (!document.activeElement || document.activeElement.id !== "general-notes") general(s.exists ? s.data() : null); });
+  })();
+})();
+</script>
+</body>
+</html>

@@ -43,5 +43,10 @@
   "license": "Public domain",
   "artist": "James Posselwhite",
   "source": "https://commons.wikimedia.org/wiki/File:Laplace,_Pierre-Simon,_marquis_de.jpg"
+ },
+ "strassen": {
+  "license": "CC BY-SA 3.0",
+  "artist": "David Eppstein",
+  "source": "https://commons.wikimedia.org/wiki/File:Strassen_Knuth_Prize_lecture.jpg"
  }
 }

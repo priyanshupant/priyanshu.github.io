@@ -16,3 +16,4 @@ __pycache__/
 *.zip
 chapters.txt
 full_video_*
+.venv/

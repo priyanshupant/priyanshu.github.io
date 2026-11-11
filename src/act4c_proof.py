@@ -453,7 +453,7 @@ class ThreeProof(DScene):
         for r in table[1:]:                                   # line the = signs up
             r[3:].shift(RIGHT * (table[0][3].get_x() - r[3].get_x()))
             r[1:3].shift(RIGHT * (table[0][2].get_right()[0] - r[2].get_right()[0]))
-        table.scale(1.2).move_to(RIGHT * 3.2 + UP * 0.35)
+        table.scale(1.2).move_to(RIGHT * 2.45 + UP * 0.35)
         for k, r in enumerate(table):
             if k in (1, 4):
                 self.cue_at(1, "two ants" if k == 1 else "circle", lead=0.2)
@@ -495,6 +495,13 @@ class ThreeProof(DScene):
 
         # 5: every meeting family has a partner: watch them cancel (counters fall)
         self.cue(5)
+        newc = [cnts[k].copy().next_to(r, RIGHT, buff=0.6) for k, r in enumerate(table)]
+        xl = max(c.get_left()[0] for c in newc)
+        for c in newc:
+            c.shift(RIGHT * (xl - c.get_left()[0]))
+        hdr = T("left", 22, SOFT).next_to(VGroup(*newc), UP, buff=0.18)
+        self.play(*[c.animate.set_opacity(0.4) for c in cnts], FadeIn(VGroup(*newc)), FadeIn(hdr), run_time=0.6)
+        cnts = newc
         left = {p: len(FAMS3[p]) for p in ROWS3}
         order = PAIRS3[:]
         _random.Random(2).shuffle(order)
@@ -586,7 +593,6 @@ class TheTrick(DScene):
                 self.play(FadeOut(cur), FadeIn(g), run_time=0.45)
             self.wait(0.45)
             cur = g
-        self.play(FadeOut(cur), run_time=0.4)
 
         # 3: Involution: a meeting pair (+); swap the tails at the first meeting -> wrong houses (-); again -> back
         self.cue(3)

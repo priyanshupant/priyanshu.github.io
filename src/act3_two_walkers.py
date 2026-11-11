@@ -175,7 +175,7 @@ class TableAndDet(DScene):
         count_into(0, A1, B1, ANT1, "first entry", 2)
         # 3: second entry, the sneaky one: blue ant to the orange ant's house (four)
         self.cue(3)
-        count_into(1, A1, B2, ANT1, "orange ant's house", 3)
+        count_into(1, A1, B2, ANT1, "the paths from the blue", 3)
         # 4: by symmetry, the orange ant: four and six
         self.cue(4)
         self.cue_at(4, "symmetry", lead=0.2)

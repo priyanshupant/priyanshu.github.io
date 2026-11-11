@@ -539,49 +539,96 @@ class ThreeProof(DScene):
 
 
 class TheTrick(DScene):
-    """How a determinant counts: without signs (the permanent) every family is counted; the signs let the
-    unwanted ones cancel. Benjamin & Quinn's D.I.E. method: Description, Involution, Exception (wording checked)."""
+    """Count everything, cancel the rest: Benjamin & Quinn's D.I.E. method, three columns side by side, each
+    explained by a small animation on the two-ant grid (Description: every pair with a sign; Involution: swap
+    the tails at the first meeting, + <-> -; Exception: pairs that never meet have no partner). Closing card:
+    'Matching is easier than counting.' (their exact words, CMJ 2008)."""
 
     def construct(self):
-        # 0: an overview of how it works (no permanent): count everything with signs, cancel in pairs, the rest survives
+        import random
+        from act3_two_walkers import GOOD_P, GOOD_Q
+        # 0: the takeaway idea as a title card
         self.cue(0)
         top = T("Count everything, cancel the rest", 44, weight=BOLD)
         self.play(Write(top), run_time=1.2)
 
-        # 1-4: the D.I.E. method (the title makes room)
+        # 1: D.I.E. = Description, Involution, Exception (side by side)
         self.cue(1)
         self.play(FadeOut(top), run_time=0.6)
-        die = T("D . I . E .", 56, YELLOW, weight=BOLD).to_edge(UP, buff=0.45)
-        who = T("Arthur Benjamin & Jennifer Quinn, “A Method to DIE For”", 24, SOFT).next_to(die, DOWN, buff=0.15)
+        die = T("D . I . E .", 50, YELLOW, weight=BOLD).to_edge(UP, buff=0.35)
+        xs = [-4.6, 0.0, 4.6]
+        cols = [INK, ORANGE, GOOD]
+        heads = VGroup(*[T(w, 32, c, weight=BOLD).move_to(np.array([x, 2.05, 0]))
+                         for w, c, x in zip(("Description", "Involution", "Exception"), cols, xs)])
         self.cue_at(1, "D.I.E.", lead=0.2)
-        self.play(Write(die), FadeIn(who), run_time=1.0)
-        rows = VGroup()
-        for word, rule, here, col in [
-            ("Description", "what the sum counts, ignoring the signs", "families of paths", INK),
-            ("Involution", "a rule that pairs things up:\ndo it twice, and you're back\n(each + object gets a − partner)", "swap the tails at the first meeting", ORANGE),
-            ("Exception", "whatever has no partner survives", "the families that never meet", GOOD)]:
-            r = VGroup(T(word, 32, col, weight=BOLD), T(rule, 25, line_spacing=1.1), T("here: " + here, 23, SOFT)).arrange(DOWN, aligned_edge=LEFT, buff=0.07)
-            rows.add(r)
-        rows.arrange(DOWN, aligned_edge=LEFT, buff=0.3).next_to(who, DOWN, buff=0.4)
-        rows.set_x(0)
-        if rows.get_bottom()[1] < -3.75:
-            rows.scale_to_fit_height(rows.height - (-3.75 - rows.get_bottom()[1])).next_to(who, DOWN, buff=0.4).set_x(0)
-        for k in range(3):
-            self.cue(2 + k)
-            self.play(FadeIn(rows[k][0], shift=RIGHT * 0.2), run_time=0.5)
-            self.play(FadeIn(rows[k][1]), run_time=0.6)
-            if k == 1:                                      # do it twice, you're back: a tiny A ⇄ B
-                ab = VGroup(T("A", 34), T("B", 34)).arrange(RIGHT, buff=1.2).move_to(np.array([4.6, rows[1].get_y(), 0]))
-                arr = VGroup(CurvedArrow(ab[0].get_top(), ab[1].get_top(), angle=-PI / 2, color=ORANGE),
-                             CurvedArrow(ab[1].get_bottom(), ab[0].get_bottom(), angle=-PI / 2, color=ORANGE))
-                self.cue_at(3, "Apply it once", lead=0.2)
-                self.play(FadeIn(ab), Create(arr[0]), run_time=0.7)
-                self.cue_at(3, "apply it again", lead=0.2)
-                self.play(Create(arr[1]), run_time=0.7)
-            self.cue_at(2 + k, "Here", lead=0.2)
-            self.play(FadeIn(rows[k][2]), run_time=0.5)
+        self.play(Write(die), run_time=0.9)
+        self.play(LaggedStart(*[FadeIn(h, shift=DOWN * 0.15) for h in heads], lag_ratio=0.35), run_time=1.4)
+        self.play(heads.animate.set_opacity(0.3), run_time=0.4)
+
+        def mini(x):
+            lat = Lattice(4, spacing=0.95, center=np.array([x, -0.6, 0]), dot_radius=0.055)
+            ends = VGroup(Dot(lat.p(*A1), radius=0.08, color=ANT1), Dot(lat.p(*A2), radius=0.08, color=ANT2),
+                          house(ANT1, 0.36).move_to(lat.p(*B1)), house(ANT2, 0.36).move_to(lat.p(*B2)))
+            return lat, ends
+
+        def pr(lat, p, q, w=6):
+            return VGroup(path_mob(lat, p, ANT1, w), path_mob(lat, q, ANT2, w))
+
+        badge_y = -3.05
+
+        # 2: Description: every pair of paths, + to their own houses, - to the wrong houses
+        self.cue(2)
+        lat1, e1 = mini(xs[0])
+        self.play(heads[0].animate.set_opacity(1), FadeIn(lat1), FadeIn(e1), run_time=0.7)
+        rng = random.Random(7)
+        show = [(pq, +1) for pq in rng.sample(plus_pairs(), 3)] + [(pq, -1) for pq in rng.sample(minus_pairs(), 3)]
+        cur = None
+        self.cue_at(2, "every pair", lead=0.2)
+        for k in [0, 3, 1, 4, 2, 5]:
+            (p, q), sg = show[k]
+            g = VGroup(pr(lat1, p, q), sign_badge(sg, 0.3).move_to(np.array([xs[0], badge_y, 0])))
+            if cur is None:
+                self.play(Create(g[0]), FadeIn(g[1]), run_time=0.8)
+            else:
+                self.play(FadeOut(cur), FadeIn(g), run_time=0.45)
+            self.wait(0.45)
+            cur = g
+        self.play(FadeOut(cur), run_time=0.4)
+
+        # 3: Involution: a meeting pair (+); swap the tails at the first meeting -> wrong houses (-); again -> back
+        self.cue(3)
+        lat2, e2 = mini(xs[1])
+        self.play(heads[1].animate.set_opacity(1), FadeIn(lat2), FadeIn(e2), run_time=0.7)
+        g = pr(lat2, P, Q)
+        b = sign_badge(+1, 0.3).move_to(np.array([xs[1], badge_y, 0]))
+        self.play(Create(g), FadeIn(b), run_time=1.0)
+        m = first_meet(P, Q)
+        ring = Circle(radius=0.2, color=MEET, stroke_width=5).move_to(lat2.p(*m))
+        self.cue_at(3, "swap the tails", lead=0.2)
+        self.play(Create(ring), run_time=0.5)
+        self.play(Transform(g, pr(lat2, SP, SQ)), Transform(b, sign_badge(-1, 0.3).move_to(b)), run_time=1.0)
+        self.cue_at(3, "Do it again", lead=0.2)
+        self.play(Transform(g, pr(lat2, P, Q)), Transform(b, sign_badge(+1, 0.3).move_to(b)), run_time=1.0)
+        self.cue_at(3, "cancels", lead=0.3)
+        pm = VGroup(sign_badge(+1, 0.26), T("+", 30), sign_badge(-1, 0.26), T("= 0", 30)).arrange(RIGHT, buff=0.15) \
+            .move_to(b)
+        self.play(ReplacementTransform(b, pm), run_time=0.7)
+
+        # 4: Exception: a pair that never meets has nowhere to swap: no partner, it stays (and is counted)
+        self.cue(4)
+        lat3, e3 = mini(xs[2])
+        self.play(heads[2].animate.set_opacity(1), FadeIn(lat3), FadeIn(e3), run_time=0.7)
+        g3 = pr(lat3, GOOD_P, GOOD_Q)
+        self.play(Create(g3), run_time=1.0)
+        self.cue_at(4, "nowhere to swap", lead=0.2)
+        q_ = T("?", 40, SOFT).move_to(lat3.p(1.5, 1.5))
+        self.play(FadeIn(q_, scale=1.3), run_time=0.4)
+        self.play(FadeOut(q_), run_time=0.3)
+        tk = VGroup(sign_badge(+1, 0.3), tick(0.3)).arrange(RIGHT, buff=0.2).move_to(np.array([xs[2], badge_y, 0]))
+        self.cue_at(4, "what the determinant counts", lead=0.2)
+        self.play(FadeIn(tk), Indicate(g3, color=GOOD, scale_factor=1.05), run_time=0.8)
         self.cue_end(4)
-        self.wait(0.6)
+        self.wait(0.8)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
 
         # 5: closing card, in Benjamin & Quinn's own words (verified in the 2008 paper)

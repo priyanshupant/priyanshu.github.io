@@ -245,16 +245,16 @@
   "So here is the idea behind all of this: count everything, each with a sign, and let the things you don't want cancel in pairs.",
   0.6,
   [
-   "Arthur Benjamin and Jennifer Quinn have a name for this recipe: the die method. Description, Involution, Exception.",
-   "Arthur Benjamin and Jennifer Quinn have a name for this recipe: the D.I.E. method. Description, Involution, Exception."
+   "Arthur Benjamin and Jennifer Quinn call this the die method: Description, Involution, Exception.",
+   "Arthur Benjamin and Jennifer Quinn call this the D.I.E. method: Description, Involution, Exception."
   ],
-  0.6,
-  "Description: say what the sum counts, if you ignore the signs. Here, families of paths.",
-  0.4,
-  "Involution: a rule that pairs things up. Apply it once, and you jump to a partner; apply it again, and you come right back. Every object counted with a plus gets a partner counted with a minus. Here, the rule is: swap the tails at the first meeting.",
-  0.6,
-  "Exception: whatever has no partner is what's left. Here, the families that never meet.",
   0.8,
+  "Description: first, say what you are counting, forgetting the signs. Here, every pair of paths: pairs going to their own houses count plus, and pairs going to the wrong houses count minus.",
+  1.0,
+  "Involution: then pair things up, a plus with a minus. Here, swap the tails at the first meeting: a plus pair becomes a minus pair. Do it again, and you're back where you started. So each such couple cancels.",
+  1.0,
+  "Exception: whatever has no partner is left over. Here, the pairs that never meet have nowhere to swap. They survive, and that's what the determinant counts.",
+  1.0,
   "Or, as Benjamin and Quinn put it: matching is easier than counting.",
   1.5
  ],

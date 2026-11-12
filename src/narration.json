@@ -10,7 +10,7 @@
   0.6
  ],
  "Opening": [
-  "Most of us have seen the determinant in our school days.",
+  "We've all seen the determinant, in school, in linear algebra, in algorithms. Let's start from the very beginning.",
   0.3,
   "For a two-by-two matrix, it's just a d minus b c.",
   0.4,
@@ -34,6 +34,7 @@
   1.0,
   "And today, I want to share it with you: how determinants can count.",
   1.0,
+  "Let's start with a simple puzzle.",
   0.4
  ],
  "Hook": [

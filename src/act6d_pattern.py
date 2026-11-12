@@ -77,10 +77,9 @@ class Hexagon(DScene):
         flat = til.copy()
         for t in flat:
             t.set_fill(GREY_C, 1).set_stroke(WHITE, 2)
-        self.cue_at(3, "flat", lead=0.2)
+        self.cue_at(3, "visual illusion", lead=0.2)          # the boxes are an illusion: show it flat
         self.play(Transform(til, flat), run_time=0.8)
-        self.wait(0.5)
-        self.cue_at(3, "Your brain", lead=0.2)
+        self.cue_end(3)
         self.play(Transform(til, orig), run_time=0.8)
 
         # 4: how many ways? (a few other tilings flicker by)

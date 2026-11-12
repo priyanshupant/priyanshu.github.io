@@ -234,20 +234,20 @@
   0.8
  ],
  "TheTrick": [
-  "So here is the idea behind all of this: count everything, each with a sign, and let the things you don't want cancel in pairs.",
+  "So here is the idea behind all this: count everything, each with a sign, and let the things you don't want cancel in pairs.",
   0.6,
   [
-   "In a paper called A Method to Die For, Arthur Benjamin and Jennifer Quinn call this the die method: Description, Involution, Exception.",
-   "In a paper called “A Method to DIE For”, Arthur Benjamin and Jennifer Quinn call this the D.I.E. method: Description, Involution, Exception."
+   "In a paper called A Method to Die For, Benjamin and Quinn call this the die method: Description, Involution, and Exception.",
+   "In a paper called “A Method to DIE For”, Benjamin and Quinn call this the D.I.E. method: Description, Involution, and Exception."
   ],
   0.8,
-  "Description: first, say what you are counting, forgetting the signs. Here, every pair of paths: pairs going to their own homes count plus, and pairs going to the wrong homes count minus.",
+  "Description: first, say what you are counting, forgetting the signs. Here, we count every pair of paths: pairs going to their own homes count plus, and pairs going to the wrong homes count minus.",
   1.0,
-  "Involution: then pair things up, a plus with a minus. Here, swap the tails at the first meeting: a plus pair becomes a minus pair. Do it again, and you're back where you started. So each such couple cancels.",
+  "Involution: then pair things up, a plus with a minus. Here, swapping the paths after the first meeting, a plus pair becomes a minus pair. Do it again, and we are back where we started. So each couple cancels.",
   1.0,
-  "Exception: whatever has no partner is left over. Here, the pairs that never meet have nowhere to swap. They survive, and that's what the determinant counts.",
+  "Exception: whatever has no partner is left. Here, the pairs that never meet have nowhere to swap. They survive, and that's what the determinant counts.",
   1.0,
-  "And as Benjamin and Quinn put it: matching is easier than counting.",
+  "And the reason this works out, the main philosophy of why this works, is: matching is easier than counting.",
   1.5
  ],
  "LemmaCard": [
@@ -311,29 +311,29 @@
   "And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
  ],
  "PatternCard": [
-  "Gessel and Viennot showed that this pattern appears in many difficult counting problems in combinatorics.",
+  "Gessel and Viennot showed that this pattern appears in many difficult counting problems.",
   0.6,
   "Let's look at one such example.",
   0.4
  ],
  "Hexagon": [
-  "Take a hexagon, cut into little triangles.",
+  "Take a hexagon, and cut it into little triangles.",
   0.6,
-  "Glue two neighbours together and you get a tile. Tiles point in three directions.",
+  "Glue two neighbours together, and you get a tile. Tiles point in three directions.",
   0.6,
-  "Now cover the hexagon with tiles: no gaps, no overlaps. Notice anything? It looks like a stack of boxes.",
+  "Now cover the hexagon with tiles, without any gaps or overlaps. Notice that this looks like a stack of boxes.",
   0.6,
-  "It's completely flat. Your brain is doing the 3D for free.",
+  "But that is just a visual illusion: it is completely flat.",
   0.6,
-  "How many ways can you tile it?",
+  "Anyway, the question here is: how many ways can you tile a hexagon?",
   2.0,
   "Fade out the flat tiles. The others link up into chains, from left to right.",
   0.8,
-  "Tiles never overlap, so the chains never touch.",
+  "Tiles never overlap, so these chains never touch.",
   0.6,
-  "Now squash the hexagon onto our grid, and the two chains become our two ants.",
-  3.0,
-  "So there are twenty tilings. All this time, our ants were tiling a hexagon.",
+  "Now squash the hexagon onto a grid, and the two chains become our two ants.",
+  4.3,
+  "And hence, there are exactly twenty tilings.",
   1.0
  ],
  "WhatLGVCounts": [
@@ -585,10 +585,10 @@
   1.5
  ],
  "Goodbye": [
-  "As for our ants: they can finally go home in peace. Twenty ways home, and they never had to meet.",
-  1.5,
-  "Thanks for watching.",
-  1.0
+  "As for our ants, they can finally go home in peace.",
+  0.6,
+  "Thank you for watching.",
+  2.0
  ],
  "Credits": [],
  "ReadCounts": [

@@ -214,13 +214,14 @@ class Finale(DScene):
 
 
 class Goodbye(DScene):
-    """The ants go home safely; then only 'Thanks for watching.' (no name, no credits; 12 Nov)."""
+    """The ants go home safely; 'Thank you for watching.' appears just below while they walk (no other text)."""
 
     def construct(self):
-        lat = Lattice(GRID[0], spacing=1.15, center=DOWN * 0.3, ny=GRID[1])
+        lat = Lattice(GRID[0], spacing=1.0, center=UP * 0.45, ny=GRID[1])
         ends = endpoints(lat, labels=False)
         L = ant(ANT1).move_to(lat.p(*A1))
         N = ant(ANT2).move_to(lat.p(*A2))
+        thanks = T("Thank you for watching.", 44).to_edge(DOWN, buff=0.7)
         self.cue(0)
         self.play(FadeIn(lat), FadeIn(ends), FadeIn(L), FadeIn(N))
         anims, _ = walk_steps(lat, [(L, GOOD_P, ANT1), (N, GOOD_Q, ANT2)], step_time=0.3)
@@ -230,16 +231,11 @@ class Goodbye(DScene):
         b1, b2 = speech("bye!", L, UP), speech("bye!", N, RIGHT)
         self.sfx("pop")
         self.play(FadeIn(b1, scale=1.3), FadeIn(b2, scale=1.3))
-        line = T("Twenty ways home, and they never had to meet.", 34).to_edge(UP, buff=0.35)
-        self.cue_at(0, "Twenty ways")
-        self.play(FadeIn(line))
-        self.cue(1, lead=0.3)
-        self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.4)
-        thanks = T("Thanks for watching.", 54)
+        self.cue(1)                                            # "thank you for watching", just below the ants
         self.play(Write(thanks), run_time=1.2)
         self.cue_end(1)
-        self.wait(2.0)
-        self.play(FadeOut(thanks), run_time=1.0)
+        self.wait(1.5)
+        self.play(*[FadeOut(x) for x in self.mobjects], run_time=1.0)
 
 
 CREDITS = [

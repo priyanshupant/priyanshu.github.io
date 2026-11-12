@@ -531,7 +531,7 @@ class TheTrick(DScene):
         from act3_two_walkers import GOOD_P, GOOD_Q
         # 0: the takeaway idea as a title card
         self.cue(0)
-        top = T("Count everything, cancel the rest", 44, weight=BOLD)
+        top = T("The takeaway", 50, weight=BOLD)
         self.play(Write(top), run_time=1.2)
 
         # 1: D.I.E. = Description, Involution, Exception (side by side)
@@ -590,7 +590,7 @@ class TheTrick(DScene):
         self.play(Create(g), FadeIn(b), run_time=1.0)
         m = first_meet(P, Q)
         ring = Circle(radius=0.2, color=MEET, stroke_width=5).move_to(lat2.p(*m))
-        self.cue_at(3, "swap the tails", lead=0.2)
+        self.cue_at(3, "swapping the paths", lead=0.2)
         self.play(Create(ring), run_time=0.5)
         self.play(Transform(g, pr(lat2, SP, SQ)), Transform(b, sign_badge(-1, 0.3).move_to(b)), run_time=1.0)
         self.cue_at(3, "Do it again", lead=0.2)

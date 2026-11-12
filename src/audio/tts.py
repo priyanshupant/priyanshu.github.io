@@ -56,13 +56,14 @@ def main(voice="af_heart", only=None):
                 continue
             spoken, caption = (ln, ln) if isinstance(ln, str) else ln
             a = recorded(scene, len(spans), caption)          # Priyanshu's own recording, if he made one
+            gap = GAP - 0.4 if a is not None else GAP          # recorded takes carry ~0.4 s of their own silence
             if a is None:
                 a, sr = k.create(spoken, voice=voice, speed=SPEED, lang="en-us")
                 assert sr == SR
                 a = a.astype(np.float32)
             spans.append([round(t, 3), round(t + len(a) / SR, 3), caption])
-            parts += [a, np.zeros(int(GAP * SR), np.float32)]
-            t += len(a) / SR + GAP
+            parts += [a, np.zeros(int(gap * SR), np.float32)]
+            t += len(a) / SR + gap
         audio = np.concatenate(parts)
         sf.write(os.path.join(out, f"{scene}.wav"), audio, SR)
         timing[scene] = {"length": round(len(audio) / SR, 3), "lines": spans}

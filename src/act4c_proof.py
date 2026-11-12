@@ -172,7 +172,7 @@ class Bijection(DScene):
             nmi = pair_icon(p, q, size=1.0).move_to(mi); nmi[0].set_stroke(BAD, 3)
             nsi = pair_icon(ps, qs_, size=1.0).move_to(si); nsi[0].set_stroke(ORANGE, 3)
             c2 = T(str(k + 1), 40, YELLOW).move_to(cnt, aligned_edge=LEFT)
-            if k < 3:                                   # the first three, slowly, as they are named
+            if k < 2:                                   # the first two, slowly, as they are named
                 self.cue(1 + k)
                 self.play(Create(a), Create(ring), FadeIn(nmi) if k == 0 else Transform(mi, nmi), run_time=0.9)
                 if k == 0:
@@ -187,22 +187,22 @@ class Bijection(DScene):
                 self.wait(0.2)
                 self.play(FadeOut(a), FadeOut(ring), run_time=0.3)
             else:                                       # then the rest, faster and faster
-                if k == 3:
-                    self.cue(4)
-                dt = max(0.18, 0.5 * 0.85 ** (k - 3))
+                if k == 2:
+                    self.cue(3)
+                dt = max(0.18, 0.5 * 0.85 ** (k - 2))
                 self.add(a, ring)
                 self.play(Transform(a, pair(lat, ps, qs_, 6)), Transform(mi, nmi), Transform(si, nsi), Transform(cnt, c2), run_time=dt)
                 self.remove(a, ring)
 
-        # 5: a one-to-one match, so: meet = wrong homes
-        self.cue(5)
+        # 4: a one-to-one match, so: meet = wrong homes
+        self.cue(4)
         eqm = MathTex(r"\text{meet}", "=", r"\text{wrong homes}", color=YELLOW).scale(1.0)
         eqm.move_to(RIGHT * RX + DOWN * 1.6)
         self.sfx("chime")
         self.play(Indicate(VGroup(lab, cnt), color=YELLOW, scale_factor=1.2), run_time=0.8)
-        self.cue_at(5, "exactly as many", lead=0.2)
+        self.cue_at(4, "exactly", lead=0.2)
         self.play(Write(eqm), run_time=1.0)
-        self.cue_end(5)
+        self.cue_end(4)
         self.wait(0.4)
         self.play(FadeOut(VGroup(steps, lab, cnt, mi, si, link, eqm)), run_time=0.5)
 
@@ -220,8 +220,7 @@ class Formula(DScene):
         r0 = row(r"\det A", r"\text{all} - \text{wrong homes}", 2.0)
         r1 = row("", r"\text{all} - \text{meet}", 1.0)
         r2 = row("", r"\text{never meet}", 0.0, GOOD)
-        r3 = row("", r"20", -1.0, YELLOW)
-        for r in (r1, r2, r3):                 # an empty lhs drops out: re-align on the '='
+        for r in (r1, r2):                 # an empty lhs drops out: re-align on the '='
             r.shift(np.array([x_eq - r[0].get_x(), 0, 0]))
         good = next(pq for pq in plus_pairs() if first_meet(*pq) is None)
         bad = MEETS[0]
@@ -246,15 +245,12 @@ class Formula(DScene):
         self.play(FadeOut(b), FadeOut(rg), run_time=0.4)
         g = pair(lat, *good)
         self.play(Create(g), Write(r2), run_time=1.2)
-        # 4: twenty
+        # 4: hence proved: the box right after '= never meet'
         self.cue(4)
+        qed = Square(0.3, color=INK, fill_opacity=1).next_to(r2, RIGHT, buff=0.5)
         self.sfx("chime")
-        self.play(Write(r3), run_time=0.8)
-        # 5: a bijective proof
-        self.cue(5)
-        qed = Square(0.3, color=INK, fill_opacity=1).next_to(r3, RIGHT, buff=0.5)
         self.play(FadeIn(qed, scale=0.5), run_time=0.4)
-        self.cue_end(5)
+        self.cue_end(4)
         self.wait(0.6)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.6)
 
@@ -303,7 +299,7 @@ class AllPairs(DScene):
         self.cue_at(2, "The blue ant has six", lead=0.2)
         self.play(LaggedStart(*[Create(x) for x in bl], lag_ratio=0.25), run_time=1.4)
         self.play(FadeOut(bl), run_time=0.3)
-        self.cue_at(2, "the orange ant has six", lead=0.2)
+        self.cue_at(2, "orange ant also has six", lead=0.2)
         self.play(LaggedStart(*[Create(x) for x in ol], lag_ratio=0.25), run_time=1.4)
         self.play(FadeOut(ol), run_time=0.3)
         self.cue(3)
@@ -319,9 +315,9 @@ class AllPairs(DScene):
         # 4: twenty never meet, sixteen meet
         self.cue(4)
         cols = [BAD if first_meet(*pq) is not None else GOOD for pq in own]
-        self.cue_at(4, "Twenty", lead=0.2)
+        self.cue_at(4, "twenty", lead=0.2)
         self.play(*[ic[0].animate.set_stroke(c, 2.5) for ic, c in zip(left, cols) if c == GOOD], run_time=0.9)
-        self.cue_at(4, "Sixteen", lead=0.2)
+        self.cue_at(4, "sixteen", lead=0.2)
         self.play(*[ic[0].animate.set_stroke(c, 2.5) for ic, c in zip(left, cols) if c == BAD], run_time=0.9)
         split = VGroup(T(f"{NGOOD} never meet", 24, GOOD), T(f"{NBAD} meet", 24, BAD)).arrange(DOWN, buff=0.08)
         split.next_to(l36, DOWN, buff=0.1)
@@ -447,7 +443,7 @@ class ThreeProof(DScene):
         table.scale(1.2).move_to(RIGHT * 2.45 + UP * 0.35)
         for k, r in enumerate(table):
             if k in (1, 4):
-                self.cue_at(1, "two ants" if k == 1 else "circle", lead=0.2)
+                self.cue_at(1, "two ants" if k == 1 else "all three", lead=0.2)
             self.play(FadeIn(r[0]), run_time=0.35)
 
         # 2: each term counts the families for that way, with a sign; they add up to 50
@@ -455,7 +451,7 @@ class ThreeProof(DScene):
         self.play(LaggedStart(*[FadeIn(r[1:]) for r in table], lag_ratio=0.15), run_time=1.6)
         total = MathTex(r"\det A", "=", "50", color=YELLOW).scale(1.2)
         total.next_to(table, DOWN, buff=0.25).align_to(table[0][3], LEFT).shift(LEFT * (total[0].width + 0.25))
-        self.cue_at(2, "fifty", lead=0.3)
+        self.cue_at(2, "we get the determinant", lead=0.3)
         self.play(Write(total), run_time=0.8)
 
         # 3: a family that meets; the first meeting; swap the two tails from there
@@ -512,12 +508,12 @@ class ThreeProof(DScene):
 
         # 6: what's left: the families where nobody meets, all going home: 50 = det A
         self.cue(6)
-        self.cue_at(6, "fifty of them", lead=0.3)
+        self.cue_at(6, "never meet", lead=0.3)
         good = [f_ for f_ in FAMS3[(0, 1, 2)] if first_meeting3(f_) is None][:1][0]
         gm = VGroup(*[path_mob(lat, list(good[k]), COL3[k], 6) for k in range(3)])
         self.sfx("chime")
         self.play(Create(gm), Indicate(cnts[0], color=GOOD, scale_factor=1.4), run_time=1.0)
-        self.cue_at(6, "Exactly the determinant", lead=0.2)
+        self.cue_at(6, "exactly the determinant", lead=0.2)
         self.play(Indicate(total, color=YELLOW, scale_factor=1.15), run_time=0.9)
         self.cue_end(6)
         self.wait(0.6)

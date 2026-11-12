@@ -69,17 +69,18 @@ class Opening(DScene):
         self.play(FadeIn(vp), FadeIn(vt[0]), run_time=0.7)
         self.cue_at(3, "sharp-P complete", lead=0.2)
         self.play(FadeIn(vt[1]), run_time=0.6)
-        self.play(FadeIn(vt[2]), run_time=0.6)
 
-        # 4: an efficient algorithm would imply P = NP (and much more)
+        # 4: #P = counting the solutions of NP problems; an efficient algorithm would imply P = NP (and much more)
         self.cue(4)
+        self.cue_at(4, "counting the solutions", lead=0.2)
+        self.play(FadeIn(vt[2]), run_time=0.6)
         self.cue_at(4, "efficient algorithm", lead=0.2)
         self.play(FadeIn(vt[3]), run_time=0.7)
 
         # 5: so counting is usually hard; and yet determinants can sometimes count (same slide); how is this possible?
         self.cue(5)
         sg = SurroundingRectangle(leib[3], color=YELLOW, buff=0.1)
-        self.cue_at(5, "And yet", lead=0.2)
+        self.cue_at(5, "But sometimes", lead=0.2)
         self.play(Create(sg), Indicate(leib[0], color=YELLOW, scale_factor=1.1), run_time=0.9)
         self.cue_at(5, "how this is possible", lead=0.3)
         title = T("How Determinants Can Count", 50, weight=BOLD)

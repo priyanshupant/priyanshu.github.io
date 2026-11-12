@@ -10,20 +10,18 @@
   0.6
  ],
  "Opening": [
-  "We've all seen the determinant: in school, in linear algebra, in algorithms.",
-  0.8,
-  "In general, it's given by the formula of Leibniz: a sum over all permutations, each with a sign.",
-  0.8,
-  "For a computer scientist, what's interesting is that although it is a sum of n factorial terms, we can compute it efficiently: Gaussian elimination does it in about n cubed steps.",
-  1.0,
-  "Its twin, the permanent, is the same sum without the minus signs. In 1979, Leslie Valiant showed that computing the permanent is sharp-P complete.",
+  "We have all seen the determinant: in school, in linear algebra, in algorithms.",
   0.6,
-  "An efficient algorithm for it would imply P equals NP, and much more.",
+  "In general, there is a nice formula given by Leibniz, which writes the determinant as a sum over all permutations, each with a sign.",
+  0.6,
+  "I think for a computer scientist, the most interesting property of the determinant is that although it is a sum of n factorial terms, we can compute it efficiently: in order n cubed by Gaussian elimination, and even faster if we really want to.",
   1.0,
-  "So counting is usually hard. And yet, determinants can sometimes count. Today, I will try to explain how this is possible.",
+  "However, its twin, the permanent, which is the same sum but without the minus signs, is not so easy to compute. In 1979, Leslie Valiant showed that computing the permanent is sharp-P complete.",
+  0.6,
+  "Sharp-P is the complexity class of counting problems: counting the solutions of a problem in NP. So an efficient algorithm for it would imply P equals NP, and much more.",
   1.0,
-  "Let's start with a simple puzzle.",
-  0.4
+  "So counting is usually hard. But sometimes, determinants can actually help us count. Today, I will share how this is possible.",
+  1.2
  ],
  "Hook": [
   "Meet these two ants.",

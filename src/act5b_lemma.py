@@ -88,42 +88,42 @@ class BookQuote(DScene):
         q = T(QUOTE, 30, line_spacing=1.35).move_to(UP * 0.3)
         q.scale_to_fit_width(min(q.width, 12.4))
         split = sum(len(l.replace(' ', '')) for l in QUOTE.split('\n')[:2])
-        # 0: how a famous book opens its chapter on this lemma
+        # 0-1: the quote, read slowly
         self.cue(0)
-        # 1-2: the quote, read slowly
-        self.cue(1)
         self.play(FadeIn(q[:split], lag_ratio=0.02), run_time=2.0)
-        self.cue(2)
+        self.cue(1)
         self.play(FadeIn(q[split:], lag_ratio=0.02), run_time=2.0)
-        # 3: the source, said aloud, with the book's cover
+        # 2: and this is one of those lemmas
+        self.cue(2)
+        self.play(Indicate(q[split:], color=YELLOW, scale_factor=1.03), run_time=1.0)
+        # 3: where the quote is from: the book's cover
         self.cue(3)
         cover = ImageMobject(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "book", "proofs_from_the_book.png"))
         cover.set_height(5.6)
         self.play(q.animate.scale(0.62).to_edge(LEFT, buff=0.5), run_time=0.8)
         cover.to_edge(RIGHT, buff=0.9)
+        self.cue_at(3, "Proofs from", lead=0.3)
         self.play(FadeIn(cover, shift=LEFT * 0.3), run_time=0.9)
-        # 4: where the title comes from: Erdős's Book of perfect proofs
+        # 4: many such beautiful pieces of mathematics
         self.cue(4)
+        # 5: inspired by Erdős's Book of the most beautiful proofs
+        self.cue(5)
         er = VGroup(T("“You don't have to believe in God,\nbut you should believe in The Book.”", 26, YELLOW, line_spacing=1.2),
                     T("Paul Erdős", 24, SOFT)).arrange(DOWN, aligned_edge=RIGHT, buff=0.15)
         er.next_to(q, DOWN, buff=0.7).align_to(q, LEFT)
         photo = ImageMobject(os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets", "book", "erdos.png")).set_height(2.9)
-        self.cue_at(4, "Paul Erdős", lead=0.2)
+        self.cue_at(5, "Paul Erdős", lead=0.2)
         self.play(cover.animate.set_height(3.6).move_to(np.array([3.9, 1.6, 0])), run_time=0.7)
-        photo.next_to(cover, RIGHT, buff=0.3).align_to(cover, UP).shift(DOWN * 2.2)
-        if photo.get_right()[0] > 6.9:
-            photo.shift(LEFT * (photo.get_right()[0] - 6.9))
         photo.move_to(np.array([cover.get_x(), -2.05, 0]))
         frame = SurroundingRectangle(photo, color=GREY_B, buff=0.03, stroke_width=2)
         self.play(FadeIn(photo), Create(frame), run_time=0.8)
-        self.cue_at(4, "You don't have to", lead=0.2)
+        # 6: he famously said ...
+        self.cue(6)
+        self.cue_at(6, "you don't have to", lead=0.2)
         self.play(FadeIn(er, shift=UP * 0.15), run_time=0.9)
-        # 5: and this is one of those lemmas
-        self.cue(5)
-        self.cue_end(5)
+        self.cue_end(6)
         self.wait(0.5)
         self.play(FadeOut(q), FadeOut(cover), FadeOut(er), FadeOut(photo), FadeOut(frame), run_time=0.6)
-
 
 def name_card(name, year, line, col=YELLOW):
     box = RoundedRectangle(width=3.6, height=2.3, corner_radius=0.2, stroke_color=DIM, stroke_width=2)
@@ -201,7 +201,7 @@ class GeneralLemma(DScene):
         gv = paper_page("gessel_viennot_1985", 4.2).move_to(np.array([4.1, -0.2, 0]))
         self.cue_at(0, "Bernt Lindström", lead=0.3)
         self.play(*([FadeIn(lind, shift=UP * 0.2)] if lind else []), FadeIn(y73), run_time=0.7)
-        self.cue_at(0, "Ira Gessel", lead=0.3)
+        self.cue_at(0, "Gessel and Viennot rediscovered", lead=0.3)
         self.play(*[FadeIn(m, shift=UP * 0.2) for m in (gess, vien) if m], FadeIn(y85), run_time=0.8)
         self.play(FadeIn(gv, shift=LEFT * 0.3), run_time=0.7)
         self.cue_end(0)
@@ -217,9 +217,9 @@ class GeneralLemma(DScene):
         self.cue(2)
         sides = VGroup(*[dots[NODES.index(v)] for v in NODES if v[0] in (0, COLS - 1)])
         self.play(Indicate(sides, color=YELLOW, scale_factor=1.6), run_time=0.9)
-        self.cue_at(2, "starting points", lead=0.2)
+        self.cue_at(2, "points on the left", lead=0.2)
         self.play(LaggedStart(*[FadeIn(d, scale=1.6) for d in sdots], lag_ratio=0.3), FadeIn(alab), run_time=1.0)
-        self.cue_at(2, "ends", lead=0.2)
+        self.cue_at(2, "on the right", lead=0.2)
         self.play(LaggedStart(*[FadeIn(d, scale=1.6) for d in edots], lag_ratio=0.3), FadeIn(blab), run_time=1.0)
 
         # 3: the order matters: ends lined up like the starts, so a mixed-up pairing is forced to cross
@@ -233,12 +233,12 @@ class GeneralLemma(DScene):
         mq = next(q for q in gpaths(SRC[2], SNK[1]) if set(q) & set(mp))
         meet = next(v for v in mp if v in mq)
         mix = VGroup(gpath_mob(mp, ANT2, 7), gpath_mob(mq, ANT3, 7))
-        self.cue_at(3, "a two going to b three", lead=0.2)
+        self.cue_at(3, "If we pick", lead=0.2)
         self.play(Create(mix[0]), run_time=0.9)
-        self.cue_at(3, "a three going to b two", lead=0.2)
+        self.cue_at(3, "two wrong paths", lead=0.2)
         self.play(Create(mix[1]), run_time=0.9)
         ring = Circle(radius=0.3, color=MEET, stroke_width=6).move_to(pos[meet])
-        self.cue_at(3, "forced to meet", lead=0.2)
+        self.cue_at(3, "must cross", lead=0.2)
         self.sfx("buzz")
         self.play(Create(ring), Flash(pos[meet], color=MEET), run_time=0.7)
         self.wait(0.6)

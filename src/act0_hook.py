@@ -113,7 +113,7 @@ class Hook(DScene):
         bm = [path_mob(lat, P, ANT1, 6).set_stroke(opacity=0.9) for P in blue]
         om = [path_mob(lat, P, ANT2, 6).set_stroke(opacity=0.9) for P in orng]
         prev = None
-        for mob, word in [(bm[0], "could go this way"), (bm[1], "or this way"), (om[0], "orange ant"), (om[1], "or that way")]:
+        for mob, word in [(bm[0], "can go this way"), (bm[1], "or this way"), (om[0], "orange ant"), (om[1], 0.91)]:
             self.cue_at(8, word, lead=0.2)
             self.sfx("tick")
             self.play(Create(mob), *([FadeOut(prev)] if prev else []), run_time=0.8)
@@ -184,7 +184,7 @@ class Hook(DScene):
         self.play(Create(gp[0]), run_time=0.7)
         self.cue_at(12, "the orange one", lead=0.2)
         self.play(Create(gp[1]), run_time=0.7)
-        self.cue_at(12, "never meet", lead=0.2)
+        self.cue_at(12, "never have to meet", lead=0.2)
         okp = tick(0.6, GOOD).move_to(lat.p(1.5, -0.6))        # below the grid, centred
         self.sfx("chime")
         self.play(FadeIn(okp, scale=1.4), run_time=0.4)

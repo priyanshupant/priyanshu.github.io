@@ -21,19 +21,14 @@ class Opening(DScene):
         card = T("Determinant", 64, weight=BOLD)
         self.play(Write(card), run_time=1.2)
 
-        # 0: we've all seen the determinant: in school, in linear algebra, in algorithms
+        # 0: we've all seen the determinant: in school, in linear algebra, in algorithms (the card stays)
         self.cue(0)
-        tags = VGroup(T("school", 30, SOFT), T("linear algebra", 30, SOFT), T("algorithms", 30, SOFT)) \
-            .arrange(RIGHT, buff=0.9).next_to(card, DOWN, buff=0.7)
-        for k, w in enumerate(("school", "linear algebra", "algorithms")):
-            self.cue_at(0, w, lead=0.15)
-            self.play(FadeIn(tags[k], shift=UP * 0.15), run_time=0.45)
 
         # 1: in general, Leibniz's formula: a sum over all permutations, each with a sign
         self.cue(1)
         leib = MathTex(r"\det A", "=", r"\sum_{\sigma \in S_n}", r"\operatorname{sgn}(\sigma)", r"\prod_{i=1}^{n} a_{i\sigma(i)}").scale(1.2)
         leib.move_to(UP * 1.6)
-        self.play(FadeOut(tags), FadeOut(card, shift=UP * 0.3), run_time=0.7)
+        self.play(FadeOut(card, shift=UP * 0.3), run_time=0.7)
         self.cue_at(1, "Leibniz", lead=0.2)
         self.play(Write(leib), run_time=1.4)
         br = Brace(leib[2:], DOWN, color=SOFT)
@@ -67,31 +62,37 @@ class Opening(DScene):
         vp = framed(os.path.join(HERE, "assets", "portraits", "valiant.jpg"), 1.6).move_to(LEFT * 5.3 + DOWN * 2.55)
         vt = VGroup(T("Leslie Valiant, 1979", 26, YELLOW),
                     MathTex(r"\operatorname{perm} \text{ is } \#\mathrm{P}\text{-complete}", color=BAD).scale(0.85),
-                    MathTex(r"\#\mathrm{P}: \text{ counting the solutions of NP problems}", color=SOFT).scale(0.62)
+                    MathTex(r"\#\mathrm{P}: \text{ counting the solutions of NP problems}", color=SOFT).scale(0.72),
+                    MathTex(r"\text{fast algorithm for perm} \;\Rightarrow\; \mathrm{P} = \mathrm{NP} \text{ (and much more)}", color=BAD).scale(0.72)
                     ).arrange(DOWN, aligned_edge=LEFT, buff=0.12).next_to(vp, RIGHT, buff=0.35)
         self.cue_at(3, "Leslie Valiant", lead=0.2)
         self.play(FadeIn(vp), FadeIn(vt[0]), run_time=0.7)
-        self.cue_at(3, "sharp-P", lead=0.2)
+        self.cue_at(3, "sharp-P complete", lead=0.2)
         self.play(FadeIn(vt[1]), run_time=0.6)
-        self.cue_at(3, "counting the solutions", lead=0.2)
-        self.play(FadeIn(vt[2]), run_time=0.6)
 
-        # 4: so counting is usually hard; even so, determinants can sometimes count; today: how is this possible?
+        # 4: what that means: #P = counting the solutions of NP problems; complete = as hard as all of them
         self.cue(4)
+        self.cue_at(4, "counting the solutions", lead=0.2)
+        self.play(FadeIn(vt[2]), run_time=0.6)
+        self.cue_at(4, "P equals NP", lead=0.3)
+        self.play(FadeIn(vt[3]), run_time=0.7)
+
+        # 5: so counting is usually hard; and yet determinants can sometimes count (same slide); how is this possible?
+        self.cue(5)
         sg = SurroundingRectangle(leib[3], color=YELLOW, buff=0.1)
-        self.cue_at(4, "determinants can sometimes count", lead=0.2)
-        self.play(Create(sg), FadeOut(VGroup(perm, vt)), FadeOut(vp), run_time=0.8)
-        self.cue_at(4, "how this is possible", lead=0.3)
+        self.cue_at(5, "And yet", lead=0.2)
+        self.play(Create(sg), Indicate(leib[0], color=YELLOW, scale_factor=1.1), run_time=0.9)
+        self.cue_at(5, "how this is possible", lead=0.3)
         title = T("How Determinants Can Count", 50, weight=BOLD)
-        self.play(FadeOut(VGroup(leib, sg)), run_time=0.5)
+        self.play(FadeOut(Group(leib, sg, perm, vt, vp)), run_time=0.6)
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
 
-        # 5: let's start with a simple puzzle (subtitle under the title)
-        self.cue(5)
+        # 6: let's start with a simple puzzle (subtitle under the title)
+        self.cue(6)
         sub = T("First, a simple puzzle", 32, SOFT).next_to(title, DOWN, buff=0.45)
-        self.cue_at(5, "simple puzzle", lead=0.4)
+        self.cue_at(6, "simple puzzle", lead=0.4)
         self.play(FadeIn(sub, shift=UP * 0.15), run_time=0.7)
-        self.cue_end(5)
+        self.cue_end(6)
         self.wait(0.8)
         self.play(FadeOut(VGroup(title, sub)), run_time=0.8)

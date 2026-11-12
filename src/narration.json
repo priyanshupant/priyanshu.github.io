@@ -16,9 +16,11 @@
   0.8,
   "For a computer scientist, what's interesting is that although it is a sum of n factorial terms, we can compute it efficiently: Gaussian elimination does it in about n cubed steps.",
   1.0,
-  "Its twin, the permanent, is the same sum without the minus signs. In 1979, Leslie Valiant showed that computing it is sharp-P complete: as hard as counting the solutions of any problem in NP.",
+  "Its twin, the permanent, is the same sum without the minus signs. In 1979, Leslie Valiant showed that computing the permanent is sharp-P complete.",
+  0.6,
+  "Sharp-P is the class of counting problems: counting the solutions of a problem in NP. And complete means the permanent is as hard as all of them: a fast algorithm for it would let us count the solutions of any NP problem, which would mean P equals NP, and much more.",
   1.0,
-  "So counting is usually hard. Even so, determinants can sometimes count. And today, I will try to explain how this is possible.",
+  "So counting is usually hard. And yet, determinants can sometimes count. Today, I will try to explain how this is possible.",
   1.0,
   "Let's start with a simple puzzle.",
   0.4

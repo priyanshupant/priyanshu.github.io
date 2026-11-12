@@ -28,6 +28,7 @@ db = np.array([20 * np.log10(np.sqrt(np.mean(x[i:i + H] ** 2)) + 1e-9) for i in 
 floor = np.percentile(db, 8)
 quiet = db < floor + 10                               # "silence" level
 sound = db > floor + 16                               # clearly audible (incl. s/sh/t)
+TARGET = float(np.median(db[db > floor + 16])) + 1.0     # one speech level for every line
 
 if not os.path.exists('words.json'):
     from faster_whisper import WhisperModel
@@ -73,6 +74,12 @@ else:
     pairs = [(cuts[k], cuts[k + 1]) for k in range(len(starts))]
 cuts = [p[0] for p in pairs] + [pairs[-1][1]]
 os.makedirs('takes', exist_ok=True)
+_r = []
+for a_, b_ in pairs:
+    ws_ = [w for w in W if a_ <= w[1] < b_]
+    if len(ws_) > 3:
+        _r.append(len(ws_) / max(0.1, ws_[-1][2] - ws_[0][1]))
+RATE = float(np.median(_r)) if _r else 2.6
 gate = np.where(inword | ~quiet, 1.0, 10 ** (-20 / 20))
 gate = np.convolve(gate, np.ones(5) / 5, mode='same')
 g = np.interp(np.arange(len(x)) / sr, np.arange(len(db)) / 100, gate)
@@ -91,19 +98,39 @@ for k in range(len(starts)):
             j = i
             while j < len(seg_q) and seg_q[j]:
                 j += 1
-            if j - i > 60 and i > 0 and j < len(seg_q):
-                keep[i + 17:j - 18] = False
+            if j - i > 45 and i > 0 and j < len(seg_q):
+                keep[i + 14:j - 14] = False
             i = j
         else:
             i += 1
     frames = [f for f in range(lo, hi) if keep[f - lo]]
     s2 = np.concatenate([y[f * H:(f + 1) * H] for f in frames])
+    # phrase levelling: follow the speech loudness with a slow envelope and pull it toward one target,
+    # so quiet line endings and quiet lines come up (max +8 dB) and loud bits come down (max -4 dB)
+    fr = np.array([np.sqrt(np.mean(s2[i:i + H] ** 2)) + 1e-9 for i in range(0, len(s2) - H + 1, H)])
+    fdb = 20 * np.log10(fr)
+    spk = fdb > floor + 16
+    env = np.full(len(fdb), np.nan)
+    env[spk] = fdb[spk]
+    idx = np.arange(len(env))
+    if spk.sum() > 5:
+        env = np.interp(idx, idx[spk], env[spk])
+        k_ = np.ones(31) / 31                                  # ~0.3 s window
+        env = np.convolve(np.pad(env, 15, mode='edge'), k_, mode='valid')
+        gdb = np.clip(TARGET - env, -4, 8)
+        gdb = np.convolve(np.pad(gdb, 10, mode='edge'), np.ones(21) / 21, mode='valid')
+        gl = np.interp(np.arange(len(s2)) / H, idx, 10 ** (gdb / 20))
+        s2 = s2 * gl
+        s2 = np.clip(s2, -0.95, 0.95)
     fd = int(0.006 * sr)
     s2[:fd] *= np.linspace(0, 1, fd)
     s2[-fd:] *= np.linspace(1, 0, fd)
     sf.write(f'takes/{k}_48.wav', s2, sr)
-    subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', f'takes/{k}_48.wav', '-ar', '24000', '-ac', '1',
-                    f'takes/{k}.wav'], check=True)
+    ws = [w for w in W if pairs[k][0] <= w[1] < pairs[k][1]]
+    rate = len(ws) / max(0.1, (ws[-1][2] - ws[0][1])) if len(ws) > 3 else None
+    tempo = 1.0 if rate is None else float(np.clip(RATE / rate, 1.0, 1.10))
+    subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-y', '-i', f'takes/{k}_48.wav', '-af', f'dynaudnorm=f=150:g=9:m=2.5:p=0.9:r=0.25,atempo={tempo:.3f}',
+                    '-ar', '24000', '-ac', '1', f'takes/{k}.wav'], check=True)
     info.append((k, round(pairs[k][0], 2), round(pairs[k][1], 2), round(len(s2) / sr, 2)))
 json.dump(cuts, open('cuts.json', 'w'))
 for r in info:

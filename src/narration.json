@@ -18,7 +18,7 @@
   1.0,
   "Its twin, the permanent, is the same sum without the minus signs. In 1979, Leslie Valiant showed that computing the permanent is sharp-P complete.",
   0.6,
-  "Sharp-P is the class of counting problems: counting the solutions of a problem in NP. And complete means the permanent is as hard as all of them: a fast algorithm for it would let us count the solutions of any NP problem, which would mean P equals NP, and much more.",
+  "An efficient algorithm for it would imply P equals NP, and much more.",
   1.0,
   "So counting is usually hard. And yet, determinants can sometimes count. Today, I will try to explain how this is possible.",
   1.0,

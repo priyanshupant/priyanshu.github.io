@@ -63,18 +63,17 @@ class Opening(DScene):
         vt = VGroup(T("Leslie Valiant, 1979", 26, YELLOW),
                     MathTex(r"\operatorname{perm} \text{ is } \#\mathrm{P}\text{-complete}", color=BAD).scale(0.85),
                     MathTex(r"\#\mathrm{P}: \text{ counting the solutions of NP problems}", color=SOFT).scale(0.72),
-                    MathTex(r"\text{fast algorithm for perm} \;\Rightarrow\; \mathrm{P} = \mathrm{NP} \text{ (and much more)}", color=BAD).scale(0.72)
+                    MathTex(r"\text{efficient algorithm} \;\Rightarrow\; \mathrm{P} = \mathrm{NP} \text{ (and much more)}", color=BAD).scale(0.72)
                     ).arrange(DOWN, aligned_edge=LEFT, buff=0.12).next_to(vp, RIGHT, buff=0.35)
         self.cue_at(3, "Leslie Valiant", lead=0.2)
         self.play(FadeIn(vp), FadeIn(vt[0]), run_time=0.7)
         self.cue_at(3, "sharp-P complete", lead=0.2)
         self.play(FadeIn(vt[1]), run_time=0.6)
-
-        # 4: what that means: #P = counting the solutions of NP problems; complete = as hard as all of them
-        self.cue(4)
-        self.cue_at(4, "counting the solutions", lead=0.2)
         self.play(FadeIn(vt[2]), run_time=0.6)
-        self.cue_at(4, "P equals NP", lead=0.3)
+
+        # 4: an efficient algorithm would imply P = NP (and much more)
+        self.cue(4)
+        self.cue_at(4, "efficient algorithm", lead=0.2)
         self.play(FadeIn(vt[3]), run_time=0.7)
 
         # 5: so counting is usually hard; and yet determinants can sometimes count (same slide); how is this possible?

@@ -212,7 +212,7 @@
   0.8,
   "Now take a family of paths where the ants meet. Find the first meeting point, and swap the paths after that point.",
   0.6,
-  "The two ants now go to the wrong homes, so we move to a family of paths with the opposite sign. Swap again, and we are back. So these two cancel when we take the sum.",
+  "The two ants now go to the wrong homes, so we move to a family of paths with the opposite sign. So these two cancel when we take the sum.",
   0.6,
   "Every family of paths which meets has a partner like this, and is cancelled.",
   4.0,
@@ -220,20 +220,17 @@
   0.8
  ],
  "TheTrick": [
-  "So here is the idea behind all this: count everything, each with a sign, and let the things you don't want cancel in pairs.",
+  "And the main philosophy of why this works was pointed out in a paper by Benjamin and Quinn, called “A Method to DIE For”.",
   0.6,
-  [
-   "In a paper called A Method to Die For, Benjamin and Quinn call this the die method: Description, Involution, and Exception.",
-   "In a paper called “A Method to DIE For”, Benjamin and Quinn call this the D.I.E. method: Description, Involution, and Exception."
-  ],
+  "Description, Involution, and Exception.",
   0.8,
-  "Description: first, say what you are counting, forgetting the signs. Here, we count every pair of paths: pairs going to their own homes count plus, and pairs going to the wrong homes count minus.",
+  "Description: first, describe what you are counting. Here, we are counting all types of paths: the right ones with a positive sign, and the wrong ones with a negative sign.",
   1.0,
-  "Involution: then pair things up, a plus with a minus. Here, swapping the paths after the first meeting, a plus pair becomes a minus pair. Do it again, and we are back where we started. So each couple cancels.",
+  "Involution: then pair things up, a plus with a minus. Here, we match every path which intersects with a path to the wrong homes.",
   1.0,
-  "Exception: whatever has no partner is left. Here, the pairs that never meet have nowhere to swap. They survive, and that's what the determinant counts.",
+  "Exception: whatever remains unmatched is counted. Here, the paths that never meet have nowhere to swap, and thus are not cancelled when we take the sum. And hence the determinant counts them.",
   1.0,
-  "And the reason this works out, the main philosophy of why this works, is: matching is easier than counting.",
+  "And the main philosophy of why this works out is: matching is easier than counting.",
   1.5
  ],
  "LemmaCard": [
@@ -242,15 +239,15 @@
  "BookQuote": [
   "The essence of mathematics is proving theorems, and so, that is what mathematicians do: they prove theorems.",
   0.4,
-  "But to tell you the truth, what they really want to prove is a Lemma.",
+  "But to tell you the truth, what they really want to prove is a lemma.",
   0.8,
   "And this is one of those lemmas.",
   0.8,
   "This is how the chapter on this lemma starts, in Proofs from THE BOOK.",
   0.6,
-  "If you are not aware of this book, it contains many such beautiful pieces of mathematics,",
+  "If you are not aware of this book, it contains many such beautiful mathematical pieces,",
   0.4,
-  "and it was inspired by the idea of Paul Erdős, who used to say that he imagined God himself keeps a book of the most beautiful proofs of every theorem.",
+  "and it was inspired by the idea of Paul Erdős, who used to say: I imagine that God himself keeps a book of the most beautiful proofs of every theorem.",
   0.6,
   "He famously said: you don't have to believe in God, but you should believe in The Book.",
   1.0
@@ -297,7 +294,7 @@
   "And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
  ],
  "PatternCard": [
-  "Gessel and Viennot showed that this pattern appears in many difficult counting problems.",
+  "Gessel and Viennot showed that this pattern repeats in many counting problems.",
   0.6,
   "Let's look at one such example.",
   0.4
@@ -305,21 +302,21 @@
  "Hexagon": [
   "Take a hexagon, and cut it into little triangles.",
   0.6,
-  "Glue two neighbours together, and you get a tile. Tiles point in three directions.",
+  "Glue two neighbours together, and you get a tile. There can be three types of tiles, pointing in different directions.",
   0.6,
-  "Now cover the hexagon with tiles, without any gaps or overlaps. Notice that this looks like a stack of boxes.",
+  "Now try to cover the hexagon using these tiles, without any overlaps or gaps. Notice that this looks like a stack of boxes,",
   0.6,
-  "But that is just a visual illusion: it is completely flat.",
+  "although it's just a visual illusion: it is completely flat.",
   0.6,
-  "Anyway, the question here is: how many ways can you tile a hexagon?",
+  "Anyways, the question here is: in how many ways can you actually tile the hexagon?",
   2.0,
-  "Fade out the flat tiles. The others link up into chains, from left to right.",
+  "Fade out the flat tiles. Observe: the other tiles link up into chains, from left to right.",
   0.8,
-  "Tiles never overlap, so these chains never touch.",
-  0.6,
-  "Now squash the hexagon onto a grid, and the two chains become our two ants.",
+  "Since tiles never overlap, these chains never touch each other. So this corresponds to counting paths which never touch each other.",
+  0.8,
+  "Squash this onto a grid, and the two paths correspond to the two ants now.",
   4.3,
-  "And hence, there are exactly twenty tilings.",
+  "And so, there are exactly twenty ways to tile the hexagon.",
   1.0
  ],
  "WhatLGVCounts": [
@@ -571,7 +568,7 @@
   1.5
  ],
  "Goodbye": [
-  "As for our ants, they can finally go home in peace.",
+  "As for our ants, they probably took one of these paths, and went home peacefully.",
   0.6,
   "Thank you for watching.",
   2.0

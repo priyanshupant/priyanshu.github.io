@@ -474,8 +474,6 @@ class ThreeProof(DScene):
         box_g = SurroundingRectangle(table[ROWS3.index(WHERE3[g])], color=YELLOW, buff=0.06)
         arr = CurvedArrow(box_f.get_right() + LEFT * 0.05, box_g.get_right() + LEFT * 0.05, angle=-PI / 2, color=YELLOW)
         self.play(Create(box_g), Create(arr), run_time=0.9)
-        self.cue_at(4, "Swap again", lead=0.2)
-        self.play(Transform(fam, VGroup(*[path_mob(lat, list(f[k]), COL3[k], 6) for k in range(3)])), run_time=1.0)
         self.cue_at(4, "cancel", lead=0.2)
         self.play(Indicate(VGroup(table[0][1], table[1][1]), color=YELLOW, scale_factor=1.6), run_time=0.8)
         self.play(FadeOut(VGroup(fam, ring, box_f, box_g, arr)), run_time=0.4)
@@ -529,14 +527,10 @@ class TheTrick(DScene):
     def construct(self):
         import random
         from act3_two_walkers import GOOD_P, GOOD_Q
-        # 0: the takeaway idea as a title card
+        # 0: the takeaway: the main philosophy, pointed out by Benjamin & Quinn in "A Method to DIE For"
         self.cue(0)
         top = T("The takeaway", 50, weight=BOLD)
         self.play(Write(top), run_time=1.2)
-
-        # 1: D.I.E. = Description, Involution, Exception (side by side)
-        self.cue(1)
-        self.play(FadeOut(top), run_time=0.6)
         die = T("D . I . E .", 50, YELLOW, weight=BOLD).to_edge(UP, buff=0.35)
         xs = [-4.6, 0.0, 4.6]
         cols = [INK, ORANGE, GOOD]
@@ -544,10 +538,13 @@ class TheTrick(DScene):
                          for w, c, x in zip(("Description", "Involution", "Exception"), cols, xs)])
         paper = T("Arthur Benjamin & Jennifer Quinn, “A Method to DIE For”", 22, SOFT).next_to(die, DOWN, buff=0.12)
         bq = paper_page("benjamin_quinn_2008", 5.0).move_to(DOWN * 0.4)
-        self.play(FadeIn(bq, shift=UP * 0.3), run_time=0.8)
-        self.cue_at(1, "D.I.E.", lead=0.2)
+        self.cue_at(0, "a paper by Benjamin and Quinn", lead=0.2)
+        self.play(FadeOut(top), FadeIn(bq, shift=UP * 0.3), run_time=0.8)
+        self.cue_at(0, "A Method to DIE For", lead=0.2)
         self.play(Write(die), FadeIn(paper), run_time=0.9)
-        self.cue_at(1, "Description,", lead=0.3)
+
+        # 1: Description, Involution, and Exception (side by side)
+        self.cue(1)
         self.play(FadeOut(bq, shift=DOWN * 0.3), run_time=0.5)
         self.play(LaggedStart(*[FadeIn(h, shift=DOWN * 0.15) for h in heads], lag_ratio=0.35), run_time=1.4)
         self.play(heads.animate.set_opacity(0.3), run_time=0.4)
@@ -570,7 +567,7 @@ class TheTrick(DScene):
         rng = random.Random(7)
         show = [(pq, +1) for pq in rng.sample(plus_pairs(), 3)] + [(pq, -1) for pq in rng.sample(minus_pairs(), 3)]
         cur = None
-        self.cue_at(2, "every pair", lead=0.2)
+        self.cue_at(2, "all types of paths", lead=0.2)
         for k in [0, 3, 1, 4, 2, 5]:
             (p, q), sg = show[k]
             g = VGroup(pr(lat1, p, q), sign_badge(sg, 0.3).move_to(np.array([xs[0], badge_y, 0])))
@@ -590,12 +587,11 @@ class TheTrick(DScene):
         self.play(Create(g), FadeIn(b), run_time=1.0)
         m = first_meet(P, Q)
         ring = Circle(radius=0.2, color=MEET, stroke_width=5).move_to(lat2.p(*m))
-        self.cue_at(3, "swapping the paths", lead=0.2)
+        self.cue_at(3, "we match", lead=0.2)
         self.play(Create(ring), run_time=0.5)
+        self.cue_at(3, "a path to the wrong homes", lead=0.2)
         self.play(Transform(g, pr(lat2, SP, SQ)), Transform(b, sign_badge(-1, 0.3).move_to(b)), run_time=1.0)
-        self.cue_at(3, "Do it again", lead=0.2)
-        self.play(Transform(g, pr(lat2, P, Q)), Transform(b, sign_badge(+1, 0.3).move_to(b)), run_time=1.0)
-        self.cue_at(3, "cancels", lead=0.3)
+        self.wait(0.3)
         pm = VGroup(sign_badge(+1, 0.26), T("+", 30), sign_badge(-1, 0.26), T("= 0", 30)).arrange(RIGHT, buff=0.15) \
             .move_to(b)
         self.play(ReplacementTransform(b, pm), run_time=0.7)
@@ -611,7 +607,7 @@ class TheTrick(DScene):
         self.play(FadeIn(q_, scale=1.3), run_time=0.4)
         self.play(FadeOut(q_), run_time=0.3)
         tk = VGroup(sign_badge(+1, 0.3), tick(0.3)).arrange(RIGHT, buff=0.2).move_to(np.array([xs[2], badge_y, 0]))
-        self.cue_at(4, "what the determinant counts", lead=0.2)
+        self.cue_at(4, "the determinant counts", lead=0.2)
         self.play(FadeIn(tk), Indicate(g3, color=GOOD, scale_factor=1.05), run_time=0.8)
 
         # 5: on the same slide: matching is easier than counting (Benjamin & Quinn's own words)

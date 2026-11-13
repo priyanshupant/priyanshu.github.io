@@ -60,7 +60,7 @@ class Hexagon(DScene):
                                          ([(0, 0, 0), (0, 1, 0), (0, 1, 1), (0, 0, 1)], X_C),
                                          ([(0, 0, 0), (1, 0, 0), (1, 0, 1), (0, 0, 1)], Y_C)]])
         kinds.arrange(RIGHT, buff=0.8).move_to(RIGHT * 3.4 + UP * 0.4)
-        self.cue_at(1, "three directions", lead=0.2)
+        self.cue_at(1, "different directions", lead=0.2)
         self.play(LaggedStart(*[FadeIn(k, scale=0.6) for k in kinds], lag_ratio=0.35), run_time=1.2)
 
         # 2: cover it; it looks like a stack of boxes
@@ -105,18 +105,18 @@ class Hexagon(DScene):
         self.play(Indicate(VGroup(*ch), color=YELLOW, scale_factor=1.04), run_time=1.0)
 
         # 7: squash it onto our grid: the two chains are our two ants
-        self.cue(7)
         lat = Lattice(4, spacing=1.0, center=RIGHT * 3.4 + DOWN * 0.35)
         bd = VGroup(Dot(lat.p(*A1), radius=0.1, color=ANT1), Dot(lat.p(*A2), radius=0.1, color=ANT2),
                     house(ANT1, 0.45).move_to(lat.p(*B1)), house(ANT2, 0.45).move_to(lat.p(*B2)))
         self.play(FadeIn(lat), FadeIn(bd), run_time=0.8)
+        self.cue(7)
         tg = [path_mob(lat, walker_path(SHOW, 1), ANT1, 8), path_mob(lat, walker_path(SHOW, 0), ANT2, 8)]
-        self.cue_at(7, "squash", lead=0.2)
+        self.cue_at(7, "Squash", lead=0.2)
         self.sfx("whoosh")
         self.play(*[ReplacementTransform(ch[k].copy(), tg[k]) for k in range(2)], run_time=2.2)
         a1 = ant(ANT1, 0.65).move_to(lat.p(*A1))
         a2 = ant(ANT2, 0.65).move_to(lat.p(*A2))
-        self.cue_at(7, "our two ants", lead=0.2)
+        self.cue_at(7, "the two ants", lead=0.2)
         self.sfx("pop")
         self.play(FadeIn(a1, scale=0.4), FadeIn(a2, scale=0.4), run_time=0.6)
         # a few more tilings: chains and ant paths change together

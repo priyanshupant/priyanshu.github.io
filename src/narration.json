@@ -10,7 +10,7 @@
   0.6
  ],
  "Opening": [
-  "We have all seen the determinant: in school, in linear algebra, in algorithms.",
+  "We have all seen the determinant: in school, in linear algebra and in algorithms.",
   0.6,
   "In general, there is a very nice formula given by Leibniz, which writes the determinant as a sum over all permutations, each with a sign.",
   0.6,

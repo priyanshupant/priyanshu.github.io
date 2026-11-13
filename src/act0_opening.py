@@ -53,7 +53,7 @@ class Opening(DScene):
         ghost = leib.copy()
         self.play(ghost.animate.shift(DOWN * 2.0), run_time=0.7)
         strike = Line(ghost[3].get_corner(DL), ghost[3].get_corner(UR), color=BAD, stroke_width=6)
-        self.cue_at(3, "without the minus signs", lead=0.2)
+        self.cue_at(3, "without the minus sign", lead=0.2)
         self.play(Create(strike), run_time=0.5)
         perm = MathTex(r"\operatorname{perm} A", "=", r"\sum_{\sigma \in S_n}", r"\prod_{i=1}^{n} a_{i\sigma(i)}").scale(1.2)
         perm.move_to(ghost)
@@ -72,7 +72,7 @@ class Opening(DScene):
 
         # 4: #P = counting the solutions of NP problems; an efficient algorithm would imply P = NP (and much more)
         self.cue(4)
-        self.cue_at(4, "counting the solutions", lead=0.2)
+        self.cue_at(4, "counting solutions", lead=0.2)
         self.play(FadeIn(vt[2]), run_time=0.6)
         self.cue_at(4, "efficient algorithm", lead=0.2)
         self.play(FadeIn(vt[3]), run_time=0.7)

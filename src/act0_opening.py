@@ -81,14 +81,14 @@ class Opening(DScene):
         self.cue(5)
         self.cue_at(5, "But sometimes", lead=0.2)
         self.play(Indicate(leib[0], color=YELLOW, scale_factor=1.1), run_time=0.9)
-        self.cue_at(5, "how this is possible", lead=0.3)
+        self.cue_end(5)
         title = T("How Determinants Can Count", 50, weight=BOLD)
         self.play(FadeOut(Group(leib, perm, vt, vp)), run_time=0.6)
         self.sfx("chime")
-        self.play(Write(title), run_time=1.3)
+        self.play(Write(title), run_time=1.3)               # the title card, alone, no voice (~4 s in the final cut)
+        self.wait(3.2)
+        self.play(FadeOut(title), run_time=0.8)
 
-        # 6: "Let's start with a simple puzzle." while the title card goes away
+        # 6: "Let's start with a simple puzzle." after the card has gone
         self.cue(6)
-        self.cue_at(6, "simple puzzle", lead=0.3)
-        self.play(FadeOut(title), run_time=1.0)
         self.cue_end(6)

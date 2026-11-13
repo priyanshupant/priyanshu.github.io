@@ -15,9 +15,8 @@ class PatternCard(DScene):
 
     def construct(self):
         card = T("Another example", 54, weight=BOLD)
-        self.cue(0)
-        self.play(Write(card), run_time=1.0)
-        self.wait(0.7)
+        self.play(Write(card), run_time=1.2)
+        self.wait(3.0)
         self.play(FadeOut(card), run_time=0.6)
 
 

@@ -529,9 +529,11 @@ class TheTrick(DScene):
         import random
         from act3_two_walkers import GOOD_P, GOOD_Q
         # 0: the takeaway: the main philosophy, pointed out by Benjamin & Quinn in "A Method to DIE For"
-        self.cue(0)
         top = T("The Main Idea", 50, weight=BOLD)
-        self.play(Write(top), run_time=1.2)
+        self.play(Write(top), run_time=1.2)                  # the card, alone, no voice
+        self.wait(3.0)
+        self.play(FadeOut(top), run_time=0.6)
+        self.cue(0)
         die = T("D . I . E .", 50, YELLOW, weight=BOLD).to_edge(UP, buff=0.35)
         xs = [-4.6, 0.0, 4.6]
         cols = [INK, ORANGE, GOOD]
@@ -539,7 +541,7 @@ class TheTrick(DScene):
                          for w, c, x in zip(("Description", "Involution", "Exception"), cols, xs)])
         bq = paper_page("benjamin_quinn_2008", 5.0).move_to(DOWN * 0.4)
         self.cue_at(0, "a paper by Benjamin and Quinn", lead=0.2)
-        self.play(FadeOut(top), FadeIn(bq, shift=UP * 0.3), run_time=0.8)
+        self.play(FadeIn(bq, shift=UP * 0.3), run_time=0.8)
         self.cue_at(0, "A Method to DIE For", lead=0.2)
         self.play(Write(die), run_time=0.9)
 
@@ -609,7 +611,7 @@ class TheTrick(DScene):
 
         # 5: on the same slide: matching is easier than counting (Benjamin & Quinn's own words)
         self.cue(5)
-        badges = VGroup(pm, tk)
+        badges = VGroup(pm, tk, cur)          # cur: the last Description pair and its -1 badge
         line = T("Matching is easier than counting.", 36, YELLOW, weight=BOLD).move_to(np.array([0, -3.15, 0]))
         self.play(FadeOut(badges), run_time=0.4)
         self.cue_at(5, "matching", lead=0.25)

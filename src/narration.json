@@ -10,6 +10,7 @@
   0.6
  ],
  "Opening": [
+  6.0,
   "We have all seen the determinant: in school, in linear algebra and in algorithms.",
   0.6,
   "In general, there is a very nice formula given by Leibniz, which writes the determinant as a sum over all permutations, each with a sign.",
@@ -21,7 +22,7 @@
   "Sharp-P is the complexity class of counting problems: counting solutions of a problem in NP. So an efficient algorithm for this would imply P equals NP, and much more.",
   0.6,
   "So counting is usually hard. But sometimes, determinants can actually help us count. Today, I'll share how this is possible.",
-  0.6,
+  6.6,
   "Let's start with a simple puzzle.",
   0.6
  ],
@@ -228,6 +229,7 @@
   0.6
  ],
  "TheTrick": [
+  4.4,
   "The main philosophy, why this works, was pointed out in a paper by Benjamin and Quinn, called “A Method to DIE For”.",
   0.6,
   "Description, Involution, and Exception.",
@@ -242,7 +244,7 @@
   0.6
  ],
  "LemmaCard": [
-  1.5
+  0.6
  ],
  "BookQuote": [
   "The essence of mathematics is proving theorems, and so, that is what mathematicians do: they prove theorems.",
@@ -302,7 +304,7 @@
   "And omega keeps falling. Strassen broke three in 1969, and last month it reached nine quarters. Proved by an AI model at OpenAI, checked in Lean, and explained to the rest of us by Amir Shpilka. Division of labour, 2026."
  ],
  "PatternCard": [
-  0.2
+  0.6
  ],
  "Hexagon": [
   "Gessel and Viennot showed that this pattern repeats in many counting problems.",

@@ -66,11 +66,9 @@ GOODFAM = next(f for f in product(*[gpaths(SRC[i], SNK[i]) for i in range(3)]) i
 class LemmaCard(DScene):
     def construct(self):
         t = T("The general lemma", 54, weight=BOLD)
-        self.cue(0)
         self.sfx("whoosh")
         self.play(Write(t), run_time=1.2)
-        self.cue_end(0)
-        self.wait(0.6)
+        self.wait(3.0)
         self.play(FadeOut(t), run_time=0.6)
 
 

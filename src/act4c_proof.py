@@ -43,10 +43,10 @@ class SwappedToMeet(DScene):
         # 0: a pair where the ants swap houses
         self.cue(0)
         self.play(FadeIn(steps[0], shift=LEFT * 0.2), run_time=0.6)
-        self.play(Create(sp[0]), run_time=1.4)
-        self.play(Indicate(ends[3], color=ANT1, scale_factor=1.4), run_time=0.7)      # blue ends at the orange house
-        self.play(Create(sp[1]), run_time=1.4)
-        self.play(Indicate(ends[2], color=ANT2, scale_factor=1.4), run_time=0.7)
+        self.play(Create(sp[0]), run_time=0.9)
+        self.play(Indicate(ends[3], color=ANT1, scale_factor=1.4), run_time=0.5)      # blue ends at the orange house
+        self.play(Create(sp[1]), run_time=0.9)
+        self.play(Indicate(ends[2], color=ANT2, scale_factor=1.4), run_time=0.5)
 
         # 1: blue starts left of orange and ends right of it (sweep the diagonals; the column gap)
         self.cue(1)
@@ -69,18 +69,18 @@ class SwappedToMeet(DScene):
         for s in range(2, 6):
             self.sfx("tick")
             self.play(Transform(line, diag(s)), mk[0].animate.move_to(lat.p(*SP[s - 1])), mk[1].animate.move_to(lat.p(*SQ[s - 1])),
-                      run_time=0.8)
-            self.play(Transform(qs[s - 1], vals[s - 1]), run_time=0.4)
+                      run_time=0.5)
+            self.play(Transform(qs[s - 1], vals[s - 1]), run_time=0.25)
 
         # 2: so somewhere they share a dot
         self.cue(2)
         z = gaps.index(0)
         self.play(Transform(line, diag(z + 1)), mk[0].animate.move_to(lat.p(*SP[z])), mk[1].animate.move_to(lat.p(*SQ[z])),
-                  run_time=1.0)
+                  run_time=0.6)
         ring = Circle(radius=0.42, color=MEET, stroke_width=6).move_to(lat.p(*SP[z]))
         self.sfx("alert")
-        self.play(Create(ring), Indicate(qs[z], color=YELLOW, scale_factor=1.6), run_time=0.8)
-        self.play(FadeOut(line), FadeOut(mk), FadeOut(qs), FadeOut(gl), run_time=0.6)
+        self.play(Create(ring), Indicate(qs[z], color=YELLOW, scale_factor=1.6), run_time=0.6)
+        self.play(FadeOut(line), FadeOut(mk), FadeOut(qs), FadeOut(gl), run_time=0.4)
 
         # 3: the first shared dot along the blue path; swap the tails from there
         self.cue(3)
@@ -90,15 +90,15 @@ class SwappedToMeet(DScene):
         h2, t2 = path_mob(lat, SQ[:j + 1], ANT2, 7), path_mob(lat, SQ[j:], ANT2, 7)
         self.remove(sp)
         self.add(h1, t1, h2, t2, ring)
-        self.play(t1.animate.set_stroke(width=12), t2.animate.set_stroke(width=12), run_time=0.8)   # these are the tails
-        self.play(t1.animate.set_stroke(width=7), t2.animate.set_stroke(width=7), run_time=0.5)
+        self.play(t1.animate.set_stroke(width=12), t2.animate.set_stroke(width=12), run_time=0.5)   # these are the tails
+        self.play(t1.animate.set_stroke(width=7), t2.animate.set_stroke(width=7), run_time=0.3)
         self.sfx("whoosh")
-        self.play(Transform(t1, path_mob(lat, SQ[j:], ANT1, 7)), Transform(t2, path_mob(lat, SP[i:], ANT2, 7)), run_time=2.0)
+        self.play(Transform(t1, path_mob(lat, SQ[j:], ANT1, 7)), Transform(t2, path_mob(lat, SP[i:], ANT2, 7)), run_time=1.3)
 
         # 4: now each is at its own home, and the paths meet (the ants walk them)
         self.cue(4)
-        walk(self, lat, a1, P, step=0.5)
-        walk(self, lat, a2, Q, step=0.5)
+        walk(self, lat, a1, P, step=0.35)
+        walk(self, lat, a2, Q, step=0.35)
         self.play(a1.animate.shift(DOWN * 0.5), a2.animate.shift(DOWN * 0.5), run_time=0.3)
         self.sfx("chime")
         self.play(Indicate(ends[2], color=ANT1, scale_factor=1.4), Indicate(ends[3], color=ANT2, scale_factor=1.4),
@@ -174,11 +174,11 @@ class Bijection(DScene):
             c2 = T(str(k + 1), 40, YELLOW).move_to(cnt, aligned_edge=LEFT)
             if k < 2:                                   # the first two, slowly, as they are named
                 self.cue(1 + k)
-                self.play(Create(a), Create(ring), FadeIn(nmi) if k == 0 else Transform(mi, nmi), run_time=0.9)
+                self.play(Create(a), Create(ring), FadeIn(nmi) if k == 0 else Transform(mi, nmi), run_time=0.7)
                 if k == 0:
                     mi = nmi
                 self.sfx("whoosh")
-                self.play(Transform(a, pair(lat, ps, qs_, 6)), run_time=1.0)
+                self.play(Transform(a, pair(lat, ps, qs_, 6)), run_time=0.8)
                 self.play(FadeIn(nsi) if k == 0 else Transform(si, nsi), GrowArrow(link) if k == 0 else Wait(0.01),
                           Transform(cnt, c2), run_time=0.6)
                 if k == 0:
@@ -189,7 +189,7 @@ class Bijection(DScene):
             else:                                       # then the rest, faster and faster
                 if k == 2:
                     self.cue(3)
-                dt = max(0.18, 0.5 * 0.85 ** (k - 2))
+                dt = max(0.1, 0.35 * 0.8 ** (k - 2))
                 self.add(a, ring)
                 self.play(Transform(a, pair(lat, ps, qs_, 6)), Transform(mi, nmi), Transform(si, nsi), Transform(cnt, c2), run_time=dt)
                 self.remove(a, ring)
@@ -473,6 +473,7 @@ class ThreeProof(DScene):
         self.cue(4)
         box_g = SurroundingRectangle(table[ROWS3.index(WHERE3[g])], color=YELLOW, buff=0.06)
         arr = CurvedArrow(box_f.get_right() + LEFT * 0.05, box_g.get_right() + LEFT * 0.05, angle=-PI / 2, color=YELLOW)
+        self.cue_at(4, "so we move to a family", lead=0.2)
         self.play(Create(box_g), Create(arr), run_time=0.9)
         self.cue_at(4, "cancel", lead=0.2)
         self.play(Indicate(VGroup(table[0][1], table[1][1]), color=YELLOW, scale_factor=1.6), run_time=0.8)
@@ -529,19 +530,18 @@ class TheTrick(DScene):
         from act3_two_walkers import GOOD_P, GOOD_Q
         # 0: the takeaway: the main philosophy, pointed out by Benjamin & Quinn in "A Method to DIE For"
         self.cue(0)
-        top = T("The takeaway", 50, weight=BOLD)
+        top = T("The Main Idea", 50, weight=BOLD)
         self.play(Write(top), run_time=1.2)
         die = T("D . I . E .", 50, YELLOW, weight=BOLD).to_edge(UP, buff=0.35)
         xs = [-4.6, 0.0, 4.6]
         cols = [INK, ORANGE, GOOD]
         heads = VGroup(*[T(w, 32, c, weight=BOLD).move_to(np.array([x, 1.85, 0]))
                          for w, c, x in zip(("Description", "Involution", "Exception"), cols, xs)])
-        paper = T("Arthur Benjamin & Jennifer Quinn, “A Method to DIE For”", 22, SOFT).next_to(die, DOWN, buff=0.12)
         bq = paper_page("benjamin_quinn_2008", 5.0).move_to(DOWN * 0.4)
         self.cue_at(0, "a paper by Benjamin and Quinn", lead=0.2)
         self.play(FadeOut(top), FadeIn(bq, shift=UP * 0.3), run_time=0.8)
         self.cue_at(0, "A Method to DIE For", lead=0.2)
-        self.play(Write(die), FadeIn(paper), run_time=0.9)
+        self.play(Write(die), run_time=0.9)
 
         # 1: Description, Involution, and Exception (side by side)
         self.cue(1)
@@ -594,7 +594,7 @@ class TheTrick(DScene):
         self.wait(0.3)
         pm = VGroup(sign_badge(+1, 0.26), T("+", 30), sign_badge(-1, 0.26), T("= 0", 30)).arrange(RIGHT, buff=0.15) \
             .move_to(b)
-        self.play(ReplacementTransform(b, pm), run_time=0.7)
+        self.play(FadeOut(b), FadeIn(pm), run_time=0.7)
 
         # 4: Exception: a pair that never meets has nowhere to swap: no partner, it stays (and is counted)
         self.cue(4)
@@ -603,9 +603,6 @@ class TheTrick(DScene):
         g3 = pr(lat3, GOOD_P, GOOD_Q)
         self.play(Create(g3), run_time=1.0)
         self.cue_at(4, "nowhere to swap", lead=0.2)
-        q_ = T("?", 40, SOFT).move_to(lat3.p(1.5, 1.5))
-        self.play(FadeIn(q_, scale=1.3), run_time=0.4)
-        self.play(FadeOut(q_), run_time=0.3)
         tk = VGroup(sign_badge(+1, 0.3), tick(0.3)).arrange(RIGHT, buff=0.2).move_to(np.array([xs[2], badge_y, 0]))
         self.cue_at(4, "the determinant counts", lead=0.2)
         self.play(FadeIn(tk), Indicate(g3, color=GOOD, scale_factor=1.05), run_time=0.8)
@@ -614,12 +611,12 @@ class TheTrick(DScene):
         self.cue(5)
         badges = VGroup(pm, tk)
         line = T("Matching is easier than counting.", 36, YELLOW, weight=BOLD).move_to(np.array([0, -3.15, 0]))
-        self.cue_at(5, "matching", lead=0.3)
         self.play(FadeOut(badges), run_time=0.4)
+        self.cue_at(5, "matching", lead=0.25)
         self.sfx("chime")
         self.play(Write(line), run_time=1.3)
         self.cue_end(5)
-        self.wait(1.5)
+        self.wait(0.9)
         self.play(*[FadeOut(x) for x in self.mobjects], run_time=0.8)
 
 

@@ -238,7 +238,7 @@ class Hook(DScene):
             else:                                               # "and so on": speeding up
                 if k == len(words):
                     self.cue(19)
-                dt = max(0.12, 0.4 * 0.88 ** (k - len(words)))
+                dt = max(0.07, 0.3 * 0.8 ** (k - len(words)))
                 self.add(pair, mark)
                 self.play(Transform(cg, cg2), Transform(cb, cb2), run_time=dt)
                 self.remove(pair, mark)

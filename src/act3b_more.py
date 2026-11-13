@@ -203,7 +203,5 @@ class WhyCard(DScene):
         self.cue(0)
         self.sfx("whoosh")
         self.play(Write(title), run_time=1.2)
-        # 1: back to our two ants
-        self.cue(1)
-        self.cue_end(1)
+        self.wait(0.8)                                         # the card alone, no narration
         self.play(FadeOut(title), run_time=0.6)

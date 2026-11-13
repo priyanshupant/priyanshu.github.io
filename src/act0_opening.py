@@ -19,7 +19,7 @@ class Opening(DScene):
     def construct(self):
         # the opening card
         card = T("Determinant", 64, weight=BOLD)
-        self.play(Write(card), run_time=1.2)
+        self.play(Write(card), run_time=0.5)
 
         # 0: we've all seen the determinant: in school, in linear algebra, in algorithms (the card stays)
         self.cue(0)
@@ -79,20 +79,16 @@ class Opening(DScene):
 
         # 5: so counting is usually hard; and yet determinants can sometimes count (same slide); how is this possible?
         self.cue(5)
-        sg = SurroundingRectangle(leib[3], color=YELLOW, buff=0.1)
         self.cue_at(5, "But sometimes", lead=0.2)
-        self.play(Create(sg), Indicate(leib[0], color=YELLOW, scale_factor=1.1), run_time=0.9)
+        self.play(Indicate(leib[0], color=YELLOW, scale_factor=1.1), run_time=0.9)
         self.cue_at(5, "how this is possible", lead=0.3)
         title = T("How Determinants Can Count", 50, weight=BOLD)
-        self.play(FadeOut(Group(leib, sg, perm, vt, vp)), run_time=0.6)
+        self.play(FadeOut(Group(leib, perm, vt, vp)), run_time=0.6)
         self.sfx("chime")
         self.play(Write(title), run_time=1.3)
 
-        # 6: let's start with a simple puzzle (subtitle under the title)
+        # 6: "Let's start with a simple puzzle." while the title card goes away
         self.cue(6)
-        sub = T("First, a simple puzzle", 32, SOFT).next_to(title, DOWN, buff=0.45)
-        self.cue_at(6, "simple puzzle", lead=0.4)
-        self.play(FadeIn(sub, shift=UP * 0.15), run_time=0.7)
+        self.cue_at(6, "simple puzzle", lead=0.3)
+        self.play(FadeOut(title), run_time=1.0)
         self.cue_end(6)
-        self.wait(0.8)
-        self.play(FadeOut(VGroup(title, sub)), run_time=0.8)
